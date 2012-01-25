@@ -1,8 +1,10 @@
 package projectx.maven.plugins.pxb;
 
+import com.sun.javafx.tools.ant.Application;
 import com.sun.javafx.tools.ant.FXJar;
 import java.io.File;
 import java.nio.file.Path;
+import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -10,7 +12,6 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 
 /**
- * Goal which touches a timestamp file.
  *
  * @goal pxb
  *
@@ -44,6 +45,10 @@ public class PxbMojo extends AbstractMojo {
      */
     private File outputDirectory;
     /**
+     * @parameter expression="${pxb.mainClass}" @required
+     */
+    private String mainClass;
+    /**
      * The Maven project.
      *
      * @parameter default-value="${project}" @required @readonly
@@ -54,18 +59,20 @@ public class PxbMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         Project antProject = new Project();
         FXJar fxJarTask = new FXJar();
-        getLog().debug(outputDirectory.toString());
-        getLog().debug(finalName);
-        getLog().debug(classesDirectory.toString());
+
         Path jarPath = outputDirectory.toPath().resolve(finalName + ".jar");
         fxJarTask.setDestfile(jarPath.toString());
-        getLog().debug(outputDirectory.toPath().resolve(finalName + ".jar").toString());
+        Application application = fxJarTask.createApplication();
+        application.setMainClass(mainClass);
+
         FileSet fileSet = fxJarTask.createFileSet();
         fileSet.setDir(classesDirectory);
         fileSet.setProject(antProject);
         fxJarTask.execute();
 
         project.getArtifact().setFile(jarPath.toFile());
+
+        
 //        File f = outputDirectory;
 //
 //        if (!f.exists()) {
