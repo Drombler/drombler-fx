@@ -16,7 +16,7 @@ import org.apache.maven.project.MavenProject;
  *
  * @goal endorsed
  *
- * @phase package
+ * @phase validate
  */
 public class EndorsedMojo extends AbstractMojo {
 
