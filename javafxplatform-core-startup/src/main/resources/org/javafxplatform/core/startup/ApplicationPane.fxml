@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.javafxplatform.core.startup.*?>
+
+
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.javafxplatform.core.startup.ApplicationPane$Controller">
+    <MenuBar GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" fx:id="menuBar"/>
+    <ToolBar GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" fx:id="toolBar"/>
+    <ContentPane GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" fx:id="contentPane"/>
+</GridPane>

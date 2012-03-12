@@ -1,0 +1,61 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.richclientplatform</groupId>
+        <artifactId>richclientplatform-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath></relativePath>
+    </parent>
+    <groupId>org.javafxplatform</groupId>
+    <artifactId>javafxplatform-parent</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    
+    <name>JavaFX Platform - Parent</name>
+    <inceptionYear>2012</inceptionYear>
+    
+    <properties>
+        <javafx.version>2.1</javafx.version>
+        <richclientplatform.version>0.1-SNAPSHOT</richclientplatform.version>
+    </properties>
+
+    <build>
+        <pluginManagement>        
+            <plugins>
+               
+            </plugins>
+        </pluginManagement>
+
+    </build>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-startup-main</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javafx</groupId>
+                <artifactId>jfxrt</artifactId>
+                <version>${javafx.version}</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
+            </dependency>
+            <dependency>
+                <groupId>javafx.tools</groupId>
+                <artifactId>jfxrt</artifactId>
+                <version>${javafx.version}</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${env.JAVAFX_HOME}/tools/ant-javafx.jar</systemPath>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
+
+</project>

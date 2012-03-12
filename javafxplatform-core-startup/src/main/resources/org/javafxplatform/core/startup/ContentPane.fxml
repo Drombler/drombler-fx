@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.javafxplatform.core.startup.ContentPane$Controller">
+    <center>
+        <Label text="Hello world!"/>
+    </center>
+</BorderPane>
