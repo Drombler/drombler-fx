@@ -54,4 +54,8 @@ public class FXUtils {
         manifestEntries.put("Main-Class", "com/javafx/main/Main");
         return manifestEntries;
     }
+    
+    public static String getJavaFXVersion(){
+        return "2.1.0";
+    }
 }
