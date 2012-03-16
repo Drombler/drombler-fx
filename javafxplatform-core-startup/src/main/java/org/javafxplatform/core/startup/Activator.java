@@ -4,7 +4,6 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javax.naming.Context;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -26,7 +25,7 @@ public class Activator implements BundleActivator {
 
             @Override
             public void run() {
-                ModularApplication.main();
+                ModularApplication.launch(context);
                 shutdownFramework();
             }
 

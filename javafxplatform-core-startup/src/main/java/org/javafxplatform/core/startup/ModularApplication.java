@@ -7,20 +7,27 @@ package org.javafxplatform.core.startup;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.osgi.framework.BundleContext;
+import org.projectx.contactcenter.desktop.action.processing.ActionTracker;
 
 /**
  *
  * @author puce
  */
-public class ModularApplication extends Application{
- public static void main(String... args) {
-        Application.launch(ModularApplication.class, args);
+public class ModularApplication extends Application {
+
+    private static BundleContext BUNDLE_CONTEXT;
+
+    public static void launch(BundleContext bundleContext) {
+        BUNDLE_CONTEXT = bundleContext;
+        Application.launch(ModularApplication.class);
     }
+    private ApplicationPane root;
 
     @Override
     public void start(Stage stage) throws Exception {
 //        Pane root = FXMLLoader.load(getClass().getResource("ContactCenterPane.fxml"));
-        ApplicationPane root = new ApplicationPane();
+        root = new ApplicationPane(BUNDLE_CONTEXT);
 //        Parent personEditorPane = FXMLLoader.load(getClass().getResource("PersonEditorPane.fxml"));
 //        root.getChildren().add(personEditorPane);
         stage.setWidth(1400);
@@ -28,5 +35,11 @@ public class ModularApplication extends Application{
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    @Override
+    public void stop() throws Exception {
+        root.close();
+    }
+    
     
 }
