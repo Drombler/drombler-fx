@@ -24,13 +24,13 @@ public class ContentPane extends BorderPane {
 
     public ContentPane() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setClassLoader(ContentPane.class.getClassLoader());
-        loader.setResources(ResourceBundle.getBundle("org.javafxplatform.core.startup.Bundle"));
-        Pane root = (Pane) loader.load(ContentPane.class.getResourceAsStream("ContentPane.fxml"));
+        Class<?> type = ContentPane.class;
+        loader.setClassLoader(type.getClassLoader());
+        loader.setResources(ResourceBundle.getBundle(type.getPackage().getName() + ".Bundle"));
+        Pane root = (Pane) loader.load(type.getResourceAsStream(type.getSimpleName() + ".fxml"));
         controller = (ContentPane.Controller) loader.getController();
         setCenter(root);
     }
-
 
     public static class Controller implements Initializable {
 
