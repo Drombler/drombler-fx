@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.startup;
+package org.javafxplatform.core.startup.impl;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.osgi.framework.BundleContext;
-import org.projectx.contactcenter.desktop.action.processing.ActionTracker;
+import org.osgi.framework.ServiceRegistration;
 
 /**
  *
@@ -27,7 +27,8 @@ public class ModularApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 //        Pane root = FXMLLoader.load(getClass().getResource("ContactCenterPane.fxml"));
-        root = new ApplicationPane(BUNDLE_CONTEXT);
+        root = new ApplicationPane();
+        BUNDLE_CONTEXT.registerService(MenuBarProvider.class, root, null);
 //        Parent personEditorPane = FXMLLoader.load(getClass().getResource("PersonEditorPane.fxml"));
 //        root.getChildren().add(personEditorPane);
         stage.setWidth(1400);
@@ -38,8 +39,6 @@ public class ModularApplication extends Application {
 
     @Override
     public void stop() throws Exception {
-        root.close();
+
     }
-    
-    
 }

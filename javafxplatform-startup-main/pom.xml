@@ -48,7 +48,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>                          
-                            <includeArtifactIds>jfxrt</includeArtifactIds>
+                            <includeArtifactIds>ant-javafx</includeArtifactIds>
                             <includes>resources/classes/com/javafx/main/*</includes>
                         </configuration>
                     </execution>
@@ -86,7 +86,7 @@
         </dependency>
         <dependency>
             <groupId>javafx.tools</groupId>
-            <artifactId>jfxrt</artifactId>
+            <artifactId>ant-javafx</artifactId>
             <scope>system</scope>
         </dependency>
     </dependencies>

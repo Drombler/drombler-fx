@@ -1,4 +1,4 @@
-package org.javafxplatform.core.startup;
+package org.javafxplatform.core.startup.impl;
 
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
