@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -60,7 +61,7 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer {
         if (index > 0
                 && (menuItemWrapper.getPosition() - xMenuItems.get(index - 1).getPosition()) >= SEPARATOR_STEPS
                 && !xMenuItems.get(index - 1).isSeparator()) {
-            addSeparator(index - 1, menuItemWrapper.getPosition());
+            addSeparator(index, menuItemWrapper.getPosition());
         }
     }
 
@@ -80,9 +81,15 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer {
         return index;
     }
 
-    private <T extends MenuItem> void addMenuItem(int index, MenuItemWrapper<? extends T> menuItemWrapper, ObservableList<? super T> menuItemList) {
+    private <T extends MenuItem> void addMenuItem(final int index, final MenuItemWrapper<? extends T> menuItemWrapper, final ObservableList<? super T> menuItemList) {
         xMenuItems.add(index, menuItemWrapper);
-        menuItemList.add(index, menuItemWrapper.getMenuItem());
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                menuItemList.add(index, menuItemWrapper.getMenuItem());
+            }
+        });
     }
 
     private void addSeparator(int index, int position) {

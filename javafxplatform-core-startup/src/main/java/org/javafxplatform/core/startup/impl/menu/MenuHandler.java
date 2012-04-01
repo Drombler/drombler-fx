@@ -4,11 +4,17 @@
  */
 package org.javafxplatform.core.startup.impl.menu;
 
+import java.io.InputStream;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.ReferenceCardinality;
@@ -18,11 +24,11 @@ import org.javafxplatform.core.startup.impl.MenuBarProvider;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.richclientplatform.core.action.ActionListener;
 import org.richclientplatform.core.action.processing.ActionDescriptor;
 import org.richclientplatform.core.action.processing.ActionsMap;
 import org.richclientplatform.core.action.processing.MenuDescriptor;
 import org.richclientplatform.core.action.processing.MenuEntryDescriptor;
-
 
 /**
  *
@@ -38,6 +44,8 @@ import org.richclientplatform.core.action.processing.MenuEntryDescriptor;
 public class MenuHandler {
 
     private static final String ROOT_PATH_ID = "";
+    private static final int ICON_SIZE = 16;
+    private static final boolean SMOOTH_ICON = false;
     private MenuItemContainer rootContainer;
     private final MenuResolutionManager menuResolutionManager = new MenuResolutionManager();
 
@@ -53,8 +61,10 @@ public class MenuHandler {
     public void bindMenuDescriptor(MenuDescriptor menuDescriptor) {
         MenuItemContainer parentContainer = getParent(menuDescriptor.getPath());
         if (parentContainer != null) {
+            Menu menu = new Menu(menuDescriptor.getDisplayName());
+            menu.setMnemonicParsing(true);
             parentContainer.addMenu(menuDescriptor.getId(),
-                    MenuItemWrapper.wrapMenuItem(new Menu(menuDescriptor.getDisplayName()), menuDescriptor.getPosition()));
+                    MenuItemWrapper.wrapMenuItem(menu, menuDescriptor.getPosition()));
             MenuResolutionManager manager = getMenuResolutionManager(menuDescriptor.getPath());
             resolveUnresolvedItems(manager, menuDescriptor.getId());
         } else {
@@ -65,6 +75,7 @@ public class MenuHandler {
     public void unbindMenuDescriptor(MenuDescriptor menuDescriptor) {
     }
 
+    @SuppressWarnings("unchecked")
     public void bindMenuEntryDescriptor(ServiceReference<MenuEntryDescriptor> serviceReference) {
         Bundle bundle = serviceReference.getBundle();
         BundleContext context = bundle.getBundleContext();
@@ -74,8 +85,42 @@ public class MenuHandler {
         if (parentContainer != null) {
             ActionsMap actionsMap = new ActionsMap();
             ActionDescriptor action = actionsMap.getAction(menuEntryDescriptor.getActionId(), context);
-            MenuItem menuItem = new MenuItem(action.getDisplayName());
-            menuItem.setOnAction((EventHandler<ActionEvent>) action.getListener());
+            final MenuItem menuItem = new MenuItem(action.getDisplayName());
+            menuItem.setMnemonicParsing(true);
+            if (action.getAccelerator() != null && !action.getAccelerator().equals("")) {
+                menuItem.setAccelerator(KeyCombination.keyCombination(action.getAccelerator()));
+            }
+            Object listener = action.getListener();
+            if (listener instanceof ActionListener) {
+                listener = new ActionEventHandler((ActionListener) listener);
+            }
+            menuItem.setOnAction((EventHandler<ActionEvent>) listener);
+
+//            BufferedImage image;
+            if (action.getIcon() != null && !action.getIcon().equals("")) {
+                InputStream imageInputStream = getImageInputStream(action);
+                if (imageInputStream != null) {
+                    try (InputStream is = imageInputStream) {
+                        //                        image = ImageIO.read(is);
+                        //                        ImageIO.write(image, "gif", new File("target/" + action.getIcon()));
+                        //                    } catch (IOException ex) {
+                        //                        Logger.getLogger(MenuHandler.class.getName()).log(Level.SEVERE, null, ex);
+                        //                    }
+                        //                    Platform.runLater(new Runnable() {
+                        //
+                        //                        @Override
+                        //                        public void run() {
+                        //                            try (InputStream is = imageInputStream) {
+                        //                            try{
+                        menuItem.setGraphic(new ImageView(new Image(imageInputStream, ICON_SIZE, ICON_SIZE, true,
+                                SMOOTH_ICON)));
+                    } catch (Exception ex) {
+                        Logger.getLogger(MenuHandler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //                        }
+                    //                    });
+                }
+            }
 //        if (parentContainer.isSupportingItems()) {
             parentContainer.addMenuItem(MenuItemWrapper.wrapMenuItem(menuItem, menuEntryDescriptor.getPosition()));
 //        }
@@ -168,5 +213,20 @@ public class MenuHandler {
             }
         }
         container.addUnresolvedMenuEntry(firstUnresolvedPathId, serviceReference);
+    }
+
+    private InputStream getImageInputStream(ActionDescriptor action) {
+        String icon = action.getIcon();
+        String[] iconNameParts = icon.split("\\.");
+        if (iconNameParts.length > 0) {
+            StringBuilder sb = new StringBuilder(iconNameParts[0]);
+            sb.append(ICON_SIZE);
+            for (int i = 1; i < iconNameParts.length; i++) {
+                sb.append(".");
+                sb.append(iconNameParts[i]);
+            }
+            icon = sb.toString();
+        }
+        return action.getListener().getClass().getResourceAsStream(icon);
     }
 }
