@@ -112,7 +112,7 @@ public class MenuHandler {
                         //                        public void run() {
                         //                            try (InputStream is = imageInputStream) {
                         //                            try{
-                        menuItem.setGraphic(new ImageView(new Image(imageInputStream, ICON_SIZE, ICON_SIZE, true,
+                        menuItem.setGraphic(new ImageView(new Image(is, ICON_SIZE, ICON_SIZE, true,
                                 SMOOTH_ICON)));
                     } catch (Exception ex) {
                         Logger.getLogger(MenuHandler.class.getName()).log(Level.SEVERE, null, ex);

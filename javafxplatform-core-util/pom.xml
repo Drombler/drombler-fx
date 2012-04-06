@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.javafxplatform</groupId>
+        <artifactId>javafxplatform-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../javafxplatform-parent</relativePath>
+    </parent>
+    <artifactId>javafxplatform-core-util</artifactId>
+    <packaging>bundle</packaging>
+
+
+    <name>JavaFX Platform - Core - Util</name>
+    <inceptionYear>2012</inceptionYear>
+    
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>   
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>javafx</groupId>
+            <artifactId>jfxrt</artifactId>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richclientplatform</groupId>
+            <artifactId>richclientplatform-core-util</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>

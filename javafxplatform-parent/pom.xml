@@ -21,14 +21,7 @@
         <richclientplatform.version>0.1-SNAPSHOT</richclientplatform.version>
     </properties>
 
-    <build>
-        <pluginManagement>        
-            <plugins>
-               
-            </plugins>
-        </pluginManagement>
 
-    </build>
     
     <dependencyManagement>
         <dependencies>
@@ -47,7 +40,7 @@
             </dependency>
             <dependency>
                 <groupId>javafx.tools</groupId>
-                <artifactId>jfxrt</artifactId>
+                <artifactId>ant-javafx</artifactId>
                 <version>${javafx.version}</version>
                 <type>jar</type>
                 <scope>system</scope>
@@ -55,7 +48,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-</project>
 
 </project>

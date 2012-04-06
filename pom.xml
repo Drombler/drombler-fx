@@ -17,5 +17,7 @@
         <module>javafxplatform-parent</module>
         <module>javafxplatform-startup-main</module>
         <module>javafxplatform-core-startup</module>
-    </modules>
+        <module>javafxplatform-core-docking</module>
+    <module>javafxplatform-core-util</module>
+  </modules>
 </project>

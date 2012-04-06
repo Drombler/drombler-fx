@@ -1,0 +1,16 @@
+/* 
+    Document   : caspian
+    Author     : puce
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/**************************************************************************************************
+ *                                                                                                *
+ * LocalDateField                                                                                 *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.dockable-pane { 
+    -fx-skin: "org.javafxplatform.core.docking.skin.DockablePaneSkin";
+}

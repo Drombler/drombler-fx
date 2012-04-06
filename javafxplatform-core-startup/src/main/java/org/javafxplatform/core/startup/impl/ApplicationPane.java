@@ -14,12 +14,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import org.javafxplatform.core.util.javafx.fxml.FXMLLoaders;
 
 /**
  *
  * @author puce
  */
-public class ApplicationPane extends BorderPane implements MenuBarProvider {
+public class ApplicationPane extends BorderPane implements MenuBarProvider, ContentPaneProvider {
 
     private final ApplicationPane.Controller controller;
 //    private final ActionTracker actionTracker;
@@ -47,34 +48,41 @@ public class ApplicationPane extends BorderPane implements MenuBarProvider {
 //
 //            }
 //        });
-        FXMLLoader loader = new FXMLLoader();
-        Class<?> type = ApplicationPane.class;
-        loader.setClassLoader(type.getClassLoader());
-        loader.setResources(ResourceBundle.getBundle(type.getPackage().getName() + ".Bundle"));
-        Pane root = (Pane) loader.load(type.getResourceAsStream(type.getSimpleName() + ".fxml"));
-        controller = (ApplicationPane.Controller) loader.getController();
+//        FXMLLoader loader = new FXMLLoader();
+//        Class<?> type = ApplicationPane.class;
+//        loader.setClassLoader(type.getClassLoader());
+//        loader.setResources(ResourceBundle.getBundle(type.getPackage().getName() + ".Bundle"));
+//        Pane root = (Pane) loader.load(type.getResourceAsStream(type.getSimpleName() + ".fxml"));
+//        controller = (ApplicationPane.Controller) loader.getController();
+        FXMLLoader loader = FXMLLoaders.createFXMLLoader(ApplicationPane.class);
+        Pane root = (Pane) FXMLLoaders.load(loader, ApplicationPane.class);
+        controller = (Controller) loader.getController();
         setCenter(root);
 
 //        actionTracker.open();
     }
-
 
     @Override
     public MenuBar getMenuBar() {
         return controller.menuBar;
     }
 
-    public static class Controller implements Initializable {
+    @Override
+    public BorderPane getContentPane() {
+        return controller.contentPane;
+    }
+
+    public static class Controller {//implements Initializable {
 
         @FXML
         private MenuBar menuBar;
         @FXML
         private ToolBar toolBar;
         @FXML
-        private ContentPane contentPane;
+        private BorderPane contentPane;
 
-        @Override
-        public void initialize(URL url, ResourceBundle rb) {
+//        @Override
+//        public void initialize(URL url, ResourceBundle rb) {
 //            Menu menuFile = new Menu("File");
 //
 //            MenuItem exitItem = new MenuItem("exit");
@@ -83,6 +91,6 @@ public class ApplicationPane extends BorderPane implements MenuBarProvider {
 //            menuFile.getItems().add(exitItem);
 //
 //            menuBar.getMenus().addAll(menuFile);
-        }
+//        }
     }
 }

@@ -51,6 +51,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.javafxplatform</groupId>
+            <artifactId>javafxplatform-core-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
             <scope>system</scope>

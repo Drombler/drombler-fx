@@ -28,7 +28,8 @@ public class ModularApplication extends Application {
     public void start(Stage stage) throws Exception {
 //        Pane root = FXMLLoader.load(getClass().getResource("ContactCenterPane.fxml"));
         root = new ApplicationPane();
-        BUNDLE_CONTEXT.registerService(MenuBarProvider.class, root, null);
+        BUNDLE_CONTEXT.registerService(
+                new String[]{MenuBarProvider.class.getName(), ContentPaneProvider.class.getName()}, root, null);
 //        Parent personEditorPane = FXMLLoader.load(getClass().getResource("PersonEditorPane.fxml"));
 //        root.getChildren().add(personEditorPane);
         stage.setWidth(1400);
@@ -39,6 +40,5 @@ public class ModularApplication extends Application {
 
     @Override
     public void stop() throws Exception {
-
     }
 }
