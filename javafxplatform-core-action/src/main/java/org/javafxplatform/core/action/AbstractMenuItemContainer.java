@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.startup.impl.action;
+package org.javafxplatform.core.action;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import org.richclientplatform.core.action.processing.MenuItemContainer;
-import org.richclientplatform.core.action.processing.PositionableMenuItemAdapter;
+import org.richclientplatform.core.action.spi.MenuItemContainer;
+import org.richclientplatform.core.action.spi.PositionableMenuItemAdapter;
 import org.richclientplatform.core.util.Positionables;
 
 /**

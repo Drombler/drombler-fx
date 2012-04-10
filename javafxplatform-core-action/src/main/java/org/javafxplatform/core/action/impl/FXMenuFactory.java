@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.startup.impl;
+package org.javafxplatform.core.action.impl;
 
 import javafx.scene.control.Menu;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.richclientplatform.core.action.processing.MenuDescriptor;
-import org.richclientplatform.core.action.processing.MenuFactory;
+import org.richclientplatform.core.action.spi.MenuDescriptor;
+import org.richclientplatform.core.action.spi.MenuFactory;
+
 
 /**
  *

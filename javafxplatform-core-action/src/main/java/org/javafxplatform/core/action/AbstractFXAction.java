@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.startup;
+package org.javafxplatform.core.action;
 
 import java.io.InputStream;
 import java.util.HashMap;

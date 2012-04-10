@@ -13,10 +13,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import org.javafxplatform.core.startup.impl.action.MenuBarMenuContainer;
+import org.javafxplatform.core.action.MenuBarMenuContainer;
 import org.javafxplatform.core.util.javafx.fxml.FXMLLoaders;
-import org.richclientplatform.core.action.processing.MenuBarMenuContainerProvider;
-import org.richclientplatform.core.action.processing.MenuItemContainer;
+import org.richclientplatform.core.action.spi.MenuBarMenuContainerProvider;
+import org.richclientplatform.core.action.spi.MenuItemContainer;
+
 
 /**
  *

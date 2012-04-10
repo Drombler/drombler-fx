@@ -19,5 +19,6 @@
         <module>javafxplatform-core-startup</module>
         <module>javafxplatform-core-docking</module>
     <module>javafxplatform-core-util</module>
+    <module>javafxplatform-core-action</module>
   </modules>
 </project>

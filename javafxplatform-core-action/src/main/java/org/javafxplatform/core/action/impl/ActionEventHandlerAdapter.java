@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.startup.impl.action;
+package org.javafxplatform.core.action.impl;
 
 import java.io.InputStream;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import org.javafxplatform.core.startup.AbstractFXAction;
+import org.javafxplatform.core.action.AbstractFXAction;
 
 /**
  *

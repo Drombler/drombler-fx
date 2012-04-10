@@ -2,19 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.startup.impl;
+package org.javafxplatform.core.action.impl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCombination;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.javafxplatform.core.startup.FXAction;
-import org.javafxplatform.core.startup.impl.action.ActionEventHandlerAdapter;
-import org.javafxplatform.core.startup.impl.action.ActionListenerAdapter;
+import org.javafxplatform.core.action.FXAction;
 import org.richclientplatform.core.action.ActionListener;
-import org.richclientplatform.core.action.processing.ActionDescriptor;
-import org.richclientplatform.core.action.processing.ActionFactory;
+import org.richclientplatform.core.action.spi.ActionDescriptor;
+import org.richclientplatform.core.action.spi.ActionFactory;
+
 
 /**
  *
