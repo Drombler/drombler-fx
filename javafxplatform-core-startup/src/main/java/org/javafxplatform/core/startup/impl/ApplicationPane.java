@@ -5,24 +5,27 @@
 package org.javafxplatform.core.startup.impl;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import org.javafxplatform.core.startup.impl.action.MenuBarMenuContainer;
 import org.javafxplatform.core.util.javafx.fxml.FXMLLoaders;
+import org.richclientplatform.core.action.processing.MenuBarMenuContainerProvider;
+import org.richclientplatform.core.action.processing.MenuItemContainer;
 
 /**
  *
  * @author puce
  */
-public class ApplicationPane extends BorderPane implements MenuBarProvider, ContentPaneProvider {
+public class ApplicationPane extends BorderPane implements MenuBarMenuContainerProvider<Menu, MenuItem>, ContentPaneProvider {
 
     private final ApplicationPane.Controller controller;
+    private final MenuItemContainer<Menu, MenuItem> menuBarMenuContainer;
 //    private final ActionTracker actionTracker;
 
     public ApplicationPane() throws IOException {
@@ -57,19 +60,20 @@ public class ApplicationPane extends BorderPane implements MenuBarProvider, Cont
         FXMLLoader loader = FXMLLoaders.createFXMLLoader(ApplicationPane.class);
         Pane root = (Pane) FXMLLoaders.load(loader, ApplicationPane.class);
         controller = (Controller) loader.getController();
+        menuBarMenuContainer = new MenuBarMenuContainer(controller.menuBar);
         setCenter(root);
 
 //        actionTracker.open();
     }
 
     @Override
-    public MenuBar getMenuBar() {
-        return controller.menuBar;
+    public BorderPane getContentPane() {
+        return controller.contentPane;
     }
 
     @Override
-    public BorderPane getContentPane() {
-        return controller.contentPane;
+    public MenuItemContainer<Menu, MenuItem> getMenuBarMenuContainer() {
+        return menuBarMenuContainer;
     }
 
     public static class Controller {//implements Initializable {
@@ -80,7 +84,6 @@ public class ApplicationPane extends BorderPane implements MenuBarProvider, Cont
         private ToolBar toolBar;
         @FXML
         private BorderPane contentPane;
-
 //        @Override
 //        public void initialize(URL url, ResourceBundle rb) {
 //            Menu menuFile = new Menu("File");

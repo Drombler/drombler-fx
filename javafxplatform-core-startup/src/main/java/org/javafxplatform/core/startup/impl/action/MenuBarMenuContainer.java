@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.startup.impl.menu;
+package org.javafxplatform.core.startup.impl.action;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;

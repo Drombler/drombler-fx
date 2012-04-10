@@ -2,10 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.startup.impl.menu;
+package org.javafxplatform.core.startup.impl.action;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
@@ -13,23 +12,23 @@ import javafx.scene.control.MenuItem;
  *
  * @author puce
  */
-public class ContextMenuMenuItemContainer extends AbstractMenuItemContainer{
-    private final ContextMenu contextMenu;
+public class MenuMenuItemContainer extends AbstractMenuItemContainer {
 
-    public ContextMenuMenuItemContainer(ContextMenu contextMenu) {
+    private final Menu menu;
+
+    public MenuMenuItemContainer(Menu menu) {
         super(true);
-        this.contextMenu = contextMenu;
+        this.menu = menu;
     }
 
     @Override
     protected ObservableList<? super Menu> getMenus() {
-        return contextMenu.getItems();
+        return menu.getItems();
     }
 
     @Override
     protected ObservableList<MenuItem> getItems() {
-        return contextMenu.getItems();
+        return menu.getItems();
     }
 
-    
 }

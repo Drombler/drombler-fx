@@ -31,6 +31,7 @@ import org.richclientplatform.core.docking.processing.DockingDescriptor;
 })
 public class DockingManager implements ApplicationContentProvider {
 
+    private static final String MNEMONIC_CHAR = "_";
     private final DockingPane dockingPane = new DockingPane();
 
     protected void bindDockingAreaDescriptor(DockingAreaDescriptor dockingAreaDescriptor) {
@@ -41,16 +42,10 @@ public class DockingManager implements ApplicationContentProvider {
     protected void unbindDockingAreaDescriptor(DockingAreaDescriptor dockingAreaDescriptor) {
     }
 
-    protected void bindDockingDescriptor(final DockingDescriptor dockingAreaDescriptor) {
-        Platform.runLater(new Runnable() {
-
-            @Override
-            public void run() {
-                DockablePane dockablePane = (DockablePane) dockingAreaDescriptor.getDockable();
-                dockablePane.setTitle(dockingAreaDescriptor.getDisplayName());
-                dockingPane.addDockable(dockablePane);
-            }
-        });
+    protected void bindDockingDescriptor(DockingDescriptor dockingAreaDescriptor) {
+        DockablePane dockablePane = (DockablePane) dockingAreaDescriptor.getDockable();
+        dockablePane.setTitle(dockingAreaDescriptor.getDisplayName().replace(MNEMONIC_CHAR, ""));
+        dockingPane.addDockable(dockablePane);
     }
 
     protected void unbindDockingDescriptor(DockingDescriptor dockingDescriptor) {

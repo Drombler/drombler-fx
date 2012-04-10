@@ -8,7 +8,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceRegistration;
+import org.richclientplatform.core.action.processing.MenuBarMenuContainerProvider;
 
 /**
  *
@@ -29,7 +29,7 @@ public class ModularApplication extends Application {
 //        Pane root = FXMLLoader.load(getClass().getResource("ContactCenterPane.fxml"));
         root = new ApplicationPane();
         BUNDLE_CONTEXT.registerService(
-                new String[]{MenuBarProvider.class.getName(), ContentPaneProvider.class.getName()}, root, null);
+                new String[]{MenuBarMenuContainerProvider.class.getName(), ContentPaneProvider.class.getName()}, root, null);
 //        Parent personEditorPane = FXMLLoader.load(getClass().getResource("PersonEditorPane.fxml"));
 //        root.getChildren().add(personEditorPane);
         stage.setWidth(1400);
