@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<component-set>
+    <components>
+        <component>
+            <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+            <!-- We want to look this up by dependency-type and POM packaging 'wm-plugin' -->
+            <role-hint>pxb-application</role-hint>
+            <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+            <configuration>
+                <!-- This should always be consistent with the role-hint, to be safe. -->
+                <type>pxb-application</type>
+                <extension>jar</extension>
+                <packaging>pxb-application</packaging>
+                <language>java</language>
+                <addedToClasspath>true</addedToClasspath>
+                <includesDependencies>true</includesDependencies>
+            </configuration>
+        </component>
+        <component>
+            <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+            <!-- We want to look this up by dependency-type and POM packaging 'wm-plugin' -->
+            <role-hint>pxb-application</role-hint>
+            <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+            <configuration>
+                <!-- This should always be consistent with the role-hint, to be safe. -->
+                <type>pxb-application2</type>
+                <extension>jar</extension>
+                <packaging>pxb-application</packaging>
+                <language>java</language>
+                <addedToClasspath>true</addedToClasspath>
+                <includesDependencies>true</includesDependencies>
+            </configuration>
+        </component>
+        <component>
+            <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+            <role-hint>pxb-application</role-hint>
+            <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+            <configuration>
+                <phases>
+                    <validate>projectx.maven.plugins:pxb-maven-plugin:endorsed</validate>
+                    <generate-resources>projectx.maven.plugins:pxb-maven-plugin:generate-manifest</generate-resources>
+                    <process-resources>org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
+                    <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile>
+                    <!--<process-classes>org.codehaus.mojo:nbm-maven-plugin:manifest</process-classes>-->
+                    <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
+                    <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
+                    <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+                    <prepare-package>projectx.maven.plugins:pxb-maven-plugin:add-main-classes</prepare-package>
+                    <package>projectx.maven.plugins:pxb-maven-plugin:pxb<!--org.apache.maven.plugins:maven-jar-plugin:jar,
+                        org.codehaus.mojo:nbm-maven-plugin:branding,
+                        org.codehaus.mojo:nbm-maven-plugin:nbm--><!-- TODO: remove comments-->
+                    </package>
+                    <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+                    <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+                </phases>
+            </configuration>
+        </component>
+        <component>
+            <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+            <role-hint>pxb-application2</role-hint>
+            <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+            <configuration>
+                <phases>       
+                <package>projectx.maven.plugins:pxb-maven-plugin:standalone-zip</package>
+<!--                    <install>org.apache.maven.plugins:maven-install-plugin:install</install>-->
+<!--                <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>-->
+                </phases>
+            </configuration>
+        </component>
+    </components>
+</component-set>
