@@ -63,7 +63,7 @@
         <dependency>
             <groupId>javafx.tools</groupId>
             <artifactId>jfxrt</artifactId>
-            <version>2.0</version>
+            <version>2.1</version>
             <type>jar</type>
             <scope>system</scope>
             <systemPath>${env.JAVAFX_HOME}/tools/ant-javafx.jar</systemPath>
@@ -95,7 +95,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
