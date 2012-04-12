@@ -24,14 +24,14 @@
                     <instructions>
                         <_donotcopy>(CVS|.svn|config.properties)</_donotcopy>
                         <JavaFX-Version>2.0</JavaFX-Version>
-                        <JavaFX-Application-Class>org.richclientplatform.startup.main.Main</JavaFX-Application-Class>
+                        <JavaFX-Application-Class>org.javafxplatform.startup.main.Main</JavaFX-Application-Class>
                         <Main-Class>com.javafx.main.Main</Main-Class>
 <!--                        <Bundle-SymbolicName>org.apache.felix.main</Bundle-SymbolicName>
                         <Bundle-Name>Apache Felix</Bundle-Name>
                         <Bundle-Description>OSGi R4 framework.</Bundle-Description>
                         <Bundle-Vendor>The Apache Software Foundation</Bundle-Vendor>-->
                         <Embed-Dependency>*;artifactId=richclientplatform-startup-main;inline=true</Embed-Dependency>
-                        <Private-Package>org.richclientplatform.startup.main.*,com.javafx.main.*</Private-Package>
+                        <Private-Package>org.javafxplatform.startup.main.*,org.richclientplatform.startup.main.*,com.javafx.main.*</Private-Package>
                         <Export-Package>!org.osgi.service.log, !org.osgi.service.obr,org.osgi.*</Export-Package>
                         <Import-Package>!*</Import-Package>
                     </instructions>
