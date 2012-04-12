@@ -20,6 +20,7 @@
         <module>javafxplatform-core-docking</module>
         <module>javafxplatform-core-util</module>
         <module>javafxplatform-core-action</module>
+        <module>javafx-2.1.0</module>
         <module>pxb-maven-plugin</module>
     </modules>
 </project>
