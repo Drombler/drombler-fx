@@ -34,8 +34,8 @@ public class DockingManager implements ApplicationContentProvider {
     private final DockingPane dockingPane = new DockingPane();
 
     protected void bindDockingAreaDescriptor(DockingAreaDescriptor dockingAreaDescriptor) {
-        DockingAreaPane dockingAreaPane = new DockingAreaPane();
-        dockingPane.addDockingArea(dockingAreaPane);
+//        DockingAreaPane dockingAreaPane = new DockingAreaPane();
+        dockingPane.addDockingArea(dockingAreaDescriptor);
     }
 
     protected void unbindDockingAreaDescriptor(DockingAreaDescriptor dockingAreaDescriptor) {
@@ -44,7 +44,7 @@ public class DockingManager implements ApplicationContentProvider {
     protected void bindDockingDescriptor(DockingDescriptor dockingAreaDescriptor) {
         DockablePane dockablePane = (DockablePane) dockingAreaDescriptor.getDockable();
         dockablePane.setTitle(dockingAreaDescriptor.getDisplayName().replace(MNEMONIC_CHAR, ""));
-        dockingPane.addDockable(dockablePane);
+//        dockingPane.addDockable("left", dockablePane);
     }
 
     protected void unbindDockingDescriptor(DockingDescriptor dockingDescriptor) {

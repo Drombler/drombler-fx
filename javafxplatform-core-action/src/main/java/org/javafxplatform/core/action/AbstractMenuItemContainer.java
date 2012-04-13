@@ -15,7 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import org.richclientplatform.core.action.spi.MenuItemContainer;
 import org.richclientplatform.core.action.spi.PositionableMenuItemAdapter;
-import org.richclientplatform.core.util.Positionables;
+import org.richclientplatform.core.lib.util.Positionables;
 
 /**
  *

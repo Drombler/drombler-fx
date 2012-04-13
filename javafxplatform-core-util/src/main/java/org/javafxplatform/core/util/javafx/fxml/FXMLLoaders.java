@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Builder;
 import javafx.util.BuilderFactory;
 import javafx.util.Callback;
-import org.richclientplatform.core.util.Resources;
+import org.richclientplatform.core.lib.util.Resources;
 
 /**
  *

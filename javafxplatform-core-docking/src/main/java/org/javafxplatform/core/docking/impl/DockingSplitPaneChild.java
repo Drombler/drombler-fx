@@ -4,11 +4,15 @@
  */
 package org.javafxplatform.core.docking.impl;
 
+import org.richclientplatform.core.lib.util.Positionable;
+
 /**
  *
  * @author puce
  */
-interface DockingSplitPaneChild {
+interface DockingSplitPaneChild extends Positionable {
 
     void setParentSplitPane(DockingSplitPane parentSplitPane);
+
+    boolean isSplitPane();
 }

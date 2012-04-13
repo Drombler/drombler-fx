@@ -19,14 +19,16 @@ import org.javafxplatform.core.docking.DockablePane;
 class DockingAreaPane extends BorderPane implements DockingSplitPaneChild {
 
     private final TabPane tabPane;
+    private final int position;
 
-    public DockingAreaPane() {
+    public DockingAreaPane(int position) {
         tabPane = new TabPane();
         Tab tab = new Tab();
         tab.setText("Test");
         tab.setContent(new Label("Hello world!"));
         tabPane.getTabs().add(tab);
         setCenter(tabPane);
+        this.position = position;
     }
     private final ObjectProperty<DockingSplitPane> parentSplitPane = new SimpleObjectProperty<>(this,
             "parentSplitPane", null);
@@ -50,5 +52,15 @@ class DockingAreaPane extends BorderPane implements DockingSplitPaneChild {
         tab.contextMenuProperty().bind(dockable.contextMenuProperty());
         tab.setContent(dockable);
         tabPane.getTabs().add(tab);
+    }
+
+    @Override
+    public boolean isSplitPane() {
+        return false;
+    }
+
+    @Override
+    public int getPosition() {
+        return position;
     }
 }
