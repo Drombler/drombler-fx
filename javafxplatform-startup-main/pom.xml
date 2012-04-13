@@ -31,50 +31,11 @@
                         <Bundle-Description>OSGi R4 framework.</Bundle-Description>
                         <Bundle-Vendor>The Apache Software Foundation</Bundle-Vendor>-->
                         <Embed-Dependency>*;artifactId=richclientplatform-startup-main;inline=true</Embed-Dependency>
-                        <Private-Package>org.javafxplatform.startup.main.*,org.richclientplatform.startup.main.*,com.javafx.main.*</Private-Package>
+                        <Private-Package>org.javafxplatform.startup.main.*,org.richclientplatform.startup.main.*</Private-Package>
                         <Export-Package>!org.osgi.service.log, !org.osgi.service.obr,org.osgi.*</Export-Package>
                         <Import-Package>!*</Import-Package>
                     </instructions>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>                          
-                            <includeArtifactIds>ant-javafx</includeArtifactIds>
-                            <includes>resources/classes/com/javafx/main/*</includes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
-                <executions>
-                    <execution>
-                        <id>copy-javafx-main-classes</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-                            <resources>          
-                                <resource>
-                                    <directory>${project.build.directory}/dependency/resources/classes</directory>
-                                    <filtering>false</filtering>
-                                </resource>
-                            </resources>              
-                        </configuration>            
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
@@ -83,11 +44,6 @@
         <dependency>
             <groupId>org.richclientplatform</groupId>
             <artifactId>richclientplatform-startup-main</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javafx.tools</groupId>
-            <artifactId>ant-javafx</artifactId>
-            <scope>system</scope>
         </dependency>
     </dependencies>
 
