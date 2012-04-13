@@ -6,14 +6,11 @@ package org.javafxplatform.core.docking.impl;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import org.javafxplatform.core.docking.DockablePane;
-import org.richclientplatform.core.docking.Dockable;
 
 /**
  *

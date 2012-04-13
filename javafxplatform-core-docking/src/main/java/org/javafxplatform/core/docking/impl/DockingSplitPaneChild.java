@@ -8,6 +8,7 @@ package org.javafxplatform.core.docking.impl;
  *
  * @author puce
  */
-public interface DockingSplitPaneChild {
+interface DockingSplitPaneChild {
+
     void setParentSplitPane(DockingSplitPane parentSplitPane);
 }

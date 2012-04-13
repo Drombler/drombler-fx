@@ -4,7 +4,6 @@
  */
 package org.javafxplatform.core.docking.impl;
 
-import javafx.application.Platform;
 import javafx.scene.Node;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
