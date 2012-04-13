@@ -32,6 +32,7 @@ import org.ops4j.pax.construct.util.ReflectMojo;
 import org.richclientplatform.startup.main.Main;
 import org.softsmithy.lib.nio.file.CopyFileVisitor;
 import org.softsmithy.lib.nio.file.JarFiles;
+import projectx.maven.plugins.pxb.util.FXUtils;
 
 /**
  *
@@ -44,13 +45,11 @@ import org.softsmithy.lib.nio.file.JarFiles;
 public class CreateStandaloneZipMojo extends AbstractMojo {
 
     /**
-     * @parameter expression="${platform.brandingId}"
-     * @required
+     * @parameter expression="${platform.brandingId}" @required
      */
     private String brandingId;
     /**
-     * @parameter expression="${platform.userdir}"
-     * default-value="${user.home}/.${brandingId}/${project.version}"
+     * @parameter expression="${platform.userdir}" default-value="${user.home}/.${brandingId}/${project.version}"
      * @required
      */
     private String userdir;
@@ -99,20 +98,9 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
             if (!Files.exists(binDirPath)) {
                 Files.createDirectories(binDirPath);
             }
-            Path jarPath = binDirPath.resolve(brandingId + ".jar");
+            
+            createMainJar(binDirPath);
 
-            //            CopyMojo copyMojo = new CopyMojo();
-            //
-            //            ReflectMojo reflectAbstractFromDependenciesMojo = new ReflectMojo(copyMojo,
-            //                    AbstractFromDependenciesMojo.class);
-            //            reflectAbstractFromDependenciesMojo.setField("artifactItems",
-            //                    Arrays.asList(new ArtifactItem(new Artifact() {
-            //            })))
-            //            copyMojo.execute();
-            Path mainJarPath = JarFiles.getJarPath(Main.class);
-            if (!Files.exists(jarPath)) {
-                Files.copy(mainJarPath, jarPath);
-            }
             Path confPath = targetDirPath.resolve(Main.CONFIG_DIRECTORY);
             if (!Files.exists(confPath)) {
                 Files.createDirectories(confPath);
@@ -134,6 +122,27 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
 
         } catch (URISyntaxException | IOException ex) {
             throw new MojoExecutionException("Creating standalone zip failed!", ex);
+        }
+    }
+
+    private void createMainJar(Path binDirPath) throws IOException, URISyntaxException {
+        Path jarPath = binDirPath.resolve(brandingId + ".jar");
+
+        //            CopyMojo copyMojo = new CopyMojo();
+        //
+        //            ReflectMojo reflectAbstractFromDependenciesMojo = new ReflectMojo(copyMojo,
+        //                    AbstractFromDependenciesMojo.class);
+        //            reflectAbstractFromDependenciesMojo.setField("artifactItems",
+        //                    Arrays.asList(new ArtifactItem(new Artifact() {
+        //            })))
+        //            copyMojo.execute();
+        Path mainJarPath = JarFiles.getJarPath(Main.class);
+        if (!Files.exists(jarPath)) {
+            Files.copy(mainJarPath, jarPath);
+        }
+
+        try (FileSystem jarFS = FileSystems.newFileSystem(jarPath, null)){
+            FXUtils.copyMainClasses(jarFS.getPath("/"));
         }
     }
 

@@ -67,7 +67,7 @@ and open the template in the editor.
             <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
             <configuration>
                 <phases>       
-                <package>projectx.maven.plugins:pxb-maven-plugin:standalone-zip</package>
+                    <package>projectx.maven.plugins:pxb-maven-plugin:standalone-zip</package>
 <!--                    <install>org.apache.maven.plugins:maven-install-plugin:install</install>-->
 <!--                <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>-->
                 </phases>
