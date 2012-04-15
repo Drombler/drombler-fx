@@ -5,7 +5,6 @@
 package org.javafxplatform.core.docking.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.BorderPane;
 import org.richclientplatform.core.lib.util.PositionableComparator;
 import org.richclientplatform.core.lib.util.Positionables;
 
@@ -31,6 +29,7 @@ class DockingSplitPane extends SplitPane implements DockingSplitPaneChild {
     private final Map<Integer, DockingSplitPane> splitPanes = new HashMap<>();
     private final Map<Integer, DockingAreaPane> areaPanes = new HashMap<>();
     private final List<DockingSplitPaneChild> children = new ArrayList<>();
+    private List<Integer> skippedPath = new ArrayList<>();
 
     public DockingSplitPane(int position, Orientation orientation) {
         this.position = position;
@@ -72,6 +71,7 @@ class DockingSplitPane extends SplitPane implements DockingSplitPaneChild {
 
     private void addSplitPane(DockingSplitPane splitPane) {
         Integer pos = splitPane.getPosition();
+        splitPanes.put(pos, splitPane);
         if (areaPanes.containsKey(pos)) {
             DockingAreaPane areaPane = areaPanes.remove(pos);
             int index = Collections.binarySearch(children, areaPane, new PositionableComparator());
@@ -119,11 +119,54 @@ class DockingSplitPane extends SplitPane implements DockingSplitPaneChild {
     public DockingSplitPane getSplitPane(int position) {
         Integer pos = position;
         if (!splitPanes.containsKey(pos)) {
-            DockingSplitPane splitPane = new DockingSplitPane(position,
-                    getOrientation().equals(Orientation.HORIZONTAL) ? Orientation.VERTICAL : Orientation.HORIZONTAL);
-            splitPanes.put(pos, splitPane);
+            if (!skippedPath.isEmpty()) {
+                addSkippedSplitPane();
+            }
+            DockingSplitPane splitPane = new DockingSplitPane(position, getChildOrientation());
             addSplitPane(splitPane);
         }
         return splitPanes.get(pos);
+    }
+
+    private void addSkippedSplitPane() {
+        DockingSplitPane skippedSplitPane = new DockingSplitPane(skippedPath.get(0), getChildOrientation());
+        if (skippedPath.size() > 1) {
+            skippedSplitPane.setSkippedPath(skippedPath.subList(1, skippedPath.size()));
+        }
+        adjustOrientation();
+        skippedPath.clear();
+        for (DockingSplitPane splitPane : splitPanes.values()) {
+            skippedSplitPane.addSplitPane(splitPane);
+        }
+        splitPanes.clear();
+        for (DockingAreaPane areaPane : areaPanes.values()) {
+            skippedSplitPane.addDockingArea(areaPane);
+        }
+        areaPanes.clear();
+        getItems().clear();
+        addSplitPane(skippedSplitPane);
+    }
+
+    private void adjustOrientation() {
+        if (skippedPath.size() % 2 == 1){
+            setOrientation(getChildOrientation());
+        }
+    }
+
+    private Orientation getChildOrientation() {
+        return getOrientation().equals(Orientation.HORIZONTAL) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
+    }
+
+    public boolean isEmpty() {
+        return getItems().isEmpty();
+    }
+
+    public void setSkippedPath(List<Integer> skippedPath) {
+        if (!skippedPath.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Already skipped path: " + this.skippedPath + "! Cannot set skippedPath to:" + skippedPath);
+        }
+        this.skippedPath = skippedPath;
+        adjustOrientation();
     }
 }

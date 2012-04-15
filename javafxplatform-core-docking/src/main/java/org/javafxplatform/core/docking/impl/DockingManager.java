@@ -44,7 +44,7 @@ public class DockingManager implements ApplicationContentProvider {
     protected void bindDockingDescriptor(DockingDescriptor dockingAreaDescriptor) {
         DockablePane dockablePane = (DockablePane) dockingAreaDescriptor.getDockable();
         dockablePane.setTitle(dockingAreaDescriptor.getDisplayName().replace(MNEMONIC_CHAR, ""));
-//        dockingPane.addDockable("left", dockablePane);
+        dockingPane.addDockable("left", dockablePane);
     }
 
     protected void unbindDockingDescriptor(DockingDescriptor dockingDescriptor) {
