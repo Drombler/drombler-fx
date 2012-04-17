@@ -25,7 +25,8 @@ public class FXToolBarButtonFactory implements ToolBarButtonFactory<Button, FXAc
     @Override
     public Button createToolBarButton(ToolBarEntryDescriptor toolBarEntryDescriptor, FXAction action, int iconSize) {
         Button button = new Button();
-        button.getStyleClass().add("tool-bar-overflow-button");
+//        button.getStyleClass().add("tool-bar-overflow-button");
+        button.setStyle("-fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; -fx-content-display: GRAPHIC_ONLY; -fx-background-color: transparent"); /* 5 5 5 5 */
         button.setFocusTraversable(false);
 
 //        button.setMnemonicParsing(true);

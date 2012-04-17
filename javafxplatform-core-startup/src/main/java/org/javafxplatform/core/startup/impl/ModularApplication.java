@@ -35,7 +35,7 @@ public class ModularApplication extends Application {
 //        Parent personEditorPane = FXMLLoader.load(getClass().getResource("PersonEditorPane.fxml"));
 //        root.getChildren().add(personEditorPane);
         stage.setWidth(1400);
-        stage.setHeight(300);
+        stage.setHeight(1000);
         stage.setScene(new Scene(root));
         stage.show();
     }
