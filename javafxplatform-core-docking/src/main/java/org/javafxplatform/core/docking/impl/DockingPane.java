@@ -115,6 +115,15 @@ class DockingPane extends BorderPane {// GridPane {
 //    }
     public void addDockable(String areaId, DockablePane dockablePane) {
         DockingAreaPane dockingArea = dockingAreaPanes.get(areaId);
-        dockingArea.addDockable(dockablePane);
+        if (dockingArea != null) { // TODO: needed?
+            dockingArea.addDockable(dockablePane);
+        }
+    }
+
+    /*
+     * package-private, for unit testing
+     */
+    DockingAreaPane getDockingArea(String areaId) {
+        return dockingAreaPanes.get(areaId);
     }
 }

@@ -9,6 +9,6 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.javafxplatform.core.startup.impl.ApplicationPane$Controller">
     <MenuBar GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" fx:id="menuBar"/>
-    <ToolBar GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" fx:id="toolBar"/>
+    <ToolBarContainerPane GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" fx:id="toolBarContainerPane"/>
     <BorderPane GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" fx:id="contentPane"/>
 </GridPane>

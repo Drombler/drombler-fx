@@ -7,6 +7,7 @@ package org.javafxplatform.core.startup.impl;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -17,13 +18,15 @@ import org.javafxplatform.core.action.MenuBarMenuContainer;
 import org.javafxplatform.core.util.javafx.fxml.FXMLLoaders;
 import org.richclientplatform.core.action.spi.MenuBarMenuContainerProvider;
 import org.richclientplatform.core.action.spi.MenuItemContainer;
-
+import org.richclientplatform.core.action.spi.ApplicationToolBarContainerProvider;
+import org.richclientplatform.core.action.spi.ToolBarContainer;
 
 /**
  *
  * @author puce
  */
-public class ApplicationPane extends BorderPane implements MenuBarMenuContainerProvider<Menu, MenuItem>, ContentPaneProvider {
+public class ApplicationPane extends BorderPane implements MenuBarMenuContainerProvider<Menu, MenuItem>, ContentPaneProvider, 
+        ApplicationToolBarContainerProvider<ToolBar, Button> {
 
     private final ApplicationPane.Controller controller;
     private final MenuItemContainer<Menu, MenuItem> menuBarMenuContainer;
@@ -77,12 +80,17 @@ public class ApplicationPane extends BorderPane implements MenuBarMenuContainerP
         return menuBarMenuContainer;
     }
 
+    @Override
+    public ToolBarContainer<ToolBar, Button> getApplicationToolBarContainer() {
+        return controller.toolBarContainerPane;
+    }
+
     public static class Controller {//implements Initializable {
 
         @FXML
         private MenuBar menuBar;
         @FXML
-        private ToolBar toolBar;
+        private ToolBarContainerPane toolBarContainerPane;
         @FXML
         private BorderPane contentPane;
 //        @Override

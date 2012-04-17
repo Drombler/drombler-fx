@@ -43,7 +43,7 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
 
     @Override
     public void addMenu(String id, PositionableMenuItemAdapter<? extends Menu> menu) {
-        MenuMenuItemContainer menuMenuContainer = new MenuMenuItemContainer(menu.getMenuItem());
+        MenuMenuItemContainer menuMenuContainer = new MenuMenuItemContainer(menu.getAdapted());
         menuContainers.put(id, menuMenuContainer);
 
         addMenuItem(menu, getMenus());
@@ -76,7 +76,7 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
 
             @Override
             public void run() {
-                menuItemList.add(index, menuItemWrapper.getMenuItem());
+                menuItemList.add(index, menuItemWrapper.getAdapted());
             }
         });
     }
