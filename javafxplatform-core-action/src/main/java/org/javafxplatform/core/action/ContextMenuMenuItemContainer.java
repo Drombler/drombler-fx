@@ -13,7 +13,8 @@ import javafx.scene.control.MenuItem;
  *
  * @author puce
  */
-public class ContextMenuMenuItemContainer extends AbstractMenuItemContainer{
+public class ContextMenuMenuItemContainer extends AbstractMenuItemRootContainer {
+
     private final ContextMenu contextMenu;
 
     public ContextMenuMenuItemContainer(ContextMenu contextMenu) {
@@ -30,6 +31,4 @@ public class ContextMenuMenuItemContainer extends AbstractMenuItemContainer{
     protected ObservableList<MenuItem> getItems() {
         return contextMenu.getItems();
     }
-
-    
 }

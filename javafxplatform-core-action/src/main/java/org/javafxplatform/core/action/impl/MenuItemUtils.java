@@ -7,24 +7,19 @@ package org.javafxplatform.core.action.impl;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
 import org.javafxplatform.core.action.FXAction;
 import org.richclientplatform.core.action.spi.MenuEntryDescriptor;
-import org.richclientplatform.core.action.spi.MenuItemFactory;
-
 
 /**
  *
  * @author puce
  */
-@Component
-@Service
-public class FXMenuEntryFactory implements MenuItemFactory<MenuItem, FXAction> {
+class MenuItemUtils {
 
-    @Override
-    public MenuItem createMenuItem(MenuEntryDescriptor menuEntryDescriptor, FXAction action, int iconSize) {
-        final MenuItem menuItem = new MenuItem(action.getDisplayName());
+    private MenuItemUtils() {
+    }
+
+    public static void configureMenuItem(MenuItem menuItem, MenuEntryDescriptor menuEntryDescriptor, FXAction action, int iconSize) {
         menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.setMnemonicParsing(true);
         menuItem.acceleratorProperty().bind(action.acceleratorProperty());
@@ -34,6 +29,5 @@ public class FXMenuEntryFactory implements MenuItemFactory<MenuItem, FXAction> {
         if (iconImage != null) {
             menuItem.setGraphic(new ImageView(iconImage));
         }
-        return menuItem;
     }
 }

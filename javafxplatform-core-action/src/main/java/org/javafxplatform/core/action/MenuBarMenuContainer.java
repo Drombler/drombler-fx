@@ -8,12 +8,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import org.richclientplatform.core.action.spi.MenuItemContainerListener;
+import org.richclientplatform.core.action.spi.MenuItemRootContainer;
 
 /**
  *
  * @author puce
  */
-public class MenuBarMenuContainer extends AbstractMenuItemContainer{
+public class MenuBarMenuContainer extends AbstractMenuItemRootContainer {
+
     private final MenuBar menuBar;
 
     public MenuBarMenuContainer(MenuBar menuBar) {
@@ -30,6 +33,4 @@ public class MenuBarMenuContainer extends AbstractMenuItemContainer{
     protected ObservableList<MenuItem> getItems() {
         throw new UnsupportedOperationException("Not supported.");
     }
-
-    
 }

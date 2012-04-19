@@ -17,19 +17,19 @@ import javafx.scene.layout.Pane;
 import org.javafxplatform.core.action.MenuBarMenuContainer;
 import org.javafxplatform.core.util.javafx.fxml.FXMLLoaders;
 import org.richclientplatform.core.action.spi.MenuBarMenuContainerProvider;
-import org.richclientplatform.core.action.spi.MenuItemContainer;
 import org.richclientplatform.core.action.spi.ApplicationToolBarContainerProvider;
+import org.richclientplatform.core.action.spi.MenuItemRootContainer;
 import org.richclientplatform.core.action.spi.ToolBarContainer;
 
 /**
  *
  * @author puce
  */
-public class ApplicationPane extends BorderPane implements MenuBarMenuContainerProvider<Menu, MenuItem>, ContentPaneProvider, 
+public class ApplicationPane extends BorderPane implements MenuBarMenuContainerProvider<MenuItem, Menu>, ContentPaneProvider,
         ApplicationToolBarContainerProvider<ToolBar, Button> {
 
     private final ApplicationPane.Controller controller;
-    private final MenuItemContainer<Menu, MenuItem> menuBarMenuContainer;
+    private final MenuItemRootContainer<MenuItem, Menu> menuBarMenuContainer;
 //    private final ActionTracker actionTracker;
 
     public ApplicationPane() throws IOException {
@@ -76,7 +76,7 @@ public class ApplicationPane extends BorderPane implements MenuBarMenuContainerP
     }
 
     @Override
-    public MenuItemContainer<Menu, MenuItem> getMenuBarMenuContainer() {
+    public MenuItemRootContainer<MenuItem, Menu> getMenuBarMenuContainer() {
         return menuBarMenuContainer;
     }
 

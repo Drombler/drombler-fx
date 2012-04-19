@@ -27,7 +27,6 @@ public class FXActionFactory implements ActionFactory<FXAction> {
     @SuppressWarnings("unchecked")
     public FXAction createAction(ActionDescriptor actionDescriptor) {
         Object listener = actionDescriptor.getListener();
-        System.out.println(listener);
         FXAction fxAction = null;
         if (listener instanceof FXAction) {
             fxAction = (FXAction) listener;
@@ -47,7 +46,6 @@ public class FXActionFactory implements ActionFactory<FXAction> {
                 fxAction.setIcon(actionDescriptor.getIcon());
             }
         }
-        System.out.println(fxAction);
         return fxAction;
     }
 
