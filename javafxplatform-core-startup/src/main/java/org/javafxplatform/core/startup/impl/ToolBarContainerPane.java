@@ -44,7 +44,7 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
 
     @Override
     public void addToolBarButton(final String toolBarId, final PositionableAdapter<Button> toolBarButtonAdapter) {
-        Runnable runnable = new Runnable() {
+        PlatformUtils.runOnFxApplicationThread(new Runnable() {
 
             @Override
             public void run() {
@@ -52,8 +52,24 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
                 // TODO: respect position
                 toolBar.getItems().add(toolBarButtonAdapter.getAdapted());
             }
-        };
-        PlatformUtils.runOnFxApplicationThread(runnable); // TODO: needed?
+        }); // TODO: needed?
+
+    }
+
+    @Override
+    public boolean isToolBarVisible(String toolBarId) {
+        return toolBarsMap.get(toolBarId).isVisible();
+    }
+
+    @Override
+    public void setToolBarVisible(final String toolBarId, final boolean visible) {
+        PlatformUtils.runOnFxApplicationThread(new Runnable() {
+
+            @Override
+            public void run() {
+                toolBarsMap.get(toolBarId).setVisible(visible);
+            }
+        }); // TODO: needed?
 
     }
 }

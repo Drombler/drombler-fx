@@ -6,14 +6,12 @@ package org.javafxplatform.core.action.impl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCombination;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.javafxplatform.core.action.FXAction;
 import org.richclientplatform.core.action.ActionListener;
 import org.richclientplatform.core.action.spi.ActionDescriptor;
 import org.richclientplatform.core.action.spi.ActionFactory;
-
 
 /**
  *
@@ -38,13 +36,7 @@ public class FXActionFactory implements ActionFactory<FXAction> {
             }
         }
         if (fxAction != null) {
-            fxAction.setDisplayName(actionDescriptor.getDisplayName());
-            if (actionDescriptor.getAccelerator() != null && !actionDescriptor.getAccelerator().equals("")) {
-                fxAction.setAccelerator(KeyCombination.keyCombination(actionDescriptor.getAccelerator()));
-            }
-            if (actionDescriptor.getIcon() != null && !actionDescriptor.getIcon().equals("")) {
-                fxAction.setIcon(actionDescriptor.getIcon());
-            }
+            ActionUtils.configureAction(fxAction, actionDescriptor);
         }
         return fxAction;
     }

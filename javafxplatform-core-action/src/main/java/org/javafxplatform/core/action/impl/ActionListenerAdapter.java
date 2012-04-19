@@ -36,7 +36,7 @@ public class ActionListenerAdapter extends AbstractFXAction {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        listener.actionPerformed(actionEvent);
+        listener.onAction(actionEvent);
     }
 
     @Override
