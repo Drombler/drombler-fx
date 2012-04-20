@@ -20,6 +20,8 @@ public class FXToolBarFactory implements ToolBarFactory<ToolBar> {
 
     @Override
     public ToolBar createToolBar(ToolBarDescriptor toolBarDescriptor) {
-        return new ToolBar();
+        ToolBar toolBar = new ToolBar();
+        toolBar.setVisible(toolBarDescriptor.isVisible());
+        return toolBar;
     }
 }

@@ -8,7 +8,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javax.xml.bind.Marshaller;
 import org.javafxplatform.core.action.FXToggleAction;
 import org.richclientplatform.core.action.ToggleActionListener;
 
@@ -20,7 +23,7 @@ public class ToggleActionListenerAdapter extends ActionListenerAdapter implement
 
     private final BooleanProperty selected = new SimpleBooleanProperty(this, "selected");
 
-    public ToggleActionListenerAdapter(ToggleActionListener<? super ActionEvent> listener) {
+    public ToggleActionListenerAdapter(final ToggleActionListener<? super ActionEvent> listener) {
         super(listener);
 
         listener.addPropertyChangeListener("selected", new PropertyChangeListener() {
@@ -28,6 +31,13 @@ public class ToggleActionListenerAdapter extends ActionListenerAdapter implement
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 selected.set((Boolean) evt.getNewValue());
+            }
+        });
+        selected.addListener(new ChangeListener<Boolean>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) {
+                listener.setSelected(newValue);
             }
         });
         selected.set(listener.isSelected());
