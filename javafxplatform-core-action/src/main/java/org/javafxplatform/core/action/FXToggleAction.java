@@ -10,10 +10,11 @@ import javafx.beans.property.BooleanProperty;
  *
  * @author puce
  */
-public interface FXToggleAction extends FXCheckAction {
+public interface FXToggleAction extends FXAction {
 
-    @Override
     BooleanProperty selectedProperty();
+
+    boolean isSelected();
 
     void setSelected(boolean selected);
 }

@@ -10,17 +10,17 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import org.javafxplatform.core.action.FXToggleAction;
-import org.richclientplatform.core.action.CheckActionListener;
+import org.richclientplatform.core.action.ToggleActionListener;
 
 /**
  *
  * @author puce
  */
-public class ToggleActionListenerAdapter extends CheckActionListenerAdapter implements FXToggleAction {
+public class ToggleActionListenerAdapter extends ActionListenerAdapter implements FXToggleAction {
 
     private final BooleanProperty selected = new SimpleBooleanProperty(this, "selected");
 
-    public ToggleActionListenerAdapter(CheckActionListener<? super ActionEvent> listener) {
+    public ToggleActionListenerAdapter(ToggleActionListener<? super ActionEvent> listener) {
         super(listener);
 
         listener.addPropertyChangeListener("selected", new PropertyChangeListener() {
@@ -34,13 +34,17 @@ public class ToggleActionListenerAdapter extends CheckActionListenerAdapter impl
     }
 
     @Override
-    public final void setSelected(boolean selected) {
-        selectedProperty().set(selected);
-    }
-
-    @Override
     public BooleanProperty selectedProperty() {
         return selected;
     }
 
+    @Override
+    public final boolean isSelected() {
+        return selectedProperty().get();
+    }
+
+    @Override
+    public final void setSelected(boolean selected) {
+        selectedProperty().set(selected);
+    }
 }
