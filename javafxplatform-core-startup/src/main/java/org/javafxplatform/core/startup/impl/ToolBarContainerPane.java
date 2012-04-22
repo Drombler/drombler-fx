@@ -28,7 +28,7 @@ import org.richclientplatform.core.lib.util.Positionables;
  */
 public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolBar, Button> {
 
-    private final Map<String, ToolBar> toolBarsMap = new HashMap<>();
+    private final Map<String, PositionableAdapter<ToolBar>> toolBarsMap = new HashMap<>();
     private final List<PositionableAdapter<ToolBar>> toolBars = new ArrayList<>();
     private final List<ToolBarContainerListener<ToolBar, Button>> containerListeners = Collections.synchronizedList(
             new ArrayList<ToolBarContainerListener<ToolBar, Button>>()); // TODO: synchronized needed?
@@ -40,15 +40,27 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
 
             @Override
             public void run() {
-                int insertionPoint = Positionables.getInsertionPoint(toolBars, toolBarAdapter);
-                getChildren().add(insertionPoint, toolBarAdapter.getAdapted());
-                toolBars.add(insertionPoint, toolBarAdapter);
-                toolBarsMap.put(toolBarId, toolBarAdapter.getAdapted());
+                toolBarsMap.put(toolBarId, toolBarAdapter);
+                if (toolBarAdapter.getAdapted().isVisible()) {
+                    positionToolBar(toolBarAdapter);
+                }
                 fireToolBarAddedEvent(toolBarAdapter, toolBarId);
             }
         };
         PlatformUtils.runOnFxApplicationThread(runnable); // TODO: needed?
 
+    }
+
+    private void positionToolBar(PositionableAdapter<ToolBar> toolBarAdapter) {
+        int insertionPoint = Positionables.getInsertionPoint(toolBars, toolBarAdapter);
+        getChildren().add(insertionPoint, toolBarAdapter.getAdapted());
+        toolBars.add(insertionPoint, toolBarAdapter);
+    }
+
+    private void hideToolBar(PositionableAdapter<ToolBar> toolBarAdapter) {
+        int index = toolBars.indexOf(toolBarAdapter);
+        getChildren().remove(index);
+        toolBars.remove(index);
     }
 
     @Override
@@ -57,7 +69,7 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
 
             @Override
             public void run() {
-                ToolBar toolBar = toolBarsMap.get(toolBarId);
+                ToolBar toolBar = toolBarsMap.get(toolBarId).getAdapted();
                 // TODO: respect position
                 toolBar.getItems().add(toolBarButtonAdapter.getAdapted());
                 fireToolBarButtonAddedEvent(toolBarButtonAdapter, toolBarId);
@@ -68,7 +80,7 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
 
     @Override
     public boolean isToolBarVisible(String toolBarId) {
-        return toolBarsMap.get(toolBarId).isVisible();
+        return toolBarsMap.get(toolBarId).getAdapted().isVisible();
     }
 
     @Override
@@ -77,7 +89,15 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
 
             @Override
             public void run() {
-                toolBarsMap.get(toolBarId).setVisible(visible);
+                if (toolBarsMap.containsKey(toolBarId)) {
+                    PositionableAdapter<ToolBar> toolBar = toolBarsMap.get(toolBarId);
+                    if (toolBar.getAdapted().isVisible() && !visible) {
+                        hideToolBar(toolBar);
+                    } else if (!toolBar.getAdapted().isVisible() && visible) {
+                        positionToolBar(toolBar);
+                    }
+                    toolBar.getAdapted().setVisible(visible);
+                }
             }
         }); // TODO: needed?
 
