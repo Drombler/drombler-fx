@@ -24,6 +24,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.dependency.AbstractDependencyMojo;
+import org.apache.maven.plugin.dependency.AbstractDependencyFilterMojo;
 import org.apache.maven.plugin.dependency.AbstractFromDependenciesMojo;
 import org.apache.maven.plugin.dependency.CopyDependenciesMojo;
 import org.apache.maven.project.MavenProject;
@@ -164,7 +165,11 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         reflectAbstractFromDependenciesMojo.setField("outputDirectory", bundleDirPath.toFile());
         reflectAbstractFromDependenciesMojo.setField("useRepositoryLayout", true);
         reflectAbstractFromDependenciesMojo.setField("copyPom", false);
-
+        
+        ReflectMojo reflectAbstractDependencyFilterMojoMojo = new ReflectMojo(copyDependenciesMojo,
+                AbstractDependencyFilterMojo.class);
+        reflectAbstractDependencyFilterMojoMojo.setField("excludeScope", "system");
+        
         ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyDependenciesMojo,
                 AbstractDependencyMojo.class);
         reflectAbstractDependencyMojo.setField("project", project);
