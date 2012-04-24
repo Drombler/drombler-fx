@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import javafx.scene.control.Button;
+import javafx.scene.Node;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import org.javafxplatform.core.util.javafx.fxml.application.PlatformUtils;
@@ -26,13 +26,15 @@ import org.richclientplatform.core.lib.util.Positionables;
  *
  * @author puce
  */
-public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolBar, Button> {
+public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolBar, Node> {
 
-    private final Map<String, PositionableAdapter<ToolBar>> toolBarsMap = new HashMap<>();
-    private final List<PositionableAdapter<ToolBar>> toolBars = new ArrayList<>();
-    private final List<ToolBarContainerListener<ToolBar, Button>> containerListeners = Collections.synchronizedList(
-            new ArrayList<ToolBarContainerListener<ToolBar, Button>>()); // TODO: synchronized needed?
-    private final ConcurrentMap<String, List<ToolBarContainerListener<ToolBar, Button>>> containerListenerMap = new ConcurrentHashMap<>(); // TODO: synchronized needed?
+    private final Map<String, PositionableAdapter<ToolBar>> toolBarsMap = new ConcurrentHashMap<>();// TODO: synchronized needed?
+    private final List<PositionableAdapter<ToolBar>> toolBars = Collections.synchronizedList(
+            new ArrayList<PositionableAdapter<ToolBar>>());// TODO: synchronized needed?
+    private final ConcurrentMap<String, List<PositionableAdapter<? extends Node>>> toolBarButtonsMap = new ConcurrentHashMap<>();// TODO: synchronized needed?
+    private final List<ToolBarContainerListener<ToolBar, Node>> containerListeners = Collections.synchronizedList(
+            new ArrayList<ToolBarContainerListener<ToolBar, Node>>()); // TODO: synchronized needed?
+    private final ConcurrentMap<String, List<ToolBarContainerListener<ToolBar, Node>>> containerListenerMap = new ConcurrentHashMap<>(); // TODO: synchronized needed?
 
     @Override
     public void addToolBar(final String toolBarId, final PositionableAdapter<ToolBar> toolBarAdapter) {
@@ -41,6 +43,8 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
             @Override
             public void run() {
                 toolBarsMap.put(toolBarId, toolBarAdapter);
+                toolBarButtonsMap.putIfAbsent(toolBarId,
+                        Collections.synchronizedList(new ArrayList<PositionableAdapter<? extends Node>>()));
                 if (toolBarAdapter.getAdapted().isVisible()) {
                     positionToolBar(toolBarAdapter);
                 }
@@ -64,14 +68,16 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
     }
 
     @Override
-    public void addToolBarButton(final String toolBarId, final PositionableAdapter<Button> toolBarButtonAdapter) {
+    public void addToolBarButton(final String toolBarId, final PositionableAdapter<? extends Node> toolBarButtonAdapter) {
         PlatformUtils.runOnFxApplicationThread(new Runnable() {
 
             @Override
             public void run() {
+                List<PositionableAdapter<? extends Node>> toolBarButtons = toolBarButtonsMap.get(toolBarId);
+                int insertionPoint = Positionables.getInsertionPoint(toolBarButtons, toolBarButtonAdapter);
                 ToolBar toolBar = toolBarsMap.get(toolBarId).getAdapted();
-                // TODO: respect position
-                toolBar.getItems().add(toolBarButtonAdapter.getAdapted());
+                toolBar.getItems().add(insertionPoint, toolBarButtonAdapter.getAdapted());
+                toolBarButtons.add(insertionPoint, toolBarButtonAdapter);
                 fireToolBarButtonAddedEvent(toolBarButtonAdapter, toolBarId);
             }
         }); // TODO: needed?
@@ -104,52 +110,52 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
     }
 
     @Override
-    public void addToolBarContainerListener(ToolBarContainerListener<ToolBar, Button> containerListener) {
+    public void addToolBarContainerListener(ToolBarContainerListener<ToolBar, Node> containerListener) {
         containerListeners.add(containerListener);
     }
 
     @Override
-    public void removeToolBarContainerListener(ToolBarContainerListener<ToolBar, Button> containerListener) {
+    public void removeToolBarContainerListener(ToolBarContainerListener<ToolBar, Node> containerListener) {
         containerListeners.remove(containerListener);
     }
 
     private void fireToolBarAddedEvent(PositionableAdapter<? extends ToolBar> toolBar, String toolBarId) {
-        ToolBarContainerToolBarEvent<ToolBar, Button> event = new ToolBarContainerToolBarEvent<>(this, toolBar);
-        for (ToolBarContainerListener<ToolBar, Button> containerListener : containerListeners) {
+        ToolBarContainerToolBarEvent<ToolBar, Node> event = new ToolBarContainerToolBarEvent<>(this, toolBar);
+        for (ToolBarContainerListener<ToolBar, Node> containerListener : containerListeners) {
             containerListener.toolBarAdded(event);
         }
 
         if (containerListenerMap.containsKey(toolBarId)) {
-            for (ToolBarContainerListener<ToolBar, Button> containerListener : containerListenerMap.get(toolBarId)) {
+            for (ToolBarContainerListener<ToolBar, Node> containerListener : containerListenerMap.get(toolBarId)) {
                 containerListener.toolBarAdded(event);
             }
         }
     }
 
-    private void fireToolBarButtonAddedEvent(PositionableAdapter<? extends Button> toolBarButton, String toolBarId) {
-        ToolBarContainerToolBarButtonEvent<ToolBar, Button> event = new ToolBarContainerToolBarButtonEvent<>(this,
+    private void fireToolBarButtonAddedEvent(PositionableAdapter<? extends Node> toolBarButton, String toolBarId) {
+        ToolBarContainerToolBarButtonEvent<ToolBar, Node> event = new ToolBarContainerToolBarButtonEvent<>(this,
                 toolBarButton);
-        for (ToolBarContainerListener<ToolBar, Button> containerListener : containerListeners) {
+        for (ToolBarContainerListener<ToolBar, Node> containerListener : containerListeners) {
             containerListener.toolBarButtonAdded(event);
         }
 
         if (containerListenerMap.containsKey(toolBarId)) {
-            for (ToolBarContainerListener<ToolBar, Button> containerListener : containerListenerMap.get(toolBarId)) {
+            for (ToolBarContainerListener<ToolBar, Node> containerListener : containerListenerMap.get(toolBarId)) {
                 containerListener.toolBarButtonAdded(event);
             }
         }
     }
 
     @Override
-    public void addToolBarContainerListener(String toolBarId, ToolBarContainerListener<ToolBar, Button> containerListener) {
+    public void addToolBarContainerListener(String toolBarId, ToolBarContainerListener<ToolBar, Node> containerListener) {
         containerListenerMap.putIfAbsent(toolBarId,
-                Collections.synchronizedList(new ArrayList<ToolBarContainerListener<ToolBar, Button>>()));
+                Collections.synchronizedList(new ArrayList<ToolBarContainerListener<ToolBar, Node>>()));
         containerListenerMap.get(toolBarId).add(containerListener);
     }
 
     @Override
-    public void removeToolBarContainerListener(String toolBarId, ToolBarContainerListener<ToolBar, Button> containerListener) {
-        List<ToolBarContainerListener<ToolBar, Button>> listeners = containerListenerMap.get(toolBarId);
+    public void removeToolBarContainerListener(String toolBarId, ToolBarContainerListener<ToolBar, Node> containerListener) {
+        List<ToolBarContainerListener<ToolBar, Node>> listeners = containerListenerMap.get(toolBarId);
         if (listeners != null) {
             listeners.remove(containerListener);
         }

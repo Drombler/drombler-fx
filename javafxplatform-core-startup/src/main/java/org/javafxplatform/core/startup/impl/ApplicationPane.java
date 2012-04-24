@@ -7,6 +7,7 @@ package org.javafxplatform.core.startup.impl;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -26,7 +27,7 @@ import org.richclientplatform.core.action.spi.ToolBarContainer;
  * @author puce
  */
 public class ApplicationPane extends BorderPane implements MenuBarMenuContainerProvider<MenuItem, Menu>, ContentPaneProvider,
-        ApplicationToolBarContainerProvider<ToolBar, Button> {
+        ApplicationToolBarContainerProvider<ToolBar, Node> {
 
     private final ApplicationPane.Controller controller;
     private final MenuItemRootContainer<MenuItem, Menu> menuBarMenuContainer;
@@ -81,7 +82,7 @@ public class ApplicationPane extends BorderPane implements MenuBarMenuContainerP
     }
 
     @Override
-    public ToolBarContainer<ToolBar, Button> getApplicationToolBarContainer() {
+    public ToolBarContainer<ToolBar, Node> getApplicationToolBarContainer() {
         return controller.toolBarContainerPane;
     }
 
