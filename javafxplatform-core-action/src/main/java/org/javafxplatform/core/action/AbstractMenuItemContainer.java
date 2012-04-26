@@ -78,13 +78,13 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
         addMenuItem(index, menuItemAdapter, menuItemList, menu);
 
         if (index < xMenuItems.size() - 1
-                && (xMenuItems.get(index + 1).getPosition() - menuItemAdapter.getPosition()) >= SEPARATOR_STEPS
+                && ((xMenuItems.get(index + 1).getPosition() / SEPARATOR_STEPS) - (menuItemAdapter.getPosition() / SEPARATOR_STEPS)) >= 1
                 && !xMenuItems.get(index + 1).isSeparator()) {
             addSeparator(index + 1, xMenuItems.get(index + 1).getPosition());
         }
 
         if (index > 0
-                && (menuItemAdapter.getPosition() - xMenuItems.get(index - 1).getPosition()) >= SEPARATOR_STEPS
+                && ((menuItemAdapter.getPosition() / SEPARATOR_STEPS) - (xMenuItems.get(index - 1).getPosition() / SEPARATOR_STEPS)) >= 1
                 && !xMenuItems.get(index - 1).isSeparator()) {
             addSeparator(index, menuItemAdapter.getPosition());
         }

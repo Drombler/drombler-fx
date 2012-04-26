@@ -24,10 +24,10 @@ class ButtonUtils {
 
 
         //        button.getStyleClass().add("tool-bar-overflow-button");
-        button.setStyle(
-                "-fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; -fx-content-display: GRAPHIC_ONLY; -fx-background-color: transparent"); /*
-         * 5 5 5 5
-         */
+//        button.setStyle(
+//                "-fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; -fx-content-display: GRAPHIC_ONLY; -fx-background-color: transparent"); /*
+//         * 5 5 5 5
+//         */
         button.setFocusTraversable(false);
 
 //        button.setMnemonicParsing(true);
