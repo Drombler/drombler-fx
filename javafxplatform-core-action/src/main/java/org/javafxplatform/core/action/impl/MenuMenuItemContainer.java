@@ -9,8 +9,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import org.javafxplatform.core.action.AbstractMenuItemContainer;
 import org.javafxplatform.core.action.AbstractMenuItemRootContainer;
-import org.richclientplatform.core.action.spi.MenuItemContainer;
-import org.richclientplatform.core.action.spi.MenuItemRootContainer;
 
 /**
  *

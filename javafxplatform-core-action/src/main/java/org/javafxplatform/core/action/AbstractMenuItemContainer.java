@@ -30,7 +30,7 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
     private final String id;
     private final boolean supportingItems;
     private final List<PositionableMenuItemAdapter<?>> xMenuItems = new ArrayList<>();
-    private final Map<String, List<PositionableMenuItemAdapter<?>>> unresolvedMenus = new HashMap<>();
+//    private final Map<String, List<PositionableMenuItemAdapter<?>>> unresolvedMenus = new HashMap<>();
     private final AbstractMenuItemContainer parentContainer;
 
     public AbstractMenuItemContainer(String id, boolean supportingItems, AbstractMenuItemContainer parentContainer) {

@@ -61,6 +61,11 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
         toolBars.add(insertionPoint, toolBarAdapter);
     }
 
+    @Override
+    public boolean containsToolBar(String toolBarId) {
+        return toolBarsMap.containsKey(toolBarId);
+    }
+
     private void hideToolBar(PositionableAdapter<ToolBar> toolBarAdapter) {
         int index = toolBars.indexOf(toolBarAdapter);
         getChildren().remove(index);
@@ -120,7 +125,7 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
     }
 
     private void fireToolBarAddedEvent(PositionableAdapter<? extends ToolBar> toolBar, String toolBarId) {
-        ToolBarContainerToolBarEvent<ToolBar, Node> event = new ToolBarContainerToolBarEvent<>(this, toolBar);
+        ToolBarContainerToolBarEvent<ToolBar, Node> event = new ToolBarContainerToolBarEvent<>(this, toolBarId, toolBar);
         for (ToolBarContainerListener<ToolBar, Node> containerListener : containerListeners) {
             containerListener.toolBarAdded(event);
         }
@@ -134,7 +139,7 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
 
     private void fireToolBarButtonAddedEvent(PositionableAdapter<? extends Node> toolBarButton, String toolBarId) {
         ToolBarContainerToolBarButtonEvent<ToolBar, Node> event = new ToolBarContainerToolBarButtonEvent<>(this,
-                toolBarButton);
+                toolBarId, toolBarButton);
         for (ToolBarContainerListener<ToolBar, Node> containerListener : containerListeners) {
             containerListener.toolBarButtonAdded(event);
         }

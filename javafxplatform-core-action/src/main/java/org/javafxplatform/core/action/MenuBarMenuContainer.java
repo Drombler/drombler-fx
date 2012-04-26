@@ -8,8 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import org.richclientplatform.core.action.spi.MenuItemContainerListener;
-import org.richclientplatform.core.action.spi.MenuItemRootContainer;
 
 /**
  *
