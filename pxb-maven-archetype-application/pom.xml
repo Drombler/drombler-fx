@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.projectx</groupId>
+        <artifactId>projectx-oss-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath></relativePath>
+    </parent>
+    <groupId>projectx.maven.plugins</groupId>
+    <artifactId>pxb-maven-archetype-application</artifactId>
+    <packaging>maven-archetype</packaging>
+
+    <name>pxb-maven-archetype-application</name>
+    
+    <properties>
+        <main-resources.filtering>false</main-resources.filtering>
+    </properties>
+    
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.archetype</groupId>
+                <artifactId>archetype-packaging</artifactId>
+                <version>2.2</version>
+            </extension>
+        </extensions>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-archetype-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

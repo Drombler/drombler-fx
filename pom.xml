@@ -24,5 +24,6 @@
         <module>javafxplatform-locale-all</module>
         <module>javafx-2.1.0</module>
         <module>pxb-maven-plugin</module>
-    </modules>
+    <module>pxb-maven-archetype-application</module>
+  </modules>
 </project>

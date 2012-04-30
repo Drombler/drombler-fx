@@ -6,6 +6,7 @@
         <groupId>org.projectx</groupId>
         <artifactId>projectx-oss-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
+        <relativePath></relativePath>
     </parent>
     <groupId>projectx.maven.plugins</groupId>
     <artifactId>pxb-maven-plugin</artifactId>

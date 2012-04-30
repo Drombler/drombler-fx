@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${rootArtifactId}-parent</artifactId>
+        <version>${version}</version>
+        <relativePath>../${rootArtifactId}-parent</relativePath>
+    </parent>
+    <artifactId>${artifactId}</artifactId>
+    <packaging>bundle</packaging>
+
+    <name>ContactCenter - Desktop - Core</name>
+    <inceptionYear>2012</inceptionYear>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.javafxplatform</groupId>
+            <artifactId>javafxplatform-core-docking</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.javafxplatform</groupId>
+            <artifactId>javafxplatform-core-util</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.richclientplatform</groupId>
+            <artifactId>richclientplatform-core-action</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>javafx</groupId>
+            <artifactId>jfxrt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectx.contactcenter</groupId>
+            <artifactId>contacts-core</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectx.lib</groupId>
+            <artifactId>projectx-lib-javafx</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+<!--        <dependency>
+            <groupId>javax.time</groupId>
+            <artifactId>jsr-310-ri</artifactId>
+            <version>0.6.3</version>
+        </dependency>
+        <dependency>                            
+            <groupId>javax.time</groupId>
+            <artifactId>jsr-310-TZDB-all</artifactId>
+            <version>0.6.3</version>
+            <scope>runtime</scope>
+        </dependency>-->
+    </dependencies>
+</project>

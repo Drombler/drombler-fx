@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.javafxplatform</groupId>
+        <artifactId>javafxplatform-parent</artifactId>
+        <version>${project.version}</version>
+    </parent>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <version>${version}</version>
+    <packaging>pom</packaging>
+ 
+    <name>${artifactId}</name>
+
+
+    <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javafx</groupId>
+                <artifactId>jfxrt</artifactId>
+                <version>2.1.0-beta</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
