@@ -8,10 +8,10 @@
         <version>0.1-SNAPSHOT</version>
         <relativePath>../javafxplatform-parent</relativePath>
     </parent>
-    <artifactId>javafxplatform-core-startup</artifactId>
+    <artifactId>javafxplatform-core-application</artifactId>
     <packaging>bundle</packaging>
 
-    <name>JavaFX Platform - Core - Startup</name>
+    <name>JavaFX Platform - Core - Application</name>
     <inceptionYear>2012</inceptionYear>
 
 
