@@ -4,21 +4,14 @@
  */
 package org.javafxplatform.core.docking.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import javafx.geometry.Orientation;
-import javafx.scene.Parent;
 import org.javafxplatform.core.docking.DockablePane;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.richclientplatform.core.docking.processing.DockingAreaDescriptor;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
 
 /**

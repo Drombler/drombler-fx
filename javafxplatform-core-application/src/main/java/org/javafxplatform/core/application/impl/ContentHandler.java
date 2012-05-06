@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.startup.impl;
+package org.javafxplatform.core.application.impl;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -10,7 +10,7 @@ import javafx.scene.layout.BorderPane;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.References;
-import org.javafxplatform.core.startup.ApplicationContentProvider;
+import org.javafxplatform.core.application.ApplicationContentProvider;
 
 /**
  *

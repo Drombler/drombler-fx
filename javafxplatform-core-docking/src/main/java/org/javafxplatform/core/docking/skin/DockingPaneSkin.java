@@ -5,8 +5,6 @@
 package org.javafxplatform.core.docking.skin;
 
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
@@ -16,8 +14,8 @@ import org.javafxplatform.core.docking.DockablePane;
 import org.javafxplatform.core.docking.impl.DockingAreaPane;
 import org.javafxplatform.core.docking.impl.DockingPane;
 import org.javafxplatform.core.docking.impl.DockingSplitPane;
-import org.richclientplatform.core.docking.processing.DockingAreaContainerDockingAreaEvent;
-import org.richclientplatform.core.docking.processing.DockingAreaContainerListener;
+import org.richclientplatform.core.docking.spi.DockingAreaContainerDockingAreaEvent;
+import org.richclientplatform.core.docking.spi.DockingAreaContainerListener;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
 
 /**

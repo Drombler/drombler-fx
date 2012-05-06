@@ -24,7 +24,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-Activator>org.javafxplatform.core.startup.impl.Activator</Bundle-Activator>
+                        <Bundle-Activator>org.javafxplatform.core.application.impl.Activator</Bundle-Activator>
 <!--                        <Import-Bundle>org.wiring.package</Import-Bundle>-->
                     </instructions>
                 </configuration>

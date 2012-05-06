@@ -7,8 +7,8 @@ package org.javafxplatform.core.docking.impl;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.javafxplatform.core.docking.DockablePane;
-import org.richclientplatform.core.docking.processing.DockableFactory;
-import org.richclientplatform.core.docking.processing.DockingDescriptor;
+import org.richclientplatform.core.docking.spi.DockableFactory;
+import org.richclientplatform.core.docking.spi.DockingDescriptor;
 
 /**
  *

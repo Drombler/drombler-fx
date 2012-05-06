@@ -7,10 +7,10 @@ package org.javafxplatform.core.docking.impl;
 import javafx.scene.Node;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
+import org.javafxplatform.core.application.ApplicationContentProvider;
 import org.javafxplatform.core.docking.DockablePane;
-import org.javafxplatform.core.startup.ApplicationContentProvider;
-import org.richclientplatform.core.docking.processing.DockingAreaContainer;
-import org.richclientplatform.core.docking.processing.DockingAreaContainerProvider;
+import org.richclientplatform.core.docking.spi.DockingAreaContainer;
+import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
 
 /**
  *

@@ -41,7 +41,7 @@
     <dependencies>
         <dependency>
             <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-startup</artifactId>
+            <artifactId>javafxplatform-core-application</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

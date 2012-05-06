@@ -9,15 +9,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Control;
 import org.javafxplatform.core.docking.DockablePane;
 import org.javafxplatform.core.docking.skin.Stylesheets;
-import org.richclientplatform.core.docking.processing.DockingAreaContainer;
-import org.richclientplatform.core.docking.processing.DockingAreaContainerDockingAreaEvent;
-import org.richclientplatform.core.docking.processing.DockingAreaContainerListener;
+import org.richclientplatform.core.docking.spi.DockingAreaContainer;
+import org.richclientplatform.core.docking.spi.DockingAreaContainerDockingAreaEvent;
+import org.richclientplatform.core.docking.spi.DockingAreaContainerListener;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
 
 /**
