@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import org.javafxplatform.core.docking.DockablePane;
 import org.junit.After;
@@ -15,25 +16,30 @@ import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.richclientplatform.core.docking.processing.DockingAreaDescriptor;
+import org.richclientplatform.core.lib.util.PositionableAdapter;
 
 /**
  *
  * @author puce
  */
 public class DockingPaneTest {
-    public static final String TEST1 = "test1";
+
+    private static final String TEST1 = "test1";
+    private static final String TEST2 = "test2";
+    private static final String TEST3 = "test3";
     private DockingPane dockingPane;
-    
+
     public DockingPaneTest() {
     }
-    
+
     @Before
     public void setUp() {
         dockingPane = new DockingPane();
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -42,25 +48,102 @@ public class DockingPaneTest {
      * Test of addDockingArea method, of class DockingPane.
      */
     @Test
-    public void testAddDockingArea() {
-        System.out.println("addDockingArea");
-        DockingAreaDescriptor dockingAreaDescriptor = new DockingAreaDescriptor();
-        dockingAreaDescriptor.setId(TEST1);
-        dockingAreaDescriptor.setPosition(20);
-        dockingAreaDescriptor.setPath(Arrays.asList(20));
-        
-        dockingPane.addDockingArea(dockingAreaDescriptor);
-        DockablePane dockablePane = new DockablePane();
-        dockingPane.addDockable(TEST1, dockablePane);
-        DockingAreaPane dockingArea = dockingPane.getDockingArea(TEST1);
-        DockingSplitPane parentSplitPane = dockingArea.getParentSplitPane();
-        List<Integer> path = new ArrayList<>();
-        while (parentSplitPane != null){
-            path.add(parentSplitPane.getPosition());
-            parentSplitPane = parentSplitPane.getParentSplitPane();
-        }
-        Collections.reverse(path);
-        assertEquals(Arrays.asList(0), path);
+    public void testAddDockingArea1() {
+        System.out.println("addDockingArea1");
+
+        addDockingArea(20, TEST1, 10);
+
+        List<ShortPathPart> path = getDockingAreaShortPath(TEST1);
+        assertEquals(Arrays.asList(new ShortPathPart(10, 0, Orientation.VERTICAL)), path);
     }
 
+    @Test
+    public void testAddDockingArea2() {
+        System.out.println("addDockingArea2");
+        addDockingArea(20, TEST1, 10);
+
+        List<ShortPathPart> pathTest1 = getDockingAreaShortPath(TEST1);
+        assertEquals(Arrays.asList(new ShortPathPart(10, 0, Orientation.VERTICAL)), pathTest1);
+
+        addDockingArea(40, TEST2, 10);
+
+        List<ShortPathPart> pathTest2 = getDockingAreaShortPath(TEST2);
+        assertEquals(Arrays.asList(new ShortPathPart(40, 1, Orientation.HORIZONTAL)), pathTest2);
+
+        pathTest1 = getDockingAreaShortPath(TEST1);
+        assertEquals(Arrays.asList(new ShortPathPart(20, 1, Orientation.HORIZONTAL)), pathTest1);
+    }
+
+    @Test
+    public void testAddDockingArea3() {
+        System.out.println("addDockingArea3");
+        addDockingArea(10, TEST1, 20);
+
+        List<ShortPathPart> pathTest1 = getDockingAreaShortPath(TEST1);
+        assertEquals(Arrays.asList(new ShortPathPart(20, 0, Orientation.VERTICAL)), pathTest1);
+
+        addDockingArea(10, TEST2, 40);
+
+        List<ShortPathPart> pathTest2 = getDockingAreaShortPath(TEST2);
+        assertEquals(Arrays.asList(new ShortPathPart(40, 0, Orientation.VERTICAL)), pathTest2);
+
+        pathTest1 = getDockingAreaShortPath(TEST1);
+        assertEquals(Arrays.asList(new ShortPathPart(20, 0, Orientation.VERTICAL)), pathTest1);
+    }
+
+    @Test
+    public void testAddDockingArea4() {
+        System.out.println("addDockingArea4");
+        addDockingArea(20, TEST1, 10);
+
+        List<ShortPathPart> pathTest1 = getDockingAreaShortPath(TEST1);
+        assertEquals(Arrays.asList(new ShortPathPart(10, 0, Orientation.VERTICAL)), pathTest1);
+
+        addDockingArea(40, TEST2, 10);
+
+        List<ShortPathPart> pathTest2 = getDockingAreaShortPath(TEST2);
+        assertEquals(Arrays.asList(new ShortPathPart(40, 1, Orientation.HORIZONTAL)), pathTest2);
+
+        pathTest1 = getDockingAreaShortPath(TEST1);
+        assertEquals(Arrays.asList(new ShortPathPart(20, 1, Orientation.HORIZONTAL)), pathTest1);
+
+        addDockingArea(20, TEST3, 30);
+
+        List<ShortPathPart> pathTest3 = getDockingAreaShortPath(TEST3);
+        assertEquals(Arrays.asList(new ShortPathPart(30, 0, Orientation.VERTICAL)), pathTest3);
+
+        pathTest1 = getDockingAreaShortPath(TEST1);
+        assertEquals(Arrays.asList(
+                new ShortPathPart(10, 0, Orientation.VERTICAL),
+                new ShortPathPart(20, 1, Orientation.HORIZONTAL)), pathTest1);
+
+        pathTest2 = getDockingAreaShortPath(TEST2);
+        assertEquals(Arrays.asList(
+                new ShortPathPart(10, 0, Orientation.VERTICAL),
+                new ShortPathPart(40, 1, Orientation.HORIZONTAL)), pathTest2);
+    }
+
+    private void addDockingArea(int position, String id, Integer... path) {
+        dockingPane.addDockingArea(Arrays.asList(path), new DockingAreaPane(id, position, false));
+
+        DockablePane dockablePane = new DockablePane();
+        dockingPane.addDockable(id, new PositionableAdapter<>(dockablePane, 10));
+    }
+
+//    private List<Integer> getDockingAreaPath(String dockingAreaId) {
+//        DockingAreaPane dockingArea = dockingPane.getDockingArea(dockingAreaId);
+//        DockingSplitPane parentSplitPane = dockingArea.getParentSplitPane();
+//        List<Integer> path = new ArrayList<>();
+//        while (parentSplitPane != null) {
+//            path.add(parentSplitPane.getPosition());
+//            parentSplitPane = parentSplitPane.getParentSplitPane();
+//        }
+//        path.remove(path.size() - 1);
+//        Collections.reverse(path);
+//        return path;
+//    }
+    private List<ShortPathPart> getDockingAreaShortPath(String dockingAreaId) {
+        DockingAreaPane dockingArea = dockingPane.getDockingArea(dockingAreaId);
+        return dockingArea.getShortPath();
+    }
 }
