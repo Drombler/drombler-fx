@@ -5,77 +5,51 @@
 package org.javafxplatform.core.docking.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Orientation;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Control;
 import org.javafxplatform.core.docking.DockablePane;
-import org.richclientplatform.core.docking.processing.DockingAreaDescriptor;
+import org.javafxplatform.core.docking.skin.Stylesheets;
+import org.richclientplatform.core.docking.processing.DockingAreaContainer;
+import org.richclientplatform.core.docking.processing.DockingAreaContainerDockingAreaEvent;
+import org.richclientplatform.core.docking.processing.DockingAreaContainerListener;
+import org.richclientplatform.core.lib.util.PositionableAdapter;
 
 /**
  *
  * @author puce
  */
-class DockingPane extends BorderPane {// GridPane {
+public class DockingPane extends Control implements DockingAreaContainer<DockingAreaPane, DockablePane> {//extends BorderPane {// GridPane {
 
-//    private static final EnumSet<Side> BEFORE_SIDES = EnumSet.of(Side.LEFT, Side.TOP);
+    private static final String DEFAULT_STYLE_CLASS = "docking-pane";
     private final Map<String, DockingAreaPane> dockingAreaPanes = new HashMap<>();
-    private final DockingSplitPane rootSplitPane = new DockingSplitPane(0, Orientation.VERTICAL);
-//    private final DockingAreaPath rootPath = new DockingAreaPath(Orientation.VERTICAL, 0);
-    private final List<Integer> skippedPath = new ArrayList<>();
+    private final DockingAreaManager dockingAreaManager = new DockingAreaManager(null, null, 0, Orientation.VERTICAL);
+    private final List<DockingAreaContainerListener<DockingAreaPane, DockablePane>> listeners = new ArrayList<>();
+    private final Map<String, List<PositionableAdapter<DockablePane>>> unresolvedDockables = new HashMap<>();
 
     public DockingPane() {
-        setCenter(rootSplitPane);
+        getStyleClass().setAll(DEFAULT_STYLE_CLASS);
     }
 
-    public void addDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
-        DockingAreaPane dockingAreaPane = new DockingAreaPane(dockingAreaDescriptor.getPosition());
-        dockingAreaPanes.put(dockingAreaDescriptor.getId(), dockingAreaPane);
-        DockingSplitPane currentSplitPane = getParentSplitPane(dockingAreaDescriptor.getPath());
-        currentSplitPane.addDockingArea(dockingAreaPane);
+    @Override
+    protected String getUserAgentStylesheet() {
+        return Stylesheets.getDefaultStylesheet();
     }
 
-    private DockingSplitPane getParentSplitPane(List<Integer> path) {
-        DockingSplitPane currentDockingSplitPane = rootSplitPane;
-        int firstPathIndex = getFirstPathIndex(path);
-        if (firstPathIndex > 0) {
-            path = path.subList(firstPathIndex, path.size());
-        }
-        if (skippedPath.size() > firstPathIndex) {
-        }
-        for (Iterator<Integer> pathIterator = path.iterator(); pathIterator.hasNext();) {
-            if (!currentDockingSplitPane.isEmpty()) {
-                int currentPath = pathIterator.next();
-                currentDockingSplitPane = currentDockingSplitPane.getSplitPane(currentPath);
-            } else {
-                List<Integer> currentSkippedPath = new ArrayList<>();
-                do {
-                    skippedPath.add(pathIterator.next());
-                } while (pathIterator.hasNext());
-                currentDockingSplitPane.setSkippedPath(currentSkippedPath);
-            }
-        }
-        return currentDockingSplitPane;
-    }
-
-    private int getFirstPathIndex(List<Integer> pathDescriptors) {
-        int firstPathIndex = 0;
-        Iterator<Integer> skippedPathIterator = skippedPath.iterator();
-        for (int currentPath : pathDescriptors) {
-            if (skippedPathIterator.hasNext()) {
-                int currentSkippedPath = skippedPathIterator.next();
-                if (currentPath == currentSkippedPath) {
-                    firstPathIndex++;
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-        return firstPathIndex;
+    @Override
+    public void addDockingArea(List<Integer> path, DockingAreaPane dockingAreaPane) {
+        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingAreaPane.getAreaId());
+        dockingAreaPanes.put(dockingAreaPane.getAreaId(), dockingAreaPane);
+        dockingAreaManager.addDockingArea(path, dockingAreaPane);
+        resolveUnresolvedDockables(dockingAreaPane.getAreaId());
+        DockingAreaContainerDockingAreaEvent<DockingAreaPane, DockablePane> event =
+                new DockingAreaContainerDockingAreaEvent<>(this, dockingAreaPane.getAreaId(), dockingAreaPane);
+        fireDockingPaneChangeEvent(event);
     }
 
 //    private DockingAreaPane getCurrentDockingArea() {
@@ -113,10 +87,16 @@ class DockingPane extends BorderPane {// GridPane {
 //    private Side getSide(DockingAreaPane currentDockingAreaPane, DockingAreaPane dockingAreaPane) {
 //        return Side.BOTTOM;
 //    }
-    public void addDockable(String areaId, DockablePane dockablePane) {
-        DockingAreaPane dockingArea = dockingAreaPanes.get(areaId);
+    @Override
+    public void addDockable(String areaId, PositionableAdapter<DockablePane> dockablePane) {
+        DockingAreaPane dockingArea = getDockingArea(areaId);
         if (dockingArea != null) { // TODO: needed?
             dockingArea.addDockable(dockablePane);
+        } else {
+            if (!unresolvedDockables.containsKey(areaId)) {
+                unresolvedDockables.put(areaId, new ArrayList<PositionableAdapter<DockablePane>>());
+            }
+            unresolvedDockables.get(areaId).add(dockablePane);
         }
     }
 
@@ -125,5 +105,58 @@ class DockingPane extends BorderPane {// GridPane {
      */
     DockingAreaPane getDockingArea(String areaId) {
         return dockingAreaPanes.get(areaId);
+    }
+
+    @Override
+    public void addDockingAreaContainerListener(DockingAreaContainerListener<DockingAreaPane, DockablePane> listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeDockingAreaContainerListener(DockingAreaContainerListener<DockingAreaPane, DockablePane> listener) {
+        listeners.remove(listener);
+    }
+
+    private void fireDockingPaneChangeEvent(DockingAreaContainerDockingAreaEvent<DockingAreaPane, DockablePane> event) {
+        for (DockingAreaContainerListener<DockingAreaPane, DockablePane> listener : listeners) {
+            listener.dockingAreaAdded(event);
+        }
+    }
+
+    private void resolveUnresolvedDockables(String areaId) {
+        if (unresolvedDockables.containsKey(areaId)) {
+            List<PositionableAdapter<DockablePane>> dockables = unresolvedDockables.remove(areaId);
+            for (PositionableAdapter<DockablePane> dockable : dockables) {
+                addDockable(areaId, dockable);
+            }
+        }
+    }
+//    public static class DockingAreaEntry {
+//
+//        private final DockingAreaPane dockingArea;
+//        private final List<Integer> preferredPath;
+//
+//        public DockingAreaEntry(DockingAreaPane dockingArea, List<Integer> preferredPath) {
+//            this.dockingArea = dockingArea;
+//            this.preferredPath = preferredPath;
+//        }
+//
+//        /**
+//         * @return the dockingArea
+//         */
+//        public DockingAreaPane getDockingArea() {
+//            return dockingArea;
+//        }
+//
+//        /**
+//         * @return the preferredPath
+//         */
+//        public List<Integer> getPreferredPath() {
+//            return Collections.unmodifiableList(preferredPath);
+//        }
+//    }
+
+    public Collection<DockingAreaPane> getAllDockingAreas() {
+        return dockingAreaPanes.values();
     }
 }

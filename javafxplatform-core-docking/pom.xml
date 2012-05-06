@@ -55,6 +55,11 @@
             <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>org.richclientplatform</groupId>
+            <artifactId>richclientplatform-core-util</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
             <scope>system</scope>
@@ -105,6 +110,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.softsmithy.devlib</groupId>
+            <artifactId>softsmithy-devlib-core</artifactId>
+            <version>${dependency.softsmithy.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

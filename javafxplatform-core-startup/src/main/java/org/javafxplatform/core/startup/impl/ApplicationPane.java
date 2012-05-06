@@ -5,10 +5,12 @@
 package org.javafxplatform.core.startup.impl;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -86,7 +88,7 @@ public class ApplicationPane extends BorderPane implements MenuBarMenuContainerP
         return controller.toolBarContainerPane;
     }
 
-    public static class Controller {//implements Initializable {
+    public static class Controller implements Initializable {
 
         @FXML
         private MenuBar menuBar;
@@ -94,16 +96,10 @@ public class ApplicationPane extends BorderPane implements MenuBarMenuContainerP
         private ToolBarContainerPane toolBarContainerPane;
         @FXML
         private BorderPane contentPane;
-//        @Override
-//        public void initialize(URL url, ResourceBundle rb) {
-//            Menu menuFile = new Menu("File");
-//
-//            MenuItem exitItem = new MenuItem("exit");
-//            exitItem.setOnAction(new ExitAction());
-//
-//            menuFile.getItems().add(exitItem);
-//
-//            menuBar.getMenus().addAll(menuFile);
-//        }
+
+        @Override
+        public void initialize(URL url, ResourceBundle rb) {
+            menuBar.useSystemMenuBarProperty();
+        }
     }
 }

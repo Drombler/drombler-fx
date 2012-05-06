@@ -4,63 +4,93 @@
  */
 package org.javafxplatform.core.docking.impl;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
+import java.util.List;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.javafxplatform.core.docking.DockablePane;
+import org.javafxplatform.core.docking.skin.Stylesheets;
+import org.richclientplatform.core.lib.util.PositionableAdapter;
+import org.richclientplatform.core.lib.util.Positionables;
 
 /**
  *
  * @author puce
  */
-class DockingAreaPane extends BorderPane implements DockingSplitPaneChild {
+public class DockingAreaPane extends DockingSplitPaneChildBase {
 
-    private final TabPane tabPane;
-    private final int position;
+    private static final String DEFAULT_STYLE_CLASS = "docking-area-pane";
+    private final String areaId;
+    private final ObservableList<PositionableAdapter<DockablePane>> dockables = FXCollections.observableArrayList();
+    private final boolean permanent;
+    private DockingAreaManager parentManager;
+    private BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
 
-    public DockingAreaPane(int position) {
-        tabPane = new TabPane();
-        Tab tab = new Tab();
-        tab.setText("Test");
-        tab.setContent(new Label("Hello world!"));
-        tabPane.getTabs().add(tab);
-        setCenter(tabPane);
-        this.position = position;
-    }
-    private final ObjectProperty<DockingSplitPane> parentSplitPane = new SimpleObjectProperty<>(this,
-            "parentSplitPane", null);
-
-    public DockingSplitPane getParentSplitPane() {
-        return parentSplitPane.get();
+    public DockingAreaPane(String areaId, int position, boolean permanent) {
+        super(position, false);
+        this.areaId = areaId;
+        this.permanent = permanent;
+        getStyleClass().setAll(DEFAULT_STYLE_CLASS);
     }
 
     @Override
-    public void setParentSplitPane(DockingSplitPane parentSplitPane) {
-        this.parentSplitPane.set(parentSplitPane);
+    protected String getUserAgentStylesheet() {
+        return Stylesheets.getDefaultStylesheet();
     }
 
-    public ObjectProperty<DockingSplitPane> parentSplitPaneProperty() {
-        return parentSplitPane;
+    /**
+     * @return the areaId
+     */
+    public String getAreaId() {
+        return areaId;
     }
 
-    public void addDockable(DockablePane dockable) {
-        Tab tab = new Tab();
-        tab.textProperty().bind(dockable.titleProperty());
-        tab.contextMenuProperty().bind(dockable.contextMenuProperty());
-        tab.setContent(dockable);
-        tabPane.getTabs().add(tab);
+    public final boolean isVisualized() {
+        return visualizedProperty().get();
     }
 
-    @Override
-    public boolean isSplitPane() {
-        return false;
+    public final void setVisualized(boolean visualized) {
+        visualizedProperty().set(visualized);
     }
 
-    @Override
-    public int getPosition() {
-        return position;
+    public BooleanProperty visualizedProperty() {
+        return visualized;
     }
+
+    public void addDockable(PositionableAdapter<DockablePane> dockable) {
+        int insertionPoint = Positionables.getInsertionPoint(dockables, dockable);
+        dockables.add(insertionPoint, dockable);
+    }
+
+    public PositionableAdapter<DockablePane> removeDockable(int index) {
+        return dockables.remove(index);
+    }
+
+    /**
+     * @return the dockablePanes
+     */
+    public ObservableList<PositionableAdapter<DockablePane>> getDockables() {
+        return FXCollections.unmodifiableObservableList(dockables);
+    }
+
+    /**
+     * @return the permanent
+     */
+    public boolean isPermanent() {
+        return permanent;
+    }
+
+    public void setParentManager(DockingAreaManager parentManager) {
+        this.parentManager = parentManager;
+    }
+
+    public List<ShortPathPart> getShortPath() {
+        return parentManager.getShortPath(this);
+    }
+
+    public boolean isVisualizable() {
+        return isPermanent() || !getDockables().isEmpty();
+    }
+
 }
