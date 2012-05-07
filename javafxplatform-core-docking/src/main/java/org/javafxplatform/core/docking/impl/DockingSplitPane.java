@@ -271,7 +271,13 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     private void copyContentTo(DockingSplitPane splitPane) {
 //        splitPane.shortPathParts.putAll(shortPathParts);
         splitPane.areaPanes.putAll(areaPanes);
+        for (PositionableAdapter<DockingAreaPane> areaPane : splitPane.areaPanes.values()) {
+            areaPane.getAdapted().setParentSplitPane(splitPane);
+        }
         splitPane.splitPanes.putAll(splitPanes);
+        for (DockingSplitPane childSplitPane : splitPane.splitPanes.values()) {
+            childSplitPane.setParentSplitPane(splitPane);
+        }
         splitPane.positionableChildren.addAll(positionableChildren);
         splitPane.dockingSplitPaneChildren.addAll(dockingSplitPaneChildren);
     }
