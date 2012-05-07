@@ -4,7 +4,9 @@
  */
 package org.javafxplatform.core.docking.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -23,6 +25,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     private static final String DEFAULT_STYLE_CLASS = "docking-area-pane";
     private final String areaId;
     private final ObservableList<PositionableAdapter<DockablePane>> dockables = FXCollections.observableArrayList();
+    private final Set<DockablePane> dockableSet = new HashSet<>();
     private final int position;
     private final boolean permanent;
     private DockingAreaManager parentManager;
@@ -65,12 +68,17 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     }
 
     public void addDockable(PositionableAdapter<DockablePane> dockable) {
-        int insertionPoint = Positionables.getInsertionPoint(dockables, dockable);
-        dockables.add(insertionPoint, dockable);
+        if (!dockableSet.contains(dockable.getAdapted())) {
+            dockableSet.add(dockable.getAdapted());
+            int insertionPoint = Positionables.getInsertionPoint(dockables, dockable);
+            dockables.add(insertionPoint, dockable);
+        }
     }
 
     public PositionableAdapter<DockablePane> removeDockable(int index) {
-        return dockables.remove(index);
+        PositionableAdapter<DockablePane> dockable = dockables.remove(index);
+        dockableSet.remove(dockable.getAdapted());
+        return dockable;
     }
 
     /**
@@ -87,7 +95,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         return permanent;
     }
 
-    public void setParentManager(DockingAreaManager parentManager) {
+    void setParentManager(DockingAreaManager parentManager) {
         this.parentManager = parentManager;
     }
 
