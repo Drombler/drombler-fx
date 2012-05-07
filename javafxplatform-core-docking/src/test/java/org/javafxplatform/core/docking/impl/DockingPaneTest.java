@@ -23,6 +23,10 @@ public class DockingPaneTest {
     private static final String TEST1 = "test1";
     private static final String TEST2 = "test2";
     private static final String TEST3 = "test3";
+    private static final String LEFT = "left";
+    private static final String RIGHT = "right";
+    private static final String TOP = "top";
+    private static final String BOTTOM = "bottom";
     private DockingPane dockingPane;
 
     public DockingPaneTest() {
@@ -114,6 +118,33 @@ public class DockingPaneTest {
         assertEquals(Arrays.asList(
                 new ShortPathPart(10, 0, Orientation.VERTICAL),
                 new ShortPathPart(40, 1, Orientation.HORIZONTAL)), pathTest2);
+    }
+
+    @Test
+    public void testAddDockingArea5() {
+        System.out.println("addDockingArea5");
+        addDockingArea(20, LEFT, 20, 20);
+        addDockingArea(20, RIGHT, 20, 80);
+        addDockingArea(20, TOP, 20, 40, 20);
+        addDockingArea(20, BOTTOM, 20, 40, 80);
+
+        List<ShortPathPart> leftPath = getDockingAreaShortPath(LEFT);
+        assertEquals(Arrays.asList(
+                new ShortPathPart(20, 1, Orientation.HORIZONTAL)), leftPath);
+
+        List<ShortPathPart> rightPath = getDockingAreaShortPath(RIGHT);
+        assertEquals(Arrays.asList(
+                new ShortPathPart(80, 1, Orientation.HORIZONTAL)), rightPath);
+
+        List<ShortPathPart> topPath = getDockingAreaShortPath(TOP);
+        assertEquals(Arrays.asList(
+                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
+                new ShortPathPart(20, 2, Orientation.VERTICAL)), topPath);
+
+        List<ShortPathPart> bottomPath = getDockingAreaShortPath(BOTTOM);
+        assertEquals(Arrays.asList(
+                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
+                new ShortPathPart(80, 2, Orientation.VERTICAL)), bottomPath);
     }
 
     private void addDockingArea(int position, String id, Integer... path) {
