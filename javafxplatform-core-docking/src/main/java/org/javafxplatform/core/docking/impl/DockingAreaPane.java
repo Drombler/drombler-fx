@@ -23,13 +23,15 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     private static final String DEFAULT_STYLE_CLASS = "docking-area-pane";
     private final String areaId;
     private final ObservableList<PositionableAdapter<DockablePane>> dockables = FXCollections.observableArrayList();
+    private final int position;
     private final boolean permanent;
     private DockingAreaManager parentManager;
     private BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
 
     public DockingAreaPane(String areaId, int position, boolean permanent) {
-        super(position, false);
+        super(false);
         this.areaId = areaId;
+        this.position = position;
         this.permanent = permanent;
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
     }
@@ -44,6 +46,10 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
      */
     public String getAreaId() {
         return areaId;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     public final boolean isVisualized() {
@@ -92,5 +98,4 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     public boolean isVisualizable() {
         return isPermanent() || !getDockables().isEmpty();
     }
-
 }

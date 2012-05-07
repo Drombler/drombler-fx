@@ -77,7 +77,12 @@ public class DockingAreaManager {
         return orientation.equals(Orientation.HORIZONTAL) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
     }
 
-    public List<ShortPathPart> getShortPath(DockingAreaPane dockingArea) {
+    List<ShortPathPart> getShortPath(DockingAreaPane dockingArea) {
+        if (!(dockingAreas.containsKey(dockingArea.getPosition())
+                && dockingAreas.get(dockingArea.getPosition()).equals(dockingArea))) {
+            throw new IllegalStateException(
+                    "The specified docking area must be a child of this manager: " + dockingArea);
+        }
         List<ShortPathPart> shortPath = new ArrayList<>();
         Integer currentChildPosition = dockingArea.getPosition();
         for (DockingAreaManager currentParent = this; currentParent != null; currentParent = currentParent.parent) {
