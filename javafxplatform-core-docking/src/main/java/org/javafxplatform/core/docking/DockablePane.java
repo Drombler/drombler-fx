@@ -10,8 +10,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
+import org.javafxplatform.core.docking.impl.DockingAreaPane;
 import org.javafxplatform.core.docking.skin.Stylesheets;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 import org.richclientplatform.core.docking.Dockable;
+import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
 
 /**
  *
@@ -59,11 +64,18 @@ public class DockablePane extends Control implements Dockable {
 
     @Override
     public void open() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // TODO: cache ServiceReference? or even DockingAreaContainerProvider?
+        BundleContext bundleContext = FrameworkUtil.getBundle(DockablePane.class).getBundleContext();
+        ServiceReference<DockingAreaContainerProvider> serviceReference =
+                bundleContext.getServiceReference(DockingAreaContainerProvider.class);
+        DockingAreaContainerProvider<DockingAreaPane, DockablePane> dockingPaneProvider =
+                bundleContext.getService(serviceReference);
+        dockingPaneProvider.getDockingAreaContainer().addDockable(this);
+        bundleContext.ungetService(serviceReference);
     }
 
     @Override
     public void requestActive() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        requestFocus();
     }
 }

@@ -16,7 +16,7 @@ import javafx.geometry.Orientation;
  *
  * @author puce
  */
-public class DockingAreaManager {
+class DockingAreaManager {
 
     private final Map<Integer, DockingAreaPane> dockingAreas = new HashMap<>();
     private final Map<Integer, DockingAreaManager> dockingAreaManagers = new HashMap<>();

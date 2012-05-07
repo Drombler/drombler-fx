@@ -12,6 +12,8 @@ import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.richclientplatform.core.docking.spi.DockablePreferences;
+import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
 
 /**
@@ -28,13 +30,16 @@ public class DockingPaneTest {
     private static final String TOP = "top";
     private static final String BOTTOM = "bottom";
     private DockingPane dockingPane;
+    private DockablePreferencesManager<DockablePane> dockablePreferencesManager;
 
     public DockingPaneTest() {
     }
 
     @Before
     public void setUp() {
+        dockablePreferencesManager = new DockablePreferencesManagerImpl();
         dockingPane = new DockingPane();
+        dockingPane.setDockablePreferencesManager(dockablePreferencesManager);
     }
 
     @After
@@ -147,11 +152,15 @@ public class DockingPaneTest {
                 new ShortPathPart(80, 2, Orientation.VERTICAL)), bottomPath);
     }
 
-    private void addDockingArea(int position, String id, Integer... path) {
-        dockingPane.addDockingArea(Arrays.asList(path), new DockingAreaPane(id, position, false));
+    private void addDockingArea(int position, String areaId, Integer... path) {
+        dockingPane.addDockingArea(Arrays.asList(path), new DockingAreaPane(areaId, position, false));
 
         DockablePane dockablePane = new DockablePane();
-        dockingPane.addDockable(id, new PositionableAdapter<>(dockablePane, 10));
+        DockablePreferences dockablePreferences = new DockablePreferences();
+        dockablePreferences.setAreaId(areaId);
+        dockablePreferences.setPosition(10);
+        dockablePreferencesManager.registerDockablePreferences(dockablePane, dockablePreferences);
+        dockingPane.addDockable(dockablePane);
     }
 
 //    private List<Integer> getDockingAreaPath(String dockingAreaId) {

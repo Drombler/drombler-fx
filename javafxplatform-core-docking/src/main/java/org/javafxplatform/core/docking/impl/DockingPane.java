@@ -13,6 +13,8 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Control;
 import org.javafxplatform.core.docking.DockablePane;
 import org.javafxplatform.core.docking.skin.Stylesheets;
+import org.richclientplatform.core.docking.spi.DockablePreferences;
+import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
 import org.richclientplatform.core.docking.spi.DockingAreaContainer;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerListener;
@@ -28,7 +30,8 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
     private final Map<String, DockingAreaPane> dockingAreaPanes = new HashMap<>();
     private final DockingAreaManager dockingAreaManager = new DockingAreaManager(null, null, 0, Orientation.VERTICAL);
     private final List<DockingAreaContainerListener<DockingAreaPane, DockablePane>> listeners = new ArrayList<>();
-    private final Map<String, List<PositionableAdapter<DockablePane>>> unresolvedDockables = new HashMap<>();
+    private final Map<String, List<DockablePane>> unresolvedDockables = new HashMap<>();
+    private DockablePreferencesManager<DockablePane> dockablePreferencesManager;
 
     public DockingPane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
@@ -86,15 +89,17 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 //        return Side.BOTTOM;
 //    }
     @Override
-    public void addDockable(String areaId, PositionableAdapter<DockablePane> dockablePane) {
-        DockingAreaPane dockingArea = getDockingArea(areaId);
+    public void addDockable(DockablePane dockablePane) {
+        DockablePreferences dockablePreferences = dockablePreferencesManager.getDockablePreferences(dockablePane);
+        DockingAreaPane dockingArea = getDockingArea(dockablePreferences.getAreaId());
         if (dockingArea != null) { // TODO: needed?
-            dockingArea.addDockable(dockablePane);
+            dockingArea.addDockable(new PositionableAdapter<DockablePane>(dockablePane,
+                    dockablePreferences.getPosition()));
         } else {
-            if (!unresolvedDockables.containsKey(areaId)) {
-                unresolvedDockables.put(areaId, new ArrayList<PositionableAdapter<DockablePane>>());
+            if (!unresolvedDockables.containsKey(dockablePreferences.getAreaId())) {
+                unresolvedDockables.put(dockablePreferences.getAreaId(), new ArrayList<DockablePane>());
             }
-            unresolvedDockables.get(areaId).add(dockablePane);
+            unresolvedDockables.get(dockablePreferences.getAreaId()).add(dockablePane);
         }
     }
 
@@ -123,9 +128,9 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 
     private void resolveUnresolvedDockables(String areaId) {
         if (unresolvedDockables.containsKey(areaId)) {
-            List<PositionableAdapter<DockablePane>> dockables = unresolvedDockables.remove(areaId);
-            for (PositionableAdapter<DockablePane> dockable : dockables) {
-                addDockable(areaId, dockable);
+            List<DockablePane> dockables = unresolvedDockables.remove(areaId);
+            for (DockablePane dockable : dockables) {
+                addDockable(dockable);
             }
         }
     }
@@ -156,5 +161,9 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 
     public Collection<DockingAreaPane> getAllDockingAreas() {
         return dockingAreaPanes.values();
+    }
+
+    void setDockablePreferencesManager(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
+        this.dockablePreferencesManager = dockablePreferencesManager;
     }
 }

@@ -4,8 +4,10 @@
  */
 package org.javafxplatform.core.docking.impl;
 
+import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
 import javafx.scene.Node;
 import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.javafxplatform.core.application.ApplicationContentProvider;
 import org.javafxplatform.core.docking.DockablePane;
@@ -18,9 +20,18 @@ import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
  */
 @Component
 @Service
+@Reference(name = "dockablePreferencesManager", referenceInterface = DockablePreferencesManager.class)
 public class DockingPaneProvider implements ApplicationContentProvider, DockingAreaContainerProvider<DockingAreaPane, DockablePane> {
 
     private final DockingPane dockingPane = new DockingPane();
+
+    protected void bindDockablePreferencesManager(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
+        dockingPane.setDockablePreferencesManager(dockablePreferencesManager);
+    }
+
+    protected void unbindDockablePreferencesManager(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
+        dockingPane.setDockablePreferencesManager(null);
+    }
 
     @Override
     public Node getContentPane() {

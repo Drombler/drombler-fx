@@ -41,6 +41,12 @@
     <dependencies>
         <dependency>
             <groupId>org.javafxplatform</groupId>
+            <artifactId>javafxplatform-startup-main</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.javafxplatform</groupId>
             <artifactId>javafxplatform-core-application</artifactId>
             <version>${project.version}</version>
         </dependency>
