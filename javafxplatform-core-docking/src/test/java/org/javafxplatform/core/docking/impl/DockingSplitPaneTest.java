@@ -54,6 +54,7 @@ public class DockingSplitPaneTest {
         rootSplitPane.addDockingArea(test1);
         DockingSplitPane parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(0, parentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
@@ -67,6 +68,7 @@ public class DockingSplitPaneTest {
 
         DockingSplitPane parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(0, parentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
@@ -75,12 +77,14 @@ public class DockingSplitPaneTest {
         rootSplitPane.addDockingArea(test2);
         parentSplitPane = test2.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(1, parentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
 
         parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(1, parentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
@@ -96,6 +100,7 @@ public class DockingSplitPaneTest {
 
         DockingSplitPane parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(0, parentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
@@ -105,12 +110,14 @@ public class DockingSplitPaneTest {
         rootSplitPane.addDockingArea(test2);
         parentSplitPane = test2.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(0, parentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
 
         parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(0, parentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
@@ -125,6 +132,7 @@ public class DockingSplitPaneTest {
 
         DockingSplitPane parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(0, parentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
@@ -133,6 +141,7 @@ public class DockingSplitPaneTest {
         rootSplitPane.addDockingArea(test2);
         parentSplitPane = test2.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(1, parentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
@@ -140,6 +149,7 @@ public class DockingSplitPaneTest {
         // test1 
         parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(1, parentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
@@ -148,6 +158,7 @@ public class DockingSplitPaneTest {
         rootSplitPane.addDockingArea(test3);
         parentSplitPane = test3.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
         assertEquals(0, parentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
@@ -155,11 +166,13 @@ public class DockingSplitPaneTest {
         // test2
         parentSplitPane = test2.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(10, parentSplitPane.getPosition());
         assertEquals(1, parentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
 
         DockingSplitPane parentParentSplitPane = parentSplitPane.getParentSplitPane();
         assertNotNull(parentParentSplitPane);
+        assertEquals(0, parentParentSplitPane.getPosition());
         assertEquals(0, parentParentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentParentSplitPane.getOrientation());
         assertNull(parentParentSplitPane.getParentSplitPane());
@@ -167,11 +180,13 @@ public class DockingSplitPaneTest {
         // test1
         parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
+        assertEquals(10, parentSplitPane.getPosition());
         assertEquals(1, parentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
 
         parentParentSplitPane = parentSplitPane.getParentSplitPane();
         assertNotNull(parentParentSplitPane);
+        assertEquals(0, parentParentSplitPane.getPosition());
         assertEquals(0, parentParentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentParentSplitPane.getOrientation());
         assertNull(parentParentSplitPane.getParentSplitPane());
@@ -192,6 +207,7 @@ public class DockingSplitPaneTest {
         // left
         DockingSplitPane leftParentSplitPane = left.getParentSplitPane();
         assertNotNull(leftParentSplitPane);
+        assertEquals(0, leftParentSplitPane.getPosition());
         assertEquals(1, leftParentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, leftParentSplitPane.getOrientation());
         assertNull(leftParentSplitPane.getParentSplitPane());
@@ -199,6 +215,7 @@ public class DockingSplitPaneTest {
         // right
         DockingSplitPane rightParentSplitPane = right.getParentSplitPane();
         assertNotNull(rightParentSplitPane);
+        assertEquals(0, rightParentSplitPane.getPosition());
         assertEquals(1, rightParentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, rightParentSplitPane.getOrientation());
         assertNull(rightParentSplitPane.getParentSplitPane());
@@ -206,11 +223,13 @@ public class DockingSplitPaneTest {
         // top
         DockingSplitPane topParentSplitPane = top.getParentSplitPane();
         assertNotNull(topParentSplitPane);
+        assertEquals(40, topParentSplitPane.getPosition());
         assertEquals(2, topParentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, topParentSplitPane.getOrientation());
 
         DockingSplitPane topParentParentSplitPane = topParentSplitPane.getParentSplitPane();
         assertNotNull(topParentParentSplitPane);
+        assertEquals(0, topParentParentSplitPane.getPosition());
         assertEquals(1, topParentParentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, topParentParentSplitPane.getOrientation());
         assertNull(topParentParentSplitPane.getParentSplitPane());
@@ -219,11 +238,13 @@ public class DockingSplitPaneTest {
         //bottom
         DockingSplitPane bottomParentSplitPane = bottom.getParentSplitPane();
         assertNotNull(bottomParentSplitPane);
+        assertEquals(40, bottomParentSplitPane.getPosition());
         assertEquals(2, bottomParentSplitPane.getActualLevel());
         assertEquals(Orientation.VERTICAL, bottomParentSplitPane.getOrientation());
 
         DockingSplitPane bottomParentParentSplitPane = bottomParentSplitPane.getParentSplitPane();
         assertNotNull(bottomParentParentSplitPane);
+        assertEquals(0, bottomParentParentSplitPane.getPosition());
         assertEquals(1, bottomParentParentSplitPane.getActualLevel());
         assertEquals(Orientation.HORIZONTAL, bottomParentParentSplitPane.getOrientation());
         assertNull(bottomParentParentSplitPane.getParentSplitPane());

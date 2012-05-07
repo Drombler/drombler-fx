@@ -139,7 +139,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     }
 
     private void addSplitPane(ShortPathPart pathPart, DockingSplitPane splitPane) {
-        splitPanes.put(splitPane.position, splitPane);
+        splitPanes.put(splitPane.getPosition(), splitPane);
 //        if (areaPanes.containsKey(pos)) {
 //            DockingAreaPane areaPane = areaPanes.remove(pos);
 //            int index = Collections.binarySearch(dockingSplitPaneChildren, areaPane, new PositionableComparator());
@@ -245,15 +245,17 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
             if (isEmpty()) {
                 adjustLevelOnly(pathPart);
             } else {
-                if (getActualLevel() < pathPart.getInActualLevel()) {
-                    adjustLevelOnly(pathPart);
-                    removeAllDockingAreas(removedDockingAreas);
-                } else if (getActualLevel() > pathPart.getInActualLevel()) {
-                    DockingSplitPane splitPane = new DockingSplitPane(position, getActualLevel(), getOrientation());
-                    moveContentTo(splitPane);
-                    adjustLevelOnly(pathPart);
-                    addSplitPane(new ShortPathPart(position, getActualLevel(), getOrientation()), splitPane);
-                }
+                adjustLevelOnly(pathPart);
+                removeAllDockingAreas(removedDockingAreas);
+//                if (getActualLevel() < pathPart.getInActualLevel()) {
+//                    adjustLevelOnly(pathPart);
+//                    removeAllDockingAreas(removedDockingAreas);
+//                } else if (getActualLevel() > pathPart.getInActualLevel()) {
+//                    DockingSplitPane splitPane = new DockingSplitPane(getPosition(), getActualLevel(), getOrientation());
+//                    moveContentTo(splitPane);
+//                    adjustLevelOnly(pathPart);
+//                    addSplitPane(new ShortPathPart(getPosition(), getActualLevel(), getOrientation()), splitPane);
+//                }
             }
         }
     }
@@ -263,32 +265,32 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         setOrientation(pathPart.getInOrientation());
     }
 
-    private void moveContentTo(DockingSplitPane splitPane) {
-        copyContentTo(splitPane);
-        clearContent();
-    }
+//    private void moveContentTo(DockingSplitPane splitPane) {
+//        copyContentTo(splitPane);
+//        clearContent();
+//    }
 
-    private void copyContentTo(DockingSplitPane splitPane) {
-//        splitPane.shortPathParts.putAll(shortPathParts);
-        splitPane.areaPanes.putAll(areaPanes);
-        for (PositionableAdapter<DockingAreaPane> areaPane : splitPane.areaPanes.values()) {
-            areaPane.getAdapted().setParentSplitPane(splitPane);
-        }
-        splitPane.splitPanes.putAll(splitPanes);
-        for (DockingSplitPane childSplitPane : splitPane.splitPanes.values()) {
-            childSplitPane.setParentSplitPane(splitPane);
-        }
-        splitPane.positionableChildren.addAll(positionableChildren);
-        splitPane.dockingSplitPaneChildren.addAll(dockingSplitPaneChildren);
-    }
+//    private void copyContentTo(DockingSplitPane splitPane) {
+////        splitPane.shortPathParts.putAll(shortPathParts);
+//        splitPane.areaPanes.putAll(areaPanes);
+//        for (PositionableAdapter<DockingAreaPane> areaPane : splitPane.areaPanes.values()) {
+//            areaPane.getAdapted().setParentSplitPane(splitPane);
+//        }
+//        splitPane.splitPanes.putAll(splitPanes);
+//        for (DockingSplitPane childSplitPane : splitPane.splitPanes.values()) {
+//            childSplitPane.setParentSplitPane(splitPane);
+//        }
+//        splitPane.positionableChildren.addAll(positionableChildren);
+//        splitPane.dockingSplitPaneChildren.addAll(dockingSplitPaneChildren);
+//    }
 
-    private void clearContent() {
-//        shortPathParts.clear();
-        areaPanes.clear();
-        splitPanes.clear();
-        positionableChildren.clear();
-        dockingSplitPaneChildren.clear();
-    }
+//    private void clearContent() {
+////        shortPathParts.clear();
+//        areaPanes.clear();
+//        splitPanes.clear();
+//        positionableChildren.clear();
+//        dockingSplitPaneChildren.clear();
+//    }
 
     private void removeAllDockingAreas(List<PositionableAdapter<DockingAreaPane>> removedDockingAreas) {
         for (PositionableAdapter<DockingAreaPane> dockingArea : areaPanes.values()) {
@@ -320,9 +322,9 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     }
 
     private void removeSplitPane(DockingSplitPane splitPane) {
-        splitPanes.remove(splitPane.position);
+        splitPanes.remove(splitPane.getPosition());
         int index = Collections.binarySearch(positionableChildren,
-                new PositionableAdapter<>(splitPane, splitPane.position), new PositionableComparator());
+                new PositionableAdapter<>(splitPane, splitPane.getPosition()), new PositionableComparator());
         positionableChildren.remove(index);
         dockingSplitPaneChildren.remove(index);
         remove(splitPane);
@@ -330,5 +332,12 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 
     private void remove(DockingSplitPaneChildBase dockingSplitPaneChild) {
         dockingSplitPaneChild.setParentSplitPane(null);
+    }
+
+    /**
+     * @return the position
+     */
+    public int getPosition() {
+        return position;
     }
 }
