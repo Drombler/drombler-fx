@@ -8,7 +8,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.javafxplatform.core.docking.DockablePane;
 import org.richclientplatform.core.docking.spi.DockableFactory;
-import org.richclientplatform.core.docking.spi.DockingDescriptor;
+import org.richclientplatform.core.docking.spi.ViewDockingDescriptor;
 
 /**
  *
@@ -21,7 +21,7 @@ public class FXDockableFactory implements DockableFactory<DockablePane> {
     private static final String MNEMONIC_CHAR = "_";
 
     @Override
-    public DockablePane createDockable(DockingDescriptor dockingDescriptor) {
+    public DockablePane createDockable(ViewDockingDescriptor dockingDescriptor) {
         DockablePane dockablePane = (DockablePane) dockingDescriptor.getDockable();
         dockablePane.setTitle(dockingDescriptor.getDisplayName().replace(MNEMONIC_CHAR, ""));
         return dockablePane;

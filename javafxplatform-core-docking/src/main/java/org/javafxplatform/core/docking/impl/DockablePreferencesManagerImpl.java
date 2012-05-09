@@ -20,11 +20,21 @@ import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
 @Service
 public class DockablePreferencesManagerImpl implements DockablePreferencesManager<DockablePane> {
 
+    private final Map<Class<?>, DockablePreferences> defaultDockablePreferencesMap = new HashMap<>();
     private final Map<DockablePane, DockablePreferences> dockablePreferencesMap = new HashMap<>();
 
     @Override
     public DockablePreferences getDockablePreferences(DockablePane dockable) {
-        return dockablePreferencesMap.get(dockable);
+        if (dockablePreferencesMap.containsKey(dockable)) {
+            return dockablePreferencesMap.get(dockable);
+        } else {
+            return defaultDockablePreferencesMap.get(dockable.getClass());
+        }
+    }
+
+    @Override
+    public void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences) {
+        defaultDockablePreferencesMap.put(dockableClass, dockablePreferences);
     }
 
     @Override
@@ -35,5 +45,10 @@ public class DockablePreferencesManagerImpl implements DockablePreferencesManage
     @Override
     public DockablePreferences unregisterDockablePreferences(DockablePane dockable) {
         return dockablePreferencesMap.remove(dockable);
+    }
+
+    @Override
+    public void reset() {
+        dockablePreferencesMap.clear();
     }
 }
