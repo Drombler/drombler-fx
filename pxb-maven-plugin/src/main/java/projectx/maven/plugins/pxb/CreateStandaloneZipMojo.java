@@ -4,7 +4,9 @@
  */
 package projectx.maven.plugins.pxb;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
@@ -71,6 +73,11 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      */
     private MavenProject project;
     /**
+     * @parameter expression="${platform.configProperties}"
+     * default-value="${basedir}/src/main/resources/config.properties"
+     */
+    private File configPropertiesFile;
+    /**
      * @component
      */
     private ArtifactRepositoryFactory artifactRepositoryFactory;
@@ -99,7 +106,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
             if (!Files.exists(binDirPath)) {
                 Files.createDirectories(binDirPath);
             }
-            
+
             createMainJar(binDirPath);
 
             Path confPath = targetDirPath.resolve(Main.CONFIG_DIRECTORY);
@@ -112,6 +119,11 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
 
             Properties configProperties = new Properties();
             configProperties.setProperty(Main.USER_DIR_PROPERTY, userdir);
+            if (configPropertiesFile != null && configPropertiesFile.exists()) {
+                try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(configPropertiesFile))) {
+                    configProperties.load(bis);
+                }
+            }
             writeProperties(configProperties, confPath, Main.CONFIG_PROPERTIES_FILE_VALUE);
 
 //            URI confURI = CreateStandaloneZipMojo.class.getResource("/conf").toURI();
@@ -142,7 +154,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
             Files.copy(mainJarPath, jarPath);
         }
 
-        try (FileSystem jarFS = FileSystems.newFileSystem(jarPath, null)){
+        try (FileSystem jarFS = FileSystems.newFileSystem(jarPath, null)) {
             FXUtils.copyMainClasses(jarFS.getPath("/"));
         }
     }
@@ -165,11 +177,11 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         reflectAbstractFromDependenciesMojo.setField("outputDirectory", bundleDirPath.toFile());
         reflectAbstractFromDependenciesMojo.setField("useRepositoryLayout", true);
         reflectAbstractFromDependenciesMojo.setField("copyPom", false);
-        
+
         ReflectMojo reflectAbstractDependencyFilterMojoMojo = new ReflectMojo(copyDependenciesMojo,
                 AbstractDependencyFilterMojo.class);
         reflectAbstractDependencyFilterMojoMojo.setField("excludeScope", "system");
-        
+
         ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyDependenciesMojo,
                 AbstractDependencyMojo.class);
         reflectAbstractDependencyMojo.setField("project", project);

@@ -4,7 +4,6 @@
  */
 package org.javafxplatform.core.action;
 
-import org.javafxplatform.core.action.impl.MenuMenuItemContainer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,10 +13,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import org.javafxplatform.core.action.impl.MenuMenuItemContainer;
+import org.javafxplatform.core.util.javafx.application.PlatformUtils;
 import org.richclientplatform.core.action.spi.MenuItemContainer;
 import org.richclientplatform.core.action.spi.PositionableMenuItemAdapter;
 import org.richclientplatform.core.lib.util.Positionables;
-import org.javafxplatform.core.util.javafx.fxml.application.PlatformUtils;
 
 /**
  *

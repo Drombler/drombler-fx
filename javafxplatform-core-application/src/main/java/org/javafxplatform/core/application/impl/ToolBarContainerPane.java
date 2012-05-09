@@ -6,7 +6,6 @@ package org.javafxplatform.core.application.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,7 +13,7 @@ import java.util.concurrent.ConcurrentMap;
 import javafx.scene.Node;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
-import org.javafxplatform.core.util.javafx.fxml.application.PlatformUtils;
+import org.javafxplatform.core.util.javafx.application.PlatformUtils;
 import org.richclientplatform.core.action.spi.ToolBarContainer;
 import org.richclientplatform.core.action.spi.ToolBarContainerListener;
 import org.richclientplatform.core.action.spi.ToolBarContainerToolBarButtonEvent;
