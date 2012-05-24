@@ -5,18 +5,16 @@
 package projectx.maven.plugins.pxb;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.maven.artifact.installer.ArtifactInstaller;
@@ -25,15 +23,16 @@ import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.dependency.AbstractDependencyMojo;
 import org.apache.maven.plugin.dependency.AbstractDependencyFilterMojo;
+import org.apache.maven.plugin.dependency.AbstractDependencyMojo;
 import org.apache.maven.plugin.dependency.AbstractFromDependenciesMojo;
 import org.apache.maven.plugin.dependency.CopyDependenciesMojo;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
 import org.ops4j.pax.construct.util.ReflectMojo;
-import org.richclientplatform.startup.main.Main;
-import org.softsmithy.lib.nio.file.CopyFileVisitor;
+import org.javafxplatform.core.application.impl.FXApplicationLauncher;
+import org.richclientplatform.startup.main.impl.ApplicationConfigProviderImpl;
+import org.richclientplatform.startup.main.impl.Main;
 import org.softsmithy.lib.nio.file.JarFiles;
 import projectx.maven.plugins.pxb.util.FXUtils;
 
@@ -51,6 +50,18 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      * @parameter expression="${platform.brandingId}" @required
      */
     private String brandingId;
+    /**
+     * @parameter expression="${platform.title}" @required
+     */
+    private String title;
+    /**
+     * @parameter expression="${platform.width}" @required
+     */
+    private double width;
+    /**
+     * @parameter expression="${platform.height}" @required
+     */
+    private String height;
     /**
      * @parameter expression="${platform.userdir}" default-value="${user.home}/.${brandingId}/${project.version}"
      * @required
@@ -77,6 +88,11 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      * default-value="${basedir}/src/main/resources/config.properties"
      */
     private File configPropertiesFile;
+    /**
+     * @parameter expression="${platform.systemProperties}"
+     * default-value="${basedir}/src/main/resources/system.properties"
+     */
+    private File systemPropertiesFile;
     /**
      * @component
      */
@@ -113,11 +129,17 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
             if (!Files.exists(confPath)) {
                 Files.createDirectories(confPath);
             }
-            userdir = userdir.replace("${brandingId}", brandingId);
             Properties systemProperties = new Properties();
+            if (systemPropertiesFile != null && systemPropertiesFile.exists()) {
+                try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(systemPropertiesFile))) {
+                    systemProperties.load(bis);
+                }
+            }
             writeProperties(systemProperties, confPath, Main.SYSTEM_PROPERTIES_FILE_VALUE);
 
+            userdir = userdir.replace("${brandingId}", brandingId);
             Properties configProperties = new Properties();
+            System.out.println("Userdir:" + userdir);
             configProperties.setProperty(Main.USER_DIR_PROPERTY, userdir);
             if (configPropertiesFile != null && configPropertiesFile.exists()) {
                 try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(configPropertiesFile))) {
@@ -134,6 +156,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
             copyBundles(targetDirPath);
 
         } catch (URISyntaxException | IOException ex) {
+            ex.printStackTrace();
             throw new MojoExecutionException("Creating standalone zip failed!", ex);
         }
     }
@@ -152,10 +175,22 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         Path mainJarPath = JarFiles.getJarPath(Main.class);
         if (!Files.exists(jarPath)) {
             Files.copy(mainJarPath, jarPath);
-        }
 
-        try (FileSystem jarFS = FileSystems.newFileSystem(jarPath, null)) {
-            FXUtils.copyMainClasses(jarFS.getPath("/"));
+            try (FileSystem jarFS = FileSystems.newFileSystem(jarPath, null)) {
+                FXUtils.copyMainClasses(jarFS.getPath("/"));
+                createApplicationConfigProperties(jarFS);
+            }
+        }
+    }
+
+    private void createApplicationConfigProperties(FileSystem jarFS) throws IOException {
+        Properties applicationConfigProperties = new Properties();
+        applicationConfigProperties.setProperty(FXApplicationLauncher.APPLICATION_TITLE_PROPERTY_NAME, title);
+        Path applicationConfigPropertiesPath = jarFS.getPath(
+                ApplicationConfigProviderImpl.APPLICATION_PROPERTIES_FILE_PATH);
+
+        try (OutputStream os = Files.newOutputStream(applicationConfigPropertiesPath)) {
+            applicationConfigProperties.store(os, null);
         }
     }
 
@@ -191,8 +226,8 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
 
     private void writeProperties(Properties properties, Path confPath, String propertiesFileName) throws IOException {
         Path propertiesFilePath = confPath.resolve(propertiesFileName);
-        try (OutputStream os = Files.newOutputStream(propertiesFilePath)) {
-            properties.store(os, "");
+        try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(propertiesFilePath))) {
+            properties.store(bos, "");
         }
     }
 }
