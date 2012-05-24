@@ -23,10 +23,10 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <instructions>
+<!--                    <instructions>
                         <Bundle-Activator>org.javafxplatform.core.application.impl.Activator</Bundle-Activator>
-<!--                        <Import-Bundle>org.wiring.package</Import-Bundle>-->
-                    </instructions>
+                        <Import-Bundle>org.wiring.package</Import-Bundle>
+                    </instructions>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -84,7 +84,6 @@
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr</artifactId>
             <version>1.6.0</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.richclientplatform</groupId>

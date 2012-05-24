@@ -31,8 +31,8 @@
                         <Bundle-Description>OSGi R4 framework.</Bundle-Description>
                         <Bundle-Vendor>The Apache Software Foundation</Bundle-Vendor>-->
                         <Embed-Dependency>*;artifactId=richclientplatform-startup-main;inline=true</Embed-Dependency>
-                        <Private-Package>org.javafxplatform.startup.main.*,org.richclientplatform.startup.main.*</Private-Package>
-                        <Export-Package>!org.osgi.service.log, !org.osgi.service.obr,org.osgi.*</Export-Package>
+                        <Private-Package>org.javafxplatform.startup.main.*</Private-Package>
+                        <Export-Package>!org.osgi.service.log, !org.osgi.service.obr,org.osgi.*, !org.richclientplatform.startup.main.impl.*, org.richclientplatform.startup.main.*</Export-Package>
                         <Import-Package>!*</Import-Package>
                     </instructions>
                 </configuration>

@@ -7,13 +7,13 @@ package org.javafxplatform.startup.main;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import org.richclientplatform.startup.main.CommandLineArgs;
+import org.richclientplatform.startup.main.impl.CommandLineArgs;
 
 /**
  *
  * @author puce
  */
-public class Main extends org.richclientplatform.startup.main.Main {
+public class Main extends org.richclientplatform.startup.main.impl.Main {
     /**
      * <p>
      * This method performs the main task of constructing an framework instance
