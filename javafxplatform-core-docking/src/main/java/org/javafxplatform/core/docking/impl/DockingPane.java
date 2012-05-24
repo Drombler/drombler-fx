@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Control;
 import org.javafxplatform.core.docking.DockablePane;
@@ -43,13 +45,38 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
     }
 
     @Override
-    public void addDockingArea(List<Integer> path, DockingAreaPane dockingAreaPane) {
-        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingAreaPane.getAreaId());
-        dockingAreaPanes.put(dockingAreaPane.getAreaId(), dockingAreaPane);
-        dockingAreaManager.addDockingArea(path, dockingAreaPane);
-        resolveUnresolvedDockables(dockingAreaPane.getAreaId());
+    public void addDockingArea(List<Integer> path, final DockingAreaPane dockingArea) {
+        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
+        dockingArea.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PositionableAdapter<DockablePane>>() {
+
+            @Override
+            public void changed(ObservableValue<? extends PositionableAdapter<DockablePane>> ov, PositionableAdapter<DockablePane> oldValue, PositionableAdapter<DockablePane> newValue) {
+                if (newValue != null) {
+                    System.out.println("Selected Dockable Changed: " + newValue.getAdapted().getTitle());
+                } else {
+                    System.out.println("Selected Dockable Changed: empty");
+                }
+            }
+        });
+        dockingArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newVlaue) {
+                if (newVlaue) {
+                    PositionableAdapter<DockablePane> selectedItem = dockingArea.getSelectionModel().getSelectedItem();
+                    if (selectedItem != null) {
+                        System.out.println("Selected Dockable Changed: " + selectedItem.getAdapted().getTitle());
+                    } else {
+                        System.out.println("Selected Dockable Changed: empty");
+                    }
+                }
+            }
+        });
+        dockingAreaPanes.put(dockingArea.getAreaId(), dockingArea);
+        dockingAreaManager.addDockingArea(path, dockingArea);
+        resolveUnresolvedDockables(dockingArea.getAreaId());
         DockingAreaContainerDockingAreaEvent<DockingAreaPane, DockablePane> event =
-                new DockingAreaContainerDockingAreaEvent<>(this, dockingAreaPane.getAreaId(), dockingAreaPane);
+                new DockingAreaContainerDockingAreaEvent<>(this, dockingArea.getAreaId(), dockingArea);
         fireDockingPaneChangeEvent(event);
     }
 

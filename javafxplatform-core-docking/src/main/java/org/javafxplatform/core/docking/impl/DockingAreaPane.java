@@ -4,15 +4,20 @@
  */
 package org.javafxplatform.core.docking.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.SingleSelectionModel;
 import org.javafxplatform.core.docking.DockablePane;
 import org.javafxplatform.core.docking.skin.Stylesheets;
+import org.javafxplatform.core.util.javafx.scene.control.ListSingleSelectionModel;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
 import org.richclientplatform.core.lib.util.Positionables;
 
@@ -29,7 +34,10 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     private final int position;
     private final boolean permanent;
     private DockingAreaManager parentManager;
-    private BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
+    private final BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
+    private final ObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>> selectionModel =
+            new SimpleObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>>(
+            this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
 
     public DockingAreaPane(String areaId, int position, boolean permanent) {
         super(false);
@@ -65,6 +73,18 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
 
     public BooleanProperty visualizedProperty() {
         return visualized;
+    }
+
+    public final SingleSelectionModel<PositionableAdapter<DockablePane>> getSelectionModel() {
+        return singleModelProperty().get();
+    }
+
+    public final void setSelectionModel(SingleSelectionModel<PositionableAdapter<DockablePane>> selectionModel) {
+        singleModelProperty().set(selectionModel);
+    }
+
+    public final ObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>> singleModelProperty() {
+        return selectionModel;
     }
 
     public void addDockable(PositionableAdapter<DockablePane> dockable) {

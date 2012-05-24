@@ -4,9 +4,12 @@
  */
 package org.javafxplatform.core.docking.skin;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
 import javafx.scene.Node;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -81,6 +84,40 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
         for (PositionableAdapter<DockablePane> dockable : control.getDockables()) {
             addTab(dockable);
         }
+
+        control.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
+                tabPane.getSelectionModel().select(newValue.intValue());
+            }
+        });
+
+        tabPane.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
+                DockingAreaPaneSkin.this.control.getSelectionModel().select(newValue.intValue());
+            }
+        });
+
+        tabPane.getSelectionModel().select(control.getSelectionModel().getSelectedIndex());
+        
+        tabPane.focusedProperty().addListener(new ChangeListener<Boolean>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newVlaue) {
+                if (newVlaue) {
+                    Tab tab = tabPane.getSelectionModel().getSelectedItem();
+                    if (tab != null) {
+                        System.out.println("Selected Tab Changed: " + tab.getText());
+                    } else {
+                        System.out.println("Selected Tab Changed: empty");
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
