@@ -61,7 +61,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
     /**
      * @parameter expression="${platform.height}" @required
      */
-    private String height;
+    private double height;
     /**
      * @parameter expression="${platform.userdir}" default-value="${user.home}/.${brandingId}/${project.version}"
      * @required
@@ -186,6 +186,10 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
     private void createApplicationConfigProperties(FileSystem jarFS) throws IOException {
         Properties applicationConfigProperties = new Properties();
         applicationConfigProperties.setProperty(FXApplicationLauncher.APPLICATION_TITLE_PROPERTY_NAME, title);
+        applicationConfigProperties.setProperty(FXApplicationLauncher.APPLICATION_WIDTH_PROPERTY_NAME,
+                Double.toString(width));
+        applicationConfigProperties.setProperty(FXApplicationLauncher.APPLICATION_HEIGHT_PROPERTY_NAME,
+                Double.toString(height));
         Path applicationConfigPropertiesPath = jarFS.getPath(
                 ApplicationConfigProviderImpl.APPLICATION_PROPERTIES_FILE_PATH);
 

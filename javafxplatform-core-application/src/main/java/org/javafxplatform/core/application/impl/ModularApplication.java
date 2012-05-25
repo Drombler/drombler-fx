@@ -21,11 +21,19 @@ public class ModularApplication extends Application {
     // TODO: better way than static fields?
     private static BundleContext BUNDLE_CONTEXT;
     private static String APPLICATION_TITLE = "JavaFX Platform based Application";
+    private static double APPLICATION_WIDTH = 1024;
+    private static double APPLICATION_HEIGHT = 768;
 
-    public static void launch(BundleContext bundleContext, String applicationTitle) {
+    public static void launch(BundleContext bundleContext, String applicationTitle, double applicationWidth, double applicationHeight) {
         BUNDLE_CONTEXT = bundleContext;
         if (applicationTitle != null) {
             APPLICATION_TITLE = applicationTitle;
+        }
+        if (applicationWidth > 0) {
+            APPLICATION_WIDTH = applicationWidth;
+        }
+        if (applicationHeight > 0) {
+            APPLICATION_HEIGHT = applicationHeight;
         }
         Application.launch(ModularApplication.class);
     }
@@ -51,11 +59,11 @@ public class ModularApplication extends Application {
     }
 
     private double getWidth() {
-        return 1400;
+        return APPLICATION_WIDTH;
     }
 
     private double getHeight() {
-        return 1000;
+        return APPLICATION_HEIGHT;
     }
 
     private String getTitle() {

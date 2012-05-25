@@ -21,6 +21,10 @@
                 <extensions>true</extensions>
                 <configuration>
                     <brandingId>${brandingId}</brandingId>
+                    <brandingId>projectx</brandingId>
+                    <title>MyApplication ${project.version}</title>
+                    <width>1500</width>
+                    <height>1000</height>
                 </configuration>
             </plugin>
 

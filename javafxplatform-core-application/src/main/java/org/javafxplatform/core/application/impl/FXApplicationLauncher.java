@@ -28,6 +28,8 @@ public class FXApplicationLauncher {
 
 //    @Property(value = "JavaFX Platform based Application")
     public static final String APPLICATION_TITLE_PROPERTY_NAME = "platform.application.title";
+    public static final String APPLICATION_WIDTH_PROPERTY_NAME = "platform.application.width";
+    public static final String APPLICATION_HEIGHT_PROPERTY_NAME = "platform.application.height";
     @Reference
     private ApplicationConfigProvider applicationConfigProvider;
 
@@ -42,7 +44,26 @@ public class FXApplicationLauncher {
     @Activate
     protected void activate(ComponentContext context) {
         Map<String, String> applicationConfig = applicationConfigProvider.getApplicationConfig();
-        startJavaFXThread(context.getBundleContext(), applicationConfig.get(APPLICATION_TITLE_PROPERTY_NAME));
+
+        startJavaFXThread(context.getBundleContext(),
+                applicationConfig.get(APPLICATION_TITLE_PROPERTY_NAME),
+                getApplicationConfigDouble(applicationConfig, APPLICATION_WIDTH_PROPERTY_NAME, -1,
+                "Application width is not a double: {0}"),
+                getApplicationConfigDouble(applicationConfig, APPLICATION_HEIGHT_PROPERTY_NAME, -1,
+                "Application width is not a double: {0}"));
+    }
+
+    private double getApplicationConfigDouble(Map<String, String> applicationConfig, String key, double defaultValue, String errorMessageFormat) {
+        double value = defaultValue;
+        if (applicationConfig.containsKey(key)) {
+            try {
+                value = Double.parseDouble(applicationConfig.get(key));
+            } catch (Exception ex) {
+                Logger.getLogger(FXApplicationLauncher.class.getName()).log(Level.SEVERE,
+                        errorMessageFormat, applicationConfig.get(key));
+            }
+        }
+        return value;
     }
 
     @Deactivate
@@ -50,12 +71,13 @@ public class FXApplicationLauncher {
         stopJavaFXThread();
     }
 
-    private void startJavaFXThread(final BundleContext context, final String applicationTitle) {
+    private void startJavaFXThread(final BundleContext context, final String applicationTitle, final double applicationWidth,
+            final double applicationHeight) {
         Thread javaFXThread = Executors.defaultThreadFactory().newThread(new Runnable() {
 
             @Override
             public void run() {
-                ModularApplication.launch(context, applicationTitle);
+                ModularApplication.launch(context, applicationTitle, applicationWidth, applicationHeight);
                 shutdownFramework();
             }
 
