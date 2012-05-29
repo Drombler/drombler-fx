@@ -27,6 +27,51 @@
         <dependencies>
             <dependency>
                 <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-core-action</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-core-action-spi</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-core-application</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-core-docking</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-core-docking-spi</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-core-standard-action</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-core-standard-docking</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-core-util</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
+                <artifactId>richclientplatform-locale-all</artifactId>
+                <version>${richclientplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richclientplatform</groupId>
                 <artifactId>richclientplatform-startup-main</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
