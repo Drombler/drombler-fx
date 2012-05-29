@@ -26,7 +26,7 @@
         </goals>
         <properties>
 <!--            <exec.args>-jar ${symbol_dollar}{project.build.directory}/deployment/standalone/bin/projectx.jar</exec.args>-->
-            <exec.args>-Xbootclasspath/p:${symbol_dollar}{basedir}/lib/jsr-310-ri-0.6.3.jar -classpath ${symbol_dollar}{env.OPENJFX_HOME}/rt/javafx-ui-controls/dist/javafx-ui-controls.jar:${symbol_dollar}{env.OPENJFX_HOME}/artifacts/sdk/rt/lib/jfxrt.jar:${symbol_dollar}{project.build.directory}/deployment/standalone/bin/projectx.jar -Djavafx.verbose=true com.javafx.main.Main</exec.args>
+            <exec.args>-classpath \${project.build.directory}/deployment/standalone/bin/\${brandingId}.jar -Djavafx.verbose=true com.javafx.main.Main</exec.args>
 <!--            <exec.longClasspath>true</exec.longClasspath>-->
             <exec.executable>java</exec.executable>
             <exec.classpathScope>runtime</exec.classpathScope>
@@ -52,7 +52,7 @@
             <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>   
         </goals>
         <properties>
-            <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${symbol_dollar}{jpda.address}  -Xbootclasspath/p:${symbol_dollar}{basedir}/lib/jsr-310-ri-0.6.3.jar -classpath ${symbol_dollar}{env.OPENJFX_HOME}/rt/javafx-ui-controls/dist/javafx-ui-controls.jar:${symbol_dollar}{env.OPENJFX_HOME}/artifacts/sdk/rt/lib/jfxrt.jar:${symbol_dollar}{project.build.directory}/deployment/standalone/bin/projectx.jar -Djavafx.verbose=true com.javafx.main.Main</exec.args>
+            <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=\${jpda.address}  -classpath \${project.build.directory}/deployment/standalone/bin/\${brandingId}.jar -Djavafx.verbose=true com.javafx.main.Main</exec.args>
             <exec.executable>java</exec.executable>
             <exec.classpathScope>runtime</exec.classpathScope>
             <jpda.listen>true</jpda.listen>

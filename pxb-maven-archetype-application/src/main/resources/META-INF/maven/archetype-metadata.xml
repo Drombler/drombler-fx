@@ -22,7 +22,22 @@
     <modules>
         <module id="${rootArtifactId}-parent" dir="__rootArtifactId__-parent" name="${rootArtifactId}-parent-name" />
         <module id="${rootArtifactId}-application" dir="__rootArtifactId__-application" name="${rootArtifactId}-application" />
-        <module id="${rootArtifactId}-sample" dir="__rootArtifactId__-sample" name="${rootArtifactId}-sample" />
+        <module id="${rootArtifactId}-sample" dir="__rootArtifactId__-sample" name="${rootArtifactId}-sample" >
+            <fileSets>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                    <includes>
+                        <include>**/*.properties</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
             
 <!--        <module id="contactcenter-desktop-app" dir="contactcenter-desktop-app" name="contactcenter-desktop-app">
             <fileSets>

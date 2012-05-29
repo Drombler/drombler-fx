@@ -2,27 +2,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>${groupId}</groupId>
-        <artifactId>${rootArtifactId}-parent</artifactId>
-        <version>${version}</version>
-        <relativePath>../${rootArtifactId}-parent</relativePath>
+        <groupId>\${groupId}</groupId>
+        <artifactId>\${rootArtifactId}-parent</artifactId>
+        <version>\${version}</version>
+        <relativePath>../\${rootArtifactId}-parent</relativePath>
     </parent>
-    <artifactId>${artifactId}</artifactId>
+    <artifactId>\${artifactId}</artifactId>
     <packaging>pxb-application2</packaging>
 
-    <name>${artifactId}</name>
+    <name>\${artifactId}</name>
 
     <build>
         <plugins>
             <plugin>  
                 <groupId>projectx.maven.plugins</groupId>
                 <artifactId>pxb-maven-plugin</artifactId>
-                <version>0.1-SNAPSHOT</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <brandingId>${brandingId}</brandingId>
-                    <brandingId>projectx</brandingId>
-                    <title>MyApplication ${project.version}</title>
+                    <brandingId>\${brandingId}</brandingId>
+                    <title>MyApplication \${project.version}</title>
                     <width>1500</width>
                     <height>1000</height>
                 </configuration>
@@ -33,41 +31,36 @@
     
     <dependencies>      
         <dependency>
-            <groupId>${groupId}</groupId>
-            <artifactId>${artifactId}-sample</artifactId>
-            <version>${project.version}</version>
+            <groupId>\${groupId}</groupId>
+            <artifactId>\${rootArtifactId}-sample</artifactId>
+            <version>\${project.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-startup</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <artifactId>javafxplatform-core-application</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.javafxplatform</groupId>
             <artifactId>javafxplatform-core-docking</artifactId>
-            <version>0.1-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.richclientplatform</groupId>
             <artifactId>richclientplatform-core-standard-docking</artifactId>
-            <version>0.1-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.javafxplatform</groupId>
             <artifactId>javafxplatform-locale-all</artifactId>
-            <version>0.1-SNAPSHOT</version>
             <scope>runtime</scope>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.compendium</artifactId>
-            <version>1.4.0</version>
             <scope>runtime</scope>
             <!-- Seems to be necessary for org.apache.felix:org.apache.felix.scr:1.6.0-->
         </dependency>

@@ -2,25 +2,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>${groupId}</groupId>
-        <artifactId>${rootArtifactId}-parent</artifactId>
-        <version>${version}</version>
-        <relativePath>${rootArtifactId}-parent</relativePath>
+        <groupId>\${groupId}</groupId>
+        <artifactId>\${rootArtifactId}-parent</artifactId>
+        <version>\${version}</version>
+        <relativePath>\${rootArtifactId}-parent</relativePath>
     </parent>
-    <artifactId>${artifactId}-all</artifactId>
+    <artifactId>\${artifactId}-all</artifactId>
     <packaging>pom</packaging>
 
-    <name>${artifactId}-all</name>
+    <name>\${artifactId}-all</name>
 
 
     <!-- Not inherited!?? -->
     <prerequisites>
-        <maven>${maven.version}</maven>
+        <maven>\${maven.version}</maven>
     </prerequisites>
     
     <modules>
-        <module>${rootArtifactId}-parent</module>
-        <module>${rootArtifactId}-application</module>
-        <module>${rootArtifactId}-sample</module>
+        <module>\${rootArtifactId}-parent</module>
+        <module>\${rootArtifactId}-application</module>
+        <module>\${rootArtifactId}-sample</module>
     </modules>
 </project>

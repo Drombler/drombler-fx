@@ -3,10 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.projectx</groupId>
-        <artifactId>projectx-oss-parent</artifactId>
+        <groupId>org.javafxplatform</groupId>
+        <artifactId>javafxplatform-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath></relativePath>
+        <relativePath>../javafxplatform-parent</relativePath>
     </parent>
     <groupId>projectx.maven.plugins</groupId>
     <artifactId>pxb-maven-archetype-application</artifactId>
@@ -15,7 +15,8 @@
     <name>pxb-maven-archetype-application</name>
     
     <properties>
-        <main-resources.filtering>false</main-resources.filtering>
+<!--        <main-resources.filtering>false</main-resources.filtering>-->
+        <maven.resources.escapeString>\</maven.resources.escapeString>
     </properties>
     
     <build>

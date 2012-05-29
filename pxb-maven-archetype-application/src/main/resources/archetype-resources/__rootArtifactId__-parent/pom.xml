@@ -5,29 +5,68 @@
         <groupId>org.javafxplatform</groupId>
         <artifactId>javafxplatform-parent</artifactId>
         <version>${project.version}</version>
+        <relativePath></relativePath>
     </parent>
-    <groupId>${groupId}</groupId>
-    <artifactId>${artifactId}</artifactId>
-    <version>${version}</version>
+    <groupId>\${groupId}</groupId>
+    <artifactId>\${artifactId}</artifactId>
+    <version>\${version}</version>
     <packaging>pom</packaging>
  
-    <name>${artifactId}</name>
+    <name>\${artifactId}</name>
 
-
+    <properties>
+        <javafxplatform.version>${project.version}</javafxplatform.version>
+    </properties>
+    
     <!-- Not inherited!?? -->
     <prerequisites>
-        <maven>${maven.version}</maven>
+        <maven>\${maven.version}</maven>
     </prerequisites>
+    
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>  
+                    <groupId>projectx.maven.plugins</groupId>
+                    <artifactId>pxb-maven-plugin</artifactId>
+                    <version>${javafxplatform.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
     
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>javafx</groupId>
-                <artifactId>jfxrt</artifactId>
-                <version>2.1.0-beta</version>
-                <type>jar</type>
-                <scope>system</scope>
-                <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
+                <groupId>org.javafxplatform</groupId>
+                <artifactId>javafxplatform-core-action</artifactId>
+                <version>${javafxplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javafxplatform</groupId>
+                <artifactId>javafxplatform-core-application</artifactId>
+                <version>${javafxplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javafxplatform</groupId>
+                <artifactId>javafxplatform-core-docking</artifactId>
+                <version>${javafxplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javafxplatform</groupId>
+                <artifactId>javafxplatform-core-util</artifactId>
+                <version>${javafxplatform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javafxplatform</groupId>
+                <artifactId>javafxplatform-locale-all</artifactId>
+                <version>${javafxplatform.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.javafxplatform</groupId>
+                <artifactId>javafxplatform-startup-main</artifactId>
+                <version>${javafxplatform.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
