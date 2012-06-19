@@ -43,6 +43,7 @@
         <dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
+            <scope>system</scope>
         </dependency>
     </dependencies>
 </project>

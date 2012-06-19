@@ -20,8 +20,17 @@
         </fileSet>
     </fileSets>
     <modules>
-        <module id="${rootArtifactId}-parent" dir="__rootArtifactId__-parent" name="${rootArtifactId}-parent-name" />
-        <module id="${rootArtifactId}-application" dir="__rootArtifactId__-application" name="${rootArtifactId}-application" />
+        <module id="${rootArtifactId}-parent" dir="__rootArtifactId__-parent" name="${rootArtifactId}-parent" />
+        <module id="${rootArtifactId}-application" dir="__rootArtifactId__-application" name="${rootArtifactId}-application">
+            <fileSets>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory></directory>
+                    <includes>
+                        <include>nbactions.xml</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
         <module id="${rootArtifactId}-sample" dir="__rootArtifactId__-sample" name="${rootArtifactId}-sample" >
             <fileSets>
                 <fileSet packaged="true" filtered="true" encoding="UTF-8">
@@ -38,97 +47,5 @@
                 </fileSet>
             </fileSets>
         </module>
-            
-<!--        <module id="contactcenter-desktop-app" dir="contactcenter-desktop-app" name="contactcenter-desktop-app">
-            <fileSets>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory>src/main/resources</directory>
-                    <includes>
-                        <include>**/*.properties</include>
-                    </includes>
-                </fileSet>
-                <fileSet encoding="UTF-8">
-                    <directory>src/main/resources</directory>
-                    <includes>
-                        <include>**/*.fxml</include>
-                        <include>**/*.gif</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory>old/ant</directory>
-                    <includes>
-                        <include>**/*.xml</include>
-                        <include>**/*.properties</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory></directory>
-                    <includes>
-                        <include>nb-configuration.xml</include>
-                    </includes>
-                </fileSet>
-                <fileSet encoding="UTF-8">
-                    <directory></directory>
-                    <includes>
-                        <include>manifest.mf</include>
-                    </includes>
-                </fileSet>
-            </fileSets>
-        </module>
-        <module id="contactcenter-desktop-runner" dir="contactcenter-desktop-runner" name="contactcenter-desktop-runner">
-            <fileSets>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory></directory>
-                    <includes>
-                        <include>nb-configuration.xml</include>
-                        <include>nbactions.xml</include>
-                    </includes>
-                </fileSet>
-            </fileSets>
-        </module>
-        <module id="contactcenter-desktop-app2" dir="contactcenter-desktop-app2" name="contactcenter-desktop-app2">
-            <fileSets>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory>src/main/assembly</directory>
-                    <includes>
-                        <include>**/*.xml</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory></directory>
-                    <includes>
-                        <include>nbactions.xml</include>
-                    </includes>
-                </fileSet>
-            </fileSets>
-        </module>
-        <module id="contactcenter-desktop-core" dir="contactcenter-desktop-core" name="contactcenter-desktop-core">
-            <fileSets>
-                <fileSet filtered="true" packaged="true" encoding="UTF-8">
-                    <directory>src/main/java</directory>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                </fileSet>
-                <fileSet filtered="true" encoding="UTF-8">
-                    <directory>src/main/resources</directory>
-                    <includes>
-                        <include>**/*.properties</include>
-                    </includes>
-                </fileSet>
-                <fileSet encoding="UTF-8">
-                    <directory>src/main/resources</directory>
-                    <includes>
-                        <include>**/*.fxml</include>
-                    </includes>
-                </fileSet>
-            </fileSets>
-        </module>-->
     </modules>
 </archetype-descriptor>
