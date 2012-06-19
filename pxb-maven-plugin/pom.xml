@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.projectx</groupId>
-        <artifactId>projectx-oss-parent</artifactId>
+        <groupId>org.javafxplatform</groupId>
+        <artifactId>javafxplatform-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath></relativePath>
+        <relativePath>../javafxplatform-parent</relativePath>
     </parent>
     <groupId>projectx.maven.plugins</groupId>
     <artifactId>pxb-maven-plugin</artifactId>
@@ -41,6 +41,17 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>org.javafxplatform</groupId>
+            <artifactId>javafxplatform-startup-main</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.javafxplatform</groupId>
+            <artifactId>javafxplatform-core-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
             <version>3.0.3</version>
@@ -62,12 +73,9 @@
             <version>1.5</version>
         </dependency>
         <dependency>
-            <groupId>javafx.tools</groupId>
-            <artifactId>jfxrt</artifactId>
-            <version>2.1</version>
-            <type>jar</type>
+            <groupId>javafx.dev</groupId>
+            <artifactId>ant-javafx</artifactId>
             <scope>system</scope>
-            <systemPath>${env.JAVAFX_HOME}/tools/ant-javafx.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.ant</groupId>
@@ -83,16 +91,6 @@
             <artifactId>org.apache.felix.main</artifactId>
             <version>4.0.2</version>
         </dependency>-->
-        <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-startup-main</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-application</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
