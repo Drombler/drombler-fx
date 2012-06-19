@@ -15,7 +15,7 @@ public class FXApplicationExecutor implements Executor {
 
     @Override
     public void execute(Runnable command) {
-        command.run();
-//        PlatformUtils.runOnFxApplicationThread(command);
+//        command.run();
+        PlatformUtils.runOnFxApplicationThread(command);
     }
 }

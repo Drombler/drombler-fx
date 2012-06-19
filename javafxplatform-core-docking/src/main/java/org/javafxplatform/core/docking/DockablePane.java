@@ -5,18 +5,24 @@
 package org.javafxplatform.core.docking;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanPropertyBase;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
+import org.javafxplatform.core.action.impl.ActionListenerAdapter;
 import org.javafxplatform.core.docking.impl.DockingAreaPane;
-import org.javafxplatform.core.docking.skin.Stylesheets;
+import org.javafxplatform.core.docking.impl.skin.Stylesheets;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.richclientplatform.core.docking.Dockable;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
+import org.richclientplatform.core.lib.util.Context;
+import org.richclientplatform.core.lib.util.Contexts;
 
 /**
  *
@@ -27,6 +33,7 @@ public class DockablePane extends Control implements Dockable {
     private static final String DEFAULT_STYLE_CLASS = "dockable-pane";
     private final StringProperty title = new SimpleStringProperty(this, "titleProperty", "");
     private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content", null);
+    private final ContextProperty context = new ContextProperty();
 
     public DockablePane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
@@ -63,6 +70,19 @@ public class DockablePane extends Control implements Dockable {
     }
 
     @Override
+    public Context getContext() {
+        return contextProperty().get();
+    }
+
+    protected void setContext(Context context) {
+        this.context.set(context);
+    }
+
+    public ReadOnlyObjectProperty<Context> contextProperty() {
+        return context;
+    }
+
+    @Override
     public void open() {
         // TODO: cache ServiceReference? or even DockingAreaContainerProvider?
         BundleContext bundleContext = FrameworkUtil.getBundle(DockablePane.class).getBundleContext();
@@ -77,5 +97,30 @@ public class DockablePane extends Control implements Dockable {
     @Override
     public void requestActive() {
         requestFocus();
+    }
+
+    private class ContextProperty extends ReadOnlyObjectPropertyBase<Context> {
+
+        private Context context = Contexts.emptyContext();
+
+        @Override
+        public final Context get() {
+            return context;
+        }
+
+        private void set(Context newValue) {
+            context = newValue;
+            fireValueChangedEvent();
+        }
+
+        @Override
+        public Object getBean() {
+            return DockablePane.this;
+        }
+
+        @Override
+        public String getName() {
+            return "context";
+        }
     }
 }

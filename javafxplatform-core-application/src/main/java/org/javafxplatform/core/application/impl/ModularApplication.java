@@ -5,6 +5,9 @@
 package org.javafxplatform.core.application.impl;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -38,6 +41,7 @@ public class ModularApplication extends Application {
         Application.launch(ModularApplication.class);
     }
     private ApplicationPane root;
+    private MainSceneProvider mainSceneProvider;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -49,7 +53,23 @@ public class ModularApplication extends Application {
 //        Parent personEditorPane = FXMLLoader.load(getClass().getResource("PersonEditorPane.fxml"));
 //        root.getChildren().add(personEditorPane);
         stage.setTitle(getTitle());
-        stage.setScene(new Scene(root, getWidth(), getHeight()));
+        final Scene scene = new Scene(root, getWidth(), getHeight());
+        scene.focusOwnerProperty().addListener(new ChangeListener<Node>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Node> ov, Node oldValue, Node newValue) {
+                System.out.println("Focus changed: " + newValue);
+            }
+        });
+        mainSceneProvider = new MainSceneProvider() {
+
+            @Override
+            public Scene getMainScene() {
+                return scene;
+            }
+        };
+        BUNDLE_CONTEXT.registerService(MainSceneProvider.class, mainSceneProvider, null);
+        stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
     }

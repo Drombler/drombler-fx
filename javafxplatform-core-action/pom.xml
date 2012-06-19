@@ -51,17 +51,14 @@
         <dependency>
             <groupId>org.richclientplatform</groupId>
             <artifactId>richclientplatform-core-action</artifactId>
-            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.richclientplatform</groupId>
             <artifactId>richclientplatform-core-action-spi</artifactId>
-            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.richclientplatform</groupId>
             <artifactId>richclientplatform-core-util</artifactId>
-            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>

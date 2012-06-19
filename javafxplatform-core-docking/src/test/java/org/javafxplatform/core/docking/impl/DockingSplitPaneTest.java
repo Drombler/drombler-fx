@@ -6,6 +6,8 @@ package org.javafxplatform.core.docking.impl;
 
 import java.util.Arrays;
 import javafx.geometry.Orientation;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Control;
 import org.javafxplatform.core.docking.DockablePane;
 import org.junit.After;
 import static org.junit.Assert.*;

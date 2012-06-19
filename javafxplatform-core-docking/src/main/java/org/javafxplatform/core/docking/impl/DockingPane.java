@@ -14,13 +14,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Control;
 import org.javafxplatform.core.docking.DockablePane;
-import org.javafxplatform.core.docking.skin.Stylesheets;
+import org.javafxplatform.core.docking.impl.skin.Stylesheets;
 import org.richclientplatform.core.docking.spi.DockablePreferences;
 import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
 import org.richclientplatform.core.docking.spi.DockingAreaContainer;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerListener;
+import org.richclientplatform.core.lib.util.Context;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
+import org.richclientplatform.core.lib.util.ProxyContext;
 
 /**
  *
@@ -34,6 +36,7 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
     private final List<DockingAreaContainerListener<DockingAreaPane, DockablePane>> listeners = new ArrayList<>();
     private final Map<String, List<DockablePane>> unresolvedDockables = new HashMap<>();
     private DockablePreferencesManager<DockablePane> dockablePreferencesManager;
+    private ProxyContext applicationContext = new ProxyContext();
 
     public DockingPane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
@@ -46,32 +49,33 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 
     @Override
     public void addDockingArea(List<Integer> path, final DockingAreaPane dockingArea) {
-        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
+//        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
+
         dockingArea.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PositionableAdapter<DockablePane>>() {
 
             @Override
             public void changed(ObservableValue<? extends PositionableAdapter<DockablePane>> ov, PositionableAdapter<DockablePane> oldValue, PositionableAdapter<DockablePane> newValue) {
                 if (newValue != null) {
-                    System.out.println("Selected Dockable Changed: " + newValue.getAdapted().getTitle());
+                    System.out.println("Selected Dockable Changed 1: " + newValue.getAdapted().getTitle());
                 } else {
-                    System.out.println("Selected Dockable Changed: empty");
+                    System.out.println("Selected Dockable Changed 1: empty");
                 }
             }
         });
-        dockingArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newVlaue) {
-                if (newVlaue) {
-                    PositionableAdapter<DockablePane> selectedItem = dockingArea.getSelectionModel().getSelectedItem();
-                    if (selectedItem != null) {
-                        System.out.println("Selected Dockable Changed: " + selectedItem.getAdapted().getTitle());
-                    } else {
-                        System.out.println("Selected Dockable Changed: empty");
-                    }
-                }
-            }
-        });
+//        dockingArea.focusedProperty().addListener(new ChangeListener<Boolean>() {
+//
+//            @Override
+//            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newVlaue) {
+//                if (newVlaue) {
+//                    PositionableAdapter<DockablePane> selectedItem = dockingArea.getSelectionModel().getSelectedItem();
+//                    if (selectedItem != null) {
+//                        System.out.println("Selected Dockable Changed 2: " + selectedItem.getAdapted().getTitle());
+//                    } else {
+//                        System.out.println("Selected Dockable Changed 2: empty");
+//                    }
+//                }
+//            }
+//        });
         dockingAreaPanes.put(dockingArea.getAreaId(), dockingArea);
         dockingAreaManager.addDockingArea(path, dockingArea);
         resolveUnresolvedDockables(dockingArea.getAreaId());
@@ -122,6 +126,7 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
         if (dockingArea != null) { // TODO: needed?
             dockingArea.addDockable(new PositionableAdapter<DockablePane>(dockablePane,
                     dockablePreferences.getPosition()));
+            applicationContext.addContext(dockablePane.getContext());
         } else {
             if (!unresolvedDockables.containsKey(dockablePreferences.getAreaId())) {
                 unresolvedDockables.put(dockablePreferences.getAreaId(), new ArrayList<DockablePane>());
@@ -192,5 +197,9 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 
     void setDockablePreferencesManager(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
         this.dockablePreferencesManager = dockablePreferencesManager;
+    }
+
+    public Context getApplicationContext() {
+        return applicationContext;
     }
 }

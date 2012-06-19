@@ -53,17 +53,14 @@
         <dependency>
             <groupId>org.richclientplatform</groupId>
             <artifactId>richclientplatform-core-docking</artifactId>
-            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.richclientplatform</groupId>
             <artifactId>richclientplatform-core-docking-spi</artifactId>
-            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.richclientplatform</groupId>
             <artifactId>richclientplatform-core-util</artifactId>
-            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>javafx</groupId>

@@ -16,7 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SingleSelectionModel;
 import org.javafxplatform.core.docking.DockablePane;
-import org.javafxplatform.core.docking.skin.Stylesheets;
+import org.javafxplatform.core.docking.impl.skin.Stylesheets;
 import org.javafxplatform.core.util.javafx.scene.control.ListSingleSelectionModel;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
 import org.richclientplatform.core.lib.util.Positionables;

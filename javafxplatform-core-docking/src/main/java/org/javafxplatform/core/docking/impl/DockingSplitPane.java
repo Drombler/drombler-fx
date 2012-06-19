@@ -15,7 +15,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
-import org.javafxplatform.core.docking.skin.Stylesheets;
+import org.javafxplatform.core.docking.impl.skin.Stylesheets;
 import org.richclientplatform.core.lib.util.Positionable;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
 import org.richclientplatform.core.lib.util.PositionableComparator;

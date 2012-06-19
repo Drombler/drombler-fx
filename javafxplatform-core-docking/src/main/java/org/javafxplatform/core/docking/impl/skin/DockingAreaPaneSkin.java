@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javafxplatform.core.docking.skin;
+package org.javafxplatform.core.docking.impl.skin;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -103,20 +103,20 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
 
         tabPane.getSelectionModel().select(control.getSelectionModel().getSelectedIndex());
         
-        tabPane.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newVlaue) {
-                if (newVlaue) {
-                    Tab tab = tabPane.getSelectionModel().getSelectedItem();
-                    if (tab != null) {
-                        System.out.println("Selected Tab Changed: " + tab.getText());
-                    } else {
-                        System.out.println("Selected Tab Changed: empty");
-                    }
-                }
-            }
-        });
+//        tabPane.focusedProperty().addListener(new ChangeListener<Boolean>() {
+//
+//            @Override
+//            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newVlaue) {
+//                if (newVlaue) {
+//                    Tab tab = tabPane.getSelectionModel().getSelectedItem();
+//                    if (tab != null) {
+//                        System.out.println("Selected Tab Changed: " + tab.getText());
+//                    } else {
+//                        System.out.println("Selected Tab Changed: empty");
+//                    }
+//                }
+//            }
+//        });
 
     }
 

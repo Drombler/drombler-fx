@@ -4,15 +4,24 @@
  */
 package org.javafxplatform.core.docking.impl;
 
-import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
+import javafx.scene.control.TabPane;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.javafxplatform.core.application.ApplicationContentProvider;
+import org.javafxplatform.core.application.FocusOwnerChangeListener;
 import org.javafxplatform.core.docking.DockablePane;
+import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
 import org.richclientplatform.core.docking.spi.DockingAreaContainer;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
+import org.richclientplatform.core.lib.util.ActiveContextProvider;
+import org.richclientplatform.core.lib.util.ApplicationContextProvider;
+import org.richclientplatform.core.lib.util.Context;
+import org.richclientplatform.core.lib.util.Contexts;
 
 /**
  *
@@ -21,7 +30,9 @@ import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
 @Component
 @Service
 @Reference(name = "dockablePreferencesManager", referenceInterface = DockablePreferencesManager.class)
-public class DockingPaneProvider implements ApplicationContentProvider, DockingAreaContainerProvider<DockingAreaPane, DockablePane> {
+public class DockingPaneProvider implements ApplicationContentProvider,
+        DockingAreaContainerProvider<DockingAreaPane, DockablePane>, FocusOwnerChangeListener,
+        ActiveContextProvider, ApplicationContextProvider {
 
     private final DockingPane dockingPane = new DockingPane();
 
@@ -41,5 +52,32 @@ public class DockingPaneProvider implements ApplicationContentProvider, DockingA
     @Override
     public DockingAreaContainer<DockingAreaPane, DockablePane> getDockingAreaContainer() {
         return dockingPane;
+    }
+    private ObjectProperty<DockablePane> activeDockable = new SimpleObjectProperty<>(this, "activeDockable");
+
+    @Override
+    public void changed(ObservableValue<? extends Node> ov, Node oldValue, Node newValue) {
+        Node currentNode = newValue;
+        if (currentNode instanceof TabPane) {
+            currentNode = ((TabPane) currentNode).getSelectionModel().getSelectedItem().getContent();
+        }
+        while (currentNode != null) {
+            if (currentNode instanceof DockablePane) {
+                activeDockable.set((DockablePane) currentNode);
+                break;
+            } else {
+                currentNode = currentNode.getParent();
+            }
+        }
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return dockingPane.getApplicationContext();
+    }
+
+    @Override
+    public Context getActiveContext() {
+        return Contexts.emptyContext();
     }
 }

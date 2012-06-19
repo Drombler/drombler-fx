@@ -12,7 +12,7 @@
  **************************************************************************************************/
 
 .dockable-pane { 
-    -fx-skin: "org.javafxplatform.core.docking.skin.DockablePaneSkin";
+    -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockablePaneSkin";
 }
 
 /**************************************************************************************************
@@ -22,7 +22,7 @@
  **************************************************************************************************/
 
 .docking-pane { 
-    -fx-skin: "org.javafxplatform.core.docking.skin.DockingPaneSkin";
+    -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockingPaneSkin";
 }
 
 /**************************************************************************************************
@@ -32,7 +32,7 @@
  **************************************************************************************************/
 
 .docking-split-pane { 
-    -fx-skin: "org.javafxplatform.core.docking.skin.DockingSplitPaneSkin";
+    -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockingSplitPaneSkin";
 }
 
 /**************************************************************************************************
@@ -42,7 +42,7 @@
  **************************************************************************************************/
 
 .docking-area-pane { 
-    -fx-skin: "org.javafxplatform.core.docking.skin.DockingAreaPaneSkin";
+    -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockingAreaPaneSkin";
 }
 
 
