@@ -2,16 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.richclientplatform</groupId>
-        <artifactId>richclientplatform-parent</artifactId>
+        <groupId>org.javafxplatform</groupId>
+        <artifactId>javafxplatform-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../richclientplatform-parent</relativePath>
+        <relativePath>../javafxplatform-parent</relativePath>
     </parent>
 
-    <artifactId>javafx-2.1.0</artifactId>
+    <artifactId>javafx-2.2.0</artifactId>
     <packaging>bundle</packaging>
 
-    <name>javafx-2.1.0 OSGi Bundle</name>
+    <name>javafx-2.2.0 OSGi Bundle</name>
 
     <build>
         <plugins>
@@ -21,7 +21,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Embed-Dependency>*;groupId=javafx;artifactId=jfxrt;version=2.1;inline=true</Embed-Dependency>
+                        <Embed-Dependency>*;groupId=javafx;artifactId=jfxrt;version=2.2;inline=true</Embed-Dependency>
                         <Export-Package>!javafx.embed.*, javafx.*</Export-Package>
                     </instructions>
                 </configuration>
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
-            <version>2.1</version>
+            <version>2.2</version>
             <type>jar</type>
             <scope>system</scope>
             <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
