@@ -12,7 +12,10 @@ import java.util.Map;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Control;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import org.javafxplatform.core.docking.DockablePane;
 import org.javafxplatform.core.docking.impl.skin.Stylesheets;
 import org.richclientplatform.core.docking.spi.DockablePreferences;
@@ -35,8 +38,10 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
     private final DockingAreaManager dockingAreaManager = new DockingAreaManager(null, null, 0, Orientation.VERTICAL);
     private final List<DockingAreaContainerListener<DockingAreaPane, DockablePane>> listeners = new ArrayList<>();
     private final Map<String, List<DockablePane>> unresolvedDockables = new HashMap<>();
+    private final ChangeListener<Node> focusOwnerChangeListener = new FocusOwnerChangeListener();
     private DockablePreferencesManager<DockablePane> dockablePreferencesManager;
     private ProxyContext applicationContext = new ProxyContext();
+    private ProxyContext activeContext = new ProxyContext();
 
     public DockingPane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
@@ -56,9 +61,8 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
             @Override
             public void changed(ObservableValue<? extends PositionableAdapter<DockablePane>> ov, PositionableAdapter<DockablePane> oldValue, PositionableAdapter<DockablePane> newValue) {
                 if (newValue != null) {
-                    System.out.println("Selected Dockable Changed 1: " + newValue.getAdapted().getTitle());
-                } else {
-                    System.out.println("Selected Dockable Changed 1: empty");
+                    System.out.println("Active Context Changed 1: " + newValue.getAdapted().getTitle());
+                    activeContext.setContexts(newValue.getAdapted().getContext());
                 }
             }
         });
@@ -201,5 +205,36 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 
     public Context getApplicationContext() {
         return applicationContext;
+    }
+
+    public Context getActiveContext() {
+        return activeContext;
+    }
+
+    public ChangeListener<Node> getFocusOwnerChangeListener() {
+        return focusOwnerChangeListener;
+    }
+
+    private class FocusOwnerChangeListener implements ChangeListener<Node> {
+
+        @Override
+        public void changed(ObservableValue<? extends Node> ov, Node oldValue, Node newValue) {
+            Node currentNode = newValue;
+            if (currentNode instanceof TabPane) {
+                Tab selectedItem = ((TabPane) currentNode).getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    currentNode = selectedItem.getContent();
+                }
+            }
+            while (currentNode != null) {
+                if (currentNode instanceof DockablePane) {
+                    System.out.println("Active Context Changed 2: " + ((DockablePane) currentNode).getTitle());
+                    activeContext.setContexts(((DockablePane) currentNode).getContext());
+                    break;
+                } else {
+                    currentNode = currentNode.getParent();
+                }
+            }
+        }
     }
 }

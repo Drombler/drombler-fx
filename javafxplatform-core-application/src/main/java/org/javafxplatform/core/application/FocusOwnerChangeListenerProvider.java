@@ -11,7 +11,8 @@ import javafx.scene.Node;
  *
  * @author puce
  */
-// TODO: good? it doesn't add any new methods.
-public interface FocusOwnerChangeListener extends ChangeListener<Node> {
-    
+// TODO: good?
+public interface FocusOwnerChangeListenerProvider {
+
+    ChangeListener<Node> getFocusOwnerChangeListener();
 }
