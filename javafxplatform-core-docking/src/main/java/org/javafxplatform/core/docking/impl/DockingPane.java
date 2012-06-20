@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
@@ -39,9 +40,9 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
     private final List<DockingAreaContainerListener<DockingAreaPane, DockablePane>> listeners = new ArrayList<>();
     private final Map<String, List<DockablePane>> unresolvedDockables = new HashMap<>();
     private final ChangeListener<Node> focusOwnerChangeListener = new FocusOwnerChangeListener();
+    private final ProxyContext applicationContext = new ProxyContext();
+    private final ProxyContext activeContext = new ProxyContext();
     private DockablePreferencesManager<DockablePane> dockablePreferencesManager;
-    private ProxyContext applicationContext = new ProxyContext();
-    private ProxyContext activeContext = new ProxyContext();
 
     public DockingPane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
@@ -63,6 +64,28 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
                 if (newValue != null) {
                     System.out.println("Active Context Changed 1: " + newValue.getAdapted().getTitle());
                     activeContext.setContexts(newValue.getAdapted().getContext());
+                }
+            }
+        });
+
+        dockingArea.getDockables().addListener(new ListChangeListener<PositionableAdapter<DockablePane>>() {
+
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends PositionableAdapter<DockablePane>> change) {
+                while (change.next()) {
+                    if (change.wasPermutated()) {
+                        for (int i = change.getFrom(); i < change.getTo(); ++i) {
+                            // TODO: ???
+                        }
+                    } else if (change.wasUpdated()) {
+                        // TODO: ???
+                    } else if (change.wasRemoved()) {
+                        removeContexts(change.getRemoved());
+                    } else if (change.wasAdded()) {
+                        // TODO: ???
+                    } else if (change.wasReplaced()) {
+                        // TODO: ???
+                    }
                 }
             }
         });
@@ -128,9 +151,11 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
         DockablePreferences dockablePreferences = dockablePreferencesManager.getDockablePreferences(dockablePane);
         DockingAreaPane dockingArea = getDockingArea(dockablePreferences.getAreaId());
         if (dockingArea != null) { // TODO: needed?
-            dockingArea.addDockable(new PositionableAdapter<DockablePane>(dockablePane,
+            boolean docked = dockingArea.addDockable(new PositionableAdapter<DockablePane>(dockablePane,
                     dockablePreferences.getPosition()));
-            applicationContext.addContext(dockablePane.getContext());
+            if (docked) {
+                applicationContext.addContext(dockablePane.getContext());
+            }
         } else {
             if (!unresolvedDockables.containsKey(dockablePreferences.getAreaId())) {
                 unresolvedDockables.put(dockablePreferences.getAreaId(), new ArrayList<DockablePane>());
@@ -139,6 +164,12 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
         }
     }
 
+    private void removeContexts(List<? extends PositionableAdapter<DockablePane>> removedDockables) {
+        for (PositionableAdapter<DockablePane> adapter : removedDockables) {
+            applicationContext.removeContext(adapter.getAdapted().getContext());
+            activeContext.removeContext(adapter.getAdapted().getContext());
+        }
+    }
     /*
      * package-private, for unit testing
      */

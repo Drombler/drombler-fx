@@ -87,11 +87,14 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         return selectionModel;
     }
 
-    public void addDockable(PositionableAdapter<DockablePane> dockable) {
+    public boolean addDockable(PositionableAdapter<DockablePane> dockable) {
         if (!dockableSet.contains(dockable.getAdapted())) {
             dockableSet.add(dockable.getAdapted());
             int insertionPoint = Positionables.getInsertionPoint(dockables, dockable);
             dockables.add(insertionPoint, dockable);
+            return true;
+        } else {
+            return false;
         }
     }
 
