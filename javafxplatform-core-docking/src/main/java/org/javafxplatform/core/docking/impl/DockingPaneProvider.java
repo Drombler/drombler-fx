@@ -17,10 +17,9 @@ import org.javafxplatform.core.docking.DockablePane;
 import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
 import org.richclientplatform.core.docking.spi.DockingAreaContainer;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
-import org.richclientplatform.core.lib.util.ActiveContextProvider;
-import org.richclientplatform.core.lib.util.ApplicationContextProvider;
-import org.richclientplatform.core.lib.util.Context;
-import org.richclientplatform.core.lib.util.Contexts;
+import org.richclientplatform.core.lib.util.context.ActiveContextProvider;
+import org.richclientplatform.core.lib.util.context.ApplicationContextProvider;
+import org.richclientplatform.core.lib.util.context.Context;
 
 /**
  *

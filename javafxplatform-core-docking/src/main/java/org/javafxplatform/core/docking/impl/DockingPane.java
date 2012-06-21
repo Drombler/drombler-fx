@@ -24,9 +24,9 @@ import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
 import org.richclientplatform.core.docking.spi.DockingAreaContainer;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerListener;
-import org.richclientplatform.core.lib.util.Context;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
-import org.richclientplatform.core.lib.util.ProxyContext;
+import org.richclientplatform.core.lib.util.context.Context;
+import org.richclientplatform.core.lib.util.context.ProxyContext;
 
 /**
  *

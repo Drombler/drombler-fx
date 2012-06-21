@@ -21,8 +21,8 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.richclientplatform.core.docking.Dockable;
 import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
-import org.richclientplatform.core.lib.util.Context;
-import org.richclientplatform.core.lib.util.Contexts;
+import org.richclientplatform.core.lib.util.context.Context;
+import org.richclientplatform.core.lib.util.context.Contexts;
 
 /**
  *
