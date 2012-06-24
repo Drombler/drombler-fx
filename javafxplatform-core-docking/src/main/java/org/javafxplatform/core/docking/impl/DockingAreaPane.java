@@ -18,6 +18,7 @@ import javafx.scene.control.SingleSelectionModel;
 import org.javafxplatform.core.docking.DockablePane;
 import org.javafxplatform.core.docking.impl.skin.Stylesheets;
 import org.javafxplatform.core.util.javafx.scene.control.ListSingleSelectionModel;
+import org.richclientplatform.core.docking.spi.LayoutConstraintsDescriptor;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
 import org.richclientplatform.core.lib.util.Positionables;
 
@@ -38,6 +39,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     private final ObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>> selectionModel =
             new SimpleObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>>(
             this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
+    private LayoutConstraintsDescriptor layoutConstraints;
 
     public DockingAreaPane(String areaId, int position, boolean permanent) {
         super(false);
@@ -126,7 +128,17 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         return parentManager.getShortPath(this);
     }
 
+    //TODO: good name?
     public boolean isVisualizable() {
         return isPermanent() || !getDockables().isEmpty();
+    }
+
+    @Override
+    public LayoutConstraintsDescriptor getLayoutConstraints() {
+        return layoutConstraints;
+    }
+
+    public void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
+        this.layoutConstraints = layoutConstraints;
     }
 }

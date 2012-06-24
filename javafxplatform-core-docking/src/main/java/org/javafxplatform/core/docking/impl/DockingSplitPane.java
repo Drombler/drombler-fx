@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import org.javafxplatform.core.docking.impl.skin.Stylesheets;
+import org.richclientplatform.core.docking.spi.LayoutConstraintsDescriptor;
 import org.richclientplatform.core.lib.util.Positionable;
 import org.richclientplatform.core.lib.util.PositionableAdapter;
 import org.richclientplatform.core.lib.util.PositionableComparator;
@@ -269,7 +270,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 //        copyContentTo(splitPane);
 //        clearContent();
 //    }
-
 //    private void copyContentTo(DockingSplitPane splitPane) {
 ////        splitPane.shortPathParts.putAll(shortPathParts);
 //        splitPane.areaPanes.putAll(areaPanes);
@@ -283,7 +283,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 //        splitPane.positionableChildren.addAll(positionableChildren);
 //        splitPane.dockingSplitPaneChildren.addAll(dockingSplitPaneChildren);
 //    }
-
 //    private void clearContent() {
 ////        shortPathParts.clear();
 //        areaPanes.clear();
@@ -291,7 +290,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 //        positionableChildren.clear();
 //        dockingSplitPaneChildren.clear();
 //    }
-
     private void removeAllDockingAreas(List<PositionableAdapter<DockingAreaPane>> removedDockingAreas) {
         for (PositionableAdapter<DockingAreaPane> dockingArea : areaPanes.values()) {
             removeDockingAreaOnly(dockingArea);
@@ -339,5 +337,31 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
      */
     public int getPosition() {
         return position;
+    }
+
+    @Override
+    public LayoutConstraintsDescriptor getLayoutConstraints() {
+        double prefWidth = 0;
+        double prefHeight = 0;
+        for (DockingSplitPaneChildBase child : dockingSplitPaneChildren) {
+            LayoutConstraintsDescriptor childLayoutConstraints = child.getLayoutConstraints();
+            if (prefWidth >= 0) {
+                if (childLayoutConstraints.getPrefWidth() < 0 || childLayoutConstraints.getPrefWidth() > prefWidth) {
+                    prefWidth = childLayoutConstraints.getPrefWidth();
+                }
+            }
+            if (prefHeight >= 0) {
+                if (childLayoutConstraints.getPrefHeight() < 0 || childLayoutConstraints.getPrefHeight() > prefHeight) {
+                    prefHeight = childLayoutConstraints.getPrefHeight();
+                }
+            }
+            if (prefWidth < 0 && prefHeight < 0) {
+                break;
+            }
+        }
+        LayoutConstraintsDescriptor layoutConstraints = new LayoutConstraintsDescriptor();
+        layoutConstraints.setPrefWidth(prefWidth);
+        layoutConstraints.setPrefHeight(prefHeight);
+        return layoutConstraints;
     }
 }

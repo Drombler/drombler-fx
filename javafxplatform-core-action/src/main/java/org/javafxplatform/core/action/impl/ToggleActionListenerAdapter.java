@@ -11,7 +11,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javax.xml.bind.Marshaller;
 import org.javafxplatform.core.action.FXToggleAction;
 import org.richclientplatform.core.action.ToggleActionListener;
 

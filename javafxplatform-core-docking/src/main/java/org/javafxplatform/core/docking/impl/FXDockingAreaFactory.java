@@ -21,6 +21,7 @@ public class FXDockingAreaFactory implements DockingAreaFactory<DockingAreaPane>
     public DockingAreaPane createDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
         DockingAreaPane dockingAreaPane = new DockingAreaPane(dockingAreaDescriptor.getId(),
                 dockingAreaDescriptor.getPosition(), dockingAreaDescriptor.isPermanent());
+        dockingAreaPane.setLayoutConstraints(dockingAreaDescriptor.getLayoutConstraints());
         return dockingAreaPane;
     }
 }

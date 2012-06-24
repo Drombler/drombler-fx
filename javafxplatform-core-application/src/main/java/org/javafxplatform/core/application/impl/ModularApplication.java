@@ -5,11 +5,7 @@
 package org.javafxplatform.core.application.impl;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.osgi.framework.BundleContext;
 import org.richclientplatform.core.action.spi.ApplicationToolBarContainerProvider;
@@ -54,13 +50,13 @@ public class ModularApplication extends Application {
 //        root.getChildren().add(personEditorPane);
         stage.setTitle(getTitle());
         final Scene scene = new Scene(root, getWidth(), getHeight());
-        scene.focusOwnerProperty().addListener(new ChangeListener<Node>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Node> ov, Node oldValue, Node newValue) {
-                System.out.println("Focus changed: " + newValue);
-            }
-        });
+//        scene.focusOwnerProperty().addListener(new ChangeListener<Node>() {
+//
+//            @Override
+//            public void changed(ObservableValue<? extends Node> ov, Node oldValue, Node newValue) {
+//                System.out.println("Focus changed: " + newValue);
+//            }
+//        });
         mainSceneProvider = new MainSceneProvider() {
 
             @Override

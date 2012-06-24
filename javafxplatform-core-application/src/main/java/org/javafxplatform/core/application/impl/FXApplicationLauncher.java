@@ -50,7 +50,7 @@ public class FXApplicationLauncher {
                 getApplicationConfigDouble(applicationConfig, APPLICATION_WIDTH_PROPERTY_NAME, -1,
                 "Application width is not a double: {0}"),
                 getApplicationConfigDouble(applicationConfig, APPLICATION_HEIGHT_PROPERTY_NAME, -1,
-                "Application width is not a double: {0}"));
+                "Application height is not a double: {0}"));
     }
 
     private double getApplicationConfigDouble(Map<String, String> applicationConfig, String key, double defaultValue, String errorMessageFormat) {

@@ -4,6 +4,7 @@
  */
 package org.javafxplatform.core.docking.impl;
 
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -27,46 +28,53 @@ import org.richclientplatform.core.lib.util.context.Context;
  */
 @Component
 @Service
-@Reference(name = "dockablePreferencesManager", referenceInterface = DockablePreferencesManager.class)
 public class DockingPaneProvider implements ApplicationContentProvider,
         DockingAreaContainerProvider<DockingAreaPane, DockablePane>, FocusOwnerChangeListenerProvider,
         ActiveContextProvider, ApplicationContextProvider {
 
-    private final DockingPane dockingPane = new DockingPane();
+    @Reference
+    private DockablePreferencesManager<DockablePane> dockablePreferencesManager;
+    private DockingPane dockingPane;
 
     protected void bindDockablePreferencesManager(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
-        dockingPane.setDockablePreferencesManager(dockablePreferencesManager);
+        this.dockablePreferencesManager = dockablePreferencesManager;
     }
 
     protected void unbindDockablePreferencesManager(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
-        dockingPane.setDockablePreferencesManager(null);
+        this.dockablePreferencesManager = null;
     }
 
     @Override
     public Node getContentPane() {
-        return dockingPane;
+        return getDockingPane();
     }
 
     @Override
     public DockingAreaContainer<DockingAreaPane, DockablePane> getDockingAreaContainer() {
-        return dockingPane;
+        return getDockingPane();
     }
-    private ObjectProperty<DockablePane> activeDockable = new SimpleObjectProperty<>(this, "activeDockable");
-
-   
 
     @Override
     public Context getApplicationContext() {
-        return dockingPane.getApplicationContext();
+        return getDockingPane().getApplicationContext();
     }
 
     @Override
     public Context getActiveContext() {
-        return dockingPane.getActiveContext();
+        return getDockingPane().getActiveContext();
     }
 
     @Override
     public ChangeListener<Node> getFocusOwnerChangeListener() {
-        return dockingPane.getFocusOwnerChangeListener();
+        return getDockingPane().getFocusOwnerChangeListener();
+    }
+
+    private DockingPane getDockingPane() {
+        if (dockingPane == null) {
+            System.out.println("Create DockingPane: isFxApplicationThread: " + Platform.isFxApplicationThread());
+            dockingPane = new DockingPane();
+            dockingPane.setDockablePreferencesManager(dockablePreferencesManager);
+        }
+        return dockingPane;
     }
 }

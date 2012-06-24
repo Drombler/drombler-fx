@@ -14,7 +14,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import org.javafxplatform.core.action.impl.MenuMenuItemContainer;
-import org.javafxplatform.core.util.javafx.application.PlatformUtils;
 import org.richclientplatform.core.action.spi.MenuItemContainer;
 import org.richclientplatform.core.action.spi.PositionableMenuItemAdapter;
 import org.richclientplatform.core.lib.util.Positionables;
@@ -93,14 +92,8 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
     private <T extends MenuItem> void addMenuItem(final int index, final PositionableMenuItemAdapter<? extends T> menuItem,
             final ObservableList<? super T> menuItemList, final boolean menu) {
         xMenuItems.add(index, menuItem);
-        PlatformUtils.runOnFxApplicationThread(new Runnable() { // TODO: needed here?
-
-            @Override
-            public void run() {
-                menuItemList.add(index, menuItem.getAdapted());
-                fireMenuAddedEvent(menuItem, menu);
-            }
-        });
+        menuItemList.add(index, menuItem.getAdapted());
+        fireMenuAddedEvent(menuItem, menu);
     }
 
     private <T extends MenuItem> void fireMenuAddedEvent(PositionableMenuItemAdapter<? extends T> menuItem, boolean menu) {

@@ -4,66 +4,83 @@
  */
 package org.javafxplatform.core.application.impl;
 
-import javafx.application.Platform;
-import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
+import java.util.concurrent.Executor;
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.References;
 import org.javafxplatform.core.application.ApplicationContentProvider;
+import org.osgi.service.component.ComponentContext;
+import org.richclientplatform.core.application.ApplicationExecutorProvider;
 
 /**
  *
  * @author puce
  */
 @Component(immediate = true)
-@References({
-    @Reference(name = "contentPaneProvider", referenceInterface = ContentPaneProvider.class),
-    @Reference(name = "applicationContentProvider", referenceInterface = ApplicationContentProvider.class)
-})
+@Reference(name = "applicationExecutorProvider", referenceInterface = ApplicationExecutorProvider.class)
 public class ContentHandler {
 
-    private BorderPane contentPane;
-    private Node content;
+    @Reference
+    private ContentPaneProvider contentPaneProvider;
+    @Reference
+    private ApplicationContentProvider applicationContentProvider;
+    private Executor applicationExecutor;
 
     protected void bindContentPaneProvider(ContentPaneProvider contentPaneProvider) {
-        contentPane = contentPaneProvider.getContentPane();
-        if (content != null) {
-            initContentPane();
-        }
-    }
-
-    private void initContentPane() {
-        contentPane.setCenter(content);
+        this.contentPaneProvider = contentPaneProvider;
     }
 
     protected void unbindContentPaneProvider(ContentPaneProvider contentPaneProvider) {
+        this.contentPaneProvider = null;
+    }
+
+    protected void bindApplicationContentProvider(ApplicationContentProvider applicationContentProvider) {
+        this.applicationContentProvider = applicationContentProvider;
+    }
+
+    protected void unbindApplicationContentProvider(ApplicationContentProvider applicationContentProvider) {
+        this.applicationContentProvider = null;
+    }
+
+    protected void bindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
+        applicationExecutor = applicationExecutorProvider.getApplicationExecutor();
+    }
+
+    protected void unbindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
+        applicationExecutor = null;
+    }
+
+    @Activate
+    protected void activate(ComponentContext context) {
+        initContentPane();
+    }
+
+    @Deactivate
+    protected void deactivate(ComponentContext context) {
         uninitContentPane();
-        contentPane = null;
+    }
+
+    private void initContentPane() {
+        Runnable runnable = new Runnable() {
+
+            @Override
+            public void run() {
+                contentPaneProvider.getContentPane().setCenter(applicationContentProvider.getContentPane());
+            }
+        };
+        applicationExecutor.execute(runnable);
     }
 
     private void uninitContentPane() {
         //TODO needed?
-        Platform.runLater(new Runnable() {
+        Runnable runnable = new Runnable() {
 
             @Override
             public void run() {
-                contentPane.setCenter(null);
+                contentPaneProvider.getContentPane().setCenter(null);
             }
-        });
-    }
-
-    protected void bindApplicationContentProvider(ApplicationContentProvider applicationContentProvider) {
-        content = applicationContentProvider.getContentPane();
-        if (contentPane != null) {
-            initContentPane();
-        }
-    }
-
-    protected void unbindApplicationContentProvider(ApplicationContentProvider applicationContentProvider) {
-        if (contentPane != null) {
-            uninitContentPane();
-        }
-        content = null;
+        };
+        applicationExecutor.execute(runnable);
     }
 }

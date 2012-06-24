@@ -7,12 +7,13 @@ package org.javafxplatform.core.docking.impl;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
+import org.richclientplatform.core.docking.spi.LayoutConstraintsDescriptor;
 
 /**
  *
  * @author puce
  */
-public abstract class DockingSplitPaneChildBase extends Control{
+public abstract class DockingSplitPaneChildBase extends Control {
 
     private final ObjectProperty<DockingSplitPane> parentSplitPane = new SimpleObjectProperty<>(this,
             "parentSplitPane", null);
@@ -21,7 +22,6 @@ public abstract class DockingSplitPaneChildBase extends Control{
     public DockingSplitPaneChildBase(boolean splitPane) {
         this.splitPane = splitPane;
     }
-
 
     public DockingSplitPane getParentSplitPane() {
         return parentSplitPane.get();
@@ -38,4 +38,6 @@ public abstract class DockingSplitPaneChildBase extends Control{
     public boolean isSplitPane() {
         return splitPane;
     }
+
+    public abstract LayoutConstraintsDescriptor getLayoutConstraints();
 }

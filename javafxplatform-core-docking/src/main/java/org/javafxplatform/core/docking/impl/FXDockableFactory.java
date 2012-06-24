@@ -4,6 +4,8 @@
  */
 package org.javafxplatform.core.docking.impl;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.javafxplatform.core.docking.DockablePane;
@@ -22,9 +24,13 @@ public class FXDockableFactory implements DockableFactory<DockablePane> {
 
     @Override
     public DockablePane createDockable(ViewDockingDescriptor dockingDescriptor) {
-        DockablePane dockablePane = (DockablePane) dockingDescriptor.getDockable();
-        dockablePane.setTitle(dockingDescriptor.getDisplayName().replace(MNEMONIC_CHAR, ""));
-        return dockablePane;
+        try {
+            DockablePane dockablePane = (DockablePane) dockingDescriptor.getDockableClass().newInstance();
+            dockablePane.setTitle(dockingDescriptor.getDisplayName().replace(MNEMONIC_CHAR, ""));
+            return dockablePane;
+        } catch (InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(FXDockableFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
-
 }
