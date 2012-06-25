@@ -5,6 +5,7 @@
 package org.javafxplatform.core.action.impl;
 
 import javafx.scene.control.ButtonBase;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.javafxplatform.core.action.FXAction;
@@ -40,6 +41,6 @@ class ButtonUtils {
         } else {
             button.textProperty().bind(action.displayNameProperty()); // TODO: ok? -fx-content-display: GRAPHIC_ONLY ? 
         }
-//        button.setTooltip(new Tooltip(action.getDisplayName() + " (" + action.getAccelerator() + ")"));
+        button.setTooltip(new Tooltip(action.getDisplayName().replaceAll("_", "")));// + " (" + action.getAccelerator() + ")"));
     }
 }
