@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentMap;
 import javafx.scene.Node;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import org.javafxplatform.core.util.javafx.application.PlatformUtils;
 import org.richclientplatform.core.action.spi.ToolBarContainer;
 import org.richclientplatform.core.action.spi.ToolBarContainerListener;
@@ -58,6 +59,12 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
         int insertionPoint = Positionables.getInsertionPoint(toolBars, toolBarAdapter);
         getChildren().add(insertionPoint, toolBarAdapter.getAdapted());
         toolBars.add(insertionPoint, toolBarAdapter);
+        if (insertionPoint == getChildren().size() - 1) {
+            if (getChildren().size() > 1) {
+                HBox.setHgrow(getChildren().get(getChildren().size() - 2), null);
+            }
+            HBox.setHgrow(toolBarAdapter.getAdapted(), Priority.ALWAYS);
+        }
     }
 
     @Override
@@ -69,6 +76,12 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
         int index = toolBars.indexOf(toolBarAdapter);
         getChildren().remove(index);
         toolBars.remove(index);
+        if (index == getChildren().size()) {
+            HBox.setHgrow(toolBarAdapter.getAdapted(), null);
+            if (!getChildren().isEmpty()) {
+                HBox.setHgrow(getChildren().get(getChildren().size() - 1), Priority.ALWAYS);
+            }
+        }
     }
 
     @Override
