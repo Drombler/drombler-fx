@@ -152,14 +152,14 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 
     private DockingSplitPane getSplitPane(ShortPathPart shortPathPart, List<PositionableAdapter<DockingAreaPane>> removedDockingAreas) {
         if (!splitPanes.containsKey(shortPathPart.getPosition())) {
-            DockingSplitPane splitPane = new DockingSplitPane(shortPathPart.getPosition(), getActualLevel() + 1,
-                    getChildOrientation());
-            addSplitPane(shortPathPart, splitPane);
             if (areaPanes.containsKey(shortPathPart.getPosition())) {
                 PositionableAdapter<DockingAreaPane> areaPane = areaPanes.remove(shortPathPart.getPosition());
                 removeDockingAreaOnly(areaPane);
                 removedDockingAreas.add(areaPane);
             }
+            DockingSplitPane splitPane = new DockingSplitPane(shortPathPart.getPosition(), getActualLevel() + 1,
+                    getChildOrientation());
+            addSplitPane(shortPathPart, splitPane);
         }
         return splitPanes.get(shortPathPart.getPosition());
     }

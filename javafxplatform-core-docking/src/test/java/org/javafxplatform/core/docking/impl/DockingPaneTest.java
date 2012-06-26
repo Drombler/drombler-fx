@@ -29,6 +29,7 @@ public class DockingPaneTest {
     private static final String RIGHT = "right";
     private static final String TOP = "top";
     private static final String BOTTOM = "bottom";
+    private static final String CENTER = "center";
     private DockingPane dockingPane;
     private DockablePreferencesManager<DockablePane> dockablePreferencesManager;
 
@@ -53,7 +54,7 @@ public class DockingPaneTest {
     public void testAddDockingArea1() {
         System.out.println("addDockingArea1");
 
-        addDockingArea(20, TEST1, 10);
+        addDockingAreaNonPermanent(20, TEST1, 10);
 
         List<ShortPathPart> path = getDockingAreaShortPath(TEST1);
         assertEquals(Arrays.asList(new ShortPathPart(10, 0, Orientation.VERTICAL)), path);
@@ -62,12 +63,12 @@ public class DockingPaneTest {
     @Test
     public void testAddDockingArea2() {
         System.out.println("addDockingArea2");
-        addDockingArea(20, TEST1, 10);
+        addDockingAreaNonPermanent(20, TEST1, 10);
 
         List<ShortPathPart> pathTest1 = getDockingAreaShortPath(TEST1);
         assertEquals(Arrays.asList(new ShortPathPart(10, 0, Orientation.VERTICAL)), pathTest1);
 
-        addDockingArea(40, TEST2, 10);
+        addDockingAreaNonPermanent(40, TEST2, 10);
 
         List<ShortPathPart> pathTest2 = getDockingAreaShortPath(TEST2);
         assertEquals(Arrays.asList(new ShortPathPart(40, 1, Orientation.HORIZONTAL)), pathTest2);
@@ -79,12 +80,12 @@ public class DockingPaneTest {
     @Test
     public void testAddDockingArea3() {
         System.out.println("addDockingArea3");
-        addDockingArea(10, TEST1, 20);
+        addDockingAreaNonPermanent(10, TEST1, 20);
 
         List<ShortPathPart> pathTest1 = getDockingAreaShortPath(TEST1);
         assertEquals(Arrays.asList(new ShortPathPart(20, 0, Orientation.VERTICAL)), pathTest1);
 
-        addDockingArea(10, TEST2, 40);
+        addDockingAreaNonPermanent(10, TEST2, 40);
 
         List<ShortPathPart> pathTest2 = getDockingAreaShortPath(TEST2);
         assertEquals(Arrays.asList(new ShortPathPart(40, 0, Orientation.VERTICAL)), pathTest2);
@@ -96,12 +97,12 @@ public class DockingPaneTest {
     @Test
     public void testAddDockingArea4() {
         System.out.println("addDockingArea4");
-        addDockingArea(20, TEST1, 10);
+        addDockingAreaNonPermanent(20, TEST1, 10);
 
         List<ShortPathPart> pathTest1 = getDockingAreaShortPath(TEST1);
         assertEquals(Arrays.asList(new ShortPathPart(10, 0, Orientation.VERTICAL)), pathTest1);
 
-        addDockingArea(40, TEST2, 10);
+        addDockingAreaNonPermanent(40, TEST2, 10);
 
         List<ShortPathPart> pathTest2 = getDockingAreaShortPath(TEST2);
         assertEquals(Arrays.asList(new ShortPathPart(40, 1, Orientation.HORIZONTAL)), pathTest2);
@@ -109,7 +110,7 @@ public class DockingPaneTest {
         pathTest1 = getDockingAreaShortPath(TEST1);
         assertEquals(Arrays.asList(new ShortPathPart(20, 1, Orientation.HORIZONTAL)), pathTest1);
 
-        addDockingArea(20, TEST3, 30);
+        addDockingAreaNonPermanent(20, TEST3, 30);
 
         List<ShortPathPart> pathTest3 = getDockingAreaShortPath(TEST3);
         assertEquals(Arrays.asList(new ShortPathPart(30, 0, Orientation.VERTICAL)), pathTest3);
@@ -128,10 +129,10 @@ public class DockingPaneTest {
     @Test
     public void testAddDockingArea5() {
         System.out.println("addDockingArea5");
-        addDockingArea(20, LEFT, 20, 20);
-        addDockingArea(20, RIGHT, 20, 80);
-        addDockingArea(20, TOP, 20, 40, 20);
-        addDockingArea(20, BOTTOM, 20, 40, 80);
+        addDockingAreaNonPermanent(20, LEFT, 20, 20);
+        addDockingAreaNonPermanent(20, RIGHT, 20, 80);
+        addDockingAreaNonPermanent(20, TOP, 20, 40, 20);
+        addDockingAreaNonPermanent(20, BOTTOM, 20, 40, 80);
 
         List<ShortPathPart> leftPath = getDockingAreaShortPath(LEFT);
         assertEquals(Arrays.asList(
@@ -152,7 +153,29 @@ public class DockingPaneTest {
                 new ShortPathPart(80, 2, Orientation.VERTICAL)), bottomPath);
     }
 
-    private void addDockingArea(int position, String areaId, Integer... path) {
+    @Test
+    public void testAddDockingArea6() {
+        System.out.println("addDockingArea6");
+        addDockingAreaPermanent(20, CENTER, 20, 40, 50);
+        addDockingAreaNonPermanent(20, RIGHT, 20, 80);
+        addDockingAreaNonPermanent(20, TOP, 20, 40, 20);
+
+        List<ShortPathPart> centerPath = getDockingAreaShortPath(CENTER);
+        assertEquals(Arrays.asList(
+                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
+                new ShortPathPart(50, 2, Orientation.VERTICAL)), centerPath);
+
+        List<ShortPathPart> rightPath = getDockingAreaShortPath(RIGHT);
+        assertEquals(Arrays.asList(
+                new ShortPathPart(80, 1, Orientation.HORIZONTAL)), rightPath);
+
+        List<ShortPathPart> topPath = getDockingAreaShortPath(TOP);
+        assertEquals(Arrays.asList(
+                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
+                new ShortPathPart(20, 2, Orientation.VERTICAL)), topPath);
+    }
+
+    private void addDockingAreaNonPermanent(int position, String areaId, Integer... path) {
         dockingPane.addDockingArea(Arrays.asList(path), new DockingAreaPane(areaId, position, false));
 
         DockablePane dockablePane = new DockablePane();
@@ -161,6 +184,10 @@ public class DockingPaneTest {
         dockablePreferences.setPosition(10);
         dockablePreferencesManager.registerDockablePreferences(dockablePane, dockablePreferences);
         dockingPane.addDockable(dockablePane);
+    }
+
+    private void addDockingAreaPermanent(int position, String areaId, Integer... path) {
+        dockingPane.addDockingArea(Arrays.asList(path), new DockingAreaPane(areaId, position, true));
     }
 
 //    private List<Integer> getDockingAreaPath(String dockingAreaId) {

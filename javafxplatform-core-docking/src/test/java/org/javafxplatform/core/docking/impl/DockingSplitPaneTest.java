@@ -279,7 +279,6 @@ public class DockingSplitPaneTest {
     }
 
     @Test
-    @Ignore
     public void testAddDockingArea6() {
         System.out.println("addDockingArea6");
         DockingAreaPane center = createDockingArea(20, CENTER, 20, 40, 50);
