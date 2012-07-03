@@ -98,7 +98,7 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
     }
 
     private void recalculateDividerPositions() {
-        System.out.println("Split Pane: " + this + ": Orientation: " + control.getOrientation());
+//        System.out.println("Split Pane: " + this + ": Orientation: " + control.getOrientation());
         if (control.getOrientation().equals(Orientation.HORIZONTAL)) {
             recalculateDividerPositionsHorizontal();
         } else {
@@ -137,13 +137,13 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
     }
 
     private void recalculateDividerPositions(double[] prefs, double[] current, double parentSize) {
-        System.out.println("Parent size: " + parentSize);
+//        System.out.println("Parent size: " + parentSize);
         double[] relativeSizes = new double[prefs.length];
         double requiredRelativeSize = 0;
         int flexiblePositions = 0;
         if (parentSize > 0) {
             for (int i = 0; i < prefs.length; i++) {
-                System.out.println(i + ": " + prefs[i] + " -> " + current[i]);
+//                System.out.println(i + ": " + prefs[i] + " -> " + current[i]);
                 if (prefs[i] > 0) {
                     relativeSizes[i] = prefs[i] / parentSize;
                     requiredRelativeSize += relativeSizes[i];
@@ -171,7 +171,7 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
                 if (relativeSizes[i] > 0) {
                     currentPosition += relativeSizes[i];
                     splitPane.setDividerPosition(i, currentPosition);
-                    System.out.println("Set divider position: " + i + " to " + currentPosition);
+//                    System.out.println("Set divider position: " + i + " to " + currentPosition);
                 }
             }
         }

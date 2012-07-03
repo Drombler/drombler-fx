@@ -88,7 +88,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
     }
 
     private void handleDockingArea(DockingAreaPane dockingArea) {
-        System.out.println(DockingPaneSkin.class.getName() + ": adding docking area: " + dockingArea.getAreaId());
+//        System.out.println(DockingPaneSkin.class.getName() + ": adding docking area: " + dockingArea.getAreaId());
         if (!dockingArea.isPermanent()) {
             dockingArea.getDockables().addListener(new DockingAreaChangeListener(dockingArea));
         }

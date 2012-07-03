@@ -71,7 +71,7 @@ public class DockingPaneProvider implements ApplicationContentProvider,
 
     private DockingPane getDockingPane() {
         if (dockingPane == null) {
-            System.out.println("Create DockingPane: isFxApplicationThread: " + Platform.isFxApplicationThread());
+//            System.out.println("Create DockingPane: isFxApplicationThread: " + Platform.isFxApplicationThread());
             dockingPane = new DockingPane();
             dockingPane.setDockablePreferencesManager(dockablePreferencesManager);
         }

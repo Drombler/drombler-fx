@@ -104,7 +104,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 //    }
     public void addDockingArea(DockingAreaPane dockingArea) {
         if (dockingArea.isVisualizable()) {
-            System.out.println(DockingSplitPane.class.getName() + ": adding docking area: " + dockingArea.getAreaId());
+//            System.out.println(DockingSplitPane.class.getName() + ": adding docking area: " + dockingArea.getAreaId());
             List<PositionableAdapter<DockingAreaPane>> removedDockingAreas = new ArrayList<>();
             addDockingArea(dockingArea.getShortPath().iterator(), dockingArea, removedDockingAreas);
             for (PositionableAdapter<DockingAreaPane> removedDockingAreaAdapter : removedDockingAreas) {
@@ -136,7 +136,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         areaPanes.put(pathPart.getPosition(), new PositionableAdapter<>(dockingArea, pathPart.getPosition()));
         add(pathPart, dockingArea);
         dockingArea.setVisualized(true);
-        System.out.println(DockingSplitPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
+//        System.out.println(DockingSplitPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
     }
 
     private void addSplitPane(ShortPathPart pathPart, DockingSplitPane splitPane) {

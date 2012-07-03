@@ -62,7 +62,7 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
             @Override
             public void changed(ObservableValue<? extends PositionableAdapter<DockablePane>> ov, PositionableAdapter<DockablePane> oldValue, PositionableAdapter<DockablePane> newValue) {
                 if (newValue != null) {
-                    System.out.println("Active Context Changed 1: " + newValue.getAdapted().getTitle());
+//                    System.out.println("Active Context Changed 1: " + newValue.getAdapted().getTitle());
                     activeContext.setContexts(newValue.getAdapted().getContext());
                 }
             }
@@ -259,7 +259,7 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
             }
             while (currentNode != null) {
                 if (currentNode instanceof DockablePane) {
-                    System.out.println("Active Context Changed 2: " + ((DockablePane) currentNode).getTitle());
+//                    System.out.println("Active Context Changed 2: " + ((DockablePane) currentNode).getTitle());
                     activeContext.setContexts(((DockablePane) currentNode).getContext());
                     break;
                 } else {
