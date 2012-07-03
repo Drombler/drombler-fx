@@ -9,10 +9,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.softsmithy.lib.nio.file.CopyFileVisitor;
@@ -37,11 +35,10 @@ public class FXUtils {
 
     private static void doCopyMainClassesWorkaround(URI resourceURI, Path targetDir) throws IOException {
         // The file system needs to be created explicitly. Bug?
-        try (FileSystem jarFS = FileSystems.newFileSystem(JarFiles.getJarURI(resourceURI), new HashMap<String, Object>())) {
+        try (FileSystem jarFS = JarFiles.newJarFileSystem(JarFiles.getJarURI(resourceURI))) {
             doCopyMainClasses(resourceURI, targetDir);
         }
     }
-
 
     private static void doCopyMainClasses(URI resourceURI, Path targetDir) throws IOException {
         CopyFileVisitor.copy(Paths.get(resourceURI), targetDir);
@@ -54,8 +51,8 @@ public class FXUtils {
         manifestEntries.put("Main-Class", "com/javafx/main/Main");
         return manifestEntries;
     }
-    
-    public static String getJavaFXVersion(){
+
+    public static String getJavaFXVersion() {
         return "2.1.0";
     }
 }
