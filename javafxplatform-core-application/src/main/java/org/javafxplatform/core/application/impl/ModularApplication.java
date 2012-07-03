@@ -44,8 +44,11 @@ public class ModularApplication extends Application {
 //        Pane root = FXMLLoader.load(getClass().getResource("ContactCenterPane.fxml"));
         root = new ApplicationPane();
         BUNDLE_CONTEXT.registerService(
-                new String[]{MenuBarMenuContainerProvider.class.getName(), ContentPaneProvider.class.getName(),
-                    ApplicationToolBarContainerProvider.class.getName()}, root, null);
+                new String[]{
+                    MenuBarMenuContainerProvider.class.getName(), 
+                    ContentPaneProvider.class.getName(),
+                    ApplicationToolBarContainerProvider.class.getName()
+                }, root, null);
 //        Parent personEditorPane = FXMLLoader.load(getClass().getResource("PersonEditorPane.fxml"));
 //        root.getChildren().add(personEditorPane);
         stage.setTitle(getTitle());

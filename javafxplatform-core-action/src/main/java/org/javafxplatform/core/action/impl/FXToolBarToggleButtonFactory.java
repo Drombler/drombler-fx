@@ -22,7 +22,7 @@ public class FXToolBarToggleButtonFactory implements ToolBarToggleButtonFactory<
     private final ToggleGroupManager toggleGroupManager = new ToggleGroupManager();
 
     @Override
-    public ToggleButton createToolToggleBarButton(ToolBarToggleEntryDescriptor toolBarToggleEntryDescriptor, FXToggleAction action, int iconSize) {
+    public ToggleButton createToolBarToggleButton(ToolBarToggleEntryDescriptor toolBarToggleEntryDescriptor, FXToggleAction action, int iconSize) {
         ToggleButton toggleButton = new ToggleButton() {
 
             @Override

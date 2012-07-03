@@ -77,7 +77,7 @@ public abstract class AbstractFXAction implements FXAction {
     public Image getIconImage(int size) {
         if (!images.containsKey(size)) {
             Image image = loadImage(size);
-            if (image != null) {
+            if (image != null) { // TODO: add null?
                 images.put(size, image);
             }
         }
