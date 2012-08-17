@@ -16,6 +16,7 @@
     <description>ProjectX Bundle Maven Plugin</description>
     <url>http://maven.apache.org</url>
     <inceptionYear>2012</inceptionYear>
+    
     <build>
         <plugins>
             <plugin>

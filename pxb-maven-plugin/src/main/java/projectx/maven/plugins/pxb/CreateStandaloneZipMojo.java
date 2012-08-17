@@ -63,9 +63,10 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      */
     private double height;
     /**
-     * @parameter expression="${platform.userdir}" default-value="${user.home}/.${brandingId}/${project.version}"
+     * @parameter expression="${platform.userdir}" default-value="${dollar}{user.home}/.${brandingId}/${project.version}"
      * @required
      */
+    // TODO: good solution using "${dollar}"?
     private String userdir;
     /**
      * @parameter expression="${pxb.targetDirectory}" default-value="${project.build.directory}/deployment/standalone"
