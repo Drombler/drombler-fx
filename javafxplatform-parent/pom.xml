@@ -17,7 +17,7 @@
     <inceptionYear>2012</inceptionYear>
     
     <properties>
-        <javafx.version>2.2</javafx.version>
+        <javafx.version>2.2.0</javafx.version>
         <richclientplatform.version>0.1-SNAPSHOT</richclientplatform.version>
         <dollar>$</dollar>
     </properties>
