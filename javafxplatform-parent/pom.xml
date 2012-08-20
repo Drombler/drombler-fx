@@ -82,7 +82,7 @@
                 <version>${javafx.version}</version>
                 <type>jar</type>
                 <scope>system</scope>
-                <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
+                <systemPath>${env.JAVA_HOME}/jre/lib/jfxrt.jar</systemPath>
             </dependency>
             <dependency>
                 <groupId>javafx.dev</groupId>
@@ -90,7 +90,7 @@
                 <version>${javafx.version}</version>
                 <type>jar</type>
                 <scope>system</scope>
-                <systemPath>${env.JAVAFX_HOME}/lib/ant-javafx.jar</systemPath>
+                <systemPath>${env.JAVA_HOME}/lib/ant-javafx.jar</systemPath>
             </dependency>
         </dependencies>
     </dependencyManagement>

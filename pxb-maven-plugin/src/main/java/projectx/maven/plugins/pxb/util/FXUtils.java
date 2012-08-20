@@ -46,13 +46,13 @@ public class FXUtils {
 
     public static Map<String, String> getManifestEntries(String mainClass) {
         Map<String, String> manifestEntries = new LinkedHashMap<>(3);
-        manifestEntries.put("JavaFX-Version", "2.0");
+        manifestEntries.put("JavaFX-Version", getJavaFXVersion());
         manifestEntries.put("JavaFX-Application-Class", mainClass);
         manifestEntries.put("Main-Class", "com/javafx/main/Main");
         return manifestEntries;
     }
 
     public static String getJavaFXVersion() {
-        return "2.1.0";
+        return "2.2";
     }
 }

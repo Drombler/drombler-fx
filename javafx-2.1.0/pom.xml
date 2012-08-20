@@ -35,7 +35,7 @@
             <version>2.2</version>
             <type>jar</type>
             <scope>system</scope>
-            <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
+            <systemPath>${env.JAVA_HOME}/jre/lib/jfxrt.jar</systemPath>
         </dependency>
     </dependencies>
 

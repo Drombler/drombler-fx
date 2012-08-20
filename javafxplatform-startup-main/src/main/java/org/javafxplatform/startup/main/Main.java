@@ -6,6 +6,8 @@ package org.javafxplatform.startup.main;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.util.Properties;
 import org.richclientplatform.startup.main.impl.CommandLineArgs;
 
@@ -14,6 +16,9 @@ import org.richclientplatform.startup.main.impl.CommandLineArgs;
  * @author puce
  */
 public class Main extends org.richclientplatform.startup.main.impl.Main {
+    public static final String JAVAFX_VERSION_PROPERTY = "jfx.specification.version";
+    public static final String JAVAFX_VERSION_2_2_0 = "2.2.0";
+    
     /**
      * <p>
      * This method performs the main task of constructing an framework instance
@@ -151,4 +156,16 @@ public class Main extends org.richclientplatform.startup.main.impl.Main {
         }
         return properties;
     }
+
+    @Override
+    protected void loadSystemProperties(Path rootDirPath) throws MalformedURLException, IOException {
+        super.loadSystemProperties(rootDirPath);
+            
+        // used by: org.osgi.framework.system.packages.extra
+        if (System.getProperty(JAVAFX_VERSION_PROPERTY) == null) {
+            System.setProperty(JAVAFX_VERSION_PROPERTY, JAVAFX_VERSION_2_2_0);
+        }
+    }
+    
+    
 }
