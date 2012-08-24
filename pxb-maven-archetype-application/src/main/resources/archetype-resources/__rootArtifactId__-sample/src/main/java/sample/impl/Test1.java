@@ -6,7 +6,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ${package}.sample;
+package ${package}.sample.impl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

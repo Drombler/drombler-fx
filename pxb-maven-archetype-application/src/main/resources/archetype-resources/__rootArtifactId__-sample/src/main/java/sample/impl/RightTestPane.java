@@ -6,7 +6,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ${package}.sample;
+package ${package}.sample.impl;
 
 import javafx.scene.control.Label;
 import org.javafxplatform.core.docking.DockablePane;
@@ -16,13 +16,13 @@ import org.richclientplatform.core.docking.WindowMenuEntry;
  *
  * @author puce
  */
-@ViewDocking(areaId = "bottom", position = 10, displayName = "Bottom",
+@ViewDocking(areaId = "right", position = 10, displayName = "Right",
 menuEntry =
-@WindowMenuEntry(path = "", position = 30))
-public class BottomTestPane extends DockablePane{
+@WindowMenuEntry(path = "Other", position = 40))
+public class RightTestPane extends DockablePane{
 
-    public BottomTestPane() {
-        setContent(new Label("bottom"));
+    public RightTestPane() {
+        setContent(new Label("right"));
     }
     
 }

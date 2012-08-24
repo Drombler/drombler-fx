@@ -45,6 +45,12 @@
                         <include>**/*.properties</include>
                     </includes>
                 </fileSet>
+                <fileSet packaged="true" filtered="false" encoding="UTF-8">
+                    <directory>src/main/resources-bin</directory>
+                    <includes>
+                        <include>**/*.png</include>
+                    </includes>
+                </fileSet>
             </fileSets>
         </module>
     </modules>
