@@ -4,23 +4,20 @@
  */
 package org.javafxplatform.core.docking.impl;
 
-import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.commons.util.context.ActiveContextProvider;
+import org.drombler.acp.core.commons.util.context.ApplicationContextProvider;
+import org.drombler.acp.core.commons.util.context.Context;
+import org.drombler.acp.core.docking.spi.DockablePreferencesManager;
+import org.drombler.acp.core.docking.spi.DockingAreaContainer;
+import org.drombler.acp.core.docking.spi.DockingAreaContainerProvider;
 import org.javafxplatform.core.application.ApplicationContentProvider;
 import org.javafxplatform.core.application.FocusOwnerChangeListenerProvider;
 import org.javafxplatform.core.docking.DockablePane;
-import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
-import org.richclientplatform.core.docking.spi.DockingAreaContainer;
-import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
-import org.richclientplatform.core.lib.util.context.ActiveContextProvider;
-import org.richclientplatform.core.lib.util.context.ApplicationContextProvider;
-import org.richclientplatform.core.lib.util.context.Context;
 
 /**
  *

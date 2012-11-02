@@ -5,17 +5,14 @@
 package org.javafxplatform.core.docking.impl;
 
 import java.util.Arrays;
-import java.util.List;
 import javafx.geometry.Orientation;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
+import org.drombler.acp.core.commons.util.PositionableAdapter;
 import org.javafxplatform.core.docking.DockablePane;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.richclientplatform.core.lib.util.PositionableAdapter;
 
 /**
  *

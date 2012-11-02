@@ -7,9 +7,9 @@ package org.javafxplatform.core.application.impl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.drombler.acp.core.action.spi.ApplicationToolBarContainerProvider;
+import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
 import org.osgi.framework.BundleContext;
-import org.richclientplatform.core.action.spi.ApplicationToolBarContainerProvider;
-import org.richclientplatform.core.action.spi.MenuBarMenuContainerProvider;
 
 /**
  *

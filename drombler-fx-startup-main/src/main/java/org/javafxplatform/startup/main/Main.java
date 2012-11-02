@@ -9,13 +9,13 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.util.Properties;
-import org.richclientplatform.startup.main.impl.CommandLineArgs;
+import org.drombler.acp.startup.main.impl.CommandLineArgs;
 
 /**
  *
  * @author puce
  */
-public class Main extends org.richclientplatform.startup.main.impl.Main {
+public class Main extends org.drombler.acp.startup.main.impl.Main {
     public static final String JAVAFX_VERSION_PROPERTY = "jfx.specification.version";
     public static final String JAVAFX_VERSION_2_2_0 = "2.2.0";
     

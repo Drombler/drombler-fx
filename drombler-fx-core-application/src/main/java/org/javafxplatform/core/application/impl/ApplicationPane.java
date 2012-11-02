@@ -24,17 +24,15 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import org.drombler.acp.core.action.spi.ApplicationToolBarContainerProvider;
+import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
+import org.drombler.acp.core.action.spi.MenuItemRootContainer;
+import org.drombler.acp.core.action.spi.ToolBarContainer;
 import org.javafxplatform.core.action.MenuBarMenuContainer;
 import org.javafxplatform.core.util.javafx.fxml.FXMLLoaders;
-import org.richclientplatform.core.action.spi.MenuBarMenuContainerProvider;
-import org.richclientplatform.core.action.spi.ApplicationToolBarContainerProvider;
-import org.richclientplatform.core.action.spi.MenuItemRootContainer;
-import org.richclientplatform.core.action.spi.PositionableMenuItemAdapter;
-import org.richclientplatform.core.action.spi.ToolBarContainer;
 
 /**
  *

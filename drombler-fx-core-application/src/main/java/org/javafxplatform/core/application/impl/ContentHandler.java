@@ -9,9 +9,9 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
+import org.drombler.acp.core.application.ApplicationExecutorProvider;
 import org.javafxplatform.core.application.ApplicationContentProvider;
 import org.osgi.service.component.ComponentContext;
-import org.richclientplatform.core.application.ApplicationExecutorProvider;
 
 /**
  *

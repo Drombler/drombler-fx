@@ -3,16 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../javafxplatform-parent</relativePath>
+        <relativePath>../drombler-fx-parent</relativePath>
     </parent>
-    <groupId>projectx.maven.plugins</groupId>
-    <artifactId>pxb-maven-plugin</artifactId>
-    <version>0.1-SNAPSHOT</version>
+
+    <artifactId>drombler-fx-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <name>pxb-maven-plugin Maven Mojo</name>
+    
+    <name>Drombler FX - Maven Plugin</name>
     <description>ProjectX Bundle Maven Plugin</description>
     <url>http://maven.apache.org</url>
     <inceptionYear>2012</inceptionYear>
@@ -42,13 +42,13 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-startup-main</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-startup-main</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-application</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-application</artifactId>
             <version>${project.version}</version>
         </dependency>
         

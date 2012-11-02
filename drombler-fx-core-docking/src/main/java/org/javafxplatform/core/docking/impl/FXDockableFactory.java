@@ -8,9 +8,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.docking.spi.DockableFactory;
+import org.drombler.acp.core.docking.spi.ViewDockingDescriptor;
 import org.javafxplatform.core.docking.DockablePane;
-import org.richclientplatform.core.docking.spi.DockableFactory;
-import org.richclientplatform.core.docking.spi.ViewDockingDescriptor;
 
 /**
  *

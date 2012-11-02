@@ -3,16 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../javafxplatform-parent</relativePath>
+        <relativePath>../drombler-fx-parent</relativePath>
     </parent>
-    <artifactId>javafxplatform-core-docking</artifactId>
+    <artifactId>drombler-fx-core-docking</artifactId>
     <packaging>bundle</packaging>
 
 
-    <name>JavaFX Platform - Core - Docking</name>
+    <name>Drombler FX - Core - Docking</name>
     <inceptionYear>2012</inceptionYear>
 
 
@@ -40,27 +40,27 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-startup-main</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-startup-main</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-application</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-application</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-docking</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-docking</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-docking-spi</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-docking-spi</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-util</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-commons</artifactId>
         </dependency>
         <dependency>
             <groupId>javafx</groupId>

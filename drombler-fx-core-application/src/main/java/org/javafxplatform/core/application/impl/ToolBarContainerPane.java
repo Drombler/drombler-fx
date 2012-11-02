@@ -4,31 +4,22 @@
  */
 package org.javafxplatform.core.application.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import org.richclientplatform.core.action.spi.ToolBarContainer;
-import org.richclientplatform.core.action.spi.ToolBarContainerListener;
-import org.richclientplatform.core.action.spi.ToolBarContainerToolBarButtonEvent;
-import org.richclientplatform.core.action.spi.ToolBarContainerToolBarEvent;
-import org.richclientplatform.core.lib.util.PositionableAdapter;
-import org.richclientplatform.core.lib.util.Positionables;
+import org.drombler.acp.core.action.spi.ToolBarContainer;
+import org.drombler.acp.core.action.spi.ToolBarContainerListener;
+import org.drombler.acp.core.action.spi.ToolBarContainerToolBarButtonEvent;
+import org.drombler.acp.core.action.spi.ToolBarContainerToolBarEvent;
+import org.drombler.acp.core.commons.util.PositionableAdapter;
+import org.drombler.acp.core.commons.util.Positionables;
 
 /**
  *

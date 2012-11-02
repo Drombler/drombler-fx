@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>javafxplatform-parent</relativePath>
+        <relativePath>drombler-fx-parent</relativePath>
     </parent>
-    <artifactId>javafxplatform-all</artifactId>
+    <artifactId>drombler-fx-all</artifactId>
     <packaging>pom</packaging>
     
-    <name>JavaFX Platform - All</name>
+    <name>Drombler FX - All</name>
     <inceptionYear>2012</inceptionYear>
     
     <modules>

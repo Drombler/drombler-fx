@@ -4,10 +4,8 @@
  */
 package org.javafxplatform.core.docking;
 
-import java.io.IOException;
 import javafx.beans.DefaultProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyBooleanPropertyBase;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
@@ -15,18 +13,15 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
-import javafx.scene.layout.Pane;
-import org.javafxplatform.core.action.impl.ActionListenerAdapter;
+import org.drombler.acp.core.commons.util.context.Context;
+import org.drombler.acp.core.commons.util.context.Contexts;
+import org.drombler.acp.core.docking.Dockable;
+import org.drombler.acp.core.docking.spi.DockingAreaContainerProvider;
 import org.javafxplatform.core.docking.impl.DockingAreaPane;
 import org.javafxplatform.core.docking.impl.skin.Stylesheets;
-import org.javafxplatform.core.util.javafx.fxml.FXMLLoaders;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
-import org.richclientplatform.core.docking.Dockable;
-import org.richclientplatform.core.docking.spi.DockingAreaContainerProvider;
-import org.richclientplatform.core.lib.util.context.Context;
-import org.richclientplatform.core.lib.util.context.Contexts;
 
 /**
  *

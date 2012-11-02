@@ -8,10 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.action.ActionListener;
+import org.drombler.acp.core.action.spi.ActionDescriptor;
+import org.drombler.acp.core.action.spi.ActionFactory;
 import org.javafxplatform.core.action.FXAction;
-import org.richclientplatform.core.action.ActionListener;
-import org.richclientplatform.core.action.spi.ActionDescriptor;
-import org.richclientplatform.core.action.spi.ActionFactory;
 
 /**
  *

@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.docking.spi.DockablePreferences;
+import org.drombler.acp.core.docking.spi.DockablePreferencesManager;
 import org.javafxplatform.core.docking.DockablePane;
-import org.richclientplatform.core.docking.spi.DockablePreferences;
-import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
 
 /**
  *

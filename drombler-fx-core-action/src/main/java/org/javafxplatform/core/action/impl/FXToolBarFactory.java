@@ -7,8 +7,8 @@ package org.javafxplatform.core.action.impl;
 import javafx.scene.control.ToolBar;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.richclientplatform.core.action.spi.ToolBarDescriptor;
-import org.richclientplatform.core.action.spi.ToolBarFactory;
+import org.drombler.acp.core.action.spi.ToolBarDescriptor;
+import org.drombler.acp.core.action.spi.ToolBarFactory;
 
 /**
  *

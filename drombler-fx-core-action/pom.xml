@@ -2,16 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../javafxplatform-parent</relativePath>
+        <relativePath>../drombler-fx-parent</relativePath>
     </parent>
 
-    <artifactId>javafxplatform-core-action</artifactId>
+    <artifactId>drombler-fx-core-action</artifactId>
     <packaging>bundle</packaging>
 
-    <name>JavaFX Platform - Core - Action</name>
+    <name>Drombler FX - Core - Action</name>
     <inceptionYear>2012</inceptionYear>
 
 
@@ -39,8 +39,8 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-util</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -49,16 +49,16 @@
             <scope>system</scope>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-action</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-action</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-action-spi</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-action-spi</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-util</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-commons</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>

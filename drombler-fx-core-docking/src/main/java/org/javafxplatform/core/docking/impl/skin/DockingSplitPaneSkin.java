@@ -4,8 +4,6 @@
  */
 package org.javafxplatform.core.docking.impl.skin;
 
-import java.util.HashMap;
-import java.util.Map;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,9 +13,9 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.control.SplitPane;
+import org.drombler.acp.core.docking.spi.LayoutConstraintsDescriptor;
 import org.javafxplatform.core.docking.impl.DockingSplitPane;
 import org.javafxplatform.core.docking.impl.DockingSplitPaneChildBase;
-import org.richclientplatform.core.docking.spi.LayoutConstraintsDescriptor;
 
 /**
  *

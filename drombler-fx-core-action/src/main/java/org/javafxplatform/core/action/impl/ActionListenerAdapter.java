@@ -10,8 +10,8 @@ import java.io.InputStream;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanPropertyBase;
 import javafx.event.ActionEvent;
+import org.drombler.acp.core.action.ActionListener;
 import org.javafxplatform.core.action.AbstractFXAction;
-import org.richclientplatform.core.action.ActionListener;
 
 /**
  *

@@ -11,7 +11,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import org.richclientplatform.core.action.Action;
+import org.drombler.acp.core.action.Action;
 
 /**
  * Checks if the listener class implements {@link EventHandler<ActionEvent>}.<br/>
@@ -19,7 +19,7 @@ import org.richclientplatform.core.action.Action;
  * Note: Not used/ implemented yet. Useful?
  * @author puce
  */
-@SupportedAnnotationTypes("org.richclientplatform.core.action.Action")
+@SupportedAnnotationTypes("org.drombler.acp.core.action.Action")
 public class ActionAnnotationProcessor extends AbstractProcessor {
 
 

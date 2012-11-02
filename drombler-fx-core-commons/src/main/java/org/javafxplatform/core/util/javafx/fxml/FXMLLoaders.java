@@ -7,7 +7,7 @@ package org.javafxplatform.core.util.javafx.fxml;
 import java.io.IOException;
 import java.io.InputStream;
 import javafx.fxml.FXMLLoader;
-import org.richclientplatform.core.lib.util.Resources;
+import org.drombler.acp.core.commons.util.Resources;
 
 /**
  *

@@ -8,8 +8,8 @@ import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.drombler.acp.core.action.spi.ToolBarEntryDescriptor;
 import org.javafxplatform.core.action.FXAction;
-import org.richclientplatform.core.action.spi.ToolBarEntryDescriptor;
 
 /**
  *

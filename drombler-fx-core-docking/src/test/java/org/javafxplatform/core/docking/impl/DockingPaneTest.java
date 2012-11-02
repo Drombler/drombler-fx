@@ -7,14 +7,13 @@ package org.javafxplatform.core.docking.impl;
 import java.util.Arrays;
 import java.util.List;
 import javafx.geometry.Orientation;
+import org.drombler.acp.core.docking.spi.DockablePreferences;
+import org.drombler.acp.core.docking.spi.DockablePreferencesManager;
 import org.javafxplatform.core.docking.DockablePane;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.richclientplatform.core.docking.spi.DockablePreferences;
-import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
-import org.richclientplatform.core.lib.util.PositionableAdapter;
 
 /**
  *

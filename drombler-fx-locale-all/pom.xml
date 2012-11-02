@@ -3,22 +3,22 @@
     <modelVersion>4.0.0</modelVersion>
   
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../javafxplatform-parent</relativePath>
+        <relativePath>../drombler-fx-parent</relativePath>
     </parent>
-    <artifactId>javafxplatform-locale-all</artifactId>
+    <artifactId>drombler-fx-locale-all</artifactId>
     <packaging>pom</packaging>
 
-    <name>JavaFX Platform - Locale - All</name>
+    <name>Drombler FX - Locale - All</name>
     <inceptionYear>2012</inceptionYear>
     
     
     <dependencies>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-locale-de</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-locale-de</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>

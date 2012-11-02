@@ -6,8 +6,8 @@ package org.javafxplatform.core.docking.impl;
 
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.richclientplatform.core.docking.spi.DockingAreaDescriptor;
-import org.richclientplatform.core.docking.spi.DockingAreaFactory;
+import org.drombler.acp.core.docking.spi.DockingAreaDescriptor;
+import org.drombler.acp.core.docking.spi.DockingAreaFactory;
 
 /**
  *

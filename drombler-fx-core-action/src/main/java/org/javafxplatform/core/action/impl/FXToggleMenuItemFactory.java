@@ -10,9 +10,9 @@ import javafx.scene.control.RadioMenuItem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.action.spi.ToggleMenuEntryDescriptor;
+import org.drombler.acp.core.action.spi.ToggleMenuItemFactory;
 import org.javafxplatform.core.action.FXToggleAction;
-import org.richclientplatform.core.action.spi.ToggleMenuEntryDescriptor;
-import org.richclientplatform.core.action.spi.ToggleMenuItemFactory;
 
 /**
  *

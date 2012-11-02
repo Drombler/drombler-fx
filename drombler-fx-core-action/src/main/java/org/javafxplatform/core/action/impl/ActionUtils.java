@@ -6,8 +6,8 @@ package org.javafxplatform.core.action.impl;
 
 import javafx.application.Platform;
 import javafx.scene.input.KeyCombination;
+import org.drombler.acp.core.action.spi.ActionDescriptor;
 import org.javafxplatform.core.action.FXAction;
-import org.richclientplatform.core.action.spi.ActionDescriptor;
 
 /**
  *

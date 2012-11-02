@@ -3,15 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../javafxplatform-parent</relativePath>
+        <relativePath>../drombler-fx-parent</relativePath>
     </parent>
-    <artifactId>javafxplatform-core-application</artifactId>
+    <artifactId>drombler-fx-core-application</artifactId>
     <packaging>bundle</packaging>
 
-    <name>JavaFX Platform - Core - Application</name>
+    <name>Drombler FX - Core - Application</name>
     <inceptionYear>2012</inceptionYear>
 
 
@@ -45,19 +45,19 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-startup-main</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-startup-main</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-action</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-action</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-util</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -66,12 +66,12 @@
             <scope>system</scope>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-action</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-action</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-action-spi</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-action-spi</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
@@ -84,8 +84,8 @@
             <version>1.6.0</version>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-standard-action</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-standard-action</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>

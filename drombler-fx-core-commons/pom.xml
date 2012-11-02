@@ -3,16 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../javafxplatform-parent</relativePath>
+        <relativePath>../drombler-fx-parent</relativePath>
     </parent>
-    <artifactId>javafxplatform-core-util</artifactId>
+    <artifactId>drombler-fx-core-commons</artifactId>
     <packaging>bundle</packaging>
 
 
-    <name>JavaFX Platform - Core - Util</name>
+    <name>Drombler FX - Core - Commons</name>
     <inceptionYear>2012</inceptionYear>
     
     
@@ -32,8 +32,8 @@
             <scope>system</scope>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-util</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-commons</artifactId>
         </dependency>
     </dependencies>
 </project>

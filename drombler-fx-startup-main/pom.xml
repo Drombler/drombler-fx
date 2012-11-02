@@ -3,15 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../javafxplatform-parent</relativePath>
+        <relativePath>../drombler-fx-parent</relativePath>
     </parent>
-    <artifactId>javafxplatform-startup-main</artifactId>
+    <artifactId>drombler-fx-startup-main</artifactId>
     <packaging>bundle</packaging>
 
-    <name>JavaFX Platform - Startup - Main</name>
+    <name>Drombler FX - Startup - Main</name>
     <inceptionYear>2012</inceptionYear>
 
     <build>
@@ -24,15 +24,11 @@
                     <instructions>
                         <_donotcopy>(CVS|.svn|config.properties)</_donotcopy>
                         <JavaFX-Version>2.0</JavaFX-Version>
-                        <JavaFX-Application-Class>org.javafxplatform.startup.main.Main</JavaFX-Application-Class>
+                        <JavaFX-Application-Class>org.drombler.fx.startup.main.Main</JavaFX-Application-Class>
                         <Main-Class>com.javafx.main.Main</Main-Class>
-<!--                        <Bundle-SymbolicName>org.apache.felix.main</Bundle-SymbolicName>
-                        <Bundle-Name>Apache Felix</Bundle-Name>
-                        <Bundle-Description>OSGi R4 framework.</Bundle-Description>
-                        <Bundle-Vendor>The Apache Software Foundation</Bundle-Vendor>-->
-                        <Embed-Dependency>*;artifactId=richclientplatform-startup-main;inline=true</Embed-Dependency>
-                        <Private-Package>org.javafxplatform.startup.main.*</Private-Package>
-                        <Export-Package>!org.osgi.service.log, !org.osgi.service.obr,org.osgi.*, !org.richclientplatform.startup.main.impl.*, org.richclientplatform.startup.main.*</Export-Package>
+                        <Embed-Dependency>*;artifactId=drombler-acp-startup-main;inline=true</Embed-Dependency>
+                        <Private-Package>org.drombler.fx.startup.main.*</Private-Package>
+                        <Export-Package>!org.osgi.service.log, !org.osgi.service.obr,org.osgi.*, !org.drombler.acp.startup.main.impl.*, org.drombler.acp.startup.main.*</Export-Package>
                         <Import-Package>!*</Import-Package>
                     </instructions>
                 </configuration>
@@ -42,8 +38,8 @@
     
     <dependencies>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-startup-main</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-startup-main</artifactId>
         </dependency>
     </dependencies>
 

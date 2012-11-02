@@ -29,10 +29,10 @@ import org.apache.maven.plugin.dependency.AbstractFromDependenciesMojo;
 import org.apache.maven.plugin.dependency.CopyDependenciesMojo;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
-import org.ops4j.pax.construct.util.ReflectMojo;
+import org.drombler.acp.startup.main.impl.ApplicationConfigProviderImpl;
+import org.drombler.acp.startup.main.impl.Main;
 import org.javafxplatform.core.application.impl.FXApplicationLauncher;
-import org.richclientplatform.startup.main.impl.ApplicationConfigProviderImpl;
-import org.richclientplatform.startup.main.impl.Main;
+import org.ops4j.pax.construct.util.ReflectMojo;
 import org.softsmithy.lib.nio.file.JarFiles;
 import projectx.maven.plugins.pxb.util.FXUtils;
 

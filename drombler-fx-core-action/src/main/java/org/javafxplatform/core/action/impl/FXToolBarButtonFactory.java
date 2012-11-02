@@ -7,9 +7,9 @@ package org.javafxplatform.core.action.impl;
 import javafx.scene.control.Button;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.action.spi.ToolBarButtonFactory;
+import org.drombler.acp.core.action.spi.ToolBarEntryDescriptor;
 import org.javafxplatform.core.action.FXAction;
-import org.richclientplatform.core.action.spi.ToolBarButtonFactory;
-import org.richclientplatform.core.action.spi.ToolBarEntryDescriptor;
 
 /**
  *

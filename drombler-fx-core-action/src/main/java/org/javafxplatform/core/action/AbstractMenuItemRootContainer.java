@@ -9,11 +9,11 @@ import java.util.Collections;
 import java.util.List;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import org.richclientplatform.core.action.spi.MenuItemContainerListener;
-import org.richclientplatform.core.action.spi.MenuItemContainerMenuEvent;
-import org.richclientplatform.core.action.spi.MenuItemContainerMenuItemEvent;
-import org.richclientplatform.core.action.spi.MenuItemRootContainer;
-import org.richclientplatform.core.action.spi.PositionableMenuItemAdapter;
+import org.drombler.acp.core.action.spi.MenuItemContainerListener;
+import org.drombler.acp.core.action.spi.MenuItemContainerMenuEvent;
+import org.drombler.acp.core.action.spi.MenuItemContainerMenuItemEvent;
+import org.drombler.acp.core.action.spi.MenuItemRootContainer;
+import org.drombler.acp.core.action.spi.PositionableMenuItemAdapter;
 
 /**
  *

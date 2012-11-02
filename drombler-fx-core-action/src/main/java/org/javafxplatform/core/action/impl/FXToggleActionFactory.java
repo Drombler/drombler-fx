@@ -6,10 +6,10 @@ package org.javafxplatform.core.action.impl;
 
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.action.ToggleActionListener;
+import org.drombler.acp.core.action.spi.ActionDescriptor;
+import org.drombler.acp.core.action.spi.ToggleActionFactory;
 import org.javafxplatform.core.action.FXToggleAction;
-import org.richclientplatform.core.action.ToggleActionListener;
-import org.richclientplatform.core.action.spi.ActionDescriptor;
-import org.richclientplatform.core.action.spi.ToggleActionFactory;
 
 /**
  *

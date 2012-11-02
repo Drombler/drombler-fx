@@ -7,9 +7,9 @@ package org.javafxplatform.core.action.impl;
 import javafx.scene.control.MenuItem;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.action.spi.MenuEntryDescriptor;
+import org.drombler.acp.core.action.spi.MenuItemFactory;
 import org.javafxplatform.core.action.FXAction;
-import org.richclientplatform.core.action.spi.MenuEntryDescriptor;
-import org.richclientplatform.core.action.spi.MenuItemFactory;
 
 /**
  *

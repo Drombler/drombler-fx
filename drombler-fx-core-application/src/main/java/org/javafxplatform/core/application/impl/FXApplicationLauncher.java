@@ -12,12 +12,11 @@ import javafx.application.Platform;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
+import org.drombler.acp.startup.main.ApplicationConfigProvider;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.service.component.ComponentContext;
-import org.richclientplatform.startup.main.ApplicationConfigProvider;
 
 /**
  *

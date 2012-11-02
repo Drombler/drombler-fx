@@ -3,17 +3,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.richclientplatform</groupId>
-        <artifactId>richclientplatform-parent</artifactId>
+        <groupId>org.drombler.acp</groupId>
+        <artifactId>drombler-acp-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath></relativePath>
     </parent>
-    <groupId>org.javafxplatform</groupId>
-    <artifactId>javafxplatform-parent</artifactId>
+    <groupId>org.drombler.fx</groupId>
+    <artifactId>drombler-fx-parent</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     
-    <name>JavaFX Platform - Parent</name>
+    <name>Drombler FX - Parent</name>
     <inceptionYear>2012</inceptionYear>
     
     <properties>
@@ -27,53 +27,53 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-core-action</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-core-action</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-core-action-spi</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-core-action-spi</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-core-application</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-core-application</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-core-docking</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-core-docking</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-core-docking-spi</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-core-docking-spi</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-core-standard-action</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-core-standard-action</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-core-standard-docking</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-core-standard-docking</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-core-util</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-core-commons</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-locale-all</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-locale-all</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richclientplatform</groupId>
-                <artifactId>richclientplatform-startup-main</artifactId>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-startup-main</artifactId>
                 <version>${richclientplatform.version}</version>
             </dependency>
             <dependency>

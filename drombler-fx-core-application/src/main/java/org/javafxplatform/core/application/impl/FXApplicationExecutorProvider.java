@@ -7,7 +7,7 @@ package org.javafxplatform.core.application.impl;
 import java.util.concurrent.Executor;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.richclientplatform.core.application.ApplicationExecutorProvider;
+import org.drombler.acp.core.application.ApplicationExecutorProvider;
 
 /**
  *

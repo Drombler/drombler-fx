@@ -7,7 +7,7 @@ package org.javafxplatform.core.docking.impl;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
-import org.richclientplatform.core.docking.spi.LayoutConstraintsDescriptor;
+import org.drombler.acp.core.docking.spi.LayoutConstraintsDescriptor;
 
 /**
  *

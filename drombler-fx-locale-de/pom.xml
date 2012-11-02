@@ -2,22 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>../javafxplatform-parent</relativePath>
+        <relativePath>../drombler-fx-parent</relativePath>
     </parent>
-    <artifactId>javafxplatform-locale-de</artifactId>
+    <artifactId>drombler-fx-locale-de</artifactId>
     <packaging>pom</packaging>
 
-    <name>JavaFX Platform - Locale - German</name>
+    <name>Drombler FX - Locale - German</name>
     <inceptionYear>2012</inceptionYear>
     
     
     <dependencies>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-locale-de</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-locale-de</artifactId>
             <version>0.1-SNAPSHOT</version>
             <type>pom</type>
         </dependency>

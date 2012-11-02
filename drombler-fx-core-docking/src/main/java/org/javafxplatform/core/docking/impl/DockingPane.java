@@ -17,16 +17,16 @@ import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import org.drombler.acp.core.commons.util.PositionableAdapter;
+import org.drombler.acp.core.commons.util.context.Context;
+import org.drombler.acp.core.commons.util.context.ProxyContext;
+import org.drombler.acp.core.docking.spi.DockablePreferences;
+import org.drombler.acp.core.docking.spi.DockablePreferencesManager;
+import org.drombler.acp.core.docking.spi.DockingAreaContainer;
+import org.drombler.acp.core.docking.spi.DockingAreaContainerDockingAreaEvent;
+import org.drombler.acp.core.docking.spi.DockingAreaContainerListener;
 import org.javafxplatform.core.docking.DockablePane;
 import org.javafxplatform.core.docking.impl.skin.Stylesheets;
-import org.richclientplatform.core.docking.spi.DockablePreferences;
-import org.richclientplatform.core.docking.spi.DockablePreferencesManager;
-import org.richclientplatform.core.docking.spi.DockingAreaContainer;
-import org.richclientplatform.core.docking.spi.DockingAreaContainerDockingAreaEvent;
-import org.richclientplatform.core.docking.spi.DockingAreaContainerListener;
-import org.richclientplatform.core.lib.util.PositionableAdapter;
-import org.richclientplatform.core.lib.util.context.Context;
-import org.richclientplatform.core.lib.util.context.ProxyContext;
 
 /**
  *
