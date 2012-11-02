@@ -16,7 +16,7 @@ import org.richclientplatform.core.docking.WindowMenuEntry;
  *
  * @author puce
  */
-@ViewDocking(areaId = "bottom", position = 10, displayName = "Bottom",
+@ViewDocking(areaId = "bottom", position = 10, displayName = "#BottomTestPane.displayName",
 menuEntry =
 @WindowMenuEntry(path = "", position = 30))
 public class BottomTestPane extends DockablePane{

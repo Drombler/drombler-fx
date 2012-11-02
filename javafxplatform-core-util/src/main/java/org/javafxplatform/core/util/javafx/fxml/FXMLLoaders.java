@@ -5,12 +5,8 @@
 package org.javafxplatform.core.util.javafx.fxml;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
+import java.io.InputStream;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
-import javafx.util.Builder;
-import javafx.util.BuilderFactory;
-import javafx.util.Callback;
 import org.richclientplatform.core.lib.util.Resources;
 
 /**
@@ -33,23 +29,20 @@ public class FXMLLoaders {
         return load(controller.getClass(), controller);
     }
 
-    public static Object load(Class<?> type, final Object controller) throws IOException {
+    public static Object load(Class<?> type, final Object rootController) throws IOException {
         FXMLLoader loader = createFXMLLoader(type);
-        loader.setControllerFactory(new Callback<Class<?>, Object>() {
-
-            @Override
-            public Object call(Class<?> p) {
-                if (p.equals(controller.getClass())) {
-                    return controller;
-                } else {
-                    return null;
-                }
-            }
-        });
+        loader.setRoot(rootController);
+        loader.setController(rootController);
         return load(loader, type);
     }
 
     public static Object load(FXMLLoader loader, Class<?> type) throws IOException {
-        return loader.load(type.getResourceAsStream(type.getSimpleName() + ".fxml"));
+        try (InputStream is = getFXMLInputStream(type)) {
+            return loader.load(is);
+        }
+    }
+
+    private static InputStream getFXMLInputStream(Class<?> type) {
+        return type.getResourceAsStream(type.getSimpleName() + ".fxml");
     }
 }

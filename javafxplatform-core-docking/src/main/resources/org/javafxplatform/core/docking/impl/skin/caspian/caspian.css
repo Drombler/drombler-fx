@@ -35,6 +35,10 @@
     -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockingSplitPaneSkin";
 }
 
+/*.docking-split-pane .split-pane {
+    -fx-background-color: -fx-box-border, green;
+}*/
+
 /**************************************************************************************************
  *                                                                                                *
  * DockingAreaPane                                                                              *
@@ -44,6 +48,9 @@
 .docking-area-pane { 
     -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockingAreaPaneSkin";
 }
-
-
-
+/*.docking-area-pane .tab-content-area {
+    -fx-background-color: blue;
+}*/
+/*.docking-area-pane .tab-pane {
+    -fx-background-color: yellow;
+}*/

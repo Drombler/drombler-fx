@@ -4,6 +4,7 @@
  */
 package org.javafxplatform.core.action.impl;
 
+import javafx.application.Platform;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +21,7 @@ class MenuItemUtils {
     }
 
     public static void configureMenuItem(MenuItem menuItem, MenuEntryDescriptor menuEntryDescriptor, FXAction action, int iconSize) {
+        System.out.println(MenuItemUtils.class.getName()+": isFxApplicationThread: "+Platform.isFxApplicationThread());
         menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.setMnemonicParsing(true);
         menuItem.acceleratorProperty().bind(action.acceleratorProperty());

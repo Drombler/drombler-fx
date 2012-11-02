@@ -4,6 +4,8 @@
  */
 package org.javafxplatform.core.docking;
 
+import java.io.IOException;
+import javafx.beans.DefaultProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyBooleanPropertyBase;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -13,9 +15,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
+import javafx.scene.layout.Pane;
 import org.javafxplatform.core.action.impl.ActionListenerAdapter;
 import org.javafxplatform.core.docking.impl.DockingAreaPane;
 import org.javafxplatform.core.docking.impl.skin.Stylesheets;
+import org.javafxplatform.core.util.javafx.fxml.FXMLLoaders;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
@@ -28,6 +32,7 @@ import org.richclientplatform.core.lib.util.context.Contexts;
  *
  * @author puce
  */
+@DefaultProperty("content")
 public class DockablePane extends Control implements Dockable {
 
     private static final String DEFAULT_STYLE_CLASS = "dockable-pane";
@@ -88,6 +93,7 @@ public class DockablePane extends Control implements Dockable {
         BundleContext bundleContext = FrameworkUtil.getBundle(DockablePane.class).getBundleContext();
         ServiceReference<DockingAreaContainerProvider> serviceReference =
                 bundleContext.getServiceReference(DockingAreaContainerProvider.class);
+        @SuppressWarnings("unchecked")
         DockingAreaContainerProvider<DockingAreaPane, DockablePane> dockingPaneProvider =
                 bundleContext.getService(serviceReference);
         dockingPaneProvider.getDockingAreaContainer().addDockable(this);
@@ -98,6 +104,11 @@ public class DockablePane extends Control implements Dockable {
     public void requestActive() {
         requestFocus();
     }
+
+//    protected final void load() throws IOException {
+//        Node root = (Node) FXMLLoaders.load(this);
+//        setContent(root);
+//    }
 
     private class ContextProperty extends ReadOnlyObjectPropertyBase<Context> {
 
