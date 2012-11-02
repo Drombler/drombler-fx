@@ -14,16 +14,16 @@
     <inceptionYear>2012</inceptionYear>
     
     <modules>
-        <module>javafxplatform-parent</module>
-        <module>javafxplatform-startup-main</module>
-        <module>javafxplatform-core-application</module>
-        <module>javafxplatform-core-docking</module>
-        <module>javafxplatform-core-util</module>
+        <module>drombler-fx-parent</module>
+        <module>drombler-fx-startup-main</module>
+        <module>drombler-fx-core-application</module>
+        <module>drombler-fx-core-docking</module>
+        <module>drombler-fx-core-commons</module>
         <module>drombler-fx-core-action</module>
-        <module>javafxplatform-locale-de</module>
-        <module>javafxplatform-locale-all</module>
+        <module>drombler-fx-locale-de</module>
+        <module>drombler-fx-locale-all</module>
         <module>javafx-2.1.0</module>
-        <module>pxb-maven-plugin</module>
-    <module>pxb-maven-archetype-application</module>
+        <module>drombler-fx-maven-plugin</module>
+        <module>drombler-fx-maven-archetype-application</module>
   </modules>
 </project>
