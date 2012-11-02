@@ -19,7 +19,7 @@
         <module>javafxplatform-core-application</module>
         <module>javafxplatform-core-docking</module>
         <module>javafxplatform-core-util</module>
-        <module>javafxplatform-core-action</module>
+        <module>drombler-fx-core-action</module>
         <module>javafxplatform-locale-de</module>
         <module>javafxplatform-locale-all</module>
         <module>javafx-2.1.0</module>
