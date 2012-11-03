@@ -8,7 +8,7 @@
         <relativePath>../\${rootArtifactId}-parent</relativePath>
     </parent>
     <artifactId>\${artifactId}</artifactId>
-    <packaging>pxb-application2</packaging>
+    <packaging>drombler-fx-application</packaging>
 
     <name>\${artifactId}</name>
 
