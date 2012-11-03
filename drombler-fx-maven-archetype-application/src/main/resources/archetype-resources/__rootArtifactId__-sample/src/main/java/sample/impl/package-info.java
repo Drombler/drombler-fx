@@ -17,7 +17,7 @@
 })
 package ${package}.sample.impl;
 
-import org.richclientplatform.core.action.Menu;
-import org.richclientplatform.core.action.Menus;
-import org.richclientplatform.core.action.ToolBar;
-import org.richclientplatform.core.action.ToolBars;
+import org.drombler.acp.core.action.Menu;
+import org.drombler.acp.core.action.Menus;
+import org.drombler.acp.core.action.ToolBar;
+import org.drombler.acp.core.action.ToolBars;

@@ -1,0 +1,25 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.drombler.fx.core.application.impl;
+
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import org.drombler.acp.core.action.Action;
+import org.drombler.acp.core.action.MenuEntry;
+
+/**
+ *
+ * @author puce
+ */
+@Action(id = "platform.exit", category = "core", displayName = "#exit.displayName")
+@MenuEntry(path = "File", position = 9900)
+public class ExitAction implements EventHandler<ActionEvent> {
+
+    @Override
+    public void handle(ActionEvent t) {
+        Platform.exit();
+    }
+}

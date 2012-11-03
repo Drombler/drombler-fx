@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.javafxplatform</groupId>
-        <artifactId>javafxplatform-parent</artifactId>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
         <version>${project.version}</version>
         <relativePath></relativePath>
     </parent>
@@ -15,7 +15,7 @@
     <name>\${artifactId}</name>
 
     <properties>
-        <javafxplatform.version>${project.version}</javafxplatform.version>
+        <drombler-fx.version>${project.version}</drombler-fx.version>
     </properties>
     
     <!-- Not inherited!?? -->
@@ -27,9 +27,9 @@
         <pluginManagement>
             <plugins>
                 <plugin>  
-                    <groupId>projectx.maven.plugins</groupId>
-                    <artifactId>pxb-maven-plugin</artifactId>
-                    <version>${javafxplatform.version}</version>
+                    <groupId>org.drombler.fx</groupId>
+                    <artifactId>drombler-fx-maven-plugin</artifactId>
+                    <version>${drombler-fx.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -38,35 +38,35 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.javafxplatform</groupId>
-                <artifactId>javafxplatform-core-action</artifactId>
-                <version>${javafxplatform.version}</version>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-action</artifactId>
+                <version>${drombler-fx.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.javafxplatform</groupId>
-                <artifactId>javafxplatform-core-application</artifactId>
-                <version>${javafxplatform.version}</version>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-application</artifactId>
+                <version>${drombler-fx.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.javafxplatform</groupId>
-                <artifactId>javafxplatform-core-docking</artifactId>
-                <version>${javafxplatform.version}</version>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-docking</artifactId>
+                <version>${drombler-fx.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.javafxplatform</groupId>
-                <artifactId>javafxplatform-core-util</artifactId>
-                <version>${javafxplatform.version}</version>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-util</artifactId>
+                <version>${drombler-fx.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.javafxplatform</groupId>
-                <artifactId>javafxplatform-locale-all</artifactId>
-                <version>${javafxplatform.version}</version>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-locale-all</artifactId>
+                <version>${drombler-fx.version}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>org.javafxplatform</groupId>
-                <artifactId>javafxplatform-startup-main</artifactId>
-                <version>${javafxplatform.version}</version>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-startup-main</artifactId>
+                <version>${drombler-fx.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

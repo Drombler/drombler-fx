@@ -29,16 +29,16 @@
     
     <dependencies>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-docking</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-docking</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-action</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-action</artifactId>
         </dependency>  
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-docking</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-docking</artifactId>
         </dependency>    
         <dependency>
             <groupId>javafx</groupId>

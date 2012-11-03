@@ -8,10 +8,10 @@
  */
 package ${package}.sample.impl;
 
-import org.richclientplatform.core.action.AbstractToggleActionListener;
-import org.richclientplatform.core.action.ToggleAction;
-import org.richclientplatform.core.action.ToggleMenuEntry;
-import org.richclientplatform.core.action.ToolBarToggleEntry;
+import org.drombler.acp.core.action.AbstractToggleActionListener;
+import org.drombler.acp.core.action.ToggleAction;
+import org.drombler.acp.core.action.ToggleMenuEntry;
+import org.drombler.acp.core.action.ToolBarToggleEntry;
 
 /**
  *

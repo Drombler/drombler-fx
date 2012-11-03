@@ -9,10 +9,10 @@
 package ${package}.sample.impl;
 
 import java.io.IOException;
-import org.javafxplatform.core.docking.DockablePane;
-import org.javafxplatform.core.util.javafx.fxml.FXMLLoaders;
-import org.richclientplatform.core.docking.ViewDocking;
-import org.richclientplatform.core.docking.WindowMenuEntry;
+import org.drombler.acp.core.docking.ViewDocking;
+import org.drombler.acp.core.docking.WindowMenuEntry;
+import org.drombler.fx.core.docking.DockablePane;
+import org.drombler.fx.core.commons.javafx.fxml.FXMLLoaders;
 /**
  *
  * @author puce

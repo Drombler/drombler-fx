@@ -15,8 +15,8 @@
     <build>
         <plugins>
             <plugin>  
-                <groupId>projectx.maven.plugins</groupId>
-                <artifactId>pxb-maven-plugin</artifactId>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
                     <brandingId>\${brandingId}</brandingId>
@@ -38,23 +38,23 @@
         </dependency>
         
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-application</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-application</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-core-docking</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-docking</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.richclientplatform</groupId>
-            <artifactId>richclientplatform-core-standard-docking</artifactId>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-standard-docking</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.javafxplatform</groupId>
-            <artifactId>javafxplatform-locale-all</artifactId>
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-locale-all</artifactId>
             <type>pom</type>
             <scope>runtime</scope>
         </dependency>

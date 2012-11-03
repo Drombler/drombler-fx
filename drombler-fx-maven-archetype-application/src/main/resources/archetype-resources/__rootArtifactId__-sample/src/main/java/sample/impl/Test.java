@@ -10,8 +10,8 @@ package ${package}.sample.impl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import org.richclientplatform.core.action.Action;
-import org.richclientplatform.core.action.MenuEntry;
+import org.drombler.acp.core.action.Action;
+import org.drombler.acp.core.action.MenuEntry;
 
 /**
  *

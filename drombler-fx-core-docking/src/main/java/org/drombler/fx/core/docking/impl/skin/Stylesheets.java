@@ -1,0 +1,19 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.drombler.fx.core.docking.impl.skin;
+
+/**
+ *
+ * @author puce
+ */
+public class Stylesheets {
+
+    private Stylesheets() {
+    }
+
+    public static String getDefaultStylesheet() {
+        return Stylesheets.class.getResource("caspian/caspian.css").toExternalForm();
+    }
+}

@@ -6,6 +6,6 @@
 <?import javafx.scene.layout.*?>
 
 
-<fx:root type="org.javafxplatform.core.docking.DockablePane" xmlns:fx="http://javafx.com/fxml">
+<fx:root type="org.drombler.fx.core.docking.DockablePane" xmlns:fx="http://javafx.com/fxml">
     <Label text="%RightTestPane.Label.text"/>
 </fx:root>

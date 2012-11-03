@@ -9,9 +9,9 @@
 package ${package}.sample.impl;
 
 import javafx.scene.control.Label;
-import org.javafxplatform.core.docking.DockablePane;
-import org.richclientplatform.core.docking.ViewDocking;
-import org.richclientplatform.core.docking.WindowMenuEntry;
+import org.drombler.acp.core.docking.ViewDocking;
+import org.drombler.acp.core.docking.WindowMenuEntry;
+import org.drombler.fx.core.docking.DockablePane;
 /**
  *
  * @author puce
