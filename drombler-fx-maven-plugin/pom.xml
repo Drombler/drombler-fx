@@ -14,8 +14,24 @@
     
     <name>Drombler FX - Maven Plugin</name>
     <description>ProjectX Bundle Maven Plugin</description>
-    <url>http://maven.apache.org</url>
     <inceptionYear>2012</inceptionYear>
+    
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+    </scm>
+
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+    </properties>
+    
+    <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
     
     <build>
         <plugins>
@@ -87,7 +103,7 @@
             <groupId>org.softsmithy.lib</groupId>
             <artifactId>softsmithy-lib-core</artifactId>
         </dependency>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.main</artifactId>
             <version>4.0.2</version>

@@ -12,11 +12,26 @@
     <packaging>maven-archetype</packaging>
 
     <name>Drombler FX - Maven Archetype - Application</name>
+    <inceptionYear>2012</inceptionYear>
     
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+    </scm>
+
     <properties>
-<!--        <main-resources.filtering>false</main-resources.filtering>-->
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+        <!--        <main-resources.filtering>false</main-resources.filtering>-->
         <maven.resources.escapeString>\</maven.resources.escapeString>
     </properties>
+    
+    <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
     
     <build>
         <extensions>

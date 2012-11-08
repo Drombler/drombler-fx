@@ -14,7 +14,7 @@
     <name>Drombler FX - Core - Action</name>
     <inceptionYear>2012</inceptionYear>
 
-       <scm>
+    <scm>
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
@@ -25,6 +25,11 @@
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
     </properties>
+    
+        <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
 
     <build>
         <plugins>
