@@ -12,7 +12,7 @@
  **************************************************************************************************/
 
 .dockable-pane { 
-    -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockablePaneSkin";
+    -fx-skin: "org.drombler.fx.core.docking.impl.skin.DockablePaneSkin";
 }
 
 /**************************************************************************************************
@@ -22,7 +22,7 @@
  **************************************************************************************************/
 
 .docking-pane { 
-    -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockingPaneSkin";
+    -fx-skin: "org.drombler.fx.core.docking.impl.skin.DockingPaneSkin";
 }
 
 /**************************************************************************************************
@@ -32,7 +32,7 @@
  **************************************************************************************************/
 
 .docking-split-pane { 
-    -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockingSplitPaneSkin";
+    -fx-skin: "org.drombler.fx.core.docking.impl.skin.DockingSplitPaneSkin";
 }
 
 /*.docking-split-pane .split-pane {
@@ -46,7 +46,7 @@
  **************************************************************************************************/
 
 .docking-area-pane { 
-    -fx-skin: "org.javafxplatform.core.docking.impl.skin.DockingAreaPaneSkin";
+    -fx-skin: "org.drombler.fx.core.docking.impl.skin.DockingAreaPaneSkin";
 }
 /*.docking-area-pane .tab-content-area {
     -fx-background-color: blue;
