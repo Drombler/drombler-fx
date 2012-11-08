@@ -16,7 +16,6 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
@@ -26,7 +25,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
 import org.drombler.acp.core.action.spi.ApplicationToolBarContainerProvider;
 import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
 import org.drombler.acp.core.action.spi.MenuItemRootContainer;
@@ -38,13 +37,18 @@ import org.drombler.fx.core.commons.javafx.fxml.FXMLLoaders;
  *
  * @author puce
  */
-public class ApplicationPane extends BorderPane implements MenuBarMenuContainerProvider<MenuItem, Menu>, ContentPaneProvider,
-        ApplicationToolBarContainerProvider<ToolBar, Node> {
+public class ApplicationPane extends GridPane implements MenuBarMenuContainerProvider<MenuItem, Menu>, ContentPaneProvider,
+        ApplicationToolBarContainerProvider<ToolBar, Node>, Initializable {
 
-    private final ApplicationPane.Controller controller;
     private final MenuItemRootContainer<MenuItem, Menu> menuBarMenuContainer;
-//    private final ActionTracker actionTracker;
+    @FXML
+    private MenuBar menuBar;
+    @FXML
+    private ToolBarContainerPane toolBarContainerPane;
+    @FXML
+    private BorderPane contentPane;
 
+//    private final ActionTracker actionTracker;
     public ApplicationPane() throws IOException {
 //        actionTracker = new ActionTracker(bundleContext, new ExtensionTrackerListener<List<ActionDescriptor>>() {
 //
@@ -74,10 +78,8 @@ public class ApplicationPane extends BorderPane implements MenuBarMenuContainerP
 //        loader.setResources(ResourceBundle.getBundle(type.getPackage().getName() + ".Bundle"));
 //        Pane root = (Pane) loader.load(type.getResourceAsStream(type.getSimpleName() + ".fxml"));
 //        controller = (ApplicationPane.Controller) loader.getController();
-        FXMLLoader loader = FXMLLoaders.createFXMLLoader(ApplicationPane.class);
-        Pane root = (Pane) FXMLLoaders.load(loader, ApplicationPane.class);
-        controller = (Controller) loader.getController();
-        menuBarMenuContainer = new MenuBarMenuContainer(controller.menuBar);
+        load();
+        menuBarMenuContainer = new MenuBarMenuContainer(menuBar);
 //
 //
 //
@@ -105,14 +107,22 @@ public class ApplicationPane extends BorderPane implements MenuBarMenuContainerP
 //
 //
 
-        setCenter(root);
 
 //        actionTracker.open();
+    }
+    private void load() throws IOException {
+        FXMLLoaders.load(this);
+    }
+
+    @FXML
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        menuBar.useSystemMenuBarProperty();
     }
 
     @Override
     public BorderPane getContentPane() {
-        return controller.contentPane;
+        return contentPane;
     }
 
     @Override
@@ -122,24 +132,9 @@ public class ApplicationPane extends BorderPane implements MenuBarMenuContainerP
 
     @Override
     public ToolBarContainer<ToolBar, Node> getApplicationToolBarContainer() {
-        return controller.toolBarContainerPane;
+        return toolBarContainerPane;
     }
 
-    public static class Controller implements Initializable {
-
-        @FXML
-        private MenuBar menuBar;
-        @FXML
-        private ToolBarContainerPane toolBarContainerPane;
-        @FXML
-        private BorderPane contentPane;
-
-        @Override
-        public void initialize(URL url, ResourceBundle rb) {
-            menuBar.useSystemMenuBarProperty();
-        }
-    }
-    
     private static class SaveHandler implements EventHandler<ActionEvent> {
 
         private final StringProperty displayName = new SimpleStringProperty(this, "displayName", null);

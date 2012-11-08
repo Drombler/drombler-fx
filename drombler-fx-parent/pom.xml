@@ -6,7 +6,7 @@
         <groupId>org.drombler.acp</groupId>
         <artifactId>drombler-acp-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath></relativePath>
+        <relativePath />
     </parent>
     <groupId>org.drombler.fx</groupId>
     <artifactId>drombler-fx-parent</artifactId>
@@ -14,67 +14,96 @@
     <packaging>pom</packaging>
     
     <name>Drombler FX - Parent</name>
+    <url>http://www.drombler.org</url>
+    <description>The parent POM of the Drombler FX project. This Drombler FX Parent POM should be the parent (either directly or indirectly) of every Drombler FX project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
+    <scm>
+        <connection>${scm.parent.connection}</connection>
+        <developerConnection>${scm.parent.developerConnection}</developerConnection>
+        <url>${scm.parent.url}</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
+            <distribution>repo</distribution>
+            <!--<url>http://java.sun.com/spl.html</url>-->
+            <url>../LICENSE.txt</url>
+        </license>
+    </licenses>
+    
+    
     <properties>
+        
+        <!-- Dev Environment Defaults -->
+        <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-fx</scm.parent.connection>
+        <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-fx</scm.parent.developerConnection>
+        <scm.parent.url>http://sourceforge.net/p/drombler/drombler-fx</scm.parent.url>
         <javafx.version>2.2.0</javafx.version>
-        <richclientplatform.version>0.1-SNAPSHOT</richclientplatform.version>
-        <dollar>$</dollar>
+        <drombler-acp.version>0.1-SNAPSHOT</drombler-acp.version>
+        <dollar>$</dollar>  
+        
+        <!-- Dependency Versions Defaults -->
+
     </properties>
 
-
+    <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
     
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-core-action</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-core-action-spi</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-core-application</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-core-docking</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-core-docking-spi</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-core-standard-action</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-core-standard-docking</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-core-commons</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-locale-all</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-startup-main</artifactId>
-                <version>${richclientplatform.version}</version>
+                <version>${drombler-acp.version}</version>
             </dependency>
             <dependency>
                 <groupId>javafx</groupId>

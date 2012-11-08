@@ -43,6 +43,7 @@
                     <directory>src/main/resources</directory>
                     <includes>
                         <include>**/*.properties</include>
+                        <include>**/*.fxml</include>
                     </includes>
                 </fileSet>
                 <fileSet packaged="true" filtered="false" encoding="UTF-8">
