@@ -1,4 +1,4 @@
-package org.drombler.fx.maven.plugins.pxb;
+package org.drombler.fx.maven.plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.archiver.jar.Manifest;
 import org.codehaus.plexus.archiver.jar.ManifestException;
 import org.ops4j.pax.construct.util.ReflectMojo;
-import org.drombler.fx.maven.plugins.pxb.util.FXUtils;
+import org.drombler.fx.maven.plugin.util.FXUtils;
 
 /**
  * @extendsPlugin jar

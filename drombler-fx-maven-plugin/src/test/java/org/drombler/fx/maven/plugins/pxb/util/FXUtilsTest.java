@@ -4,7 +4,7 @@
  */
 package org.drombler.fx.maven.plugins.pxb.util;
 
-import org.drombler.fx.maven.plugins.pxb.util.FXUtils;
+import org.drombler.fx.maven.plugin.util.FXUtils;
 import com.sun.javafx.tools.ant.FXJar;
 import java.net.URI;
 import java.nio.file.Files;

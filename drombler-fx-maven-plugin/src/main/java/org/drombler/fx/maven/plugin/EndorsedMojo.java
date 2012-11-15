@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.drombler.fx.maven.plugins.pxb;
+package org.drombler.fx.maven.plugin;
 
 import java.nio.file.Paths;
 import org.apache.maven.artifact.DefaultArtifact;

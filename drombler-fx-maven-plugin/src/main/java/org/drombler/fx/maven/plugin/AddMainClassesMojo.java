@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.drombler.fx.maven.plugins.pxb;
+package org.drombler.fx.maven.plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.drombler.fx.maven.plugins.pxb.util.FXUtils;
+import org.drombler.fx.maven.plugin.util.FXUtils;
 
 /**
  *

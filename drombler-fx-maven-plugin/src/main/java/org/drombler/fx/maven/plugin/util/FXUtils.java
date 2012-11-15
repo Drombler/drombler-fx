@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.drombler.fx.maven.plugins.pxb.util;
+package org.drombler.fx.maven.plugin.util;
 
 import com.sun.javafx.tools.ant.FXJar;
 import java.io.IOException;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.drombler.fx.maven.plugins.pxb;
+package org.drombler.fx.maven.plugin;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -32,7 +32,7 @@ import org.codehaus.plexus.archiver.zip.ZipArchiver;
 import org.drombler.acp.startup.main.impl.ApplicationConfigProviderImpl;
 import org.drombler.acp.startup.main.impl.Main;
 import org.drombler.fx.core.application.impl.FXApplicationLauncher;
-import org.drombler.fx.maven.plugins.pxb.util.FXUtils;
+import org.drombler.fx.maven.plugin.util.FXUtils;
 import org.ops4j.pax.construct.util.ReflectMojo;
 import org.softsmithy.lib.nio.file.JarFiles;
 
