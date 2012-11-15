@@ -8,9 +8,10 @@
  */
 package ${package}.sample.impl;
 
-import javafx.scene.control.Label;
+import java.io.IOException;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
+import org.drombler.fx.core.commons.javafx.fxml.FXMLLoaders;
 import org.drombler.fx.core.docking.DockablePane;
 /**
  *
@@ -21,8 +22,11 @@ menuEntry =
 @WindowMenuEntry(path = "Other", position = 40))
 public class RightTestPane extends DockablePane{
 
-    public RightTestPane() {
-        setContent(new Label("right"));
+    public RightTestPane() throws IOException {
+        load();
     }
-    
+
+    private void load() throws IOException {
+        FXMLLoaders.loadRoot(this);
+    }
 }
