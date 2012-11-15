@@ -14,6 +14,44 @@
  
     <name>\${artifactId}</name>
 
+    <description>The parent POM of my \${rootArtifactId} project. This \${rootArtifactId} Parent POM should be the parent (either directly or indirectly) of every \${rootArtifactId} project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
+    <url>http://www.mycompany.com/\${rootArtifactId}</url>
+    <inceptionYear>2012</inceptionYear>
+    
+    <organization>
+        <name>My Company</name>
+        <url>http://www.mycompany.com</url>
+    </organization>
+    
+    <licenses>
+        <license>
+            <name>My License Name</name>
+            <url>../LICENSE.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <id>someuser</id>
+            <name>Some Name</name>
+            <email>someuser@mycompany.com</email>
+            <url>http://www.mycompany.com/someuser</url>
+            <timezone>1</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:hg:http://hg.mycompany.com/\${rootArtifactId}</connection>
+        <developerConnection>scm:hg:ssh://${username}@hg.mycompany.com/${rootArtifactId}</developerConnection>
+        <url>http://hg.mycompany.com/\${rootArtifactId}</url>
+    </scm>
+    
+    <issueManagement>
+        <system>My System</system>
+        <url>http://issues.mycompany.com/\${rootArtifactId}</url>
+    </issueManagement>
+    
     <properties>
         <drombler-fx.version>${project.version}</drombler-fx.version>
     </properties>
