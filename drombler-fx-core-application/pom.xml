@@ -26,7 +26,7 @@
         <scm.url>${scm.parent.url}</scm.url>
     </properties>
     
-        <!-- Not inherited!?? -->
+    <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>
     </prerequisites>
@@ -83,14 +83,16 @@
             <artifactId>drombler-acp-core-action-spi</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
-            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr</artifactId>
-            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.drombler.acp</groupId>
