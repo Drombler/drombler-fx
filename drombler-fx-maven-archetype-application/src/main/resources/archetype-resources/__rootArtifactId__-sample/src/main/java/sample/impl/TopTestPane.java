@@ -27,7 +27,7 @@ public class TopTestPane extends DockablePane{
     }
 
     private void load() throws IOException {
-        FXMLLoaders.load(this);
+        FXMLLoaders.loadRoot(this);
     }
     
 }
