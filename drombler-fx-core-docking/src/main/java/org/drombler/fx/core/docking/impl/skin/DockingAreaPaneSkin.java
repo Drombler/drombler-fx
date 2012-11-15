@@ -12,9 +12,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import org.drombler.acp.core.commons.util.PositionableAdapter;
 import org.drombler.fx.core.docking.DockablePane;
 import org.drombler.fx.core.docking.impl.DockingAreaPane;
+import org.softsmithy.lib.util.PositionableAdapter;
 
 /**
  *

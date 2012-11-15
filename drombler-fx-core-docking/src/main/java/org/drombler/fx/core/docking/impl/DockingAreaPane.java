@@ -14,12 +14,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SingleSelectionModel;
-import org.drombler.acp.core.commons.util.PositionableAdapter;
-import org.drombler.acp.core.commons.util.Positionables;
 import org.drombler.acp.core.docking.spi.LayoutConstraintsDescriptor;
 import org.drombler.fx.core.commons.javafx.scene.control.ListSingleSelectionModel;
 import org.drombler.fx.core.docking.DockablePane;
 import org.drombler.fx.core.docking.impl.skin.Stylesheets;
+import org.softsmithy.lib.util.PositionableAdapter;
+import org.softsmithy.lib.util.Positionables;
 
 /**
  *

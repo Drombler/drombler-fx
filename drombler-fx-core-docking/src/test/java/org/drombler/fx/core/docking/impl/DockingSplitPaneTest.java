@@ -6,13 +6,13 @@ package org.drombler.fx.core.docking.impl;
 
 import java.util.Arrays;
 import javafx.geometry.Orientation;
-import org.drombler.acp.core.commons.util.PositionableAdapter;
 import org.drombler.fx.core.docking.DockablePane;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.softsmithy.lib.util.PositionableAdapter;
 
 /**
  *

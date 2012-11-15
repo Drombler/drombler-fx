@@ -15,12 +15,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
-import org.drombler.acp.core.commons.util.Positionable;
-import org.drombler.acp.core.commons.util.PositionableAdapter;
-import org.drombler.acp.core.commons.util.PositionableComparator;
-import org.drombler.acp.core.commons.util.Positionables;
 import org.drombler.acp.core.docking.spi.LayoutConstraintsDescriptor;
 import org.drombler.fx.core.docking.impl.skin.Stylesheets;
+import org.softsmithy.lib.util.Positionable;
+import org.softsmithy.lib.util.PositionableAdapter;
+import org.softsmithy.lib.util.PositionableComparator;
+import org.softsmithy.lib.util.Positionables;
 
 /**
  *

@@ -10,13 +10,13 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.layout.BorderPane;
-import org.drombler.acp.core.commons.util.PositionableAdapter;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerListener;
 import org.drombler.fx.core.docking.DockablePane;
 import org.drombler.fx.core.docking.impl.DockingAreaPane;
 import org.drombler.fx.core.docking.impl.DockingPane;
 import org.drombler.fx.core.docking.impl.DockingSplitPane;
+import org.softsmithy.lib.util.PositionableAdapter;
 
 /**
  *

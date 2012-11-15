@@ -17,7 +17,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import org.drombler.acp.core.commons.util.PositionableAdapter;
 import org.drombler.acp.core.commons.util.context.Context;
 import org.drombler.acp.core.commons.util.context.ProxyContext;
 import org.drombler.acp.core.docking.spi.DockablePreferences;
@@ -27,6 +26,7 @@ import org.drombler.acp.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerListener;
 import org.drombler.fx.core.docking.DockablePane;
 import org.drombler.fx.core.docking.impl.skin.Stylesheets;
+import org.softsmithy.lib.util.PositionableAdapter;
 
 /**
  *
@@ -58,7 +58,6 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 //        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
 
         dockingArea.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PositionableAdapter<DockablePane>>() {
-
             @Override
             public void changed(ObservableValue<? extends PositionableAdapter<DockablePane>> ov, PositionableAdapter<DockablePane> oldValue, PositionableAdapter<DockablePane> newValue) {
                 if (newValue != null) {
@@ -69,7 +68,6 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
         });
 
         dockingArea.getDockables().addListener(new ListChangeListener<PositionableAdapter<DockablePane>>() {
-
             @Override
             public void onChanged(ListChangeListener.Change<? extends PositionableAdapter<DockablePane>> change) {
                 while (change.next()) {
@@ -151,7 +149,7 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
         DockablePreferences dockablePreferences = dockablePreferencesManager.getDockablePreferences(dockablePane);
         DockingAreaPane dockingArea = getDockingArea(dockablePreferences.getAreaId());
         if (dockingArea != null) { // TODO: needed?
-            boolean docked = dockingArea.addDockable(new PositionableAdapter<DockablePane>(dockablePane,
+            boolean docked = dockingArea.addDockable(new PositionableAdapter<>(dockablePane,
                     dockablePreferences.getPosition()));
             if (docked) {
                 applicationContext.addContext(dockablePane.getContext());
@@ -173,6 +171,7 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
     /*
      * package-private, for unit testing
      */
+
     DockingAreaPane getDockingArea(String areaId) {
         return dockingAreaPanes.get(areaId);
     }
