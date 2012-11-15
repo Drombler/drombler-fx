@@ -18,8 +18,8 @@ import org.drombler.acp.core.action.spi.ToolBarContainer;
 import org.drombler.acp.core.action.spi.ToolBarContainerListener;
 import org.drombler.acp.core.action.spi.ToolBarContainerToolBarButtonEvent;
 import org.drombler.acp.core.action.spi.ToolBarContainerToolBarEvent;
-import org.drombler.acp.core.commons.util.PositionableAdapter;
-import org.drombler.acp.core.commons.util.Positionables;
+import org.softsmithy.lib.util.PositionableAdapter;
+import org.softsmithy.lib.util.Positionables;
 
 /**
  *

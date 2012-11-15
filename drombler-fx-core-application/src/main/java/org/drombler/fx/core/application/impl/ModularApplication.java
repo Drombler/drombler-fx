@@ -19,7 +19,7 @@ public class ModularApplication extends Application {
 
     // TODO: better way than static fields?
     private static BundleContext BUNDLE_CONTEXT;
-    private static String APPLICATION_TITLE = "JavaFX Platform based Application";
+    private static String APPLICATION_TITLE = "Drombler FX based Application";
     private static double APPLICATION_WIDTH = 1024;
     private static double APPLICATION_HEIGHT = 768;
 

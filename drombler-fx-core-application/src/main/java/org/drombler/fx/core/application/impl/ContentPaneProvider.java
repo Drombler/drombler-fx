@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
  * @author puce
  */
 public interface ContentPaneProvider {
+// TODO: replace BorderPane with a custom layout pane similar to DockablePane
 
     BorderPane getContentPane();
 }
