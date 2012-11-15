@@ -7,14 +7,6 @@ package org.drombler.fx.core.application.impl;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -22,8 +14,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import org.drombler.acp.core.action.spi.ApplicationToolBarContainerProvider;
@@ -111,7 +101,7 @@ public class ApplicationPane extends GridPane implements MenuBarMenuContainerPro
 //        actionTracker.open();
     }
     private void load() throws IOException {
-        FXMLLoaders.load(this);
+        FXMLLoaders.loadRoot(this);
     }
 
     @FXML
@@ -135,64 +125,64 @@ public class ApplicationPane extends GridPane implements MenuBarMenuContainerPro
         return toolBarContainerPane;
     }
 
-    private static class SaveHandler implements EventHandler<ActionEvent> {
-
-        private final StringProperty displayName = new SimpleStringProperty(this, "displayName", null);
-        private final ObjectProperty<KeyCombination> accelerator = new SimpleObjectProperty<>(this, "accelerator", null);
-        private final BooleanProperty disabled = new SimpleBooleanProperty(this, "disabled", false);
-        private final ObjectProperty<Image> icon = new SimpleObjectProperty<>(this, "icon", null);
-
-        public StringProperty displayNameProperty() {
-            return displayName;
-        }
-
-        public final String getDisplayName() {
-            return displayNameProperty().get();
-        }
-
-        public final void setDisplayName(String displayName) {
-            displayNameProperty().set(displayName);
-        }
-
-        public final KeyCombination getAccelerator() {
-            return acceleratorProperty().get();
-        }
-
-        public final void setAccelerator(KeyCombination keyCombination) {
-            acceleratorProperty().set(keyCombination);
-        }
-
-        public ObjectProperty<KeyCombination> acceleratorProperty() {
-            return accelerator;
-        }
-
-        public final boolean isDisabled() {
-            return disabledProperty().get();
-        }
-
-        public final void setDisabled(boolean disabled) {
-            disabledProperty().set(disabled);
-        }
-
-        public BooleanProperty disabledProperty() {
-            return disabled;
-        }
-
-        public final Image getIcon() {
-            return iconProperty().get();
-        }
-
-        public final void setIcon(Image icon) {
-            iconProperty().set(icon);
-        }
-
-        public ObjectProperty<Image> iconProperty() {
-            return icon;
-        }
-
-        @Override
-        public void handle(ActionEvent arg0) {
-            System.out.println("Save");
-        }
-    }
+//    private static class SaveHandler implements EventHandler<ActionEvent> {
+//
+//        private final StringProperty displayName = new SimpleStringProperty(this, "displayName", null);
+//        private final ObjectProperty<KeyCombination> accelerator = new SimpleObjectProperty<>(this, "accelerator", null);
+//        private final BooleanProperty disabled = new SimpleBooleanProperty(this, "disabled", false);
+//        private final ObjectProperty<Image> icon = new SimpleObjectProperty<>(this, "icon", null);
+//
+//        public StringProperty displayNameProperty() {
+//            return displayName;
+//        }
+//
+//        public final String getDisplayName() {
+//            return displayNameProperty().get();
+//        }
+//
+//        public final void setDisplayName(String displayName) {
+//            displayNameProperty().set(displayName);
+//        }
+//
+//        public final KeyCombination getAccelerator() {
+//            return acceleratorProperty().get();
+//        }
+//
+//        public final void setAccelerator(KeyCombination keyCombination) {
+//            acceleratorProperty().set(keyCombination);
+//        }
+//
+//        public ObjectProperty<KeyCombination> acceleratorProperty() {
+//            return accelerator;
+//        }
+//
+//        public final boolean isDisabled() {
+//            return disabledProperty().get();
+//        }
+//
+//        public final void setDisabled(boolean disabled) {
+//            disabledProperty().set(disabled);
+//        }
+//
+//        public BooleanProperty disabledProperty() {
+//            return disabled;
+//        }
+//
+//        public final Image getIcon() {
+//            return iconProperty().get();
+//        }
+//
+//        public final void setIcon(Image icon) {
+//            iconProperty().set(icon);
+//        }
+//
+//        public ObjectProperty<Image> iconProperty() {
+//            return icon;
+//        }
+//
+//        @Override
+//        public void handle(ActionEvent arg0) {
+//            System.out.println("Save");
+//        }
+//    }
 }
