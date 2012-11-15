@@ -36,12 +36,8 @@ public class FXUtils {
     private static void doCopyMainClassesWorkaround(URI resourceURI, Path targetDir) throws IOException {
         // The file system needs to be created explicitly. Bug?
         try (FileSystem jarFS = JarFiles.newJarFileSystem(JarFiles.getJarURI(resourceURI))) {
-            doCopyMainClasses(resourceURI, targetDir);
+            CopyFileVisitor.copy(Paths.get(resourceURI), targetDir);
         }
-    }
-
-    private static void doCopyMainClasses(URI resourceURI, Path targetDir) throws IOException {
-        CopyFileVisitor.copy(Paths.get(resourceURI), targetDir);
     }
 
     public static Map<String, String> getManifestEntries(String mainClass) {

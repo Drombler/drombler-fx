@@ -32,9 +32,9 @@ import org.codehaus.plexus.archiver.zip.ZipArchiver;
 import org.drombler.acp.startup.main.impl.ApplicationConfigProviderImpl;
 import org.drombler.acp.startup.main.impl.Main;
 import org.drombler.fx.core.application.impl.FXApplicationLauncher;
+import org.drombler.fx.maven.plugins.pxb.util.FXUtils;
 import org.ops4j.pax.construct.util.ReflectMojo;
 import org.softsmithy.lib.nio.file.JarFiles;
-import org.drombler.fx.maven.plugins.pxb.util.FXUtils;
 
 /**
  *
@@ -47,29 +47,29 @@ import org.drombler.fx.maven.plugins.pxb.util.FXUtils;
 public class CreateStandaloneZipMojo extends AbstractMojo {
 
     /**
-     * @parameter expression="${platform.brandingId}" @required
+     * @parameter expression="${dromblerfx.brandingId}" @required
      */
     private String brandingId;
     /**
-     * @parameter expression="${platform.title}" @required
+     * @parameter expression="${dromblerfx.title}" @required
      */
     private String title;
     /**
-     * @parameter expression="${platform.width}" @required
+     * @parameter expression="${dromblerfx.width}" @required
      */
     private double width;
     /**
-     * @parameter expression="${platform.height}" @required
+     * @parameter expression="${dromblerfx.height}" @required
      */
     private double height;
     /**
-     * @parameter expression="${platform.userdir}" default-value="${dollar}{user.home}/.${brandingId}/${project.version}"
+     * @parameter expression="${dromblerfx.userdir}" default-value="${dollar}{user.home}/.${brandingId}/${project.version}"
      * @required
      */
     // TODO: good solution using "${dollar}"?
     private String userdir;
     /**
-     * @parameter expression="${pxb.targetDirectory}" default-value="${project.build.directory}/deployment/standalone"
+     * @parameter expression="${dromblerfx.targetDirectory}" default-value="${project.build.directory}/deployment/standalone"
      * @required
      */
     private File targetDirectory;
@@ -85,12 +85,12 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      */
     private MavenProject project;
     /**
-     * @parameter expression="${platform.configProperties}"
+     * @parameter expression="${dromblerfx.configProperties}"
      * default-value="${basedir}/src/main/resources/config.properties"
      */
     private File configPropertiesFile;
     /**
-     * @parameter expression="${platform.systemProperties}"
+     * @parameter expression="${dromblerfx.systemProperties}"
      * default-value="${basedir}/src/main/resources/system.properties"
      */
     private File systemPropertiesFile;
@@ -140,7 +140,6 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
 
             userdir = userdir.replace("${brandingId}", brandingId);
             Properties configProperties = new Properties();
-            System.out.println("Userdir:" + userdir);
             configProperties.setProperty(Main.USER_DIR_PROPERTY, userdir);
             if (configPropertiesFile != null && configPropertiesFile.exists()) {
                 try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(configPropertiesFile))) {

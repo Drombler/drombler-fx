@@ -26,6 +26,7 @@ import org.drombler.fx.maven.plugins.pxb.util.FXUtils;
  *
  * @phase package
  */
+// TODO: NOT USED YET!
 public class PxbMojo extends JarMojo {
 
     /**

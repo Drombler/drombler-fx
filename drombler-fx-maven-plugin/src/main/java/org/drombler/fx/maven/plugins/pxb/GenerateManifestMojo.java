@@ -14,6 +14,7 @@ import org.apache.maven.plugin.MojoFailureException;
  * @phase generate-resources
  *
  */
+// TODO: NOT USED YET!
 public class GenerateManifestMojo extends AbstractMojo {
 
     @Override

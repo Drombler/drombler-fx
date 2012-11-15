@@ -20,6 +20,7 @@ import org.drombler.fx.maven.plugins.pxb.util.FXUtils;
  *
  * @phase prepare-package
  */
+// TODO: NOT USED YET!
 public class AddMainClassesMojo extends AbstractMojo {
 
     /**

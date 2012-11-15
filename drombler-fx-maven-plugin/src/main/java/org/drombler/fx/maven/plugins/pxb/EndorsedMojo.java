@@ -18,6 +18,7 @@ import org.apache.maven.project.MavenProject;
  *
  * @phase validate
  */
+// TODO: NOT USED YET!
 public class EndorsedMojo extends AbstractMojo {
 
     /**

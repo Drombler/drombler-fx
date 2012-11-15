@@ -47,14 +47,11 @@ and open the template in the editor.
                     <generate-resources>projectx.maven.plugins:pxb-maven-plugin:generate-manifest</generate-resources>
                     <process-resources>org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
                     <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile>
-                    <process-classes>org.codehaus.mojo:nbm-maven-plugin:manifest</process-classes>
                     <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
                     <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
                     <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
                     <prepare-package>projectx.maven.plugins:pxb-maven-plugin:add-main-classes</prepare-package>
-                    <package>projectx.maven.plugins:pxb-maven-plugin:pxborg.apache.maven.plugins:maven-jar-plugin:jar,
-                        org.codehaus.mojo:nbm-maven-plugin:branding,
-                        org.codehaus.mojo:nbm-maven-plugin:nbm TODO: remove comments
+                    <package>projectx.maven.plugins:pxb-maven-plugin:pxborg.apache.maven.plugins:maven-jar-plugin:jar
                     </package>
                     <install>org.apache.maven.plugins:maven-install-plugin:install</install>
                     <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
