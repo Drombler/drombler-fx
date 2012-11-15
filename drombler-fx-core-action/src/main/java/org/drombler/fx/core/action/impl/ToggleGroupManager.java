@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *

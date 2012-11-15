@@ -7,7 +7,7 @@ package org.drombler.fx.core.action.impl;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.ToggleMenuEntryDescriptor;

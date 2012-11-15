@@ -16,8 +16,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import org.drombler.acp.core.action.spi.MenuItemContainer;
 import org.drombler.acp.core.action.spi.PositionableMenuItemAdapter;
-import org.drombler.acp.core.commons.util.Positionables;
 import org.drombler.fx.core.action.impl.MenuMenuItemContainer;
+import org.softsmithy.lib.util.Positionables;
 
 /**
  *
