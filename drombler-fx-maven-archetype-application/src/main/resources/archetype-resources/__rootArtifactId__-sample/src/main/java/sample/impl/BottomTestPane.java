@@ -11,7 +11,7 @@ package ${package}.sample.impl;
 import java.io.IOException;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
-import org.drombler.fx.core.commons.javafx.fxml.FXMLLoaders;
+import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
 import org.drombler.fx.core.docking.DockablePane;
 /**
  *
