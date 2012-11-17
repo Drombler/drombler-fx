@@ -59,8 +59,6 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
 
     @Override
     public void addMenu(String id, PositionableMenuItemAdapter<? extends Menu> menu) {
-        System.out.println(
-                AbstractMenuItemContainer.class.getName() + ": addMenu: " + menu.getAdapted().getText() + " isFxApplicationThread: " + Platform.isFxApplicationThread());
         MenuMenuItemContainer menuMenuContainer = new MenuMenuItemContainer(id, menu.getAdapted(), parentContainer,
                 getMenuItemRootContainer());
         menuContainers.put(id, menuMenuContainer);
@@ -128,8 +126,6 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
 
     @Override
     public void addMenuItem(PositionableMenuItemAdapter<? extends MenuItem> menuItem) {
-        System.out.println(
-                AbstractMenuItemContainer.class.getName() + ": addMenuItem: " + menuItem.getAdapted().getText() + " isFxApplicationThread: " + Platform.isFxApplicationThread());
         addMenuItem(menuItem, getItems(), false);
     }
 

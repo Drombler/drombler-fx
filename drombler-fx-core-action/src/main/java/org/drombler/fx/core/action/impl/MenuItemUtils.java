@@ -31,7 +31,6 @@ class MenuItemUtils {
     }
 
     public static void configureMenuItem(MenuItem menuItem, MenuEntryDescriptor menuEntryDescriptor, FXAction action, int iconSize) {
-        System.out.println(MenuItemUtils.class.getName()+": isFxApplicationThread: "+Platform.isFxApplicationThread());
         menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.setMnemonicParsing(true);
         menuItem.acceleratorProperty().bind(action.acceleratorProperty());
