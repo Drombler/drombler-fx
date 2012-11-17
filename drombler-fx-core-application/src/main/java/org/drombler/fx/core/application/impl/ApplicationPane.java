@@ -21,7 +21,7 @@ import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
 import org.drombler.acp.core.action.spi.MenuItemRootContainer;
 import org.drombler.acp.core.action.spi.ToolBarContainer;
 import org.drombler.fx.core.action.MenuBarMenuContainer;
-import org.drombler.fx.core.commons.javafx.fxml.FXMLLoaders;
+import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
 
 /**
  *

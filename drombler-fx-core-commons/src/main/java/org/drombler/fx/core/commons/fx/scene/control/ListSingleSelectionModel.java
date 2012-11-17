@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.drombler.fx.core.commons.javafx.scene.control;
+package org.drombler.fx.core.commons.fx.scene.control;
 
 import java.util.List;
 import javafx.scene.control.SingleSelectionModel;

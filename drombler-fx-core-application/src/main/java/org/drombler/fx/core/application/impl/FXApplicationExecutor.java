@@ -5,7 +5,7 @@
 package org.drombler.fx.core.application.impl;
 
 import java.util.concurrent.Executor;
-import org.drombler.fx.core.commons.javafx.application.PlatformUtils;
+import org.drombler.fx.core.commons.fx.application.PlatformUtils;
 
 /**
  *
