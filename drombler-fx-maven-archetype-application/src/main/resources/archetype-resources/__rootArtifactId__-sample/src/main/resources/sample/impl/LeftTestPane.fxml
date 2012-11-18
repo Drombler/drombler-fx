@@ -4,8 +4,8 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import org.drombler.fx.core.docking.*?>
 
-
-<fx:root type="org.drombler.fx.core.docking.DockablePane" xmlns:fx="http://javafx.com/fxml">
-    <Label text="%LeftTestPane.Label.text"/>
+<fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
+    <Button text="%LeftTestPane.NewSampleButton.text" onAction="#onNewSampleAction"/>
 </fx:root>

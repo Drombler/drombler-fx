@@ -13,10 +13,7 @@ import javafx.event.EventHandler;
 import org.drombler.acp.core.action.Action;
 import org.drombler.acp.core.action.MenuEntry;
 
-/**
- *
- * @author puce
- */
+
 @Action(id = "test1", category = "test", displayName = "#test1.displayName")
 @MenuEntry(path = "File", position = 1200)
 public class Test1 implements EventHandler<ActionEvent> {

@@ -7,5 +7,8 @@
 <?import org.drombler.fx.core.docking.*?>
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
-    <Label text="%TopTestPane.Label.text"/>
+     <GridPane>
+        <Label text="%Sample.name.displayName" labelFor="$nameField" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField editable="true" GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="nameField"/>
+     </GridPane>
 </fx:root>

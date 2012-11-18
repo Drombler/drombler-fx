@@ -8,23 +8,18 @@
  */
 package ${package}.sample.impl;
 
-import org.drombler.acp.core.action.AbstractToggleActionListener;
+import ${package}.sample.ColoredRectangle;
 import org.drombler.acp.core.action.ToggleAction;
 import org.drombler.acp.core.action.ToggleMenuEntry;
 import org.drombler.acp.core.action.ToolBarToggleEntry;
 
-/**
- *
- * @author puce
- */
 @ToggleAction(id = "blueRectangle", category = "test", displayName = "#blueRectangle.displayName", accelerator = "Shortcut+B",
 icon = "blue-rectangle.png")
 @ToggleMenuEntry(path = "Custom", position = 1240)
 @ToolBarToggleEntry(toolBarId = "rectangle", position = 170)
-public class BlueRectangleAction extends AbstractToggleActionListener<Object> {
+public class BlueRectangleAction extends AbstractColoredRectangleAction {
 
-    @Override
-    public void onSelectionChanged(boolean oldValue, boolean newValue) {
-        System.out.println("Blue Rectangle: " + newValue);
+    public BlueRectangleAction() {
+        super(ColoredRectangle.BLUE);
     }
 }

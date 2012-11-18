@@ -8,23 +8,19 @@
  */
 package ${package}.sample.impl;
 
-import org.drombler.acp.core.action.AbstractToggleActionListener;
+import ${package}.sample.ColoredCircle;
 import org.drombler.acp.core.action.ToggleAction;
 import org.drombler.acp.core.action.ToggleMenuEntry;
 import org.drombler.acp.core.action.ToolBarToggleEntry;
 
-/**
- *
- * @author puce
- */
+
 @ToggleAction(id = "yellowCircle", category = "test", displayName = "#yellowCircle.displayName", accelerator = "Shortcut+L",
 icon = "yellow-circle.png")
-@ToggleMenuEntry(path = "Custom/Sub", position = 20, toggleGroupId="circle")
-@ToolBarToggleEntry(toolBarId = "circle", position = 20, toggleGroupId="circle")
-public class YellowCircleAction extends AbstractToggleActionListener<Object> {
+@ToggleMenuEntry(path = "Custom/Sub", position = 20, toggleGroupId = "circle")
+@ToolBarToggleEntry(toolBarId = "circle", position = 20, toggleGroupId = "circle")
+public class YellowCircleAction extends AbstractColoredCircleAction {
 
-    @Override
-    public void onSelectionChanged(boolean oldValue, boolean newValue) {
-        System.out.println("Yellow Circle: " + newValue);
+    public YellowCircleAction() {
+        super(ColoredCircle.YELLOW);
     }
 }

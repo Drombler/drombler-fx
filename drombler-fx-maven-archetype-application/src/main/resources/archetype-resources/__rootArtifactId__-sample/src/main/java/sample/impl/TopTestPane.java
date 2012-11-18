@@ -11,12 +11,9 @@ package ${package}.sample.impl;
 import java.io.IOException;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
-import org.drombler.fx.core.docking.DockablePane;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
-/**
- *
- * @author puce
- */
+import org.drombler.fx.core.docking.DockablePane;
+
 @ViewDocking(areaId = "top", position = 10, displayName = "#TopTestPane.displayName",
 menuEntry =
 @WindowMenuEntry(path = "", position = 20))

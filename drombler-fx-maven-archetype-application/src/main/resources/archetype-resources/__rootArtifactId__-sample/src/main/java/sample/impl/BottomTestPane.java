@@ -9,14 +9,12 @@
 package ${package}.sample.impl;
 
 import java.io.IOException;
+import javafx.scene.control.Label;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
 import org.drombler.fx.core.docking.DockablePane;
-/**
- *
- * @author puce
- */
+
 @ViewDocking(areaId = "bottom", position = 10, displayName = "#BottomTestPane.displayName",
 menuEntry =
 @WindowMenuEntry(path = "", position = 30))
