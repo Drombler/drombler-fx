@@ -20,6 +20,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
+import javafx.collections.SetChangeListener.Change;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import org.drombler.acp.core.commons.util.context.SimpleContext;
@@ -78,6 +80,13 @@ public class SampleEditorPane extends DockablePane {
         // Mark this Editor as modified if any control has been modified
         nameField.textProperty().addListener(new ModifiedListener());
         coloredCircle.addListener(new ModifiedListener());
+        sample.getColoredRectangles().addListener(new SetChangeListener<ColoredRectangle>() {
+
+            @Override
+            public void onChanged(Change<? extends ColoredRectangle> change) {
+                markModified();
+            }
+        });
 
         initialized = true;
     }
