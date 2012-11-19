@@ -15,12 +15,14 @@ import ${package}.sample.ColoredRectangleManager;
 import ${package}.sample.Sample;
 import java.io.IOException;
 import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Map;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.collections.SetChangeListener.Change;
@@ -49,8 +51,10 @@ public class SampleEditorPane extends DockablePane {
     @FXML
     private ImageView blueRectangleImageView;
     private final Map<ColoredRectangle, ImageView> coloredRectangleImageViews = new EnumMap<>(ColoredRectangle.class);
-    private boolean initialized = false;
+//    private boolean initialized = false;
     private ObjectProperty<ColoredCircle> coloredCircle = new SimpleObjectProperty<>(this, "coloredCircle");
+    private final ObservableSet<ColoredRectangle> coloredRectangles = FXCollections.observableSet(EnumSet.noneOf(
+            ColoredRectangle.class));
 
     public SampleEditorPane(Sample sample) throws IOException {
         // Set a writeable context
@@ -80,26 +84,28 @@ public class SampleEditorPane extends DockablePane {
         context.add(new ColoredRectangleManager() {
             @Override
             public ObservableSet<ColoredRectangle> getColoredRectangles() {
-                return SampleEditorPane.this.sample.getColoredRectangles();
+                return coloredRectangles;
             }
         });
 
+        initColoredRectangleImageViewsMap();
+
+        nameField.setText(sample.getName());
+        coloredCircle.set(sample.getColoredCircle());
+        coloredCircleImageView.setImage(sample.getColoredCircle().getImage());
+        coloredRectangles.addAll(sample.getColoredRectangles());
         initColoredRectangleImageViews();
 
-        // Keep this control in sync with the Sample
-        nameField.textProperty().bindBidirectional(sample.nameProperty());
-        coloredCircle.bindBidirectional(sample.coloredCircleProperty());
-        titleProperty().bind(sample.nameProperty());
+        titleProperty().bind(nameField.textProperty());
 
         // Mark this Editor as modified if any control has been modified
         nameField.textProperty().addListener(new ModifiedListener());
         coloredCircle.addListener(new ModifiedListener());
-        sample.getColoredRectangles().addListener(new SetChangeListener<ColoredRectangle>() {
+        coloredRectangles.addListener(new SetChangeListener<ColoredRectangle>() {
             @Override
             public void onChanged(Change<? extends ColoredRectangle> change) {
                 if (change.wasAdded()) {
-                    coloredRectangleImageViews.get(change.getElementAdded()).setImage(
-                            change.getElementAdded().getImage());
+                    setColoredRectangleImage(change.getElementAdded());
                 } else if (change.wasRemoved()) {
                     coloredRectangleImageViews.get(change.getElementRemoved()).setImage(null);
                 }
@@ -107,14 +113,14 @@ public class SampleEditorPane extends DockablePane {
             }
         });
 
-        initialized = true;
+//        initialized = true;
     }
 
     private void loadFXML() throws IOException {
         FXMLLoaders.loadRoot(this);
     }
 
-    private void initColoredRectangleImageViews() {
+    private void initColoredRectangleImageViewsMap() {
         coloredRectangleImageViews.put(ColoredRectangle.RED, redRectangleImageView);
         coloredRectangleImageViews.put(ColoredRectangle.YELLOW, yellowRectangleImageView);
         coloredRectangleImageViews.put(ColoredRectangle.BLUE, blueRectangleImageView);
@@ -125,8 +131,21 @@ public class SampleEditorPane extends DockablePane {
     }
 
     private void markModified() {
-        if (initialized && context.find(SampleSavable.class) == null) {
+//        if (initialized && context.find(SampleSavable.class) == null) {
+        if (context.find(SampleSavable.class) == null) {
             context.add(new SampleSavable());
+        }
+    }
+
+    private void setColoredRectangleImage(ColoredRectangle coloredRectangle) {
+        coloredRectangleImageViews.get(coloredRectangle).setImage(coloredRectangle.getImage());
+    }
+
+    private void initColoredRectangleImageViews() {
+        for (ColoredRectangle coloredRectangle : ColoredRectangle.values()) {
+            if (coloredRectangles.contains(coloredRectangle)) {
+                setColoredRectangleImage(coloredRectangle);
+            }
         }
     }
 
@@ -143,6 +162,10 @@ public class SampleEditorPane extends DockablePane {
         @Override
         public void save() {
             System.out.println("Save " + getDisplayString(Locale.getDefault()));
+            sample.setName(nameField.getText());
+            sample.setColoredCircle(coloredCircle.get());
+            sample.getColoredRectangles().addAll(coloredRectangles);
+            sample.getColoredRectangles().retainAll(coloredRectangles);
             // Write to file/ db ...
             context.remove(this);
         }
@@ -152,3 +175,4 @@ public class SampleEditorPane extends DockablePane {
             return "Sample: " + nameField.getText();
         }
     }
+}
