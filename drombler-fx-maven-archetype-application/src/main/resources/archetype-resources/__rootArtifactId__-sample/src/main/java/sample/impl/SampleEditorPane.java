@@ -14,7 +14,9 @@ import ${package}.sample.ColoredRectangle;
 import ${package}.sample.ColoredRectangleManager;
 import ${package}.sample.Sample;
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.Locale;
+import java.util.Map;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -24,12 +26,12 @@ import javafx.collections.SetChangeListener;
 import javafx.collections.SetChangeListener.Change;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import org.drombler.acp.core.commons.util.context.SimpleContext;
 import org.drombler.acp.core.docking.EditorDocking;
 import org.drombler.acp.core.standard.action.Savable;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
 import org.drombler.fx.core.docking.DockablePane;
-
 
 @EditorDocking(areaId = "center")
 public class SampleEditorPane extends DockablePane {
@@ -38,13 +40,22 @@ public class SampleEditorPane extends DockablePane {
     private final Sample sample;
     @FXML
     private TextField nameField;
+    @FXML
+    private ImageView coloredCircleImageView;
+    @FXML
+    private ImageView redRectangleImageView;
+    @FXML
+    private ImageView yellowRectangleImageView;
+    @FXML
+    private ImageView blueRectangleImageView;
+    private final Map<ColoredRectangle, ImageView> coloredRectangleImageViews = new EnumMap<>(ColoredRectangle.class);
     private boolean initialized = false;
     private ObjectProperty<ColoredCircle> coloredCircle = new SimpleObjectProperty<>(this, "coloredCircle");
 
     public SampleEditorPane(Sample sample) throws IOException {
         // Set a writeable context
         setContext(context);
-        
+
         loadFXML();
         this.sample = sample;
 
@@ -61,6 +72,7 @@ public class SampleEditorPane extends DockablePane {
             @Override
             public void setColoredCircle(ColoredCircle coloredCircle) {
                 SampleEditorPane.this.coloredCircle.set(coloredCircle);
+                coloredCircleImageView.setImage(coloredCircle.getImage());
             }
         });
 
@@ -72,6 +84,8 @@ public class SampleEditorPane extends DockablePane {
             }
         });
 
+        initColoredRectangleImageViews();
+
         // Keep this control in sync with the Sample
         nameField.textProperty().bindBidirectional(sample.nameProperty());
         coloredCircle.bindBidirectional(sample.coloredCircleProperty());
@@ -81,9 +95,14 @@ public class SampleEditorPane extends DockablePane {
         nameField.textProperty().addListener(new ModifiedListener());
         coloredCircle.addListener(new ModifiedListener());
         sample.getColoredRectangles().addListener(new SetChangeListener<ColoredRectangle>() {
-
             @Override
             public void onChanged(Change<? extends ColoredRectangle> change) {
+                if (change.wasAdded()) {
+                    coloredRectangleImageViews.get(change.getElementAdded()).setImage(
+                            change.getElementAdded().getImage());
+                } else if (change.wasRemoved()) {
+                    coloredRectangleImageViews.get(change.getElementRemoved()).setImage(null);
+                }
                 markModified();
             }
         });
@@ -93,6 +112,12 @@ public class SampleEditorPane extends DockablePane {
 
     private void loadFXML() throws IOException {
         FXMLLoaders.loadRoot(this);
+    }
+
+    private void initColoredRectangleImageViews() {
+        coloredRectangleImageViews.put(ColoredRectangle.RED, redRectangleImageView);
+        coloredRectangleImageViews.put(ColoredRectangle.YELLOW, yellowRectangleImageView);
+        coloredRectangleImageViews.put(ColoredRectangle.BLUE, blueRectangleImageView);
     }
 
     public Sample getSample() {
@@ -127,4 +152,3 @@ public class SampleEditorPane extends DockablePane {
             return "Sample: " + nameField.getText();
         }
     }
-}

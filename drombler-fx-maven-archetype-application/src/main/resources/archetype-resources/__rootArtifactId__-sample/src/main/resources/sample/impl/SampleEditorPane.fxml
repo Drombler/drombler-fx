@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import org.drombler.fx.core.docking.*?>
 
@@ -10,5 +11,13 @@
      <GridPane>
         <Label text="%Sample.name.displayName" labelFor="$nameField" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <TextField editable="true" GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="nameField"/>
+        <Label text="%Sample.coloredCircle.displayName" labelFor="$coloredCircleImageView" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ImageView GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="coloredCircleImageView" />
+        <Label text="%Sample.coloredRectangles.displayName" labelFor="$coloredRectangles" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TilePane hgap="4" vgap="4" GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="coloredRectangles">
+            <ImageView fx:id="redRectangleImageView" />
+            <ImageView fx:id="yellowRectangleImageView" />
+            <ImageView fx:id="blueRectangleImageView" />
+        </TilePane>
      </GridPane>
 </fx:root>
