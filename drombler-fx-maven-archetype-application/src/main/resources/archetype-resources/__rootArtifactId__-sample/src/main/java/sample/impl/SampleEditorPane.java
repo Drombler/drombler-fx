@@ -133,6 +133,7 @@ public class SampleEditorPane extends DockablePane {
     private void markModified() {
 //        if (initialized && context.find(SampleSavable.class) == null) {
         if (context.find(SampleSavable.class) == null) {
+            // Add a SampleSavable to the context to enable the Save and the "Save All" actions.
             context.add(new SampleSavable());
         }
     }
