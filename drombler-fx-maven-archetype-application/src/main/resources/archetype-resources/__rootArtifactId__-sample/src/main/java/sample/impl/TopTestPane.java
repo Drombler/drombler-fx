@@ -20,10 +20,10 @@ menuEntry =
 public class TopTestPane extends DockablePane{
 
     public TopTestPane() throws IOException {
-        load();
+        loadFXML();
     }
 
-    private void load() throws IOException {
+    private void loadFXML() throws IOException {
         FXMLLoaders.loadRoot(this);
     }
     

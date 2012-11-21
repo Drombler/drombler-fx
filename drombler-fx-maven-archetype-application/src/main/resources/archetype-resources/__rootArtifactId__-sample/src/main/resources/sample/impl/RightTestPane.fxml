@@ -3,9 +3,21 @@
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import org.drombler.fx.core.docking.*?>
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
-    <Label text="%RightTestPane.Label.text"/>
+    <GridPane>
+        <Label text="%Sample.name.displayName" labelFor="$nameLabel" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Label GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="nameLabel"/>
+        <Label text="%Sample.coloredCircle.displayName" labelFor="$coloredCircleImageView" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ImageView GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="coloredCircleImageView" />
+        <Label text="%Sample.coloredRectangles.displayName" labelFor="$coloredRectanglesPane" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TilePane hgap="4" vgap="4" GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="coloredRectanglesPane">
+            <ImageView fx:id="redRectangleImageView" />
+            <ImageView fx:id="yellowRectangleImageView" />
+            <ImageView fx:id="blueRectangleImageView" />
+        </TilePane>
+    </GridPane>
 </fx:root>
