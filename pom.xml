@@ -48,6 +48,7 @@ Contributor(s): .
         <module>drombler-fx-parent</module>
         <module>drombler-fx-startup-main</module>
         <module>drombler-fx-core-application</module>
+        <module>drombler-fx-core-application-locale-de</module>
         <module>drombler-fx-core-docking</module>
         <module>drombler-fx-core-commons</module>
         <module>drombler-fx-core-action</module>
