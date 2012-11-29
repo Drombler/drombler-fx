@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.acp</groupId>
         <artifactId>drombler-acp-parent</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.1</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.fx</groupId>
@@ -55,7 +55,7 @@ Contributor(s): .
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-fx</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-fx</scm.parent.url>
         <javafx.version>2.2.0</javafx.version>
-        <drombler-acp.version>0.1-SNAPSHOT</drombler-acp.version>
+        <drombler-acp.version>0.1</drombler-acp.version>
         <dollar>$</dollar>  
         
         <!-- Dependency Versions Defaults -->
