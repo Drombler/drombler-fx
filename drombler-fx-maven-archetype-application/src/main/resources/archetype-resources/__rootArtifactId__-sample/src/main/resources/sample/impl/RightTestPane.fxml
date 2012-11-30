@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?language javascript?>
+
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -9,6 +11,15 @@
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
     <GridPane>
+        <fx:script>
+            var USE_PREF_SIZE = Packages.javafx.scene.layout.Region.USE_PREF_SIZE;
+        </fx:script>
+
+        <columnConstraints>
+            <ColumnConstraints minWidth="$USE_PREF_SIZE" maxWidth="$USE_PREF_SIZE" hgrow="NEVER"/>
+            <ColumnConstraints hgrow="SOMETIMES"/>
+        </columnConstraints>
+        
         <Label text="%Sample.name.displayName" labelFor="$nameLabel" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <Label GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="nameLabel"/>
         <Label text="%Sample.coloredCircle.displayName" labelFor="$coloredCircleImageView" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
