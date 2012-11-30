@@ -48,7 +48,6 @@ Contributor(s): .
         <dependency>
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-locale-de</artifactId>
-            <version>0.1-SNAPSHOT</version>
             <type>pom</type>
         </dependency>
         <dependency>

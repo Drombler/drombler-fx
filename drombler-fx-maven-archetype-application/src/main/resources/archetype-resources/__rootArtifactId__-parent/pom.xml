@@ -74,7 +74,7 @@
     </build>
     
     <dependencyManagement>
-        <dependencies>
+       <dependencies>
             <dependency>
                 <groupId>org.drombler.fx</groupId>
                 <artifactId>drombler-fx-core-action</artifactId>
@@ -87,19 +87,30 @@
             </dependency>
             <dependency>
                 <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-application-locale-de</artifactId>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-commons</artifactId>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
                 <artifactId>drombler-fx-core-docking</artifactId>
                 <version>${drombler-fx.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-core-util</artifactId>
+                <artifactId>drombler-fx-locale-all</artifactId>
+                <type>pom</type>
                 <version>${drombler-fx.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-locale-all</artifactId>
-                <version>${drombler-fx.version}</version>
+                <artifactId>drombler-fx-locale-de</artifactId>
                 <type>pom</type>
+                <version>${drombler-fx.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.drombler.fx</groupId>
