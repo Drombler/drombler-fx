@@ -36,7 +36,7 @@ import org.osgi.framework.ServiceReference;
 /**
  * A container which can be docked in the Docking System.
  * 
- * TODO: Should this extend javafx.scene.layout.Pane instead of Control?
+ * TODO: Should this class extend javafx.scene.layout.Pane instead of Control?
  * @author puce
  */
 @DefaultProperty("content")
