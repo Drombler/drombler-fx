@@ -15,11 +15,11 @@ import org.drombler.acp.core.action.MenuEntry;
 
 
 @Action(id = "test2", category = "test", displayName = "#test2.displayName")
-@MenuEntry(path = "File", position = 1220)
+@MenuEntry(path = "File", position = 1200)
 public class Test2 implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent t) {
-        System.out.println("hello world!");
+        System.out.println("Test2 Action!");
     }
 }

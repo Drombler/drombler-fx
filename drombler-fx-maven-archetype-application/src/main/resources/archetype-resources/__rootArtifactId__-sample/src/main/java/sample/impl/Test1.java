@@ -8,18 +8,16 @@
  */
 package ${package}.sample.impl;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import org.drombler.acp.core.action.AbstractActionListener;
 import org.drombler.acp.core.action.Action;
 import org.drombler.acp.core.action.MenuEntry;
 
-
 @Action(id = "test1", category = "test", displayName = "#test1.displayName")
-@MenuEntry(path = "File", position = 1200)
-public class Test1 implements EventHandler<ActionEvent> {
+@MenuEntry(path = "File", position = 20)
+public class Test1 extends AbstractActionListener<Object> {
 
     @Override
-    public void handle(ActionEvent t) {
-        System.out.println("hello world 1!");
+    public void onAction(Object event) {
+        System.out.println("Test1 Action!");
     }
 }
