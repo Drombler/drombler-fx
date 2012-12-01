@@ -14,36 +14,27 @@
  */
 package org.drombler.fx.core.action.impl;
 
-import javafx.beans.property.ReadOnlyBooleanPropertyBase;
+import java.io.InputStream;
+import org.drombler.fx.core.action.AbstractFXAction;
 
 /**
  *
  * @author puce
  */
-public class FixedBooleanProperty extends ReadOnlyBooleanPropertyBase {
-    private final Object bean;
-    private final String name;
-    private final boolean value;
+public abstract class AbstractFXActionAdapter<T> extends AbstractFXAction {
 
-    public FixedBooleanProperty(Object bean, String name, boolean value) {
-        this.bean = bean;
-        this.name = name;
-        this.value = value;
+    private final T adapted;
+
+    public AbstractFXActionAdapter(T adapted) {
+        this.adapted = adapted;
+    }
+
+    public T getAdapted() {
+        return adapted;
     }
 
     @Override
-    public final boolean get() {
-        return value;
+    protected InputStream getImageInputStream(String icon) {
+        return getAdapted().getClass().getResourceAsStream(icon);
     }
-
-    @Override
-    public Object getBean() {
-        return bean;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-    
 }

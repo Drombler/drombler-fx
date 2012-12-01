@@ -28,27 +28,27 @@ import javafx.scene.input.KeyCombination;
  */
 public interface FXAction extends EventHandler<ActionEvent> {
 
-    StringProperty displayNameProperty();
-
-    ObjectProperty<KeyCombination> acceleratorProperty();
-
-    StringProperty iconProperty();
-
-    ReadOnlyBooleanProperty disabledProperty();
-
     String getDisplayName();
+
+    void setDisplayName(String displayName);
+
+    StringProperty displayNameProperty();
 
     KeyCombination getAccelerator();
 
-    String getIcon();
+    void setAccelerator(KeyCombination keyCombination);
+
+    ObjectProperty<KeyCombination> acceleratorProperty();
 
     boolean isDisabled();
 
+    ReadOnlyBooleanProperty disabledProperty();
+
+    String getIcon();
+
+    void setIcon(String icon);
+
+    StringProperty iconProperty();
+
     Image getIconImage(int size);
-
-    public void setAccelerator(KeyCombination keyCombination);
-
-    public void setDisplayName(String displayName);
-
-    public void setIcon(String icon);
 }

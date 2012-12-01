@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -35,23 +37,9 @@ public abstract class AbstractFXAction implements FXAction {
     private static final boolean SMOOTH_ICON = false;
     private final StringProperty displayName = new SimpleStringProperty(this, "displayName", null);
     private final ObjectProperty<KeyCombination> accelerator = new SimpleObjectProperty<>(this, "accelerator", null);
+    private final DisabledProperty disabled = new DisabledProperty();
     private final StringProperty icon = new SimpleStringProperty(this, "icon", null);
     private final Map<Integer, Image> images = new HashMap<>();
-
-    @Override
-    public StringProperty displayNameProperty() {
-        return displayName;
-    }
-
-    @Override
-    public ObjectProperty<KeyCombination> acceleratorProperty() {
-        return accelerator;
-    }
-
-    @Override
-    public StringProperty iconProperty() {
-        return icon;
-    }
 
     @Override
     public final String getDisplayName() {
@@ -61,6 +49,11 @@ public abstract class AbstractFXAction implements FXAction {
     @Override
     public final void setDisplayName(String displayName) {
         displayNameProperty().set(displayName);
+    }
+
+    @Override
+    public StringProperty displayNameProperty() {
+        return displayName;
     }
 
     @Override
@@ -74,6 +67,25 @@ public abstract class AbstractFXAction implements FXAction {
     }
 
     @Override
+    public ObjectProperty<KeyCombination> acceleratorProperty() {
+        return accelerator;
+    }
+
+    @Override
+    public final boolean isDisabled() {
+        return disabledProperty().get();
+    }
+
+    protected void setDisabled(boolean disabled) {
+        this.disabled.set(disabled);
+    }
+
+    @Override
+    public ReadOnlyBooleanProperty disabledProperty() {
+        return disabled;
+    }
+
+    @Override
     public final String getIcon() {
         return iconProperty().get();
     }
@@ -81,6 +93,11 @@ public abstract class AbstractFXAction implements FXAction {
     @Override
     public final void setIcon(String icon) {
         iconProperty().set(icon);
+    }
+
+    @Override
+    public StringProperty iconProperty() {
+        return icon;
     }
 
     @Override
@@ -110,8 +127,17 @@ public abstract class AbstractFXAction implements FXAction {
     }
 
     private InputStream getImageInputStream(int size) {
-        if (getIcon() != null) {
-            String currentIcon = getIcon();
+        String currentIcon = getIcon(size);
+        if (currentIcon != null) {
+            return getImageInputStream(currentIcon);
+        } else {
+            return null;
+        }
+    }
+
+    private String getIcon(int size) {
+        String currentIcon = getIcon();
+        if (currentIcon != null) {
             String[] iconNameParts = getIcon().split("\\.");
             if (iconNameParts.length > 0) {
                 StringBuilder sb = new StringBuilder(iconNameParts[0]);
@@ -122,11 +148,36 @@ public abstract class AbstractFXAction implements FXAction {
                 }
                 currentIcon = sb.toString();
             }
-            return getImageInputStream(currentIcon);
-        } else {
-            return null;
         }
+        return currentIcon;
     }
 
-    protected abstract InputStream getImageInputStream(String icon);
+    protected InputStream getImageInputStream(String icon) {
+        return getClass().getResourceAsStream(icon);
+    }
+
+    private class DisabledProperty extends ReadOnlyBooleanPropertyBase {
+
+        private boolean disabled = false;
+
+        @Override
+        public final boolean get() {
+            return disabled;
+        }
+
+        private void set(boolean newValue) {
+            disabled = newValue;
+            fireValueChangedEvent();
+        }
+
+        @Override
+        public Object getBean() {
+            return AbstractFXAction.this;
+        }
+
+        @Override
+        public String getName() {
+            return "disabled";
+        }
+    }
 }
