@@ -53,7 +53,7 @@ Contributor(s): .
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>2.9</version>
                 <configuration>
-                    <goalPrefix>pxb</goalPrefix>
+                    <goalPrefix>dromblerfx</goalPrefix>
                 </configuration>
             </plugin>
             <plugin>
