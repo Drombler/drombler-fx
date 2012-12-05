@@ -8,8 +8,6 @@
  */
 package ${package}.sample.impl;
 
-import ${package}.sample.ColoredCircle;
-import ${package}.sample.ColoredCircleManager;
 import ${package}.sample.ColoredRectangle;
 import ${package}.sample.ColoredRectangleManager;
 import org.drombler.acp.core.action.AbstractToggleActionListener;
@@ -43,7 +41,7 @@ public abstract class AbstractColoredRectangleAction extends AbstractToggleActio
     @Override
     public void setActiveContext(Context activeContext) {
         this.activeContext = activeContext;
-        this.activeContext.addContextListener(ColoredCircleManager.class, new ContextListener() {
+        this.activeContext.addContextListener(ColoredRectangleManager.class, new ContextListener() {
             @Override
             public void contextChanged(ContextEvent event) {
                 AbstractColoredRectangleAction.this.contextChanged();
