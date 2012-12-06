@@ -2,6 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
+        <!-- You might want to replace this parent with your Corporate POM (which might inherit from 
+        drombler-fx-parent or one of its parents in turn).
+        Run 'mvn help:effective-pom' on this parent project to get an idea what you need to configure. -->
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
         <version>${project.version}</version>
@@ -18,11 +21,15 @@
     <url>http://www.mycompany.com/\${rootArtifactId}</url>
     <inceptionYear>2012</inceptionYear>
     
+    <!-- Override the organization. 
+    Otherwise you would inherit the Drombler specific organization configuration, which wouldn't be correct.-->
     <organization>
         <name>My Company</name>
         <url>http://www.mycompany.com</url>
     </organization>
     
+    <!-- Override the project licenses. 
+    Otherwise you would inherit the Drombler specific licenses configuration, which wouldn't be correct.-->
     <licenses>
         <license>
             <name>My License Name</name>
@@ -31,6 +38,8 @@
         </license>
     </licenses>
     
+    <!-- Override the project developers configuration. 
+    Otherwise you would inherit the Drombler specific developers configuration, which wouldn't be correct.-->
     <developers>
         <developer>
             <id>someuser</id>
@@ -41,12 +50,16 @@
         </developer>
     </developers>
 
+    <!-- Override the project scm configuration. 
+    Otherwise you would inherit the Drombler specific scm configuration, which wouldn't be correct.-->
     <scm>
         <connection>scm:hg:http://hg.mycompany.com/\${rootArtifactId}</connection>
         <developerConnection>scm:hg:ssh://${username}@hg.mycompany.com/${rootArtifactId}</developerConnection>
         <url>http://hg.mycompany.com/\${rootArtifactId}</url>
     </scm>
     
+    <!-- Override the project issueManagement configuration. 
+    Otherwise you would inherit the Drombler specific issueManagement configuration, which wouldn't be correct.-->
     <issueManagement>
         <system>My System</system>
         <url>http://issues.mycompany.com/\${rootArtifactId}</url>
