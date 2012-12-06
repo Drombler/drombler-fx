@@ -31,28 +31,39 @@
     
     <dependencies>      
         <dependency>
+            <!-- Provides the sample -->
             <groupId>\${groupId}</groupId>
             <artifactId>\${rootArtifactId}-sample</artifactId>
             <version>\${project.version}</version>
             <scope>runtime</scope>
         </dependency>
         
-        <dependency>
+ 
+        <dependency> 
+            <!-- Provides the JavaFX Application integration. 
+            You could omit this direct dependency as long as it stays a transitive dependency. 
+            (E.g. if you use drombler-fx-core-docking) -->
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-core-application</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <!--  Provides JavaFX based implementations of the Docking Framework 
+            You could omit this dependency as long as it is a transitive dependency. 
+            (E.g. if you use a project such as \${rootArtifactId}-sample, which provides some DockingPanes) -->
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-core-docking</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <!-- Provides the standard Docking Areas: left, right, top, bottom and center
+            You could replace this with your own definition of these Docking Areas. -->
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-standard-docking</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <!-- Provides some localized resources. -->
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-locale-all</artifactId>
             <type>pom</type>
