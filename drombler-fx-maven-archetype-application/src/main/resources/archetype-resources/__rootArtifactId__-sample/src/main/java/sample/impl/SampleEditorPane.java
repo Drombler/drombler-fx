@@ -51,7 +51,6 @@ public class SampleEditorPane extends DockablePane {
     @FXML
     private ImageView blueRectangleImageView;
     private final Map<ColoredRectangle, ImageView> coloredRectangleImageViews = new EnumMap<>(ColoredRectangle.class);
-//    private boolean initialized = false;
     private ObjectProperty<ColoredCircle> coloredCircle = new SimpleObjectProperty<>(this, "coloredCircle");
     private final ObservableSet<ColoredRectangle> coloredRectangles = FXCollections.observableSet(EnumSet.noneOf(
             ColoredRectangle.class));
@@ -113,7 +112,6 @@ public class SampleEditorPane extends DockablePane {
             }
         });
 
-//        initialized = true;
     }
 
     private void loadFXML() throws IOException {
@@ -131,7 +129,6 @@ public class SampleEditorPane extends DockablePane {
     }
 
     private void markModified() {
-//        if (initialized && context.find(SampleSavable.class) == null) {
         if (context.find(SampleSavable.class) == null) {
             // Add a SampleSavable to the context to enable the Save and the "Save All" actions.
             context.add(new SampleSavable());
@@ -167,7 +164,9 @@ public class SampleEditorPane extends DockablePane {
             sample.setColoredCircle(coloredCircle.get());
             sample.getColoredRectangles().addAll(coloredRectangles);
             sample.getColoredRectangles().retainAll(coloredRectangles);
-            // Write to file/ db ...
+            
+            // Here you would e.g. write to a file/ db ...
+            
             context.remove(this);
         }
 
