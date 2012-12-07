@@ -62,7 +62,7 @@ public class SampleEditorPane extends DockablePane {
         loadFXML();
         this.sample = sample;
 
-        // Add the sample to the context, so Viewers can see it
+        // Add the sample to the context, so Views can see it
         context.add(sample);
 
         // Add a ColoredCircleManager to the context to enable the ColoredCircle actions.
@@ -165,7 +165,7 @@ public class SampleEditorPane extends DockablePane {
             sample.getColoredRectangles().addAll(coloredRectangles);
             sample.getColoredRectangles().retainAll(coloredRectangles);
             
-            // Here you would e.g. write to a file/ db ...
+            // Here you would e.g. write to a file/ db, call a WebService ...
             
             context.remove(this);
         }
