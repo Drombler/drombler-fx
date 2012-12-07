@@ -39,6 +39,5 @@ public class LeftTestPane extends DockablePane {
         Sample sample = new Sample("Sample " + sampleCounter);
         SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
         sampleEditorPane.open();
-        sampleEditorPane.requestActive();
     }
 }
