@@ -19,16 +19,22 @@ import java.io.InputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
+import javafx.util.BuilderFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.drombler.acp.core.commons.util.Resources;
 import org.softsmithy.lib.util.ResourceFileNotFoundException;
 
 /**
  * Utility methods for {@link FXMLLoader}.
+ *
  * @author puce
  */
 public class FXMLLoaders {
 
     private static final String FXML_EXTENSION = ".fxml";
+    public static final String RESOURCE_PATH_SEPARATOR = "/";
+
+
 
     private FXMLLoaders() {
     }
@@ -44,11 +50,35 @@ public class FXMLLoaders {
      * @return a {@link FXMLLoader}
      */
     public static FXMLLoader createFXMLLoader(Class<?> type) {
-        FXMLLoader loader = new FXMLLoader();
+        return createFXMLLoader(type, Resources.getResourceBundle(type));
+    }
+
+    private static FXMLLoader createFXMLLoader(Class<?> type, ResourceBundle resourceBundle) {
+        FXMLLoader loader = new FXMLLoader(){
+
+            @Override
+            public BuilderFactory getBuilderFactory() {
+                return new FXMLRootBuilderFactory(super.getBuilderFactory());
+            }
+            
+        };
         loader.setClassLoader(type.getClassLoader());
-        loader.setResources(Resources.getResourceBundle(type));
+        loader.setResources(resourceBundle);
         return loader;
     }
+
+    private static FXMLLoader createFXMLLoader(Class<?> type, final Object rootController) {
+        FXMLLoader loader = createFXMLLoader(type);
+        loader.setRoot(rootController);
+        loader.setController(rootController);
+        return loader;
+    }
+
+    private static FXMLLoader createFXMLLoader(final Object rootController, String propertiesFile) {
+        return createFXMLLoader(rootController.getClass(), Resources.getResourceBundle(rootController.getClass(),
+                propertiesFile));
+    }
+
     /**
      * Loads the &lt;class name&gt;.fxml file, where &lt;class name&gt; is the type of the specified rootController and
      * the FXML-file is expected to be in the same package.
@@ -59,17 +89,22 @@ public class FXMLLoaders {
      *   <li>the {@link ResourceBundle} by looking for a {@code  Bundle.properties} file in the package of the type of 
      * the specified rootController (or a locale specific derivation) using the default {@link Locale}</li>
      * </ul>
-     * 
+     *
      * The root element of the FXML document is expected to be:
      * <br/> <br/>
      * {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
      * <br/> <br/>
      * where "super-type" is the super type of the type of the specified rootController.
      * @param rootController the Object acting as the root and as the controller.
-     * @throws IOException 
+     * @throws IOException
      */
     public static void loadRoot(final Object rootController) throws IOException {
         loadRoot(rootController.getClass(), rootController);
+    }
+
+    public static void loadRoot(final Object rootController, FXMLRoot fxmlRoot) throws IOException {
+        FXMLLoader loader = createFXMLLoader(rootController, fxmlRoot.properties());
+        load(loader, rootController.getClass(), fxmlRoot.fxml());
     }
 
     /**
@@ -81,7 +116,7 @@ public class FXMLLoaders {
      *   <li>the {@link ResourceBundle} by looking for a {@code  Bundle.properties} file in the package of the specified
      *   type (or a locale specific derivation) using the default {@link Locale}</li>
      * </ul>
-     * 
+     *
      * The root element of the FXML document is expected to be:
      *  <br/> <br/>
      * {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
@@ -89,39 +124,46 @@ public class FXMLLoaders {
      * where "super-type" is the super type of the specified type.
      * @param type the type
      * @param rootController the Object acting as the root and as the controller.
-     * @throws IOException 
+     * @throws IOException
      */
     public static void loadRoot(Class<?> type, final Object rootController) throws IOException {
-        FXMLLoader loader = createFXMLLoader(type);
-        loader.setRoot(rootController);
-        loader.setController(rootController);
+        FXMLLoader loader = createFXMLLoader(type, rootController);
         load(loader, type);
     }
 
     /**
      * Loads the &lt;class name&gt;.fxml file, which is expected to be in the same package as the specified type.
-     * 
+     *
      * @param loader the {@link FXMLLoader}
      * @param type the type
      * @return the loaded object
-     * @throws IOException 
+     * @throws IOException
      */
     public static Object load(FXMLLoader loader, Class<?> type) throws IOException {
-        try (InputStream is = getFXMLInputStream(type)) {
+        return load(loader, type, "");
+    }
+
+    public static Object load(FXMLLoader loader, Class<?> type, String fxmlFile) throws IOException {
+        String fxmlFileName = StringUtils.isBlank(fxmlFile) ? getFxmlFileName(type) : fxmlFile;
+        try (InputStream is = type.getResourceAsStream(fxmlFileName)) {
             if (is == null) {
                 // avoid NullPointerException
-                throw new ResourceFileNotFoundException(getAbsoluteFxmlResourcePath(type));
+                throw new ResourceFileNotFoundException(getAbsoluteFxmlResourcePath(type.getPackage(), fxmlFileName));
             }
             return loader.load(is);
         }
     }
 
-    private static InputStream getFXMLInputStream(Class<?> type) {
-        return type.getResourceAsStream(getFxmlFileName(type));
+    private static String getAbsoluteFxmlResourcePath(Package aPackage, String fxmlFileName) {
+        if (fxmlFileName.startsWith(RESOURCE_PATH_SEPARATOR)) {
+            return fxmlFileName;
+        } else {
+            return getAbsoluteParentDirPath(aPackage) + RESOURCE_PATH_SEPARATOR + fxmlFileName;
+        }
     }
 
-    private static String getAbsoluteFxmlResourcePath(Class<?> type) {
-        return "/" + type.getName().replace(".", "/") + FXML_EXTENSION;
+    private static String getAbsoluteParentDirPath(Package aPackage) {
+        return "/" + aPackage.getName().replace(".", RESOURCE_PATH_SEPARATOR);
     }
 
     private static String getFxmlFileName(Class<?> type) {
