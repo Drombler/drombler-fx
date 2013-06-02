@@ -27,6 +27,9 @@ public abstract class DockingSplitPaneChildBase extends Control {
 
     private final ObjectProperty<DockingSplitPane> parentSplitPane = new SimpleObjectProperty<>(this,
             "parentSplitPane", null);
+    /**
+     * Flag that indicates if this child is a {@link DockingSplitPane}.
+     */
     private final boolean splitPane;
 
     public DockingSplitPaneChildBase(boolean splitPane) {

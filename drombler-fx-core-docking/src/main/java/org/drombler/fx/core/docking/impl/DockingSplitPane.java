@@ -17,9 +17,11 @@ package org.drombler.fx.core.docking.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -46,7 +48,8 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 //    private final Map<Integer, ShortPathPart> shortPathParts = new HashMap<>();
     private final Map<Integer, DockingSplitPane> splitPanes = new HashMap<>();
     private final Map<Integer, PositionableAdapter<DockingAreaPane>> areaPanes = new HashMap<>();
-    private final ObservableList<DockingSplitPaneChildBase> dockingSplitPaneChildren = FXCollections.observableArrayList();
+    private final ObservableList<DockingSplitPaneChildBase> dockingSplitPaneChildren = FXCollections.
+            observableArrayList();
     private final List<Positionable> positionableChildren = new ArrayList<>();
 
     public DockingSplitPane(int position, int actualLevel, Orientation orientation) {
@@ -129,7 +132,8 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         }
     }
 
-    private void addDockingArea(Iterator<ShortPathPart> path, DockingAreaPane dockingAreaPane, List<PositionableAdapter<DockingAreaPane>> removedDockingAreas) {
+    private void addDockingArea(Iterator<ShortPathPart> path, DockingAreaPane dockingAreaPane,
+            List<PositionableAdapter<DockingAreaPane>> removedDockingAreas) {
         ShortPathPart pathPart = path.next();
         adjustLevel(pathPart, removedDockingAreas);
         if (path.hasNext()) {
@@ -160,7 +164,8 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         add(pathPart, splitPane);
     }
 
-    private DockingSplitPane getSplitPane(ShortPathPart shortPathPart, List<PositionableAdapter<DockingAreaPane>> removedDockingAreas) {
+    private DockingSplitPane getSplitPane(ShortPathPart shortPathPart,
+            List<PositionableAdapter<DockingAreaPane>> removedDockingAreas) {
         if (!splitPanes.containsKey(shortPathPart.getPosition())) {
             if (areaPanes.containsKey(shortPathPart.getPosition())) {
                 PositionableAdapter<DockingAreaPane> areaPane = areaPanes.remove(shortPathPart.getPosition());
@@ -224,21 +229,55 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     }
 
     public void removeDockingArea(DockingAreaPane dockingArea) {
-        removeDockingArea(dockingArea.getShortPath().iterator());
+        Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths = new HashMap<>();
+        removeDockingArea(dockingArea.getShortPath().iterator(), outdatedDockingAreaShortPaths);
+
+        readdOutdatedDockingAreas(outdatedDockingAreaShortPaths);
     }
 
-    private void removeDockingArea(Iterator<ShortPathPart> path) {
+    private void readdOutdatedDockingAreas(Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths) {
+        List<DockingAreaPane> dockingAreas = new ArrayList<>(outdatedDockingAreaShortPaths.size());
+        for (Map.Entry<String, OutdatedDockingAreaShortPath> nextEntry : outdatedDockingAreaShortPaths.entrySet()) {
+            removeDockingArea(nextEntry.getValue().getOutdatedShortPath().iterator(), null);
+            dockingAreas.add(nextEntry.getValue().getDockingArea());
+        }
+        addDockingAreas(dockingAreas);
+    }
+
+    private void addDockingAreas(List<DockingAreaPane> dockingAreas) {
+        for (DockingAreaPane dockingAreaPane : dockingAreas) {
+            addDockingArea(dockingAreaPane);
+        }
+    }
+
+    private OutdatedDockingAreaShortPath removeDockingArea(Iterator<ShortPathPart> path,
+            Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths) {
+        OutdatedDockingAreaShortPath outdatedDockingAreaShortPath = null;
         ShortPathPart pathPart = path.next();
         if (path.hasNext()) {
             DockingSplitPane splitPane = splitPanes.get(pathPart.getPosition());
-            splitPane.removeDockingArea(path);
+            splitPane.removeDockingArea(path, outdatedDockingAreaShortPaths);
             if (!splitPane.containsAnyDockingAreas()) {
                 removeSplitPane(splitPane);
             }
         } else {
+            if (!areaPanes.containsKey(pathPart.getPosition())) {
+                throw new IllegalStateException("No area pane at position: " + pathPart.getPosition());
+            }
+
+            if (outdatedDockingAreaShortPaths != null && getContentSize() == 2) {
+                putAllOutdatedDockingAreaShortPaths(outdatedDockingAreaShortPaths, pathPart.getPosition());
+
+            }
             PositionableAdapter<DockingAreaPane> dockingArea = areaPanes.remove(pathPart.getPosition());
             removeDockingAreaOnly(dockingArea);
         }
+
+        return outdatedDockingAreaShortPath;
+    }
+
+    private int getContentSize() {
+        return areaPanes.size() + splitPanes.size();
     }
 
     /**
@@ -373,5 +412,83 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         layoutConstraints.setPrefWidth(prefWidth);
         layoutConstraints.setPrefHeight(prefHeight);
         return layoutConstraints;
+    }
+
+    private DockingAreaPane getOtherDockingArea(Integer position) {
+        if (areaPanes.size() != 2) {
+            throw new IllegalStateException("There should be exactly 2 docking "
+                    + "areas, but there are: " + areaPanes.size());
+        }
+        Set<Integer> positions = new HashSet<>(areaPanes.keySet());
+        positions.remove(position);
+        Integer otherPostion = positions.iterator().next();
+        return areaPanes.get(otherPostion).getAdapted();
+    }
+
+    private void putAllOutdatedDockingAreaShortPaths(
+            Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths, Integer position) {
+        if (areaPanes.size() == 2) {
+            putOutdatedDockingAreaShortPath(outdatedDockingAreaShortPaths, position);
+        } else { // -> areaPanes.size() == 1 && splitPanes.size() == 1
+            putAllOutdatedDockingAreaShortPathsRecursivly(outdatedDockingAreaShortPaths);
+        }
+    }
+
+    private void putOutdatedDockingAreaShortPath(Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths,
+            Integer position) {
+        DockingAreaPane otherDockingArea = getOtherDockingArea(position);
+        putOutdatedDockingAreaShortPath(outdatedDockingAreaShortPaths, otherDockingArea);
+    }
+
+    private void putAllOutdatedDockingAreaShortPathsRecursivly(
+            Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths) {
+        for (DockingSplitPane splitPane : splitPanes.values()) {
+            splitPane.putAllOutdatedDockingAreaShortPaths(outdatedDockingAreaShortPaths);
+            splitPane.putAllOutdatedDockingAreaShortPathsRecursivly(outdatedDockingAreaShortPaths);
+        }
+    }
+
+    private void putAllOutdatedDockingAreaShortPaths(
+            Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths) {
+        for (PositionableAdapter<DockingAreaPane> dockingAreaAdapter : areaPanes.values()) {
+            putOutdatedDockingAreaShortPath(outdatedDockingAreaShortPaths, dockingAreaAdapter.getAdapted());
+        }
+    }
+
+    private void putOutdatedDockingAreaShortPath(Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths,
+            DockingAreaPane dockingArea) {
+        if (!outdatedDockingAreaShortPaths.containsKey(dockingArea.getAreaId())) {
+            // calculate the shortPath before the second last docking area 
+            // gets removed, as this might change the short path of the last
+            // docking area
+            List<ShortPathPart> oldOtherShortPath = dockingArea.getShortPath();
+            outdatedDockingAreaShortPaths.put(dockingArea.getAreaId(),
+                    new OutdatedDockingAreaShortPath(dockingArea, oldOtherShortPath));
+        }
+    }
+
+    private static class OutdatedDockingAreaShortPath {
+
+        private final DockingAreaPane dockingArea;
+        private final List<ShortPathPart> outdatedShortPath;
+
+        public OutdatedDockingAreaShortPath(DockingAreaPane dockingArea, List<ShortPathPart> outdatedShortPath) {
+            this.dockingArea = dockingArea;
+            this.outdatedShortPath = outdatedShortPath;
+        }
+
+        /**
+         * @return the dockingArea
+         */
+        public DockingAreaPane getDockingArea() {
+            return dockingArea;
+        }
+
+        /**
+         * @return the outdatedShortPath
+         */
+        public List<ShortPathPart> getOutdatedShortPath() {
+            return outdatedShortPath;
+        }
     }
 }

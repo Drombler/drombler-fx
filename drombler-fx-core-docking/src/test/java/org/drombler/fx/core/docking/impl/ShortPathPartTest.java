@@ -26,17 +26,6 @@ import org.softsmithy.devlib.junit.Tests;
  */
 public class ShortPathPartTest {
 
-    public ShortPathPartTest() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void testHashCode() {
         // equal

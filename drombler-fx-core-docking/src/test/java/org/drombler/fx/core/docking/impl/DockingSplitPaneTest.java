@@ -369,6 +369,17 @@ public class DockingSplitPaneTest {
         fail("The test case is a prototype.");
     }
 
+    @Test
+    @Ignore
+    public void testContainsAnyDockingAreas() {
+        System.out.println("containsAnyDockingAreas");
+        String areaId = "";
+        DockingSplitPane instance = null;
+//        instance.removeDockingArea(areaId);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
     private DockingAreaPane createDockingArea(int position, String id, Integer... path) {
         DockingAreaPane dockingAreaPane = new DockingAreaPane(id, position, false);
         rootManager.addDockingArea(Arrays.asList(path), dockingAreaPane);

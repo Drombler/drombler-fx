@@ -38,12 +38,23 @@ import org.softsmithy.lib.util.Positionables;
 public class DockingAreaPane extends DockingSplitPaneChildBase {
 
     private static final String DEFAULT_STYLE_CLASS = "docking-area-pane";
+    /**
+     * The area ID.
+     */
     private final String areaId;
     private final ObservableList<PositionableAdapter<DockablePane>> dockables = FXCollections.observableArrayList();
     private final Set<DockablePane> dockableSet = new HashSet<>();
     private final int position;
+    /**
+     * Flag if the space for this docking area should be preserved, if it's
+     * empty, or if it's space should be freed.
+     */
     private final boolean permanent;
     private DockingAreaManager parentManager;
+    /**
+     * Flag if this DockingArea has been added to a {@link DockingSplitPane}
+     * already.
+     */
     private final BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
     private final ObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>> selectionModel =
             new SimpleObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>>(
@@ -133,13 +144,34 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         this.parentManager = parentManager;
     }
 
+    /**
+     * Gets the short path.
+     *
+     * The short path is the path without any unnecessary split panes.
+     *
+     * @return a {@link List} of {@link ShortPathPart}s forming the short path.
+     */
     public List<ShortPathPart> getShortPath() {
         return parentManager.getShortPath(this);
     }
 
+    /**
+     * Indicates if this DockingAreaPane is either {@link #isPermanent()} or
+     * non-empty.
+     *
+     * @return returns true if permanent or non-empty.
+     */
     //TODO: good name?
     public boolean isVisualizable() {
         return isPermanent() || !getDockables().isEmpty();
+    }
+
+    // when the last dockable is beeing removed from the docking area, 
+    // the docking area is not visualizable (empty) but still visualized 
+    // (child of a DockingSplitPane; and thus has to be removed from it)
+    //TODO: good name?
+    public boolean isVisual() {
+        return isVisualizable() || isVisualized();
     }
 
     @Override
@@ -149,5 +181,13 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
 
     public void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
         this.layoutConstraints = layoutConstraints;
+    }
+
+    @Override
+    public String toString() {
+        return DockingAreaPane.class.getSimpleName() + "[areaId=" + areaId
+                + ", position=" + position + ", permanent=" + permanent
+                + ", visuablizable=" + isVisualizable()
+                + ", visualized=" + isVisualized() + "]";
     }
 }
