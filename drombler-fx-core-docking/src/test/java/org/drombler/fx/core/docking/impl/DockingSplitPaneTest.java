@@ -14,8 +14,13 @@
  */
 package org.drombler.fx.core.docking.impl;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javafx.geometry.Orientation;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.drombler.fx.core.docking.DockablePane;
 import org.junit.After;
 import static org.junit.Assert.*;
@@ -33,36 +38,27 @@ public class DockingSplitPaneTest {
     private static final String TEST1 = "test1";
     private static final String TEST2 = "test2";
     private static final String TEST3 = "test3";
+    private static final String TEST4 = "test4";
     private static final String LEFT = "left";
     private static final String RIGHT = "right";
     private static final String TOP = "top";
     private static final String BOTTOM = "bottom";
     private static final String CENTER = "center";
-    private DockingSplitPane rootSplitPane;
-    private DockingAreaManager rootManager;
+    private final DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, Orientation.VERTICAL);
+    private final DockingAreaManager rootManager = new DockingAreaManager(null, null, 0, Orientation.VERTICAL);
 
-    public DockingSplitPaneTest() {
-    }
-
-    @Before
-    public void setUp() {
-        rootSplitPane = new DockingSplitPane(0, 0, Orientation.VERTICAL);
-        rootManager = new DockingAreaManager(null, null, 0, Orientation.VERTICAL);
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of addDockingArea method, of class DockingSplitPane.
-     */
     @Test
     public void testAddDockingArea1() {
         System.out.println("addDockingArea1");
 
+        assertEquals(0, rootSplitPane.getPosition());
+        assertEquals(0, rootSplitPane.getActualLevel());
+        assertEquals(Orientation.VERTICAL, rootSplitPane.getOrientation());
+        assertNull(rootSplitPane.getParentSplitPane());
+
         DockingAreaPane test1 = createDockingArea(10, TEST1, 20);
         rootSplitPane.addDockingArea(test1);
+
         DockingSplitPane parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
         assertEquals(0, parentSplitPane.getPosition());
@@ -70,6 +66,15 @@ public class DockingSplitPaneTest {
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
         assertEquals(Arrays.asList(test1), parentSplitPane.getDockingSplitPaneChildren());
+        assertEquals(rootSplitPane, parentSplitPane);
+
+        rootSplitPane.removeDockingArea(test1);
+        assertNull(test1.getParentSplitPane());
+
+        assertEquals(0, rootSplitPane.getPosition());
+        assertEquals(0, rootSplitPane.getActualLevel());
+        assertEquals(Orientation.VERTICAL, rootSplitPane.getOrientation());
+        assertNull(rootSplitPane.getParentSplitPane());
     }
 
     @Test
@@ -85,9 +90,11 @@ public class DockingSplitPaneTest {
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
         assertEquals(Arrays.asList(test1), parentSplitPane.getDockingSplitPaneChildren());
+        assertEquals(rootSplitPane, parentSplitPane);
 
         DockingAreaPane test2 = createDockingArea(40, TEST2, 10);
         rootSplitPane.addDockingArea(test2);
+
         parentSplitPane = test2.getParentSplitPane();
         assertNotNull(parentSplitPane);
         assertEquals(0, parentSplitPane.getPosition());
@@ -95,6 +102,7 @@ public class DockingSplitPaneTest {
         assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
         assertEquals(Arrays.asList(test1, test2), parentSplitPane.getDockingSplitPaneChildren());
+        assertEquals(rootSplitPane, parentSplitPane);
 
         parentSplitPane = test1.getParentSplitPane();
         assertNotNull(parentSplitPane);
@@ -103,8 +111,18 @@ public class DockingSplitPaneTest {
         assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
         assertEquals(Arrays.asList(test1, test2), parentSplitPane.getDockingSplitPaneChildren());
+        assertEquals(rootSplitPane, parentSplitPane);
 
+        rootSplitPane.removeDockingArea(test2);
+        assertNull(test2.getParentSplitPane());
 
+        parentSplitPane = test1.getParentSplitPane();
+        assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
+        assertEquals(1, parentSplitPane.getActualLevel());
+        assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
+        assertNull(parentSplitPane.getParentSplitPane());
+        assertEquals(Arrays.asList(test1), parentSplitPane.getDockingSplitPaneChildren());
     }
 
     @Test
@@ -340,6 +358,151 @@ public class DockingSplitPaneTest {
 
     }
 
+    @Test
+    public void testAddDockingArea7() {
+        System.out.println("addDockingArea7");
+
+        DockingAreaPane test1 = createDockingArea(90, TEST1, 20);
+        rootSplitPane.addDockingArea(test1);
+        DockingAreaPane test2 = createDockingArea(80, TEST2, 20, 50, 20);
+        rootSplitPane.addDockingArea(test2);
+        DockingAreaPane test3 = createDockingArea(100, TEST3, 20, 50, 20);
+        rootSplitPane.addDockingArea(test3);
+        DockingAreaPane test4 = createDockingArea(70, TEST4, 20, 50);
+        rootSplitPane.addDockingArea(test4);
+
+        DockingSplitPane test1ParentParentSplitPane = test1.getParentSplitPane();
+        assertNotNull(test1ParentParentSplitPane);
+        assertEquals(0, test1ParentParentSplitPane.getPosition());
+        assertEquals(1, test1ParentParentSplitPane.getActualLevel());
+        assertEquals(Orientation.HORIZONTAL, test1ParentParentSplitPane.getOrientation());
+        assertNull(test1ParentParentSplitPane.getParentSplitPane());
+//        assertEquals(Arrays.asList(centerParentSplitPane, right),
+//                centerParentParentSplitPane.getDockingSplitPaneChildren());
+
+        DockingSplitPane test2ParentParentSplitPane = test2.getParentSplitPane();
+        assertNotNull(test2ParentParentSplitPane);
+        assertEquals(20, test2ParentParentSplitPane.getPosition());
+        assertEquals(3, test2ParentParentSplitPane.getActualLevel());
+        assertEquals(Orientation.HORIZONTAL, test2ParentParentSplitPane.getOrientation());
+        assertNotNull(test2ParentParentSplitPane.getParentSplitPane());
+
+        DockingSplitPane test3ParentParentSplitPane = test3.getParentSplitPane();
+        assertEquals(test2ParentParentSplitPane, test3ParentParentSplitPane);
+
+        DockingSplitPane test4ParentParentSplitPane = test4.getParentSplitPane();
+        assertNotNull(test4ParentParentSplitPane);
+        assertEquals(50, test4ParentParentSplitPane.getPosition());
+        assertEquals(2, test4ParentParentSplitPane.getActualLevel());
+        assertEquals(Orientation.VERTICAL, test4ParentParentSplitPane.getOrientation());
+        assertEquals(test1ParentParentSplitPane, test4ParentParentSplitPane.getParentSplitPane());
+        assertEquals(test2ParentParentSplitPane.getParentSplitPane(), test4ParentParentSplitPane);
+
+        rootSplitPane.removeDockingArea(test4);
+
+        assertNull(test4.getParentSplitPane());
+
+        test1ParentParentSplitPane = test1.getParentSplitPane();
+        assertNotNull(test1ParentParentSplitPane);
+        assertEquals(0, test1ParentParentSplitPane.getPosition());
+        assertEquals(1, test1ParentParentSplitPane.getActualLevel());
+        assertEquals(Orientation.HORIZONTAL, test1ParentParentSplitPane.getOrientation());
+        assertNull(test1ParentParentSplitPane.getParentSplitPane());
+//        assertEquals(Arrays.asList(centerParentSplitPane, right),
+//                centerParentParentSplitPane.getDockingSplitPaneChildren());
+
+        test2ParentParentSplitPane = test2.getParentSplitPane();
+        assertNotNull(test2ParentParentSplitPane);
+        assertEquals(20, test2ParentParentSplitPane.getPosition());
+        assertEquals(3, test2ParentParentSplitPane.getActualLevel());
+        assertEquals(Orientation.HORIZONTAL, test2ParentParentSplitPane.getOrientation());
+        assertNotNull(test2ParentParentSplitPane.getParentSplitPane());
+
+        test3ParentParentSplitPane = test3.getParentSplitPane();
+        assertEquals(test2ParentParentSplitPane, test3ParentParentSplitPane);
+        assertEquals(test1ParentParentSplitPane, test3ParentParentSplitPane.getParentSplitPane().getParentSplitPane());
+    }
+
+    @Test
+    @Ignore
+    public void testAddDockingArea8() {
+        System.out.println("addDockingArea8");
+        DockingAreaPane test1 = createDockingArea(20, TEST1, 10);
+        rootSplitPane.addDockingArea(test1);
+
+        DockingAreaPane test2 = createDockingArea(40, TEST2, 10);
+        rootSplitPane.addDockingArea(test2);
+
+        DockingAreaPane test3 = createDockingArea(10, TEST3, 20);
+        rootSplitPane.addDockingArea(test3);
+
+        DockingSplitPane parentSplitPane1 = test1.getParentSplitPane();
+        assertNotNull(parentSplitPane1);
+        assertEquals(10, parentSplitPane1.getPosition());
+        assertEquals(1, parentSplitPane1.getActualLevel());
+        assertEquals(Orientation.HORIZONTAL, parentSplitPane1.getOrientation());
+        assertEquals(rootSplitPane, parentSplitPane1.getParentSplitPane());
+
+        DockingSplitPane parentSplitPane2 = test2.getParentSplitPane();
+        assertEquals(parentSplitPane1, parentSplitPane2);
+
+        DockingSplitPane parentSplitPane3 = test3.getParentSplitPane();
+        assertNotNull(parentSplitPane3);
+//        assertEquals(0, parentSplitPane1.getPosition());
+        assertEquals(0, parentSplitPane1.getActualLevel());
+        assertEquals(Orientation.VERTICAL, parentSplitPane1.getOrientation());
+        assertEquals(rootSplitPane, parentSplitPane3);
+
+    }
+
+    @Test
+    public void testAddDockingArea9() {
+        System.out.println("addDockingArea9");
+        DockingAreaPane test1 = createDockingArea(20, TEST1, 10);
+        rootSplitPane.addDockingArea(test1);
+
+        DockingSplitPane parentSplitPane = test1.getParentSplitPane();
+        assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
+        assertEquals(0, parentSplitPane.getActualLevel());
+        assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
+        assertNull(parentSplitPane.getParentSplitPane());
+        assertEquals(Arrays.asList(test1), parentSplitPane.getDockingSplitPaneChildren());
+        assertEquals(rootSplitPane, parentSplitPane);
+
+        DockingAreaPane test2 = createDockingArea(40, TEST2, 10);
+        rootSplitPane.addDockingArea(test2);
+
+        parentSplitPane = test2.getParentSplitPane();
+        assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
+        assertEquals(1, parentSplitPane.getActualLevel());
+        assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
+        assertNull(parentSplitPane.getParentSplitPane());
+        assertEquals(Arrays.asList(test1, test2), parentSplitPane.getDockingSplitPaneChildren());
+        assertEquals(rootSplitPane, parentSplitPane);
+
+        parentSplitPane = test1.getParentSplitPane();
+        assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
+        assertEquals(1, parentSplitPane.getActualLevel());
+        assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
+        assertNull(parentSplitPane.getParentSplitPane());
+        assertEquals(Arrays.asList(test1, test2), parentSplitPane.getDockingSplitPaneChildren());
+        assertEquals(rootSplitPane, parentSplitPane);
+
+        rootSplitPane.removeDockingArea(test2);
+        assertNull(test2.getParentSplitPane());
+
+        parentSplitPane = test1.getParentSplitPane();
+        assertNotNull(parentSplitPane);
+        assertEquals(0, parentSplitPane.getPosition());
+        assertEquals(1, parentSplitPane.getActualLevel());
+        assertEquals(Orientation.HORIZONTAL, parentSplitPane.getOrientation());
+        assertNull(parentSplitPane.getParentSplitPane());
+        assertEquals(Arrays.asList(test1), parentSplitPane.getDockingSplitPaneChildren());
+    }
+
     /**
      * Test of isEmpty method, of class DockingSplitPane.
      */
@@ -370,14 +533,83 @@ public class DockingSplitPaneTest {
     }
 
     @Test
-    @Ignore
-    public void testContainsAnyDockingAreas() {
-        System.out.println("containsAnyDockingAreas");
-        String areaId = "";
-        DockingSplitPane instance = null;
-//        instance.removeDockingArea(areaId);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testContainsAnyDockingAreas1() throws NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException {
+        System.out.println("containsAnyDockingAreas1");
+
+        assertFalse(rootSplitPane.containsAnyDockingAreas());
+        assertTrue(rootSplitPane.isEmpty());
+
+        DockingAreaPane test1 = createDockingArea(90, TEST1, 20);
+        rootSplitPane.addDockingArea(test1);
+
+        assertTrue(rootSplitPane.containsAnyDockingAreas());
+        assertFalse(rootSplitPane.isEmpty());
+
+        DockingAreaPane test2 = createDockingArea(30, TEST1, 20, 50);
+        rootSplitPane.addDockingArea(test2);
+
+        assertTrue(rootSplitPane.containsAnyDockingAreas());
+        assertFalse(rootSplitPane.isEmpty());
+
+        DockingAreaPane test3 = createDockingArea(60, TEST1, 20, 50);
+        rootSplitPane.addDockingArea(test3);
+
+        assertTrue(rootSplitPane.containsAnyDockingAreas());
+        assertFalse(rootSplitPane.isEmpty());
+    }
+
+    @Test
+    public void testContainsAnyDockingAreas2() throws NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException {
+        System.out.println("containsAnyDockingAreas2");
+
+        assertFalse(rootSplitPane.containsAnyDockingAreas());
+        assertTrue(rootSplitPane.isEmpty());
+
+        DockingAreaPane test1 = createDockingArea(90, TEST1, 20);
+        rootSplitPane.addDockingArea(test1);
+
+        assertTrue(rootSplitPane.containsAnyDockingAreas());
+        assertFalse(rootSplitPane.isEmpty());
+
+        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane,
+                new ShortPathPart(50, 2,
+                Orientation.VERTICAL));
+
+        assertTrue(rootSplitPane.containsAnyDockingAreas());
+        assertFalse(rootSplitPane.isEmpty());
+
+        assertFalse(splitPane.containsAnyDockingAreas());
+        assertTrue(splitPane.isEmpty());
+    }
+
+    @Test
+    public void testContainsAnyDockingAreas3() throws NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException {
+        System.out.println("containsAnyDockingAreas3");
+
+        assertFalse(rootSplitPane.containsAnyDockingAreas());
+        assertTrue(rootSplitPane.isEmpty());
+
+        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane,
+                new ShortPathPart(50, 2,
+                Orientation.VERTICAL));
+
+        assertFalse(rootSplitPane.containsAnyDockingAreas());
+        assertFalse(rootSplitPane.isEmpty());
+
+        assertFalse(splitPane.containsAnyDockingAreas());
+        assertTrue(splitPane.isEmpty());
+
+        DockingAreaPane test1 = createDockingArea(90, TEST1);
+        splitPane.addDockingArea(test1);
+
+        assertTrue(rootSplitPane.containsAnyDockingAreas());
+        assertFalse(rootSplitPane.isEmpty());
+
+        assertTrue(splitPane.containsAnyDockingAreas());
+        assertFalse(splitPane.isEmpty());
     }
 
     private DockingAreaPane createDockingArea(int position, String id, Integer... path) {
@@ -388,5 +620,16 @@ public class DockingSplitPaneTest {
         dockingAreaPane.addDockable(new PositionableAdapter<>(dockablePane, 10));
 
         return dockingAreaPane;
+    }
+
+    private DockingSplitPane addEmptySplitPane(DockingSplitPane parentSplitPane, ShortPathPart pathPart) throws
+            NoSuchMethodException, SecurityException, IllegalArgumentException,
+            IllegalAccessException, InvocationTargetException {
+        Method getSplitPaneMethod = DockingSplitPane.class.getDeclaredMethod("getSplitPane",
+                ShortPathPart.class, List.class);
+        getSplitPaneMethod.setAccessible(true);
+        DockingSplitPane splitPane = (DockingSplitPane) getSplitPaneMethod.invoke(parentSplitPane, pathPart,
+                new ArrayList<>());
+        return splitPane;
     }
 }

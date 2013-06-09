@@ -138,6 +138,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         adjustLevel(pathPart, removedDockingAreas);
         if (path.hasNext()) {
             DockingSplitPane splitPane = getSplitPane(pathPart, removedDockingAreas);
+            // recursion
             splitPane.addDockingArea(path, dockingAreaPane, removedDockingAreas);
 
         } else {
@@ -207,23 +208,35 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         return getOrientation().equals(Orientation.HORIZONTAL) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
     }
 
+    /**
+     * Checks if this DockingSplitPane contains a DockingAreaPane or a child DockingSplitPane, which contains any
+     * docking area.
+     *
+     * TODO: needed as public?
+     *
+     * @return if this DockingSplitPane directly or indirectly contains any DockingAreaPane, else false.
+     */
     public boolean containsAnyDockingAreas() {
-        boolean contains = false;
-        if (splitPanes.isEmpty()) {
-            contains = !areaPanes.isEmpty();
-        } else {
-            if (areaPanes.isEmpty()) {
-                for (DockingSplitPane splitPane : splitPanes.values()) {
-                    contains = splitPane.containsAnyDockingAreas();
-                    if (contains) {
-                        break;
-                    }
+        boolean contains = !areaPanes.isEmpty();
+        if (!contains) {
+            for (DockingSplitPane splitPane : splitPanes.values()) {
+                // recursion
+                contains = splitPane.containsAnyDockingAreas();
+                if (contains) {
+                    break;
                 }
             }
         }
         return contains;
     }
 
+    /**
+     * Checks if this DockingSplitPane contains any children.
+     *
+     * TODO: needed as public?
+     *
+     * @return true, if it contains no children, else false.
+     */
     public boolean isEmpty() {
         return dockingSplitPaneChildren.isEmpty();
     }
@@ -232,10 +245,10 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths = new HashMap<>();
         removeDockingArea(dockingArea.getShortPath().iterator(), outdatedDockingAreaShortPaths);
 
-        readdOutdatedDockingAreas(outdatedDockingAreaShortPaths);
+        reAddOutdatedDockingAreas(outdatedDockingAreaShortPaths);
     }
 
-    private void readdOutdatedDockingAreas(Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths) {
+    private void reAddOutdatedDockingAreas(Map<String, OutdatedDockingAreaShortPath> outdatedDockingAreaShortPaths) {
         List<DockingAreaPane> dockingAreas = new ArrayList<>(outdatedDockingAreaShortPaths.size());
         for (Map.Entry<String, OutdatedDockingAreaShortPath> nextEntry : outdatedDockingAreaShortPaths.entrySet()) {
             removeDockingArea(nextEntry.getValue().getOutdatedShortPath().iterator(), null);
@@ -255,7 +268,11 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         OutdatedDockingAreaShortPath outdatedDockingAreaShortPath = null;
         ShortPathPart pathPart = path.next();
         if (path.hasNext()) {
+            if (!splitPanes.containsKey(pathPart.getPosition())) {
+                throw new IllegalStateException("No split pane at position: " + pathPart.getPosition());
+            }
             DockingSplitPane splitPane = splitPanes.get(pathPart.getPosition());
+            // recursion
             splitPane.removeDockingArea(path, outdatedDockingAreaShortPaths);
             if (!splitPane.containsAnyDockingAreas()) {
                 removeSplitPane(splitPane);
@@ -361,6 +378,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     private void removeEmptySplitPanes() {
         List<DockingSplitPane> dockingSplitPanes = new ArrayList<>(splitPanes.values()); // avoid ConcurrentModificationException
         for (DockingSplitPane splitPane : dockingSplitPanes) {
+            // recursion
             splitPane.removeEmptySplitPanes();
             if (!splitPane.containsAnyDockingAreas()) {
                 removeSplitPane(splitPane);
