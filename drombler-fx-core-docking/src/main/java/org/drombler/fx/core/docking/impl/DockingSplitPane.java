@@ -45,7 +45,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     private int actualLevel;
     private final ObjectProperty<Orientation> orientation = new SimpleObjectProperty<>(this,
             "orientation", null);
-//    private final Map<Integer, ShortPathPart> shortPathParts = new HashMap<>();
     private final Map<Integer, DockingSplitPane> splitPanes = new HashMap<>();
     private final Map<Integer, PositionableAdapter<DockingAreaPane>> areaPanes = new HashMap<>();
     private final ObservableList<DockingSplitPaneChildBase> dockingSplitPaneChildren = FXCollections.
@@ -57,18 +56,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         setOrientation(orientation);
         this.position = position;
         this.actualLevel = actualLevel;
-        // throws exception
-//        getItems().addListener(new ListChangeListener<Node>() {
-//
-//            @Override
-//            public void onChanged(Change<? extends Node> change) {
-//                if (change.wasAdded()) {
-//                    for (Node areaPane : change.getAddedSubList()) {
-//                        ((DockingAreaPane) areaPane).setParentSplitPane(DockingSplitPane.this);
-//                    }
-//                }
-//            }
-//        });
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
 
     }
@@ -97,29 +84,12 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         return actualLevel;
     }
 
-//    public <T extends Node & DockingSplitPaneChildBase> void add(int currentIndex, T child) {
-//        child.setParentSplitPane(this);
-//        BorderPane pane = new BorderPane();
-//        pane.setCenter(child);
-//        getItems().add(pane);
-//    }
-//
-//    public <T extends Node & DockingSplitPaneChildBase> void addAll(Collection<? extends T> children) {
-//        for (T child : children) {
-//            child.setParentSplitPane(this);
-//        }
-//        getItems().addAll(children);
-//    }
-//
-//    public <T extends Node & DockingSplitPaneChildBase> void set(int currentIndex, T child) {
-//        child.setParentSplitPane(this);
-//        getItems().set(currentIndex, child);
-//    }
     public void addDockingArea(DockingAreaPane dockingArea) {
         if (dockingArea.isVisualizable()) {
 //            System.out.println(DockingSplitPane.class.getName() + ": adding docking area: " + dockingArea.getAreaId());
             List<PositionableAdapter<DockingAreaPane>> removedDockingAreas = new ArrayList<>();
             addDockingArea(dockingArea.getShortPath().iterator(), dockingArea, removedDockingAreas);
+            
             for (PositionableAdapter<DockingAreaPane> removedDockingAreaAdapter : removedDockingAreas) {
                 DockingAreaPane removedDockingArea = removedDockingAreaAdapter.getAdapted();
                 List<PositionableAdapter<DockingAreaPane>> areas = new ArrayList<>();
@@ -156,12 +126,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 
     private void addSplitPane(ShortPathPart pathPart, DockingSplitPane splitPane) {
         splitPanes.put(splitPane.getPosition(), splitPane);
-//        if (areaPanes.containsKey(pos)) {
-//            DockingAreaPane areaPane = areaPanes.remove(pos);
-//            int index = Collections.binarySearch(dockingSplitPaneChildren, areaPane, new PositionableComparator());
-//            dockingSplitPaneChildren.remove(index);
-//            splitPane.addDockingArea(pathPart, areaPane);
-//        }
         add(pathPart, splitPane);
     }
 
@@ -181,7 +145,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     }
 
     private void add(ShortPathPart pathPart, DockingSplitPaneChildBase child) {
-//        shortPathParts.put(pathPart.getPosition(), pathPart);
         child.setParentSplitPane(this);
         PositionableAdapter<DockingSplitPaneChildBase> positionableChild =
                 new PositionableAdapter<>(child, pathPart.getPosition());
@@ -189,20 +152,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         positionableChildren.add(insertionPoint, positionableChild);
         dockingSplitPaneChildren.add(insertionPoint, child);
     }
-//    private void addSkippedSplitPane(ShortPathPart pathPart) {
-//        DockingSplitPane skippedSplitPane = new DockingSplitPane(pathPart.getPosition(), getActualLevel() + 1,
-//                getChildOrientation());
-//        for (Map.Entry<Integer, DockingSplitPane> entry : splitPanes.entrySet()) {
-//            skippedSplitPane.addSplitPane(shortPathParts.get(entry.getKey()), entry.getValue());
-//        }
-//        splitPanes.clear();
-//        for (Map.Entry<Integer, DockingAreaPane> entry : areaPanes.entrySet()) {
-//            skippedSplitPane.addDockingArea(shortPathParts.get(entry.getKey()), entry.getValue());
-//        }
-//        areaPanes.clear();
-//        dockingSplitPaneChildren.clear();
-//        addSplitPane(pathPart, skippedSplitPane);
-//    }
 
     private Orientation getChildOrientation() {
         return getOrientation().equals(Orientation.HORIZONTAL) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
@@ -304,9 +253,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         return FXCollections.unmodifiableObservableList(dockingSplitPaneChildren);
     }
 
-//    private void split(List<Integer> splitPah, Orientation splitOrientation) {
-//        throw new UnsupportedOperationException("Not yet implemented");
-//    }
     private void adjustLevel(ShortPathPart pathPart, List<PositionableAdapter<DockingAreaPane>> removedDockingAreas) {
         if (getActualLevel() != pathPart.getInActualLevel()) {
             if (isEmpty()) {
@@ -314,15 +260,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
             } else {
                 adjustLevelOnly(pathPart);
                 removeAllDockingAreas(removedDockingAreas);
-//                if (getActualLevel() < pathPart.getInActualLevel()) {
-//                    adjustLevelOnly(pathPart);
-//                    removeAllDockingAreas(removedDockingAreas);
-//                } else if (getActualLevel() > pathPart.getInActualLevel()) {
-//                    DockingSplitPane splitPane = new DockingSplitPane(getPosition(), getActualLevel(), getOrientation());
-//                    moveContentTo(splitPane);
-//                    adjustLevelOnly(pathPart);
-//                    addSplitPane(new ShortPathPart(getPosition(), getActualLevel(), getOrientation()), splitPane);
-//                }
             }
         }
     }
@@ -331,31 +268,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         actualLevel = pathPart.getInActualLevel();
         setOrientation(pathPart.getInOrientation());
     }
-
-//    private void moveContentTo(DockingSplitPane splitPane) {
-//        copyContentTo(splitPane);
-//        clearContent();
-//    }
-//    private void copyContentTo(DockingSplitPane splitPane) {
-////        splitPane.shortPathParts.putAll(shortPathParts);
-//        splitPane.areaPanes.putAll(areaPanes);
-//        for (PositionableAdapter<DockingAreaPane> areaPane : splitPane.areaPanes.values()) {
-//            areaPane.getAdapted().setParentSplitPane(splitPane);
-//        }
-//        splitPane.splitPanes.putAll(splitPanes);
-//        for (DockingSplitPane childSplitPane : splitPane.splitPanes.values()) {
-//            childSplitPane.setParentSplitPane(splitPane);
-//        }
-//        splitPane.positionableChildren.addAll(positionableChildren);
-//        splitPane.dockingSplitPaneChildren.addAll(dockingSplitPaneChildren);
-//    }
-//    private void clearContent() {
-////        shortPathParts.clear();
-//        areaPanes.clear();
-//        splitPanes.clear();
-//        positionableChildren.clear();
-//        dockingSplitPaneChildren.clear();
-//    }
+    
     private void removeAllDockingAreas(List<PositionableAdapter<DockingAreaPane>> removedDockingAreas) {
         for (PositionableAdapter<DockingAreaPane> dockingArea : areaPanes.values()) {
             removeDockingAreaOnly(dockingArea);
