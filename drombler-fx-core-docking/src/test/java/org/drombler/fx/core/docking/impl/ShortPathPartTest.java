@@ -14,9 +14,6 @@
  */
 package org.drombler.fx.core.docking.impl;
 
-import javafx.geometry.Orientation;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.softsmithy.devlib.junit.Tests;
 
@@ -29,8 +26,8 @@ public class ShortPathPartTest {
     @Test
     public void testHashCode() {
         // equal
-        ShortPathPart part1 = new ShortPathPart(1, 4, Orientation.VERTICAL);
-        ShortPathPart part2 = new ShortPathPart(1, 4, Orientation.VERTICAL);
+        ShortPathPart part1 = new ShortPathPart(1, 4);
+        ShortPathPart part2 = new ShortPathPart(1, 4);
 
         Tests.testHashCode(part1, part2);
     }
@@ -38,15 +35,14 @@ public class ShortPathPartTest {
     @Test
     public void testEquals() {
         // equal
-        ShortPathPart part1 = new ShortPathPart(1, 4, Orientation.VERTICAL);
-        ShortPathPart part2 = new ShortPathPart(1, 4, Orientation.VERTICAL);
-        ShortPathPart part3 = new ShortPathPart(1, 4, Orientation.VERTICAL);
+        ShortPathPart part1 = new ShortPathPart(1, 4);
+        ShortPathPart part2 = new ShortPathPart(1, 4);
+        ShortPathPart part3 = new ShortPathPart(1, 4);
 
         // unequal
-        ShortPathPart part4 = new ShortPathPart(2, 4, Orientation.VERTICAL);
-        ShortPathPart part5 = new ShortPathPart(1, 5, Orientation.VERTICAL);
-        ShortPathPart part6 = new ShortPathPart(1, 4, Orientation.HORIZONTAL);
+        ShortPathPart part4 = new ShortPathPart(2, 4);
+        ShortPathPart part5 = new ShortPathPart(1, 5);
         
-        Tests.testEquals(part1, part2, part3, part4, part5, part6);
+        Tests.testEquals(part1, part2, part3, part4, part5);
     }
 }

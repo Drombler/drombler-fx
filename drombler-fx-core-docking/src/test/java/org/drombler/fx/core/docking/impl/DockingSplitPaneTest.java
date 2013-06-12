@@ -20,11 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.geometry.Orientation;
-import org.apache.commons.lang3.reflect.MethodUtils;
 import org.drombler.fx.core.docking.DockablePane;
-import org.junit.After;
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.softsmithy.lib.util.PositionableAdapter;
@@ -44,8 +41,8 @@ public class DockingSplitPaneTest {
     private static final String TOP = "top";
     private static final String BOTTOM = "bottom";
     private static final String CENTER = "center";
-    private final DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, Orientation.VERTICAL);
-    private final DockingAreaManager rootManager = new DockingAreaManager(null, null, 0, Orientation.VERTICAL);
+    private final DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, SplitLevel.ROOT);
+    private final DockingAreaManager rootManager = new DockingAreaManager(null, 0, SplitLevel.ROOT);
 
     @Test
     public void testAddDockingArea1() {
@@ -573,9 +570,7 @@ public class DockingSplitPaneTest {
         assertTrue(rootSplitPane.containsAnyDockingAreas());
         assertFalse(rootSplitPane.isEmpty());
 
-        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane,
-                new ShortPathPart(50, 2,
-                Orientation.VERTICAL));
+        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane, 50, 1, SplitLevel.valueOf(2));
 
         assertTrue(rootSplitPane.containsAnyDockingAreas());
         assertFalse(rootSplitPane.isEmpty());
@@ -592,9 +587,7 @@ public class DockingSplitPaneTest {
         assertFalse(rootSplitPane.containsAnyDockingAreas());
         assertTrue(rootSplitPane.isEmpty());
 
-        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane,
-                new ShortPathPart(50, 2,
-                Orientation.VERTICAL));
+        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane, 50, 1, SplitLevel.valueOf(2));
 
         assertFalse(rootSplitPane.containsAnyDockingAreas());
         assertFalse(rootSplitPane.isEmpty());
@@ -603,7 +596,7 @@ public class DockingSplitPaneTest {
         assertTrue(splitPane.isEmpty());
 
         DockingAreaPane test1 = createDockingArea(90, TEST1);
-        splitPane.addDockingArea(test1);
+        addDockingArea(splitPane, test1.getPosition(), test1);
 
         assertTrue(rootSplitPane.containsAnyDockingAreas());
         assertFalse(rootSplitPane.isEmpty());
@@ -622,14 +615,24 @@ public class DockingSplitPaneTest {
         return dockingAreaPane;
     }
 
-    private DockingSplitPane addEmptySplitPane(DockingSplitPane parentSplitPane, ShortPathPart pathPart) throws
+    private DockingSplitPane addEmptySplitPane(DockingSplitPane parentSplitPane, int position, int level,
+            SplitLevel actualLevel) throws
             NoSuchMethodException, SecurityException, IllegalArgumentException,
             IllegalAccessException, InvocationTargetException {
         Method getSplitPaneMethod = DockingSplitPane.class.getDeclaredMethod("getSplitPane",
-                ShortPathPart.class, List.class);
+                int.class, int.class, SplitLevel.class, List.class);
         getSplitPaneMethod.setAccessible(true);
-        DockingSplitPane splitPane = (DockingSplitPane) getSplitPaneMethod.invoke(parentSplitPane, pathPart,
-                new ArrayList<>());
+        DockingSplitPane splitPane = (DockingSplitPane) getSplitPaneMethod.invoke(parentSplitPane, position, level,
+                actualLevel, new ArrayList<>());
         return splitPane;
+    }
+
+    private void addDockingArea(DockingSplitPane parentSplitPane, int position,
+            DockingAreaPane dockingAreaPane) throws NoSuchMethodException, IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException {
+        Method addDockingAreaMethod = DockingSplitPane.class.getDeclaredMethod("addDockingArea",
+                int.class, DockingAreaPane.class);
+        addDockingAreaMethod.setAccessible(true);
+        addDockingAreaMethod.invoke(parentSplitPane, position, dockingAreaPane);
     }
 }

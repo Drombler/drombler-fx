@@ -26,6 +26,8 @@ import org.drombler.fx.core.docking.DockablePane;
 import org.drombler.fx.core.docking.impl.DockingAreaPane;
 import org.drombler.fx.core.docking.impl.DockingPane;
 import org.drombler.fx.core.docking.impl.DockingSplitPane;
+import org.drombler.fx.core.docking.impl.ShortPathPart;
+import org.drombler.fx.core.docking.impl.SplitLevel;
 import org.softsmithy.lib.util.PositionableAdapter;
 
 /**
@@ -36,13 +38,12 @@ public class DockingPaneSkin implements Skin<DockingPane> {
 
     private DockingPane control;
     private BorderPane pane = new BorderPane();
-    private DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, Orientation.VERTICAL);
+    private DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, SplitLevel.ROOT);
 
     public DockingPaneSkin(DockingPane control) {
         this.control = control;
         pane.setCenter(rootSplitPane);
         this.control.addDockingAreaContainerListener(new DockingAreaContainerListener<DockingAreaPane, DockablePane>() {
-
             @Override
             public void dockingAreaAdded(DockingAreaContainerDockingAreaEvent<DockingAreaPane, DockablePane> event) {
                 handleDockingArea(event.getDockingArea());

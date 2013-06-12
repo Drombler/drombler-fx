@@ -58,7 +58,7 @@ public class DockingPaneTest {
 
         addDockingAreaNonPermanent(20, TEST1, 10);
 
-        assertShortPath(TEST1, new ShortPathPart(10, 0, Orientation.VERTICAL));
+        assertShortPath(TEST1, new ShortPathPart(10, 0));
 
         // No Exception should be thrown
         removeDockable(TEST1, 0);
@@ -71,20 +71,20 @@ public class DockingPaneTest {
         System.out.println("addDockingArea2");
         addDockingAreaNonPermanent(20, TEST1, 10);
 
-        assertShortPath(TEST1, new ShortPathPart(10, 0, Orientation.VERTICAL));
+        assertShortPath(TEST1, new ShortPathPart(10, 0));
 
         addDockingAreaNonPermanent(40, TEST2, 10);
 
-        assertShortPath(TEST2, new ShortPathPart(40, 1, Orientation.HORIZONTAL));
+        assertShortPath(TEST2, new ShortPathPart(40, 1));
 
-        assertShortPath(TEST1, new ShortPathPart(20, 1, Orientation.HORIZONTAL));
+        assertShortPath(TEST1, new ShortPathPart(20, 1));
 
         // No Exception should be thrown
         removeDockable(TEST1, 0);
 
         assertShortPath(TEST1);
 
-        assertShortPath(TEST2, new ShortPathPart(10, 0, Orientation.VERTICAL));
+        assertShortPath(TEST2, new ShortPathPart(10, 0));
 
         // No Exception should be thrown
         removeDockable(TEST2, 0);
@@ -97,13 +97,13 @@ public class DockingPaneTest {
         System.out.println("addDockingArea3");
         addDockingAreaNonPermanent(10, TEST1, 20);
 
-        assertShortPath(TEST1, new ShortPathPart(20, 0, Orientation.VERTICAL));
+        assertShortPath(TEST1, new ShortPathPart(20, 0));
 
         addDockingAreaNonPermanent(10, TEST2, 40);
 
-        assertShortPath(TEST2, new ShortPathPart(40, 0, Orientation.VERTICAL));
+        assertShortPath(TEST2, new ShortPathPart(40, 0));
 
-        assertShortPath(TEST1, new ShortPathPart(20, 0, Orientation.VERTICAL));
+        assertShortPath(TEST1, new ShortPathPart(20, 0));
 
 
         // No Exception should be thrown
@@ -111,7 +111,7 @@ public class DockingPaneTest {
 
         assertShortPath(TEST2);
 
-        assertShortPath(TEST1, new ShortPathPart(20, 0, Orientation.VERTICAL));
+        assertShortPath(TEST1, new ShortPathPart(20, 0));
 
         // No Exception should be thrown
         removeDockable(TEST1, 0);
@@ -124,41 +124,41 @@ public class DockingPaneTest {
         System.out.println("addDockingArea4");
         addDockingAreaNonPermanent(20, TEST1, 10);
 
-        assertShortPath(TEST1, new ShortPathPart(10, 0, Orientation.VERTICAL));
+        assertShortPath(TEST1, new ShortPathPart(10, 0));
 
         addDockingAreaNonPermanent(40, TEST2, 10);
 
-        assertShortPath(TEST2, new ShortPathPart(40, 1, Orientation.HORIZONTAL));
+        assertShortPath(TEST2, new ShortPathPart(40, 1));
 
-        assertShortPath(TEST1, new ShortPathPart(20, 1, Orientation.HORIZONTAL));
+        assertShortPath(TEST1, new ShortPathPart(20, 1));
 
         addDockingAreaNonPermanent(20, TEST3, 30);
 
-        assertShortPath(TEST3, new ShortPathPart(30, 0, Orientation.VERTICAL));
+        assertShortPath(TEST3, new ShortPathPart(30, 0));
 
         assertShortPath(TEST1,
-                new ShortPathPart(10, 0, Orientation.VERTICAL),
-                new ShortPathPart(20, 1, Orientation.HORIZONTAL));
+                new ShortPathPart(10, 0),
+                new ShortPathPart(20, 1));
 
         assertShortPath(TEST2,
-                new ShortPathPart(10, 0, Orientation.VERTICAL),
-                new ShortPathPart(40, 1, Orientation.HORIZONTAL));
+                new ShortPathPart(10, 0),
+                new ShortPathPart(40, 1));
 
         // No Exception should be thrown
         removeDockable(TEST2, 0);
 
         assertShortPath(TEST2);
 
-        assertShortPath(TEST1, new ShortPathPart(10, 0, Orientation.VERTICAL));
+        assertShortPath(TEST1, new ShortPathPart(10, 0));
 
-        assertShortPath(TEST3, new ShortPathPart(30, 0, Orientation.VERTICAL));
+        assertShortPath(TEST3, new ShortPathPart(30, 0));
 
         // No Exception should be thrown
         removeDockable(TEST1, 0);
 
         assertShortPath(TEST1);
 
-        assertShortPath(TEST3, new ShortPathPart(30, 0, Orientation.VERTICAL));
+        assertShortPath(TEST3, new ShortPathPart(30, 0));
 
         // No Exception should be thrown
         removeDockable(TEST3, 0);
@@ -175,18 +175,18 @@ public class DockingPaneTest {
         addDockingAreaNonPermanent(20, BOTTOM, 20, 40, 80);
 
         assertShortPath(LEFT,
-                new ShortPathPart(20, 1, Orientation.HORIZONTAL));
+                new ShortPathPart(20, 1));
 
         assertShortPath(RIGHT,
-                new ShortPathPart(80, 1, Orientation.HORIZONTAL));
+                new ShortPathPart(80, 1));
 
         assertShortPath(TOP,
-                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
-                new ShortPathPart(20, 2, Orientation.VERTICAL));
+                new ShortPathPart(40, 1),
+                new ShortPathPart(20, 2));
 
         assertShortPath(BOTTOM,
-                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
-                new ShortPathPart(80, 2, Orientation.VERTICAL));
+                new ShortPathPart(40, 1),
+                new ShortPathPart(80, 2));
 
         // No Exception should be thrown
         removeDockable(LEFT, 0);
@@ -194,15 +194,15 @@ public class DockingPaneTest {
         assertShortPath(LEFT);
 
         assertShortPath(RIGHT,
-                new ShortPathPart(80, 1, Orientation.HORIZONTAL));
+                new ShortPathPart(80, 1));
 
         assertShortPath(TOP,
-                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
-                new ShortPathPart(20, 2, Orientation.VERTICAL));
+                new ShortPathPart(40, 1),
+                new ShortPathPart(20, 2));
 
         assertShortPath(BOTTOM,
-                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
-                new ShortPathPart(80, 2, Orientation.VERTICAL));
+                new ShortPathPart(40, 1),
+                new ShortPathPart(80, 2));
 
         // No Exception should be thrown
         removeDockable(RIGHT, 0);
@@ -210,10 +210,10 @@ public class DockingPaneTest {
         assertShortPath(RIGHT);
 
         assertShortPath(TOP,
-                new ShortPathPart(20, 2, Orientation.VERTICAL));
+                new ShortPathPart(20, 2));
 
         assertShortPath(BOTTOM,
-                new ShortPathPart(80, 2, Orientation.VERTICAL));
+                new ShortPathPart(80, 2));
 
         // No Exception should be thrown
         removeDockable(TOP, 0);
@@ -221,7 +221,7 @@ public class DockingPaneTest {
         assertShortPath(TOP);
 
         assertShortPath(BOTTOM,
-                new ShortPathPart(20, 0, Orientation.VERTICAL));
+                new ShortPathPart(20, 0));
 
         // No Exception should be thrown
         removeDockable(BOTTOM, 0);
@@ -237,15 +237,15 @@ public class DockingPaneTest {
         addDockingAreaNonPermanent(20, TOP, 20, 40, 20);
 
         assertShortPath(CENTER,
-                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
-                new ShortPathPart(50, 2, Orientation.VERTICAL));
+                new ShortPathPart(40, 1),
+                new ShortPathPart(50, 2));
 
         assertShortPath(RIGHT,
-                new ShortPathPart(80, 1, Orientation.HORIZONTAL));
+                new ShortPathPart(80, 1));
 
         assertShortPath(TOP,
-                new ShortPathPart(40, 1, Orientation.HORIZONTAL),
-                new ShortPathPart(20, 2, Orientation.VERTICAL));
+                new ShortPathPart(40, 1),
+                new ShortPathPart(20, 2));
 
         // No Exception should be thrown
         removeDockable(TOP, 0);
@@ -253,10 +253,10 @@ public class DockingPaneTest {
         assertShortPath(TOP);
 
         assertShortPath(CENTER,
-                new ShortPathPart(40, 1, Orientation.HORIZONTAL));
+                new ShortPathPart(40, 1));
 
         assertShortPath(RIGHT,
-                new ShortPathPart(80, 1, Orientation.HORIZONTAL));
+                new ShortPathPart(80, 1));
 
         // No Exception should be thrown
         removeDockable(RIGHT, 0);
@@ -264,18 +264,18 @@ public class DockingPaneTest {
         assertShortPath(RIGHT);
 
         assertShortPath(CENTER,
-                new ShortPathPart(20, 0, Orientation.VERTICAL));
+                new ShortPathPart(20, 0));
 
         addDockablePane(CENTER);
 
         assertShortPath(CENTER,
-                new ShortPathPart(20, 0, Orientation.VERTICAL));
+                new ShortPathPart(20, 0));
 
         // No Exception should be thrown
         removeDockable(CENTER, 0);
 
         assertShortPath(CENTER,
-                new ShortPathPart(20, 0, Orientation.VERTICAL));
+                new ShortPathPart(20, 0));
     }
 
     /**
@@ -291,7 +291,7 @@ public class DockingPaneTest {
         addDockingAreaNonPermanentEmpty(20, RIGHT, 20, 80);
 
         assertShortPath(CENTER,
-                new ShortPathPart(50, 2, Orientation.VERTICAL));
+                new ShortPathPart(50, 2));
 
         assertShortPath(LEFT);
 
@@ -300,7 +300,7 @@ public class DockingPaneTest {
         assertShortPath(TOP);
 
         assertShortPath(BOTTOM,
-                new ShortPathPart(80, 2, Orientation.VERTICAL));
+                new ShortPathPart(80, 2));
 
         // No Exception should be thrown
         removeDockable(BOTTOM, 0);
@@ -308,7 +308,7 @@ public class DockingPaneTest {
         assertShortPath(BOTTOM);
 
         assertShortPath(CENTER,
-                new ShortPathPart(20, 0, Orientation.VERTICAL));
+                new ShortPathPart(20, 0));
 
     }
 

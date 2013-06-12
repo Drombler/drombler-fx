@@ -23,6 +23,7 @@ import org.drombler.acp.core.docking.spi.LayoutConstraintsDescriptor;
  *
  * @author puce
  */
+// TODO: consider to implement Positionable
 public abstract class DockingSplitPaneChildBase extends Control {
 
     private final ObjectProperty<DockingSplitPane> parentSplitPane = new SimpleObjectProperty<>(this,

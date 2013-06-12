@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javafx.geometry.Orientation;
 
 /**
  *
@@ -32,15 +31,17 @@ class DockingAreaManager {
     private final Map<Integer, DockingAreaPane> dockingAreas = new HashMap<>();
     private final Map<Integer, DockingAreaManager> dockingAreaManagers = new HashMap<>();
     private final DockingAreaManager parent;
-    private final Integer position;
-    private final int level;
-    private final Orientation orientation;
+    private final int position;
+    private final SplitLevel level;
 
-    public DockingAreaManager(DockingAreaManager parent, Integer position, int level, Orientation orientation) {
+    public DockingAreaManager(DockingAreaManager parent, int position, int level) {
+        this(parent, position, SplitLevel.valueOf(level));
+    }
+
+    public DockingAreaManager(DockingAreaManager parent, int position, SplitLevel level) {
         this.parent = parent;
         this.position = position;
         this.level = level;
-        this.orientation = orientation;
     }
 
     public void addDockingArea(List<Integer> path, DockingAreaPane dockingArea) {
@@ -51,8 +52,8 @@ class DockingAreaManager {
         if (path.hasNext()) {
             Integer childPosition = path.next();
             if (!dockingAreaManagers.containsKey(childPosition)) {
-                dockingAreaManagers.put(childPosition, new DockingAreaManager(this, childPosition, level + 1,
-                        getChildOrientation()));
+                dockingAreaManagers.put(childPosition, new DockingAreaManager(this, childPosition, SplitLevel.
+                        valueOf(level.getLevel() + 1)));
             }
             dockingAreaManagers.get(childPosition).addDockingArea(path, dockingArea);
         } else {
@@ -63,24 +64,24 @@ class DockingAreaManager {
         }
     }
 
-    private ShortPathPart createShortPathPart(Integer position) {
-        return new ShortPathPart(position, level, orientation);
+    private ShortPathPart createShortPathPart(int position) {
+        return new ShortPathPart(position, level);
     }
 
-    private boolean isShortPathRelevant(Integer position, boolean emptyPath) {
+    private boolean isShortPathRelevant(int position, boolean emptyPath) {
         return (!isOnlyActualContent(position)) || (emptyPath && parent == null);
     }
 
-    private boolean isOnlyActualContent(Integer position) {
+    private boolean isOnlyActualContent(int position) {
         return isCurrentlyOnlyActualContent(position)
                 || isFutureOnlyActualContent(position);
     }
 
-    private boolean isCurrentlyOnlyActualContent(Integer position) {
+    private boolean isCurrentlyOnlyActualContent(int position) {
         return containsActualPosition(position) && getActualContentSize() == 1;
     }
 
-    private boolean isFutureOnlyActualContent(Integer position) {
+    private boolean isFutureOnlyActualContent(int position) {
         return !containsActualPosition(position) && getActualContentSize() == 0;
     }
 
@@ -108,15 +109,11 @@ class DockingAreaManager {
         return visualizableDockingAreas;
     }
 
-    private boolean containsActualPosition(Integer position) {
+    private boolean containsActualPosition(int position) {
         return (dockingAreaManagers.containsKey(position)
                 && dockingAreaManagers.get(position).getActualContentSize() > 0)
                 || (dockingAreas.containsKey(position)
                 && dockingAreas.get(position).isVisual());
-    }
-
-    private Orientation getChildOrientation() {
-        return orientation.equals(Orientation.HORIZONTAL) ? Orientation.VERTICAL : Orientation.HORIZONTAL;
     }
 
     List<ShortPathPart> getShortPath(DockingAreaPane dockingArea) {
@@ -141,7 +138,7 @@ class DockingAreaManager {
     }
 
     private void calculateReversedShortPath(DockingAreaPane dockingArea, List<ShortPathPart> shortPath) {
-        Integer currentChildPosition = dockingArea.getPosition();
+        int currentChildPosition = dockingArea.getPosition();
         for (DockingAreaManager currentParent = this; currentParent != null; currentParent = currentParent.parent) {
             if (currentParent.isShortPathRelevant(currentChildPosition, shortPath.isEmpty())) {
                 shortPath.add(currentParent.createShortPathPart(currentChildPosition));

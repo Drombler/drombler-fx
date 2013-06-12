@@ -15,7 +15,6 @@
 package org.drombler.fx.core.docking.impl;
 
 import java.util.Objects;
-import javafx.geometry.Orientation;
 
 /**
  *
@@ -23,48 +22,42 @@ import javafx.geometry.Orientation;
  */
 public class ShortPathPart {
 
-    private final Integer position;
-    private final int inActualLevel;
-    private final Orientation inOrientation;
+    private final int position;
+    private final SplitLevel inActualLevel;
 
     /**
-     * {@code inActualLevel} and {@code inOrientation} refer to the parent, so read it as: The {@code position} in the
-     * split pane with orientation {@code inOrientation} and at the actual (not shortened) level {@code inActualLevel}.
+     * {@code inActualLevel} refers to the parent, so read it as: The {@code position} in the split pane at the actual
+     * (not shortened) level {@code inActualLevel}.
      *
      * @param position
      * @param inActualLevel
-     * @param inOrientation
      */
-    public ShortPathPart(Integer position, int inActualLevel, Orientation inOrientation) {
+    public ShortPathPart(int position, int inActualLevel) {
+        this(position, SplitLevel.valueOf(inActualLevel));
+    }
+
+    public ShortPathPart(int position, SplitLevel inActualLevel) {
         this.position = position;
         this.inActualLevel = inActualLevel;
-        this.inOrientation = inOrientation;
     }
 
     /**
      * @return the pathPart
      */
-    public Integer getPosition() {
+    public int getPosition() {
         return position;
     }
 
     /**
      * @return the level
      */
-    public int getInActualLevel() {
+    public SplitLevel getInActualLevel() {
         return inActualLevel;
-    }
-
-    /**
-     * @return the orientation
-     */
-    public Orientation getInOrientation() {
-        return inOrientation;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(position, inActualLevel, inOrientation);
+        return Objects.hash(position, inActualLevel);
     }
 
     @Override
@@ -78,13 +71,12 @@ public class ShortPathPart {
         }
         ShortPathPart other = (ShortPathPart) obj;
 
-        return Objects.equals(position, other.position)
-                && inActualLevel == other.inActualLevel
-                && Objects.equals(inOrientation, other.inOrientation);
+        return position == other.position
+                && Objects.equals(inActualLevel, other.inActualLevel);
     }
 
     @Override
     public String toString() {
-        return "ShortPathPart{" + "position=" + position + ", inActualLevel=" + inActualLevel + ", inOrientation=" + inOrientation + '}';
+        return "ShortPathPart[" + "position=" + position + ", inActualLevel=" + inActualLevel + ']';
     }
 }

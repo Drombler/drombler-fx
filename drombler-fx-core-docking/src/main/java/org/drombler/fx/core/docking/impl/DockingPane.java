@@ -46,7 +46,7 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 
     private static final String DEFAULT_STYLE_CLASS = "docking-pane";
     private final Map<String, DockingAreaPane> dockingAreaPanes = new HashMap<>();
-    private final DockingAreaManager dockingAreaManager = new DockingAreaManager(null, null, 0, Orientation.VERTICAL);
+    private final DockingAreaManager rootDockingAreaManager = new DockingAreaManager(null, 0, SplitLevel.ROOT);
     private final List<DockingAreaContainerListener<DockingAreaPane, DockablePane>> listeners = new ArrayList<>();
     private final Map<String, List<DockablePane>> unresolvedDockables = new HashMap<>();
     private final ChangeListener<Node> focusOwnerChangeListener = new FocusOwnerChangeListener();
@@ -67,9 +67,11 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
     public void addDockingArea(List<Integer> path, final DockingAreaPane dockingArea) {
 //        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
 
-        dockingArea.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PositionableAdapter<DockablePane>>() {
+        dockingArea.getSelectionModel().selectedItemProperty().
+                addListener(new ChangeListener<PositionableAdapter<DockablePane>>() {
             @Override
-            public void changed(ObservableValue<? extends PositionableAdapter<DockablePane>> ov, PositionableAdapter<DockablePane> oldValue, PositionableAdapter<DockablePane> newValue) {
+            public void changed(ObservableValue<? extends PositionableAdapter<DockablePane>> ov,
+                    PositionableAdapter<DockablePane> oldValue, PositionableAdapter<DockablePane> newValue) {
                 if (newValue != null) {
 //                    System.out.println("Active Context Changed 1: " + newValue.getAdapted().getTitle());
                     activeContext.setContexts(newValue.getAdapted().getContext());
@@ -112,7 +114,7 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 //            }
 //        });
         dockingAreaPanes.put(dockingArea.getAreaId(), dockingArea);
-        dockingAreaManager.addDockingArea(path, dockingArea);
+        rootDockingAreaManager.addDockingArea(path, dockingArea);
         resolveUnresolvedDockables(dockingArea.getAreaId());
         DockingAreaContainerDockingAreaEvent<DockingAreaPane, DockablePane> event =
                 new DockingAreaContainerDockingAreaEvent<>(this, dockingArea.getAreaId(), dockingArea);
