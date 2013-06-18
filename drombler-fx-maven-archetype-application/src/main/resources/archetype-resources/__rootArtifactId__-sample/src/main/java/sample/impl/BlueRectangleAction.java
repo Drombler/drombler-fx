@@ -13,7 +13,7 @@ import org.drombler.acp.core.action.ToggleAction;
 import org.drombler.acp.core.action.ToggleMenuEntry;
 import org.drombler.acp.core.action.ToolBarToggleEntry;
 
-@ToggleAction(id = "blueRectangle", category = "test", displayName = "#blueRectangle.displayName", accelerator = "Shortcut+B",
+@ToggleAction(id = "blueRectangle", category = "test", displayName = "%blueRectangle.displayName", accelerator = "Shortcut+B",
 icon = "blue-rectangle.png")
 @ToggleMenuEntry(path = "Custom", position = 1240)
 @ToolBarToggleEntry(toolBarId = "rectangle", position = 170)

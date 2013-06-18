@@ -15,7 +15,7 @@ import org.drombler.acp.core.docking.WindowMenuEntry;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
 import org.drombler.fx.core.docking.DockablePane;
 
-@ViewDocking(areaId = "bottom", position = 10, displayName = "#BottomTestPane.displayName",
+@ViewDocking(areaId = "bottom", position = 10, displayName = "%BottomTestPane.displayName",
 menuEntry =
 @WindowMenuEntry(path = "", position = 30))
 public class BottomTestPane extends DockablePane{

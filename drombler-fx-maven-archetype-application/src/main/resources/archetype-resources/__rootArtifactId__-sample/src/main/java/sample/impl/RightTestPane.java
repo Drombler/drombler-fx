@@ -30,7 +30,7 @@ import org.drombler.acp.core.docking.WindowMenuEntry;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
 import org.drombler.fx.core.docking.DockablePane;
 
-@ViewDocking(areaId = "right", position = 10, displayName = "#RightTestPane.displayName",
+@ViewDocking(areaId = "right", position = 10, displayName = "%RightTestPane.displayName",
 menuEntry =
 @WindowMenuEntry(path = "Other", position = 40))
 public class RightTestPane extends DockablePane implements ActiveContextSensitive {

@@ -8,12 +8,12 @@
  */
 
 @Menus({
-    @Menu(id = "Custom", displayName = "#customMenu.displayName", position = 110),
-    @Menu(id = "Sub", displayName = "#subMenu.displayName", path = "Custom", position = 30)
+    @Menu(id = "Custom", displayName = "%customMenu.displayName", position = 110),
+    @Menu(id = "Sub", displayName = "%subMenu.displayName", path = "Custom", position = 30)
 })
 @ToolBars({
-    @ToolBar(id = "rectangle", displayName = "#rectangleToolBar.displayName", position = 50),
-    @ToolBar(id = "circle", displayName = "#circleToolBar.displayName", position = 100)
+    @ToolBar(id = "rectangle", displayName = "%rectangleToolBar.displayName", position = 50),
+    @ToolBar(id = "circle", displayName = "%circleToolBar.displayName", position = 100)
 })
 package ${package}.sample.impl;
 

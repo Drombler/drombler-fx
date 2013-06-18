@@ -12,7 +12,7 @@ import org.drombler.acp.core.action.AbstractActionListener;
 import org.drombler.acp.core.action.Action;
 import org.drombler.acp.core.action.MenuEntry;
 
-@Action(id = "test1", category = "test", displayName = "#test1.displayName")
+@Action(id = "test1", category = "test", displayName = "%test1.displayName")
 @MenuEntry(path = "File", position = 20)
 public class Test1 extends AbstractActionListener<Object> {
 
