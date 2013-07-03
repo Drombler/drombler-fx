@@ -14,6 +14,8 @@
  */
 package org.drombler.fx.core.docking.impl.skin;
 
+//import java.text.DateFormat;
+//import java.util.Date;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -41,10 +43,9 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
         splitPane.orientationProperty().bind(this.control.orientationProperty());
 //        splitPane.getItems().addAll(control.getDockingSplitPaneChildren());
         Bindings.bindContent(splitPane.getItems(), control.getDockingSplitPaneChildren());
-        this.control.getDockingSplitPaneChildren().addListener(new ListChangeListener<DockingSplitPaneChildBase>() {
-
+        this.splitPane.getItems().addListener(new ListChangeListener<Node>() {
             @Override
-            public void onChanged(Change<? extends DockingSplitPaneChildBase> change) {
+            public void onChanged(Change<? extends Node> change) {
                 recalculateDividerPositions();
             }
         });
@@ -88,7 +89,6 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
 //        });
 
         control.widthProperty().addListener(new ChangeListener<Number>() {
-
             @Override
             public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
                 recalculateDividerPositions();
@@ -96,7 +96,6 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
         });
 
         control.heightProperty().addListener(new ChangeListener<Number>() {
-
             @Override
             public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
                 recalculateDividerPositions();
@@ -145,6 +144,9 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
     }
 
     private void recalculateDividerPositions(double[] prefs, double[] current, double parentSize) {
+//        System.out.println("######################");
+//        System.out.println("Time: "+DateFormat.getDateTimeInstance().format(new Date()));
+//        System.out.println("Level: " + control.getLevel()+"; orientation: "+control.getOrientation());
 //        System.out.println("Parent size: " + parentSize);
         double[] relativeSizes = new double[prefs.length];
         double requiredRelativeSize = 0;
@@ -179,11 +181,11 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
                 if (relativeSizes[i] > 0) {
                     currentPosition += relativeSizes[i];
                     splitPane.setDividerPosition(i, currentPosition);
-//                    System.out.println("Set divider position: " + i + " to " + currentPosition);
+//                    System.out.println("Set divider position: " + i + " to " + currentPosition + ". Actual position: " + splitPane.getDividerPositions()[i]);
                 }
             }
         }
-
+//        System.out.println("######################");
     }
 
     @Override
