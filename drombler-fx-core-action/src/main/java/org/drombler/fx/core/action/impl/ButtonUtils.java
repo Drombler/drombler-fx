@@ -14,10 +14,9 @@
  */
 package org.drombler.fx.core.action.impl;
 
+import javafx.scene.Node;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import org.drombler.acp.core.action.spi.ToolBarEntryDescriptor;
 import org.drombler.fx.core.action.FXAction;
 
@@ -30,7 +29,8 @@ class ButtonUtils {
     private ButtonUtils() {
     }
 
-    public static void configureButton(ButtonBase button, ToolBarEntryDescriptor toolBarEntryDescriptor, FXAction action, int iconSize) {
+    public static void configureButton(ButtonBase button, ToolBarEntryDescriptor toolBarEntryDescriptor, FXAction action,
+            int iconSize) {
 
 
 
@@ -45,9 +45,11 @@ class ButtonUtils {
 //        button.acceleratorProperty().bind(action.acceleratorProperty());
         button.setOnAction(action);
         button.disableProperty().bind(action.disabledProperty());
-        Image iconImage = action.getIconImage(iconSize);
-        if (iconImage != null) {
-            button.setGraphic(new ImageView(iconImage));
+        if (action.getGraphicFactory() != null) {
+            Node graphic = action.getGraphicFactory().createGraphic(iconSize);
+            if (graphic != null) {
+                button.setGraphic(graphic);
+            }
         } else {
             button.textProperty().bind(action.displayNameProperty()); // TODO: ok? -fx-content-display: GRAPHIC_ONLY ? 
         }

@@ -15,6 +15,7 @@
 package org.drombler.fx.core.action.impl;
 
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,15 +31,18 @@ class MenuItemUtils {
     private MenuItemUtils() {
     }
 
-    public static void configureMenuItem(MenuItem menuItem, MenuEntryDescriptor menuEntryDescriptor, FXAction action, int iconSize) {
+    public static void configureMenuItem(MenuItem menuItem, MenuEntryDescriptor menuEntryDescriptor, FXAction action,
+            int iconSize) {
         menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.setMnemonicParsing(true);
         menuItem.acceleratorProperty().bind(action.acceleratorProperty());
         menuItem.setOnAction(action);
         menuItem.disableProperty().bind(action.disabledProperty());
-        Image iconImage = action.getIconImage(iconSize);
-        if (iconImage != null) {
-            menuItem.setGraphic(new ImageView(iconImage));
+        if (action.getGraphicFactory() != null) {
+            Node graphic = action.getGraphicFactory().createGraphic(iconSize);
+            if (graphic != null) {
+                menuItem.setGraphic(graphic);
+            }
         }
     }
 }

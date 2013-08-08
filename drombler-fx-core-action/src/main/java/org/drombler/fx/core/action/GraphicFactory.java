@@ -12,29 +12,16 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.action.impl;
+package org.drombler.fx.core.action;
 
-import java.io.InputStream;
-import org.drombler.fx.core.action.AbstractFXAction;
+import javafx.scene.Node;
 
 /**
  *
  * @author puce
  */
-public abstract class AbstractFXActionAdapter<T> extends AbstractFXAction {
 
-    private final T adapted;
 
-    public AbstractFXActionAdapter(T adapted) {
-        this.adapted = adapted;
-    }
-
-    public T getAdapted() {
-        return adapted;
-    }
-
-//    @Override
-//    protected InputStream getImageInputStream(String icon) {
-//        return getAdapted().getClass().getResourceAsStream(icon);
-//    }
+public interface GraphicFactory {
+    Node createGraphic(int size);
 }

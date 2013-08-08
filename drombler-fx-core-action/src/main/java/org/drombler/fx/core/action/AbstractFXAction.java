@@ -14,18 +14,12 @@
  */
 package org.drombler.fx.core.action;
 
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 
 /**
@@ -34,12 +28,12 @@ import javafx.scene.input.KeyCombination;
  */
 public abstract class AbstractFXAction implements FXAction {
 
-    private static final boolean SMOOTH_ICON = false;
+   
     private final StringProperty displayName = new SimpleStringProperty(this, "displayName", null);
     private final ObjectProperty<KeyCombination> accelerator = new SimpleObjectProperty<>(this, "accelerator", null);
     private final DisabledProperty disabled = new DisabledProperty();
-    private final StringProperty icon = new SimpleStringProperty(this, "icon", null);
-    private final Map<Integer, Image> images = new HashMap<>();
+    private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory", null);
+
 
     @Override
     public final String getDisplayName() {
@@ -86,74 +80,18 @@ public abstract class AbstractFXAction implements FXAction {
     }
 
     @Override
-    public final String getIcon() {
-        return iconProperty().get();
+    public final GraphicFactory getGraphicFactory(){
+        return graphicFactoryProperty().get();
     }
-
+    
     @Override
-    public final void setIcon(String icon) {
-        iconProperty().set(icon);
+    public final void setGraphicFactory(GraphicFactory graphicFactory){
+        graphicFactoryProperty().set(graphicFactory);
     }
-
+    
     @Override
-    public StringProperty iconProperty() {
-        return icon;
-    }
-
-    @Override
-    public Image getIconImage(int size) {
-        if (!images.containsKey(size)) {
-            Image image = loadImage(size);
-            if (image != null) { // TODO: add null?
-                images.put(size, image);
-            }
-        }
-        return images.get(size);
-
-    }
-
-    private Image loadImage(int size) {
-        InputStream imageInputStream = getImageInputStream(size);
-        if (imageInputStream != null) {
-            try (InputStream is = imageInputStream) {
-
-                return new Image(is, size, size, true,
-                        SMOOTH_ICON);
-            } catch (Exception ex) {
-                Logger.getLogger(AbstractFXAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return null;
-    }
-
-    private InputStream getImageInputStream(int size) {
-        String currentIcon = getIcon(size);
-        if (currentIcon != null) {
-            return getImageInputStream(currentIcon);
-        } else {
-            return null;
-        }
-    }
-
-    private String getIcon(int size) {
-        String currentIcon = getIcon();
-        if (currentIcon != null) {
-            String[] iconNameParts = getIcon().split("\\.");
-            if (iconNameParts.length > 0) {
-                StringBuilder sb = new StringBuilder(iconNameParts[0]);
-                sb.append(size);
-                for (int i = 1; i < iconNameParts.length; i++) {
-                    sb.append(".");
-                    sb.append(iconNameParts[i]);
-                }
-                currentIcon = sb.toString();
-            }
-        }
-        return currentIcon;
-    }
-
-    protected InputStream getImageInputStream(String icon) {
-        return getClass().getResourceAsStream(icon);
+    public ObjectProperty<GraphicFactory> graphicFactoryProperty(){
+        return graphicFactory;
     }
 
     private class DisabledProperty extends ReadOnlyBooleanPropertyBase {

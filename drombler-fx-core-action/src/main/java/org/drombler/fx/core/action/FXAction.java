@@ -19,7 +19,7 @@ import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.image.Image;
+import javafx.scene.Node;
 import javafx.scene.input.KeyCombination;
 
 /**
@@ -43,12 +43,23 @@ public interface FXAction extends EventHandler<ActionEvent> {
     boolean isDisabled();
 
     ReadOnlyBooleanProperty disabledProperty();
+    
+    GraphicFactory getGraphicFactory();
+    
+    void setGraphicFactory(GraphicFactory graphicFactory);
+    
+    ObjectProperty<GraphicFactory> graphicFactoryProperty();
 
-    String getIcon();
-
-    void setIcon(String icon);
-
-    StringProperty iconProperty();
-
-    Image getIconImage(int size);
+    
+//    void setGraphic(Node graphic);
+//    
+//    ObjectProperty<Node> graphicProperty();
+//
+//    String getIcon();
+//
+//    void setIcon(String icon);
+//
+//    StringProperty iconProperty();
+//
+//    Image getIconImage(int size);
 }

@@ -14,7 +14,6 @@
  */
 package org.drombler.fx.core.action.impl;
 
-import javafx.application.Platform;
 import javafx.scene.input.KeyCombination;
 import org.drombler.acp.core.action.spi.ActionDescriptor;
 import org.drombler.fx.core.action.FXAction;
@@ -34,7 +33,8 @@ public class ActionUtils {
             fxAction.setAccelerator(KeyCombination.keyCombination(actionDescriptor.getAccelerator()));
         }
         if (actionDescriptor.getIcon() != null && !actionDescriptor.getIcon().equals("")) {
-            fxAction.setIcon(actionDescriptor.getIcon());
+            IconFactory iconFactory = new IconFactory(actionDescriptor.getIcon(), actionDescriptor.getResourceLoader(), false);
+            fxAction.setGraphicFactory(iconFactory);
         }
     }
 }

@@ -40,4 +40,10 @@ public class ActionListenerAdapter extends AbstractFXActionAdapter<ActionListene
     public void handle(ActionEvent actionEvent) {
         getAdapted().onAction(actionEvent);
     }
+
+//    @Override
+//    protected InputStream getImageInputStream(String icon) {
+//        return getAdapted().getImageInputStream(icon);
+//    }
+    
 }
