@@ -23,6 +23,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
+import javafx.scene.image.ImageView;
 import org.drombler.acp.core.commons.util.context.Context;
 import org.drombler.acp.core.commons.util.context.Contexts;
 import org.drombler.acp.core.docking.Dockable;
@@ -35,8 +36,9 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * A container which can be docked in the Docking System.
- * 
+ *
  * TODO: Should this class extend javafx.scene.layout.Pane instead of Control?
+ *
  * @author puce
  */
 @DefaultProperty("content")
@@ -44,6 +46,7 @@ public class DockablePane extends Control implements Dockable {
 
     private static final String DEFAULT_STYLE_CLASS = "dockable-pane";
     private final StringProperty title = new SimpleStringProperty(this, "titleProperty", "");
+    private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic", null);;
     private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content", null);
     private final ContextProperty context = new ContextProperty();
 
@@ -57,24 +60,36 @@ public class DockablePane extends Control implements Dockable {
     }
 
 //    @Override
-    public String getTitle() {
-        return title.get();
+    public final String getTitle() {
+        return titleProperty().get();
     }
 
-    public void setTitle(String title) {
-        this.title.set(title);
+    public final void setTitle(String title) {
+        titleProperty().set(title);
     }
 
     public StringProperty titleProperty() {
         return title;
     }
 
-    public Node getContent() {
-        return content.get();
+    public final Node getGraphic() {
+        return graphicProperty().get();
     }
 
-    public void setContent(Node content) {
-        this.content.set(content);
+    public final void setGraphic(Node graphic) {
+        graphicProperty().set(graphic);
+    }
+
+    public ObjectProperty<Node> graphicProperty() {
+        return graphic;
+    }
+
+    public final Node getContent() {
+        return contentProperty().get();
+    }
+
+    public final void setContent(Node content) {
+        contentProperty().set(content);
     }
 
     public ObjectProperty<Node> contentProperty() {
@@ -116,7 +131,6 @@ public class DockablePane extends Control implements Dockable {
 //        Node root = (Node) FXMLLoaders.load(this);
 //        setContent(root);
 //    }
-
     private class ContextProperty extends ReadOnlyObjectPropertyBase<Context> {
 
         private Context context = Contexts.emptyContext();

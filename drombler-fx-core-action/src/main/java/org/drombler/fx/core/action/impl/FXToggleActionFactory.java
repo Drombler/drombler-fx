@@ -42,7 +42,7 @@ public class FXToggleActionFactory implements ToggleActionFactory<FXToggleAction
             }
         }
         if (fxToggleAction != null) {
-            ActionUtils.configureAction(fxToggleAction, actionDescriptor);
+            FXActionUtils.configureAction(fxToggleAction, actionDescriptor);
         }
         return fxToggleAction;
     }

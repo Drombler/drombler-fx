@@ -21,6 +21,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyCombination;
+import org.drombler.fx.core.commons.fx.scene.GraphicFactory;
 
 /**
  *

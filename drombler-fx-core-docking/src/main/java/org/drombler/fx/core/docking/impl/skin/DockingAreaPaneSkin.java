@@ -148,6 +148,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
     private void addTab(PositionableAdapter<DockablePane> dockable) {
         Tab tab = new Tab();
         tab.textProperty().bind(dockable.getAdapted().titleProperty());
+        tab.graphicProperty().bind(dockable.getAdapted().graphicProperty());
         tab.contextMenuProperty().bind(dockable.getAdapted().contextMenuProperty());
         tab.setContent(dockable.getAdapted());
         tabPane.getTabs().add(control.getDockables().indexOf(dockable), tab);

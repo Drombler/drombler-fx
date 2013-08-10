@@ -16,10 +16,12 @@ package org.drombler.fx.core.docking.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockableFactory;
 import org.drombler.acp.core.docking.spi.ViewDockingDescriptor;
+import org.drombler.fx.core.commons.fx.scene.image.IconFactory;
 import org.drombler.fx.core.docking.DockablePane;
 
 /**
@@ -31,12 +33,18 @@ import org.drombler.fx.core.docking.DockablePane;
 public class FXDockableFactory implements DockableFactory<DockablePane> {
 
     private static final String MNEMONIC_CHAR = "_";
+    private static final int ICON_SIZE = 16;
 
     @Override
     public DockablePane createDockable(ViewDockingDescriptor dockingDescriptor) {
         try {
             DockablePane dockablePane = (DockablePane) dockingDescriptor.getDockableClass().newInstance();
             dockablePane.setTitle(dockingDescriptor.getDisplayName().replace(MNEMONIC_CHAR, ""));
+            if (!StringUtils.isBlank(dockingDescriptor.getIcon())) {
+                IconFactory iconFactory = new IconFactory(dockingDescriptor.getIcon(), dockingDescriptor.
+                        getResourceLoader(), false);
+                dockablePane.setGraphic(iconFactory.createGraphic(ICON_SIZE));
+            }
             return dockablePane;
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(FXDockableFactory.class.getName()).log(Level.SEVERE, null, ex);

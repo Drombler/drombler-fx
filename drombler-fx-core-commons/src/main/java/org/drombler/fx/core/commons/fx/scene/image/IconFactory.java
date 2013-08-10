@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.action.impl;
+package org.drombler.fx.core.commons.fx.scene.image;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -21,8 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.drombler.fx.core.action.AbstractFXAction;
-import org.drombler.fx.core.action.GraphicFactory;
+import org.drombler.fx.core.commons.fx.scene.GraphicFactory;
 import org.softsmithy.lib.util.ResourceLoader;
 
 /**

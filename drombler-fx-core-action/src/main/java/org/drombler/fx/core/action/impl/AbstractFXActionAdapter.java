@@ -14,7 +14,6 @@
  */
 package org.drombler.fx.core.action.impl;
 
-import java.io.InputStream;
 import org.drombler.fx.core.action.AbstractFXAction;
 
 /**

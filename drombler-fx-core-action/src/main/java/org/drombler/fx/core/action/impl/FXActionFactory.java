@@ -46,7 +46,7 @@ public class FXActionFactory implements ActionFactory<FXAction> {
             }
         }
         if (fxAction != null) {
-            ActionUtils.configureAction(fxAction, actionDescriptor);
+            FXActionUtils.configureAction(fxAction, actionDescriptor);
         }
         return fxAction;
     }

@@ -19,8 +19,8 @@ import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.input.KeyCombination;
+import org.drombler.fx.core.commons.fx.scene.GraphicFactory;
 
 /**
  *

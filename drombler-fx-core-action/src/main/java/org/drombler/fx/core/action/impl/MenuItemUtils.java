@@ -14,11 +14,8 @@
  */
 package org.drombler.fx.core.action.impl;
 
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import org.drombler.acp.core.action.spi.MenuEntryDescriptor;
 import org.drombler.fx.core.action.FXAction;
 
