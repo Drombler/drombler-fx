@@ -14,7 +14,10 @@
    id="svg2995"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="left-test-pane.svg">
+   sodipodi:docname="right-test-pane.svg"
+   inkscape:export-filename="/home/puce/Programming/Java/drombler/drombler-fx/main-golden/drombler-fx-maven-archetype-application/src/main/icons/right-test-pane.png"
+   inkscape:export-xdpi="45"
+   inkscape:export-ydpi="45">
   <defs
      id="defs2997" />
   <sodipodi:namedview
@@ -25,17 +28,19 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.197802"
-     inkscape:cx="10.611241"
+     inkscape:cx="16.266859"
      inkscape:cy="16.020502"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="820"
+     inkscape:window-width="871"
      inkscape:window-height="729"
-     inkscape:window-x="405"
-     inkscape:window-y="55"
-     inkscape:window-maximized="0">
+     inkscape:window-x="462"
+     inkscape:window-y="174"
+     inkscape:window-maximized="0"
+     inkscape:snap-bbox="true"
+     inkscape:snap-to-guides="false">
     <inkscape:grid
        type="xygrid"
        id="grid3003" />
@@ -48,7 +53,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -57,10 +62,10 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="fill:#ffff00;fill-opacity:1"
-       d="m 7,2 c 0,9.127111 0,19.297903 0,27.96875 l 10,0 10,0 0,-2.5 L 27,25 21.5625,25 C 18.99491,25 15.571881,25.037123 13,25.0625 L 13,2 z"
-       id="rect3024"
+       style="fill:none;stroke:#00ff00;stroke-width:2.93140841;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 9.9657042,30.034296 0,-26.5685918 c 0,0 10.0623558,0 10.0623558,5.6932697 0,6.6421481 -9.05612,6.6421481 -9.05612,6.6421481 l 10.062356,13.474071"
+       id="path3821"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccsccc" />
+       sodipodi:nodetypes="ccscc" />
   </g>
 </svg>

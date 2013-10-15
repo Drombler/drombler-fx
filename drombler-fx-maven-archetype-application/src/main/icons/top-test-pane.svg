@@ -14,7 +14,7 @@
    id="svg2995"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="left-test-pane.svg">
+   sodipodi:docname="top-test-pane.svg">
   <defs
      id="defs2997" />
   <sodipodi:namedview
@@ -25,17 +25,19 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.197802"
-     inkscape:cx="10.611241"
+     inkscape:cx="1.037329"
      inkscape:cy="16.020502"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:window-width="820"
+     inkscape:window-width="871"
      inkscape:window-height="729"
-     inkscape:window-x="405"
-     inkscape:window-y="55"
-     inkscape:window-maximized="0">
+     inkscape:window-x="462"
+     inkscape:window-y="174"
+     inkscape:window-maximized="0"
+     inkscape:snap-bbox="true"
+     inkscape:snap-to-guides="false">
     <inkscape:grid
        type="xygrid"
        id="grid3003" />
@@ -57,10 +59,8 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="fill:#ffff00;fill-opacity:1"
-       d="m 7,2 c 0,9.127111 0,19.297903 0,27.96875 l 10,0 10,0 0,-2.5 L 27,25 21.5625,25 C 18.99491,25 15.571881,25.037123 13,25.0625 L 13,2 z"
-       id="rect3024"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccsccc" />
+       style="fill:#ff0000;fill-opacity:1"
+       d="M 2 2 L 2 7 L 13 7 L 13 30 L 19 30 L 19 7 L 30 7 L 30 2 L 2 2 z "
+       id="rect3037" />
   </g>
 </svg>
