@@ -14,11 +14,11 @@
  */
 package org.drombler.fx.core.action.impl;
 
-import org.drombler.fx.core.commons.fx.scene.image.IconFactory;
 import javafx.scene.input.KeyCombination;
 import org.apache.commons.lang3.StringUtils;
 import org.drombler.acp.core.action.spi.ActionDescriptor;
 import org.drombler.fx.core.action.FXAction;
+import org.drombler.fx.core.commons.fx.scene.image.IconFactory;
 
 /**
  *
