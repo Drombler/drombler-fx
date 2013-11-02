@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.1.1-SNAPSHOT</version>
+        <version>0.2</version>
         <relativePath>../drombler-fx-parent</relativePath>
     </parent>
     <artifactId>drombler-fx-core-docking</artifactId>
@@ -33,7 +33,8 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-    </scm>
+      <tag>drombler-fx-all-0.2</tag>
+  </scm>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
