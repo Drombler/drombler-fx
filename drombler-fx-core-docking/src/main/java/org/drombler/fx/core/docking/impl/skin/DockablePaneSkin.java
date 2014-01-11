@@ -45,6 +45,7 @@ public class DockablePaneSkin implements Skin<DockablePane> {
 
     @Override
     public void dispose() {
+        pane.centerProperty().unbindBidirectional(control.contentProperty());
         control = null;
         pane = null;
     }

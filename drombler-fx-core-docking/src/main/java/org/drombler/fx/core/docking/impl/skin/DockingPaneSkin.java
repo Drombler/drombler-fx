@@ -16,17 +16,14 @@ package org.drombler.fx.core.docking.impl.skin;
 
 import java.util.Objects;
 import javafx.collections.ListChangeListener;
-import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.layout.BorderPane;
-import org.drombler.acp.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerListener;
 import org.drombler.fx.core.docking.DockablePane;
 import org.drombler.fx.core.docking.impl.DockingAreaPane;
 import org.drombler.fx.core.docking.impl.DockingPane;
 import org.drombler.fx.core.docking.impl.DockingSplitPane;
-import org.drombler.fx.core.docking.impl.ShortPathPart;
 import org.drombler.fx.core.docking.impl.SplitLevel;
 import org.softsmithy.lib.util.PositionableAdapter;
 
@@ -40,15 +37,13 @@ public class DockingPaneSkin implements Skin<DockingPane> {
     private BorderPane pane = new BorderPane();
     private DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, SplitLevel.ROOT);
 
+    private final DockingAreaContainerListener<DockingAreaPane, DockablePane> dockingAreaContainerListener = event
+            -> handleDockingArea(event.getDockingArea());
+
     public DockingPaneSkin(DockingPane control) {
         this.control = control;
         pane.setCenter(rootSplitPane);
-        this.control.addDockingAreaContainerListener(new DockingAreaContainerListener<DockingAreaPane, DockablePane>() {
-            @Override
-            public void dockingAreaAdded(DockingAreaContainerDockingAreaEvent<DockingAreaPane, DockablePane> event) {
-                handleDockingArea(event.getDockingArea());
-            }
-        });
+        this.control.addDockingAreaContainerListener(dockingAreaContainerListener);
         for (DockingAreaPane dockingArea : this.control.getAllDockingAreas()) {
             handleDockingArea(dockingArea);
         }
@@ -93,6 +88,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
 
     @Override
     public void dispose() {
+        control.removeDockingAreaContainerListener(dockingAreaContainerListener);
         control = null;
         pane = null;
         rootSplitPane = null;

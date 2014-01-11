@@ -58,11 +58,6 @@ Contributor(s): .
     </build>
     <dependencies>
         <dependency>
-            <groupId>javafx</groupId>
-            <artifactId>jfxrt</artifactId>
-            <scope>system</scope>
-        </dependency>
-        <dependency>
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-commons</artifactId>
         </dependency>

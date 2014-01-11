@@ -43,6 +43,10 @@ public class DockingPaneTest {
     private final DockingPane dockingPane = new DockingPane();
     private final DockablePreferencesManager<DockablePane> dockablePreferencesManager = new DockablePreferencesManagerImpl();
 
+//     static {
+//        SimpleControlLauncher.main(new String[]{});
+//    }
+     
     @Before
     public void setUp() {
         dockingPane.setDockablePreferencesManager(dockablePreferencesManager);

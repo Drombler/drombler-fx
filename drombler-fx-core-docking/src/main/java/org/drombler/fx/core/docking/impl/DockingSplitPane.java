@@ -49,6 +49,8 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     private final Map<Integer, PositionableAdapter<DockingAreaPane>> areaPanes = new HashMap<>(); // TODO: PositionableAdapter needed?
     private final ObservableList<DockingSplitPaneChildBase> dockingSplitPaneChildren = FXCollections.
             observableArrayList();
+    private final ObservableList<DockingSplitPaneChildBase> unmodifiableDockingSplitPaneChildren = FXCollections.
+            unmodifiableObservableList(dockingSplitPaneChildren);
     private final List<Positionable> positionableChildren = new ArrayList<>();
 
     public DockingSplitPane(int position, int level, SplitLevel actualLevel) {
@@ -99,7 +101,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
      * @return the children
      */
     public ObservableList<DockingSplitPaneChildBase> getDockingSplitPaneChildren() {
-        return FXCollections.unmodifiableObservableList(dockingSplitPaneChildren);
+        return unmodifiableDockingSplitPaneChildren;
     }
 
     private void adjust(SplitLevel splitLevel, List<DockingAreaPane> removedDockingAreas) {
@@ -228,8 +230,8 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 
     private void addChild(int position, DockingSplitPaneChildBase child) {
         child.setParentSplitPane(this);
-        PositionableAdapter<DockingSplitPaneChildBase> positionableChild =
-                new PositionableAdapter<>(child, position);
+        PositionableAdapter<DockingSplitPaneChildBase> positionableChild
+                = new PositionableAdapter<>(child, position);
         int insertionPoint = Positionables.getInsertionPoint(positionableChildren, positionableChild);
         positionableChildren.add(insertionPoint, positionableChild);
         dockingSplitPaneChildren.add(insertionPoint, child);

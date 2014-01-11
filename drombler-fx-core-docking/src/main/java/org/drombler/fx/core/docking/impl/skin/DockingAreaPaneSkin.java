@@ -15,9 +15,7 @@
 package org.drombler.fx.core.docking.impl.skin;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
@@ -35,6 +33,51 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
     private DockingAreaPane control;
     private TabPane tabPane = new TabPane();
 
+    private final ListChangeListener<PositionableAdapter<DockablePane>> dockablesChangeListener = change -> {
+        while (change.next()) {
+            if (change.wasPermutated()) {
+                for (int i = change.getFrom(); i < change.getTo(); ++i) {
+                    // TODO: ???
+                }
+            } else if (change.wasUpdated()) {
+                // TODO: ???
+            } else if (change.wasRemoved()) {
+                for (PositionableAdapter<DockablePane> remitem : change.getRemoved()) {
+                    // TODO: ???
+                }
+            } else if (change.wasAdded()) {
+                for (int index = change.getFrom(); index < change.getTo(); index++) {
+                    addTab(change.getList().get(index));
+                }
+            } else if (change.wasReplaced()) {
+                // TODO: ???
+            }
+        }
+    };
+
+    private final ListChangeListener<Tab> tabsChangeListener = change -> {
+        while (change.next()) {
+            if (change.wasPermutated()) {
+                for (int i = change.getFrom(); i < change.getTo(); ++i) {
+                    // TODO: ???
+                }
+            } else if (change.wasUpdated()) {
+                // TODO: ???
+            } else if (change.wasRemoved()) {
+                DockingAreaPaneSkin.this.control.removeDockable(change.getFrom());
+            } else if (change.wasAdded()) {
+                // TODO: ???
+            } else if (change.wasReplaced()) {
+                // TODO: ???
+            }
+        }
+    };
+    private final ChangeListener<Number> dockableSelectedIndexChangeListener = (ov, oldValue, newValue)
+            -> tabPane.getSelectionModel().select(newValue.intValue());
+
+    private final ChangeListener<Number> tabSelectedIndexChangeListener = (ov, oldValue, newValue)
+            -> DockingAreaPaneSkin.this.control.getSelectionModel().select(newValue.intValue());
+
     public DockingAreaPaneSkin(DockingAreaPane control) {
         this.control = control;
 //        Tab tab = new Tab();
@@ -42,76 +85,20 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
 //        tab.setContent(new Label("Hello world!"));
 //        tabPane.getTabs().add(tab);
 
-        control.getDockables().addListener(new ListChangeListener<PositionableAdapter<DockablePane>>() {
+        control.getDockables().addListener(dockablesChangeListener);
 
-            @Override
-            public void onChanged(Change<? extends PositionableAdapter<DockablePane>> change) {
-                while (change.next()) {
-                    if (change.wasPermutated()) {
-                        for (int i = change.getFrom(); i < change.getTo(); ++i) {
-                            // TODO: ???
-                        }
-                    } else if (change.wasUpdated()) {
-                        // TODO: ???
-                    } else if (change.wasRemoved()) {
-                        for (PositionableAdapter<DockablePane> remitem : change.getRemoved()) {
-                            // TODO: ???
-                        }
-                    } else if (change.wasAdded()) {
-                        for (int index = change.getFrom(); index < change.getTo(); index++) {
-                            addTab(change.getList().get(index));
-                        }
-                    } else if (change.wasReplaced()) {
-                        // TODO: ???
-                    }
-                }
-            }
-        });
-
-        tabPane.getTabs().addListener(new ListChangeListener<Tab>() {
-
-            @Override
-            public void onChanged(Change<? extends Tab> change) {
-                while (change.next()) {
-                    if (change.wasPermutated()) {
-                        for (int i = change.getFrom(); i < change.getTo(); ++i) {
-                            // TODO: ???
-                        }
-                    } else if (change.wasUpdated()) {
-                        // TODO: ???
-                    } else if (change.wasRemoved()) {
-                        DockingAreaPaneSkin.this.control.removeDockable(change.getFrom());
-                    } else if (change.wasAdded()) {
-                        // TODO: ???
-                    } else if (change.wasReplaced()) {
-                        // TODO: ???
-                    }
-                }
-            }
-        });
+        tabPane.getTabs().addListener(tabsChangeListener);
 
         for (PositionableAdapter<DockablePane> dockable : control.getDockables()) {
             addTab(dockable);
         }
 
-        control.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+        control.getSelectionModel().selectedIndexProperty().addListener(dockableSelectedIndexChangeListener);
 
-            @Override
-            public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
-                tabPane.getSelectionModel().select(newValue.intValue());
-            }
-        });
-
-        tabPane.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
-                DockingAreaPaneSkin.this.control.getSelectionModel().select(newValue.intValue());
-            }
-        });
+        tabPane.getSelectionModel().selectedIndexProperty().addListener(tabSelectedIndexChangeListener);
 
         tabPane.getSelectionModel().select(control.getSelectionModel().getSelectedIndex());
-        
+
 //        tabPane.focusedProperty().addListener(new ChangeListener<Boolean>() {
 //
 //            @Override
@@ -126,7 +113,6 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
 //                }
 //            }
 //        });
-
     }
 
     @Override
@@ -141,6 +127,11 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
 
     @Override
     public void dispose() {
+        control.getDockables().removeListener(dockablesChangeListener);
+        tabPane.getTabs().removeListener(tabsChangeListener);
+        control.getSelectionModel().selectedIndexProperty().removeListener(dockableSelectedIndexChangeListener);
+        tabPane.getSelectionModel().selectedIndexProperty().removeListener(tabSelectedIndexChangeListener);
+
         control = null;
         tabPane = null;
     }

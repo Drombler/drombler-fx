@@ -42,7 +42,7 @@ public class ShortPathPartTest {
         // unequal
         ShortPathPart part4 = new ShortPathPart(2, 4);
         ShortPathPart part5 = new ShortPathPart(1, 5);
-        
+
         Tests.testEquals(part1, part2, part3, part4, part5);
     }
 }

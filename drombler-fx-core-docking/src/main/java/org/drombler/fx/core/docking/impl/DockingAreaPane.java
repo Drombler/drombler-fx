@@ -43,22 +43,21 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
      */
     private final String areaId;
     private final ObservableList<PositionableAdapter<DockablePane>> dockables = FXCollections.observableArrayList();
+    private final ObservableList<PositionableAdapter<DockablePane>> unmodifiableDockables = FXCollections.
+            unmodifiableObservableList(dockables);
     private final Set<DockablePane> dockableSet = new HashSet<>();
     private final int position;
     /**
-     * Flag if the space for this docking area should be preserved, if it's
-     * empty, or if it's space should be freed.
+     * Flag if the space for this docking area should be preserved, if it's empty, or if it's space should be freed.
      */
     private final boolean permanent;
     private DockingAreaManager parentManager;
     /**
-     * Flag if this DockingArea has been added to a {@link DockingSplitPane}
-     * already.
+     * Flag if this DockingArea has been added to a {@link DockingSplitPane} already.
      */
     private final BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
-    private final ObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>> selectionModel =
-            new SimpleObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>>(
-            this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
+    private final ObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>> selectionModel
+            = new SimpleObjectProperty<>(this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
     private LayoutConstraintsDescriptor layoutConstraints;
 
     public DockingAreaPane(String areaId, int position, boolean permanent) {
@@ -130,7 +129,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
      * @return the dockablePanes
      */
     public ObservableList<PositionableAdapter<DockablePane>> getDockables() {
-        return FXCollections.unmodifiableObservableList(dockables);
+        return unmodifiableDockables;
     }
 
     /**
@@ -156,8 +155,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     }
 
     /**
-     * Indicates if this DockingAreaPane is either {@link #isPermanent()} or
-     * non-empty.
+     * Indicates if this DockingAreaPane is either {@link #isPermanent()} or non-empty.
      *
      * @return returns true if permanent or non-empty.
      */

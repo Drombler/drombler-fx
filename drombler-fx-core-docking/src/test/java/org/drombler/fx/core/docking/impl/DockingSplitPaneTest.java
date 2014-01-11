@@ -44,6 +44,10 @@ public class DockingSplitPaneTest {
     private final DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, SplitLevel.ROOT);
     private final DockingAreaManager rootManager = new DockingAreaManager(null, 0, SplitLevel.ROOT);
 
+    static {
+        SimpleControlLauncher.main(new String[]{});
+    }
+
     @Test
     public void testAddDockingArea1() {
         System.out.println("addDockingArea1");
@@ -145,7 +149,6 @@ public class DockingSplitPaneTest {
         assertEquals(Orientation.VERTICAL, parentSplitPane.getOrientation());
         assertNull(parentSplitPane.getParentSplitPane());
         assertEquals(Arrays.asList(test1), parentSplitPane.getDockingSplitPaneChildren());
-
 
         DockingAreaPane test2 = createDockingArea(10, TEST2, 40);
         rootSplitPane.addDockingArea(test2);
@@ -353,7 +356,6 @@ public class DockingSplitPaneTest {
         assertEquals(Arrays.asList(left, topParentSplitPane, right),
                 topParentParentSplitPane.getDockingSplitPaneChildren());
 
-
         //bottom
         DockingSplitPane bottomParentSplitPane = bottom.getParentSplitPane();
         assertNotNull(bottomParentSplitPane);
@@ -529,7 +531,6 @@ public class DockingSplitPaneTest {
         assertEquals(Arrays.asList(top, center), topParentSplitPane.getDockingSplitPaneChildren());
         assertNull(topParentSplitPane.getParentSplitPane());
 
-
         removeDockingArea(top);
 
         assertNull(top.getParentSplitPane());
@@ -701,7 +702,6 @@ public class DockingSplitPaneTest {
         assertEquals(0, parentSplitPane3.getActualLevel());
         assertEquals(Orientation.VERTICAL, parentSplitPane3.getOrientation());
         assertEquals(rootSplitPane, parentSplitPane3);
-
 
         removeDockingArea(test1);
 

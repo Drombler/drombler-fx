@@ -35,8 +35,8 @@ Contributor(s): .
         <connection>${scm.parent.connection}</connection>
         <developerConnection>${scm.parent.developerConnection}</developerConnection>
         <url>${scm.parent.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <licenses>
         <license>
@@ -54,6 +54,7 @@ Contributor(s): .
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-fx</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-fx</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-fx</scm.parent.url>
+        <java.min.version>1.8</java.min.version>
         <javafx.version>2.2</javafx.version>
         <drombler-acp.version>0.2</drombler-acp.version>
         <dollar>$</dollar>  
@@ -67,6 +68,19 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     
+<!--    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <argLine>-Djavafx.toolkit=com.sun.javafx.pgstub.StubToolkit</argLine>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>-->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -136,14 +150,6 @@ Contributor(s): .
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp-startup-main</artifactId>
                 <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javafx</groupId>
-                <artifactId>jfxrt</artifactId>
-                <version>${javafx.version}</version>
-                <type>jar</type>
-                <scope>system</scope>
-                <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
             </dependency>
             <dependency>
                 <groupId>javafx.dev</groupId>
