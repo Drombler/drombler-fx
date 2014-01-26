@@ -11,8 +11,8 @@ package ${package}.sample.impl;
 import java.io.IOException;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
+import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
-import org.drombler.fx.core.docking.DockablePane;
 
 @ViewDocking(areaId = "bottom", position = 10, displayName = "%BottomTestPane.displayName", icon = "bottom-test-pane.png",
 accelerator = "Shortcut+2",

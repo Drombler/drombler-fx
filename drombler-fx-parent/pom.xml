@@ -35,8 +35,8 @@ Contributor(s): .
         <connection>${scm.parent.connection}</connection>
         <developerConnection>${scm.parent.developerConnection}</developerConnection>
         <url>${scm.parent.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <licenses>
         <license>
@@ -55,7 +55,7 @@ Contributor(s): .
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-fx</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-fx</scm.parent.url>
         <javafx.version>2.2</javafx.version>
-        <drombler-acp.version>0.2</drombler-acp.version>
+        <drombler-acp.version>0.2.1-SNAPSHOT</drombler-acp.version>
         <dollar>$</dollar>  
         
         <!-- Dependency Versions Defaults -->
@@ -71,72 +71,12 @@ Contributor(s): .
         <dependencies>
             <dependency>
                 <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-action</artifactId>
+                <artifactId>drombler-acp-all</artifactId>
                 <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-action-spi</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-application</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-commons</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-docking</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-docking-spi</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-docking-spi-locale-de</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-standard-action</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-standard-action-locale-de</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-core-standard-docking</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-locale-all</artifactId>
                 <type>pom</type>
-                <version>${drombler-acp.version}</version>
+                <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-locale-de</artifactId>
-                <type>pom</type>
-                <version>${drombler-acp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.acp</groupId>
-                <artifactId>drombler-acp-startup-main</artifactId>
-                <version>${drombler-acp.version}</version>
-            </dependency>
+          
             <dependency>
                 <groupId>javafx</groupId>
                 <artifactId>jfxrt</artifactId>

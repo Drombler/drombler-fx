@@ -18,6 +18,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockingAreaDescriptor;
 import org.drombler.acp.core.docking.spi.DockingAreaFactory;
+import org.drombler.commons.fx.docking.DockingAreaPane;
 
 /**
  *

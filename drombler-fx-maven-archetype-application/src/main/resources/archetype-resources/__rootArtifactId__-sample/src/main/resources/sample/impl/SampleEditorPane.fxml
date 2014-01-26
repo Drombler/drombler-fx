@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import org.drombler.fx.core.docking.*?>
+<?import org.drombler.commons.fx.docking.*?>
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
      <GridPane>

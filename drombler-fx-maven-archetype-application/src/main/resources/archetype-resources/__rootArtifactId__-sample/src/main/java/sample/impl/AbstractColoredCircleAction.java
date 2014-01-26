@@ -11,10 +11,10 @@ package ${package}.sample.impl;
 import ${package}.sample.ColoredCircle;
 import ${package}.sample.ColoredCircleManager;
 import org.drombler.acp.core.action.AbstractToggleActionListener;
-import org.drombler.acp.core.commons.util.context.ActiveContextSensitive;
-import org.drombler.acp.core.commons.util.context.Context;
-import org.drombler.acp.core.commons.util.context.ContextEvent;
-import org.drombler.acp.core.commons.util.context.ContextListener;
+import org.drombler.commons.context.ActiveContextSensitive;
+import org.drombler.commons.context.Context;
+import org.drombler.commons.context.ContextEvent;
+import org.drombler.commons.context.ContextListener;
 
 
 public abstract class AbstractColoredCircleAction extends AbstractToggleActionListener<Object> implements ActiveContextSensitive {

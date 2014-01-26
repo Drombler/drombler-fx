@@ -14,8 +14,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
+import org.drombler.acp.core.docking.spi.Dockables;
+import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
-import org.drombler.fx.core.docking.DockablePane;
 
 
 @ViewDocking(areaId = "left", position = 10, displayName = "%LeftTestPane.displayName", icon = "left-test-pane.png",
@@ -39,6 +40,6 @@ public class LeftTestPane extends DockablePane {
         sampleCounter++;
         Sample sample = new Sample("Sample " + sampleCounter);
         SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
-        sampleEditorPane.open();
+        Dockables.open(sampleEditorPane);
     }
 }

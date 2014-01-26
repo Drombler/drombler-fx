@@ -29,16 +29,20 @@ import javafx.collections.SetChangeListener.Change;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import org.drombler.acp.core.commons.util.context.SimpleContext;
 import org.drombler.acp.core.docking.EditorDocking;
 import org.drombler.acp.core.standard.action.Savable;
+import org.drombler.commons.context.SimpleContext;
+import org.drombler.commons.context.SimpleContextContent;
+import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
-import org.drombler.fx.core.docking.DockablePane;
+
+
 
 @EditorDocking(areaId = "center")
 public class SampleEditorPane extends DockablePane {
 
-    private final SimpleContext context = new SimpleContext();
+    private final SimpleContextContent contextContent = new SimpleContextContent();
+    private final SimpleContext context = new SimpleContext(contextContent);
     private final Sample sample;
     @FXML
     private TextField nameField;
@@ -63,10 +67,10 @@ public class SampleEditorPane extends DockablePane {
         this.sample = sample;
 
         // Add the sample to the context, so Views can see it
-        context.add(sample);
+        contextContent.add(sample);
 
         // Add a ColoredCircleManager to the context to enable the ColoredCircle actions.
-        context.add(new ColoredCircleManager() {
+        contextContent.add(new ColoredCircleManager() {
             @Override
             public ColoredCircle getColoredCircle() {
                 return coloredCircle.get();
@@ -80,7 +84,7 @@ public class SampleEditorPane extends DockablePane {
         });
 
         // Add a ColoredRectangleManager to the context to enable the ColoredRectangle actions.
-        context.add(new ColoredRectangleManager() {
+        contextContent.add(new ColoredRectangleManager() {
             @Override
             public ObservableSet<ColoredRectangle> getColoredRectangles() {
                 return coloredRectangles;
@@ -131,7 +135,7 @@ public class SampleEditorPane extends DockablePane {
     private void markModified() {
         if (context.find(SampleSavable.class) == null) {
             // Add a SampleSavable to the context to enable the Save and the "Save All" actions.
-            context.add(new SampleSavable());
+            contextContent.add(new SampleSavable());
         }
     }
 
@@ -164,10 +168,9 @@ public class SampleEditorPane extends DockablePane {
             sample.setColoredCircle(coloredCircle.get());
             sample.getColoredRectangles().addAll(coloredRectangles);
             sample.getColoredRectangles().retainAll(coloredRectangles);
-            
+
             // Here you would e.g. write to a file/ db, call a WebService ...
-            
-            context.remove(this);
+            contextContent.remove(this);
         }
 
         @Override

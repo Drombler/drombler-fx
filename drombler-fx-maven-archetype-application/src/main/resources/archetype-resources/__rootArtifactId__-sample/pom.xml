@@ -45,6 +45,10 @@
             <artifactId>drombler-acp-core-docking</artifactId>
         </dependency>    
         <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-docking-spi</artifactId>
+        </dependency>
+        <dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
             <scope>system</scope>

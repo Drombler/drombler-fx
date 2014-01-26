@@ -20,15 +20,16 @@ import javafx.collections.SetChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import org.drombler.acp.core.commons.util.context.ActiveContextSensitive;
-import org.drombler.acp.core.commons.util.context.Context;
-import org.drombler.acp.core.commons.util.context.ContextEvent;
-import org.drombler.acp.core.commons.util.context.ContextListener;
-import org.drombler.acp.core.commons.util.context.SimpleContext;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
+import org.drombler.commons.context.ActiveContextSensitive;
+import org.drombler.commons.context.Context;
+import org.drombler.commons.context.ContextEvent;
+import org.drombler.commons.context.ContextListener;
+import org.drombler.commons.context.SimpleContext;
+import org.drombler.commons.context.SimpleContextContent;
+import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
-import org.drombler.fx.core.docking.DockablePane;
 
 @ViewDocking(areaId = "right", position = 10, displayName = "%RightTestPane.displayName", icon = "right-test-pane.png",
 accelerator = "Shortcut+4",
@@ -36,7 +37,8 @@ menuEntry =
 @WindowMenuEntry(path = "Other", position = 40))
 public class RightTestPane extends DockablePane implements ActiveContextSensitive {
 
-    private final SimpleContext context = new SimpleContext();
+    private final SimpleContextContent contextContent = new SimpleContextContent();
+    private final SimpleContext context = new SimpleContext(contextContent);
     private Context activeContext;
     @FXML
     private Label nameLabel;
@@ -95,7 +97,7 @@ public class RightTestPane extends DockablePane implements ActiveContextSensitiv
     }
 
     private void unregister() {
-        context.remove(sample);
+        contextContent.remove(sample);
 
         nameLabel.textProperty().unbind();
         nameLabel.setText(null);
@@ -116,7 +118,7 @@ public class RightTestPane extends DockablePane implements ActiveContextSensitiv
         initColoredRectangleImageViews();
         sample.getColoredRectangles().addListener(coloredRectanglesSetChangeListener);
 
-        context.add(sample);
+        contextContent.add(sample);
     }
 
     private void configureColoredCircleImageView(ColoredCircle coloredCircle) {
