@@ -22,7 +22,7 @@ import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockableFactory;
 import org.drombler.acp.core.docking.spi.ViewDockingDescriptor;
 import org.drombler.commons.fx.docking.DockablePane;
-import org.drombler.fx.core.commons.fx.scene.image.IconFactory;
+import org.drombler.commons.fx.scene.image.IconFactory;
 
 /**
  *

@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
-import org.drombler.acp.core.commons.util.Resources;
+import org.drombler.commons.client.util.Resources;
 import org.softsmithy.lib.util.ResourceFileNotFoundException;
 
 /**

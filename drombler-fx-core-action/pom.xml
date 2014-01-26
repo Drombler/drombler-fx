@@ -91,6 +91,10 @@ Contributor(s): .
             <artifactId>drombler-acp-core-commons</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-fx-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
         </dependency>

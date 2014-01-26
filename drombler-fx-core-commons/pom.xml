@@ -67,8 +67,17 @@ Contributor(s): .
             <artifactId>drombler-acp-core-commons</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-client-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.softsmithy.lib</groupId>
             <artifactId>softsmithy-lib-core</artifactId>
+        </dependency>
+         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
