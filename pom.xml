@@ -51,7 +51,6 @@ Contributor(s): .
         <module>drombler-fx-core-application</module>
         <module>drombler-fx-core-application-locale-de</module>
         <module>drombler-fx-core-docking</module>
-        <module>drombler-fx-core-commons</module>
         <module>drombler-fx-core-action</module>
         <module>drombler-fx-locale-de</module>
         <module>drombler-fx-locale-all</module>
@@ -80,11 +79,6 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-fx-core-docking</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-fx-core-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
