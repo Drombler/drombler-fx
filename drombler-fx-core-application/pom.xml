@@ -79,11 +79,6 @@ Contributor(s): .
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-fx-core-commons</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
             <scope>system</scope>
