@@ -90,45 +90,10 @@
        <dependencies>
             <dependency>
                 <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-core-action</artifactId>
+                <artifactId>drombler-fx</artifactId>
                 <version>${drombler-fx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-core-application</artifactId>
-                <version>${drombler-fx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-core-application-locale-de</artifactId>
-                <version>${drombler-fx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-core-commons</artifactId>
-                <version>${drombler-fx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-core-docking</artifactId>
-                <version>${drombler-fx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-locale-all</artifactId>
                 <type>pom</type>
-                <version>${drombler-fx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-locale-de</artifactId>
-                <type>pom</type>
-                <version>${drombler-fx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.fx</groupId>
-                <artifactId>drombler-fx-startup-main</artifactId>
-                <version>${drombler-fx.version}</version>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
