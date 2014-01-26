@@ -90,11 +90,13 @@ Contributor(s): .
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-fx-locale-de</artifactId>
                 <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-fx-locale-all</artifactId>
                 <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
