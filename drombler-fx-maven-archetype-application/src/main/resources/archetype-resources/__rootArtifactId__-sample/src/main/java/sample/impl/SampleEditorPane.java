@@ -34,7 +34,7 @@ import org.drombler.acp.core.standard.action.Savable;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
 import org.drombler.commons.fx.docking.DockablePane;
-import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
+import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
 

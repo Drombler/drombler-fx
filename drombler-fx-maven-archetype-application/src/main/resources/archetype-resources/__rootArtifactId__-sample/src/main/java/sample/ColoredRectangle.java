@@ -21,7 +21,7 @@ public enum ColoredRectangle {
     private final Image image;
 
     private ColoredRectangle(String imageResourcePath) {
-        try (InputStream is = ColoredCircle.class.getResourceAsStream(imageResourcePath)) {
+        try (InputStream is = ColoredRectangle.class.getResourceAsStream(imageResourcePath)) {
             this.image = new Image(is);
         } catch (IOException ie) {
             throw new IllegalArgumentException(ie);

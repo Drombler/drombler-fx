@@ -16,7 +16,7 @@ import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
 import org.drombler.acp.core.docking.spi.Dockables;
 import org.drombler.commons.fx.docking.DockablePane;
-import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
+import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
 @ViewDocking(areaId = "left", position = 10, displayName = "%LeftTestPane.displayName", icon = "left-test-pane.png",

@@ -24,7 +24,6 @@ import org.drombler.commons.context.ActiveContextProvider;
 import org.drombler.commons.context.ApplicationContextProvider;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.fx.docking.DockablePane;
-import org.drombler.commons.fx.docking.DockingAreaPane;
 import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.fx.core.application.ApplicationContentProvider;
 import org.drombler.fx.core.application.FocusOwnerChangeListenerProvider;
@@ -36,7 +35,7 @@ import org.drombler.fx.core.application.FocusOwnerChangeListenerProvider;
 @Component
 @Service
 public class DockingPaneProvider implements ApplicationContentProvider,
-        DockingAreaContainerProvider<DockingAreaPane, DockablePane>, FocusOwnerChangeListenerProvider,
+        DockingAreaContainerProvider<DockablePane>, FocusOwnerChangeListenerProvider,
         ActiveContextProvider, ApplicationContextProvider {
 
     private DockingPane dockingPane;
@@ -47,7 +46,7 @@ public class DockingPaneProvider implements ApplicationContentProvider,
     }
 
     @Override
-    public DockingAreaContainer<DockingAreaPane, DockablePane> getDockingAreaContainer() {
+    public DockingAreaContainer<DockablePane> getDockingAreaContainer() {
         return getDockingPane();
     }
 

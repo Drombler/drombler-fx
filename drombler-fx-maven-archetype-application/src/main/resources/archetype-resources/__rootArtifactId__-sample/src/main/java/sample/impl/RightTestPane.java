@@ -29,7 +29,7 @@ import org.drombler.commons.context.ContextListener;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
 import org.drombler.commons.fx.docking.DockablePane;
-import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
+import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 @ViewDocking(areaId = "right", position = 10, displayName = "%RightTestPane.displayName", icon = "right-test-pane.png",
 accelerator = "Shortcut+4",
