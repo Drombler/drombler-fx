@@ -26,6 +26,7 @@ import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
 import org.drombler.commons.context.ContextListener;
+import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
 import org.drombler.commons.fx.docking.DockablePane;
@@ -35,7 +36,7 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
 accelerator = "Shortcut+4",
 menuEntry =
 @WindowMenuEntry(path = "Other", position = 40))
-public class RightTestPane extends DockablePane implements ActiveContextSensitive {
+public class RightTestPane extends DockablePane implements ActiveContextSensitive, LocalContextProvider {
 
     private final SimpleContextContent contextContent = new SimpleContextContent();
     private final SimpleContext context = new SimpleContext(contextContent);
@@ -56,13 +57,17 @@ public class RightTestPane extends DockablePane implements ActiveContextSensitiv
     private Sample sample;
 
     public RightTestPane() throws IOException {
-        setContext(context);
         loadFXML();
         initColoredRectangleImageViewsMap();
     }
 
     private void loadFXML() throws IOException {
         FXMLLoaders.loadRoot(this);
+    }
+
+    @Override
+    public Context getLocalContext() {
+        return context;
     }
 
     private void initColoredRectangleImageViewsMap() {

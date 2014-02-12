@@ -31,6 +31,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import org.drombler.acp.core.docking.EditorDocking;
 import org.drombler.acp.core.standard.action.Savable;
+import org.drombler.commons.context.Context;
+import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
 import org.drombler.commons.fx.docking.DockablePane;
@@ -39,7 +41,7 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
 @EditorDocking(areaId = "center")
-public class SampleEditorPane extends DockablePane {
+public class SampleEditorPane extends DockablePane implements LocalContextProvider {
 
     private final SimpleContextContent contextContent = new SimpleContextContent();
     private final SimpleContext context = new SimpleContext(contextContent);
@@ -60,9 +62,6 @@ public class SampleEditorPane extends DockablePane {
             ColoredRectangle.class));
 
     public SampleEditorPane(Sample sample) throws IOException {
-        // Set a writeable context
-        setContext(context);
-
         loadFXML();
         this.sample = sample;
 
@@ -120,6 +119,11 @@ public class SampleEditorPane extends DockablePane {
 
     private void loadFXML() throws IOException {
         FXMLLoaders.loadRoot(this);
+    }
+
+    @Override
+    public Context getLocalContext() {
+        return context;
     }
 
     private void initColoredRectangleImageViewsMap() {

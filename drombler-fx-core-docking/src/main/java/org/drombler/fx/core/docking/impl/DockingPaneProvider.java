@@ -14,7 +14,6 @@
  */
 package org.drombler.fx.core.docking.impl;
 
-import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
@@ -23,10 +22,11 @@ import org.drombler.commons.client.docking.DockingAreaContainer;
 import org.drombler.commons.context.ActiveContextProvider;
 import org.drombler.commons.context.ApplicationContextProvider;
 import org.drombler.commons.context.Context;
+import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.docking.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.fx.core.application.ApplicationContentProvider;
-import org.drombler.fx.core.application.FocusOwnerChangeListenerProvider;
 
 /**
  *
@@ -35,10 +35,12 @@ import org.drombler.fx.core.application.FocusOwnerChangeListenerProvider;
 @Component
 @Service
 public class DockingPaneProvider implements ApplicationContentProvider,
-        DockingAreaContainerProvider<DockablePane>, FocusOwnerChangeListenerProvider,
+        DockingAreaContainerProvider<DockablePane>,
         ActiveContextProvider, ApplicationContextProvider {
 
+    private final ContextManager contextManager = new ContextManager();
     private DockingPane dockingPane;
+    private DockingManager dockingManager;
 
     @Override
     public Node getContentPane() {
@@ -52,22 +54,19 @@ public class DockingPaneProvider implements ApplicationContentProvider,
 
     @Override
     public Context getApplicationContext() {
-        return getDockingPane().getApplicationContext();
+        return contextManager.getApplicationContext();
     }
 
     @Override
     public Context getActiveContext() {
-        return getDockingPane().getActiveContext();
-    }
-
-    @Override
-    public ChangeListener<Node> getFocusOwnerChangeListener() {
-        return getDockingPane().getFocusOwnerChangeListener();
+        return contextManager.getActiveContext();
     }
 
     private DockingPane getDockingPane() {
         if (dockingPane == null) {
             dockingPane = new DockingPane();
+            // TODO: remove "stop" DockingManager
+            dockingManager = new DockingManager(dockingPane, contextManager);
         }
         return dockingPane;
     }
