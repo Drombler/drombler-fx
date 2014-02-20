@@ -19,13 +19,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.drombler.acp.core.action.spi.ApplicationToolBarContainerProvider;
 import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
+import org.drombler.acp.core.application.ApplicationExecutorProvider;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author puce
  */
 public class ModularApplication extends Application {
+    private static final Logger LOG = LoggerFactory.getLogger(ModularApplication.class);
 
     // TODO: better way than static fields?
     private static BundleContext BUNDLE_CONTEXT;
@@ -33,7 +37,12 @@ public class ModularApplication extends Application {
     private static double APPLICATION_WIDTH = 1024;
     private static double APPLICATION_HEIGHT = 768;
 
-    public static void launch(BundleContext bundleContext, String applicationTitle, double applicationWidth, double applicationHeight) {
+    private final FXApplicationExecutorProvider fXApplicationExecutorProvider = new FXApplicationExecutorProvider();
+    private ApplicationPane root;
+    private MainSceneProvider mainSceneProvider;
+
+    public static void launch(BundleContext bundleContext, String applicationTitle, double applicationWidth,
+            double applicationHeight) {
         BUNDLE_CONTEXT = bundleContext;
         if (applicationTitle != null) {
             APPLICATION_TITLE = applicationTitle;
@@ -44,10 +53,10 @@ public class ModularApplication extends Application {
         if (applicationHeight > 0) {
             APPLICATION_HEIGHT = applicationHeight;
         }
+        LOG.info("Launching JavaFX Application '{}' ({}x{})...", applicationTitle, applicationWidth, applicationHeight);
         Application.launch(ModularApplication.class);
+        LOG.info("Stopped JavaFX Application '{}'", applicationTitle);
     }
-    private ApplicationPane root;
-    private MainSceneProvider mainSceneProvider;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -81,6 +90,9 @@ public class ModularApplication extends Application {
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
+        // Only register the ApplicationExecutorProvider once the JavaFX Platform has been started.
+        BUNDLE_CONTEXT.registerService(ApplicationExecutorProvider.class, fXApplicationExecutorProvider, null);
+        LOG.info("Started JavaFX Application '{}'", getTitle());
     }
 
     @Override

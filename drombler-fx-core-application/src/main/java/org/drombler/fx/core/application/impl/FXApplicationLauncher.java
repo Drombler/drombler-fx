@@ -16,8 +16,6 @@ package org.drombler.fx.core.application.impl;
 
 import java.util.Map;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -27,6 +25,8 @@ import org.drombler.acp.startup.main.ApplicationConfigProvider;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.service.component.ComponentContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -34,6 +34,8 @@ import org.osgi.service.component.ComponentContext;
  */
 @Component(immediate = true)
 public class FXApplicationLauncher {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FXApplicationLauncher.class);
 
 //    @Property(value = "JavaFX Platform based Application")
     public static final String APPLICATION_TITLE_PROPERTY_NAME = "platform.application.title";
@@ -57,19 +59,19 @@ public class FXApplicationLauncher {
         startJavaFXThread(context.getBundleContext(),
                 applicationConfig.get(APPLICATION_TITLE_PROPERTY_NAME),
                 getApplicationConfigDouble(applicationConfig, APPLICATION_WIDTH_PROPERTY_NAME, -1,
-                "Application width is not a double: {0}"),
+                        "Application width is not a double: {}"),
                 getApplicationConfigDouble(applicationConfig, APPLICATION_HEIGHT_PROPERTY_NAME, -1,
-                "Application height is not a double: {0}"));
+                        "Application height is not a double: {}"));
     }
 
-    private double getApplicationConfigDouble(Map<String, String> applicationConfig, String key, double defaultValue, String errorMessageFormat) {
+    private double getApplicationConfigDouble(Map<String, String> applicationConfig, String key, double defaultValue,
+            String errorMessageFormat) {
         double value = defaultValue;
         if (applicationConfig.containsKey(key)) {
             try {
                 value = Double.parseDouble(applicationConfig.get(key));
-            } catch (Exception ex) {
-                Logger.getLogger(FXApplicationLauncher.class.getName()).log(Level.SEVERE,
-                        errorMessageFormat, applicationConfig.get(key));
+            } catch (NumberFormatException ex) {
+                LOG.error(errorMessageFormat, applicationConfig.get(key));
             }
         }
         return value;
@@ -80,12 +82,14 @@ public class FXApplicationLauncher {
         stopJavaFXThread();
     }
 
-    private void startJavaFXThread(final BundleContext context, final String applicationTitle, final double applicationWidth,
+    private void startJavaFXThread(final BundleContext context, final String applicationTitle,
+            final double applicationWidth,
             final double applicationHeight) {
         Thread javaFXThread = Executors.defaultThreadFactory().newThread(new Runnable() {
 
             @Override
             public void run() {
+                LOG.info("Launching JavaFX Application...");
                 ModularApplication.launch(context, applicationTitle, applicationWidth, applicationHeight);
                 shutdownFramework();
             }
@@ -93,9 +97,10 @@ public class FXApplicationLauncher {
             // TODO: better way?
             private void shutdownFramework() {
                 try {
+                    LOG.info("Stopping OSGi framework...");
                     context.getBundle(0).stop();
                 } catch (BundleException ex) {
-                    Logger.getLogger(FXApplicationLauncher.class.getName()).log(Level.SEVERE, null, ex);
+                    LOG.error("An Exception occured while stopping the OSGi framework...", ex);
                 }
             }
         });
@@ -104,5 +109,6 @@ public class FXApplicationLauncher {
 
     private void stopJavaFXThread() {
         Platform.exit();
+        LOG.info("Exited JavaFX Platform.");
     }
 }
