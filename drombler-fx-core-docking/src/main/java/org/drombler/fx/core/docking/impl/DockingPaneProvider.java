@@ -17,8 +17,8 @@ package org.drombler.fx.core.docking.impl;
 import javafx.scene.Node;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.docking.spi.DockingAreaContainer;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerProvider;
-import org.drombler.commons.client.docking.DockingAreaContainer;
 import org.drombler.commons.context.ActiveContextProvider;
 import org.drombler.commons.context.ApplicationContextProvider;
 import org.drombler.commons.context.Context;
@@ -40,6 +40,7 @@ public class DockingPaneProvider implements ApplicationContentProvider,
 
     private final ContextManager contextManager = new ContextManager();
     private DockingPane dockingPane;
+    private DockingAreaContainer dockingAreaContainer;
     private DockingManager dockingManager;
 
     @Override
@@ -49,7 +50,10 @@ public class DockingPaneProvider implements ApplicationContentProvider,
 
     @Override
     public DockingAreaContainer<DockablePane> getDockingAreaContainer() {
-        return getDockingPane();
+        if (dockingAreaContainer == null) {
+            dockingAreaContainer = new DockingPaneDockingAreaContainerAdapter(getDockingPane());
+        }
+        return dockingAreaContainer;
     }
 
     @Override
