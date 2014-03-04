@@ -26,7 +26,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/deployment/standalone/conf</outputDirectory>
+                            <outputDirectory>\${project.build.directory}/deployment/standalone/conf</outputDirectory>
                             <resources>          
                                 <resource>
                                     <directory>src/main/logging</directory>
