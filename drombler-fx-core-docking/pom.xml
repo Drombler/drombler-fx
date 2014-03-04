@@ -20,7 +20,7 @@ Contributor(s): .
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
         <version>0.2.1-SNAPSHOT</version>
-        <relativePath>../drombler-fx-parent</relativePath>
+        <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-core-docking</artifactId>
     <packaging>bundle</packaging>

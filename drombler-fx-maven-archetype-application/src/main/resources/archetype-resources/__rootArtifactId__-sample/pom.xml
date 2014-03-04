@@ -5,7 +5,7 @@
         <groupId>\${groupId}</groupId>
         <artifactId>\${rootArtifactId}-parent</artifactId>
         <version>\${version}</version>
-        <relativePath>../\${rootArtifactId}-parent</relativePath>
+        <relativePath>../\${rootArtifactId}-parent/pom.xml</relativePath>
     </parent>
     <artifactId>\${artifactId}</artifactId>
     <packaging>bundle</packaging>
