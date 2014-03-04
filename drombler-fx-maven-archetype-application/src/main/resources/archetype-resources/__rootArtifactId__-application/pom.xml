@@ -14,6 +14,29 @@
 
     <build>
         <plugins>
+            <plugin>
+                <!-- Needed for the SLF4J binding for java.util.logging -->
+                <!-- Remove/ replace it if you're using another SLF4J binding. -->
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/deployment/standalone/conf</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>src/main/logging</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>              
+                        </configuration>            
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>  
                 <groupId>org.drombler.fx</groupId>
                 <artifactId>drombler-fx-maven-plugin</artifactId>
@@ -74,6 +97,14 @@
             <artifactId>org.osgi.compendium</artifactId>
             <scope>runtime</scope>
             <!-- Seems to be necessary for org.apache.felix:org.apache.felix.scr:1.6.0-->
+        </dependency>
+        
+        <!-- Replace with any SLF4J binding you like-->
+        <!-- Here the binding for java.util.logging is used, since the jar is very small. -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>

@@ -37,7 +37,7 @@ public class ModularApplication extends Application {
     private static double APPLICATION_WIDTH = 1024;
     private static double APPLICATION_HEIGHT = 768;
 
-    private final FXApplicationExecutorProvider fXApplicationExecutorProvider = new FXApplicationExecutorProvider();
+    private final FXApplicationExecutorProvider fxApplicationExecutorProvider = new FXApplicationExecutorProvider();
     private ApplicationPane root;
     private MainSceneProvider mainSceneProvider;
 
@@ -91,7 +91,7 @@ public class ModularApplication extends Application {
         stage.sizeToScene();
         stage.show();
         // Only register the ApplicationExecutorProvider once the JavaFX Platform has been started.
-        BUNDLE_CONTEXT.registerService(ApplicationExecutorProvider.class, fXApplicationExecutorProvider, null);
+        BUNDLE_CONTEXT.registerService(ApplicationExecutorProvider.class, fxApplicationExecutorProvider, null);
         LOG.info("Started JavaFX Application '{}'", getTitle());
     }
 
