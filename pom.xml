@@ -32,7 +32,14 @@ Contributor(s): .
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
       <tag>HEAD</tag>
-  </scm>
+    </scm>
+  
+    <distributionManagement>
+        <site>
+            <id>drombler.sourceforge.net</id>
+            <url>${distributionManagement.parent.url}/</url>
+        </site>
+    </distributionManagement>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>

@@ -27,7 +27,7 @@ Contributor(s): .
     <packaging>pom</packaging>
     
     <name>Drombler FX - Parent</name>
-    <url>http://www.drombler.org</url>
+    <url>http://www.drombler.org/DromblerFX/docs/site/${project.version}</url>
     <description>The parent POM of the Drombler FX project. This Drombler FX Parent POM should be the parent (either directly or indirectly) of every Drombler FX project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
@@ -47,6 +47,13 @@ Contributor(s): .
         </license>
     </licenses>
     
+    <distributionManagement>
+        <site>
+            <id>drombler.sourceforge.net</id>
+            <name>Drombler FX</name>
+            <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
     
     <properties>
         
@@ -55,6 +62,7 @@ Contributor(s): .
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-fx</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-fx</scm.parent.url>
         <javafx.version>2.2</javafx.version>
+        <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerFX/docs/site/${project.version}</distributionManagement.parent.url>
         <drombler-acp.version>0.2.1-SNAPSHOT</drombler-acp.version>
         <dollar>$</dollar>  
         
@@ -103,4 +111,55 @@ Contributor(s): .
         </dependencies>
     </dependencyManagement>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version> 
+                <reportSets>
+                    <reportSet>
+                        <id>default</id>
+                        <configuration>
+                            <detectOfflineLinks>true</detectOfflineLinks>
+                        </configuration>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>aggregate</id>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+                <configuration>
+                    <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                    <doclet>com.javafx.tools.doclets.formats.html.HtmlDoclet</doclet>
+                    <docletPath>${java.home}/../lib/javafx-doclet.jar</docletPath>
+                    <show>private</show>
+                    <!--<additionalparam>-javafx</additionalparam>-->
+                    <detectLinks>true</detectLinks>
+                    <links>
+                        <!-- javadoc link for javax.persistence -->
+                        <link>http://docs.oracle.com/javaee/6/api/</link>
+                        <link>http://www.softsmithy.org/lib/${dependency.softsmithy.version}/docs/api/softsmithy-lib-core</link>
+                        <link>http://docs.oracle.com/javafx/2/api/</link>
+                    </links>
+                    <!--                        <groups>
+                        <group>
+                            <title>${project.name}</title>
+                            <packages>org.drombler.commons*</packages>
+                        </group>
+                    </groups>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
