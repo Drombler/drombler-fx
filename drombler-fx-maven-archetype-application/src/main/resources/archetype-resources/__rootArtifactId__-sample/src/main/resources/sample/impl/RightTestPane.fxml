@@ -11,12 +11,15 @@
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
     <GridPane>
-        <fx:script>
-            var USE_PREF_SIZE = Packages.javafx.scene.layout.Region.USE_PREF_SIZE;
-        </fx:script>
-
         <columnConstraints>
-            <ColumnConstraints minWidth="$USE_PREF_SIZE" maxWidth="$USE_PREF_SIZE" hgrow="NEVER"/>
+            <ColumnConstraints hgrow="NEVER">
+                <minWidth>
+                    <Region fx:constant="USE_PREF_SIZE" />
+                </minWidth>
+                <maxWidth>
+                    <Region fx:constant="USE_PREF_SIZE" />
+                </maxWidth>
+            </ColumnConstraints>
             <ColumnConstraints hgrow="SOMETIMES"/>
         </columnConstraints>
         
