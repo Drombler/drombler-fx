@@ -26,6 +26,8 @@ Contributor(s): .
 
     <name>Drombler FX - Startup - Main</name>
     <inceptionYear>2012</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -38,6 +40,9 @@ Contributor(s): .
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
+        
+        <!-- Reporting Defaults -->
+        <reporting.javadoc.skip>true</reporting.javadoc.skip>
     </properties>
     
     <!-- Not inherited!?? -->

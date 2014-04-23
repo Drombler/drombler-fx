@@ -28,6 +28,8 @@ Contributor(s): .
     <name>Drombler FX - Maven Plugin</name>
     <description>ProjectX Bundle Maven Plugin</description>
     <inceptionYear>2012</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -40,6 +42,9 @@ Contributor(s): .
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
+        
+        <!-- Reporting Defaults -->
+        <reporting.javadoc.skip>true</reporting.javadoc.skip>
     </properties>
     
     <!-- Not inherited!?? -->
@@ -133,4 +138,12 @@ Contributor(s): .
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.2</version>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
