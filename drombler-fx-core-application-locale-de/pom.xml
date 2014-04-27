@@ -26,6 +26,7 @@ Contributor(s): .
     <packaging>bundle</packaging>
 
     <name>Drombler FX - Core - Application - Locale - German</name>
+    <description>L10n (German) of the core application framework.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>

@@ -25,6 +25,8 @@ Contributor(s): .
     <packaging>bundle</packaging>
 
     <name>Drombler FX - Core - Application</name>
+    <description>The core JavaFX-based, modular application framework. It manages the starting and stopping of the 
+        JavaFX platform and manages the main application window.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>

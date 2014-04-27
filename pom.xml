@@ -25,6 +25,8 @@ Contributor(s): .
     <packaging>pom</packaging>
     
     <name>Drombler FX - All</name>
+    <description>Drombler FX is a modular Rich Client Platform for JavaFX based on Maven and OSGi. You can use this POM 
+        file e.g. in your dependencyManagement section to manage your Drombler FX dependencies.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>

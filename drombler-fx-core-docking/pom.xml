@@ -27,6 +27,7 @@ Contributor(s): .
 
 
     <name>Drombler FX - Core - Docking</name>
+    <description>A JavaFX-based implementation of the Drombler ACP Docking Framework.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
