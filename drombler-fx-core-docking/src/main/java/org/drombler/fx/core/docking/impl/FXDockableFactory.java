@@ -14,8 +14,7 @@
  */
 package org.drombler.fx.core.docking.impl;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
@@ -23,6 +22,8 @@ import org.drombler.acp.core.docking.spi.DockableFactory;
 import org.drombler.acp.core.docking.spi.ViewDockingDescriptor;
 import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.scene.image.IconFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -31,6 +32,8 @@ import org.drombler.commons.fx.scene.image.IconFactory;
 @Component
 @Service
 public class FXDockableFactory implements DockableFactory<DockablePane> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FXDockableFactory.class);
 
     private static final String MNEMONIC_CHAR = "_";
     private static final int ICON_SIZE = 16;
@@ -47,7 +50,7 @@ public class FXDockableFactory implements DockableFactory<DockablePane> {
             }
             return dockablePane;
         } catch (InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(FXDockableFactory.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex.getMessage(), ex);
         }
         return null;
     }

@@ -94,7 +94,7 @@ public class FXApplicationLauncher {
                 shutdownFramework();
             }
 
-            // TODO: better way?
+            // TODO: better way than to stop bundle 0?
             private void shutdownFramework() {
                 try {
                     LOG.info("Stopping OSGi framework...");

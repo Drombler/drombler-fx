@@ -18,14 +18,17 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
+        <version>0.4-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-startup-main</artifactId>
     <packaging>bundle</packaging>
 
     <name>Drombler FX - Startup - Main</name>
+    <description>The main classes to startup a Drombler FX based application.</description>
     <inceptionYear>2012</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -38,6 +41,9 @@ Contributor(s): .
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
+        
+        <!-- Reporting Defaults -->
+        <reporting.javadoc.skip>true</reporting.javadoc.skip>
     </properties>
     
     <!-- Not inherited!?? -->

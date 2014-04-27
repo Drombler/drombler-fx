@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
+        <version>0.4-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-core-docking</artifactId>
@@ -27,7 +27,10 @@ Contributor(s): .
 
 
     <name>Drombler FX - Core - Docking</name>
+    <description>A JavaFX-based implementation of the Drombler ACP Docking Framework.</description>
     <inceptionYear>2012</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -95,7 +98,6 @@ Contributor(s): .
         <dependency>
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-fx-docking</artifactId>
-            <version>0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.softsmithy.lib</groupId>

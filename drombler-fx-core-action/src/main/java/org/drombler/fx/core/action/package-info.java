@@ -8,11 +8,11 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (Sourceforge.net user: puce).
- * Copyright 2012 Drombler.org. All Rights Reserved.
+ * Copyright 2014 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
 /**
- * The main classes to startup a Drombler FX based application.
+ * A JavaFX-based extension of the Drombler ACP Action Framework.
  */
-package org.drombler.fx.startup.main;
+package org.drombler.fx.core.action;

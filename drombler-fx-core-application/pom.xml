@@ -18,14 +18,18 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
+        <version>0.4-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-core-application</artifactId>
     <packaging>bundle</packaging>
 
     <name>Drombler FX - Core - Application</name>
+    <description>The core JavaFX-based, modular application framework. It manages the starting and stopping of the 
+        JavaFX platform and manages the main application window.</description>
     <inceptionYear>2012</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
