@@ -26,7 +26,7 @@ Contributor(s): .
     <packaging>maven-plugin</packaging>
     
     <name>Drombler FX - Maven Plugin</name>
-    <description>ProjectX Bundle Maven Plugin</description>
+    <description>The Drombler FX Application Maven Plugin.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>

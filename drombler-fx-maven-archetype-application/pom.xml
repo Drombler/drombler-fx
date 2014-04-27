@@ -25,6 +25,7 @@ Contributor(s): .
     <packaging>maven-archetype</packaging>
 
     <name>Drombler FX - Maven Archetype - Application</name>
+    <description>A sample Drombler FX application template.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>

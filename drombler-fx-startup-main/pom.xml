@@ -25,6 +25,7 @@ Contributor(s): .
     <packaging>bundle</packaging>
 
     <name>Drombler FX - Startup - Main</name>
+    <description>The main classes to startup a Drombler FX based application.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
