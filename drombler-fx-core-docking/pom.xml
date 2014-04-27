@@ -98,7 +98,6 @@ Contributor(s): .
         <dependency>
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-fx-docking</artifactId>
-            <version>0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.softsmithy.lib</groupId>
