@@ -144,6 +144,9 @@ Contributor(s): .
                         <reports>
                             <report>aggregate</report>
                         </reports>
+                        <configuration>
+                            <excludePackageNames>${excludePackageNames}:*.maven.plugin.*</excludePackageNames>
+                        </configuration>
                     </reportSet>
                 </reportSets>
                 <configuration>
