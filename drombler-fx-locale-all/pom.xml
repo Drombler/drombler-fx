@@ -26,7 +26,7 @@ Contributor(s): .
     <packaging>pom</packaging>
 
     <name>Drombler FX - Locale - All</name>
-    <description>L10n of Drombler FX. You can use this POM file e.g. in your dependencyManagement section to manage your 
+    <description>L10n of Drombler FX. You can use this POM file e.g. in your dependencies section to manage your 
         Drombler FX L10n dependencies.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
