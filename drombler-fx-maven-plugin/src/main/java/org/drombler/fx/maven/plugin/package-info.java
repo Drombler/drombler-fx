@@ -8,11 +8,11 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (Sourceforge.net user: puce).
- * Copyright 2012 Drombler.org. All Rights Reserved.
+ * Copyright 2014 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
 /**
- * The main classes to startup a Drombler FX based application.
+ * The Drombler FX Application Maven Plugin Mojos.
  */
-package org.drombler.fx.startup.main;
+package org.drombler.fx.maven.plugin;
