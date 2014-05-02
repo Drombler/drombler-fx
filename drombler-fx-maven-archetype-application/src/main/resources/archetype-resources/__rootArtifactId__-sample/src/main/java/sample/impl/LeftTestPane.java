@@ -22,7 +22,7 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
 @ViewDocking(areaId = "left", position = 10, displayName = "%LeftTestPane.displayName", icon = "left-test-pane.png",
 accelerator = "Shortcut+3",
 menuEntry =
-@WindowMenuEntry(path = "", position = 30))
+ @WindowMenuEntry(path = "", position = 40))
 public class LeftTestPane extends DockablePane {
 
     private int sampleCounter = 0;
