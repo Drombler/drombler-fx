@@ -65,7 +65,7 @@ Contributor(s): .
         <module>drombler-fx-core-action</module>
         <module>drombler-fx-locale-de</module>
         <module>drombler-fx-locale-all</module>
-        <!--<module>javafx-2.1.0</module>-->
+        <!--<module>javafx-8</module>-->
         <module>drombler-fx-maven-plugin</module>
         <module>drombler-fx-maven-archetype-application</module>
     </modules>
