@@ -27,7 +27,7 @@ import org.drombler.acp.startup.main.impl.CommandLineArgs;
  */
 public class Main extends org.drombler.acp.startup.main.impl.Main {
     public static final String JAVAFX_VERSION_PROPERTY = "jfx.specification.version";
-    public static final String JAVAFX_VERSION_2_2_0 = "2.2.0";
+    public static final String JAVAFX_VERSION_8 = "8";
     
     /**
      * <p>
@@ -173,7 +173,7 @@ public class Main extends org.drombler.acp.startup.main.impl.Main {
             
         // used by: org.osgi.framework.system.packages.extra
         if (System.getProperty(JAVAFX_VERSION_PROPERTY) == null) {
-            System.setProperty(JAVAFX_VERSION_PROPERTY, JAVAFX_VERSION_2_2_0);
+            System.setProperty(JAVAFX_VERSION_PROPERTY, JAVAFX_VERSION_8);
         }
     }
     

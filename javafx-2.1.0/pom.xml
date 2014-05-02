@@ -18,14 +18,14 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.4-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>javafx-2.2.0</artifactId>
+    <artifactId>javafx-8</artifactId>
     <packaging>bundle</packaging>
 
-    <name>javafx-2.2.0 OSGi Bundle</name>
+    <name>javafx-8 OSGi Bundle</name>
     <inceptionYear>2012</inceptionYear>
     
     <scm>
@@ -53,7 +53,7 @@ Contributor(s): .
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Embed-Dependency>*;groupId=javafx;artifactId=jfxrt;version=2.2;inline=true</Embed-Dependency>
+                        <Embed-Dependency>*;groupId=javafx;artifactId=jfxrt;version=8.0;inline=true</Embed-Dependency>
                         <Export-Package>!javafx.embed.*, javafx.*</Export-Package>
                     </instructions>
                 </configuration>
@@ -64,10 +64,10 @@ Contributor(s): .
         <dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
-            <version>2.2</version>
+            <version>8.0</version>
             <type>jar</type>
             <scope>system</scope>
-            <systemPath>${env.JAVA_HOME}/jre/lib/jfxrt.jar</systemPath>
+            <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
         </dependency>
     </dependencies>
 
