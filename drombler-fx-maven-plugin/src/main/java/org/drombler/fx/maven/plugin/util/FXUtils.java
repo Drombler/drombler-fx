@@ -21,8 +21,10 @@ import java.util.Map;
  *
  * @author puce
  */
+// TODO:  NOT USED YET!
 public class FXUtils {
 
+    // TODO:  NOT USED YET!
     public static Map<String, String> getManifestEntries(String mainClass) {
         Map<String, String> manifestEntries = new LinkedHashMap<>(1);
         manifestEntries.put("Main-Class", mainClass);
