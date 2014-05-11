@@ -61,15 +61,10 @@ Contributor(s): .
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-fx</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-fx</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-fx</scm.parent.url>
-        <java.min.version>1.8</java.min.version>
-        <javafx.version>2.2</javafx.version>
         <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerFX/${project.version}/docs/site</distributionManagement.parent.url>
         <!--<url.parent>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url.parent>-->
         <drombler-acp.version>0.4-SNAPSHOT</drombler-acp.version>
         <dollar>$</dollar>  
-        
-        <!-- Dependency Versions Defaults -->
-        <netbeans.hint.jdkPlatform>@@DEFAU:T@@</netbeans.hint.jdkPlatform>
         
         <!-- Reporting Defaults -->
         <reporting.javadoc.skip>false</reporting.javadoc.skip>
@@ -110,14 +105,6 @@ Contributor(s): .
                 <version>${drombler-commons.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>javafx.dev</groupId>
-                <artifactId>ant-javafx</artifactId>
-                <version>${javafx.version}</version>
-                <type>jar</type>
-                <scope>system</scope>
-                <systemPath>${java.home}/../lib/ant-javafx.jar</systemPath>
             </dependency>
         </dependencies>
     </dependencyManagement>
