@@ -60,9 +60,7 @@ Contributor(s): .
                 <configuration>
                     <instructions>
                         <_donotcopy>(CVS|.svn|config.properties)</_donotcopy>
-                        <JavaFX-Version>2.0</JavaFX-Version>
-                        <JavaFX-Application-Class>org.drombler.fx.startup.main.Main</JavaFX-Application-Class>
-                        <Main-Class>com.javafx.main.Main</Main-Class>
+                        <Main-Class>org.drombler.fx.startup.main.Main</Main-Class>
                         <Embed-Dependency>*;artifactId=drombler-acp-startup-main;inline=true</Embed-Dependency>
                         <Private-Package>org.drombler.fx.startup.main.*</Private-Package>
                         <Export-Package>!org.osgi.service.log, !org.osgi.service.obr,org.osgi.*, !org.drombler.acp.startup.main.impl.*, org.drombler.acp.startup.main.*</Export-Package>
