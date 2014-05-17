@@ -24,8 +24,8 @@ import javax.lang.model.element.TypeElement;
 import org.drombler.acp.core.action.Action;
 
 /**
- * Checks if the listener class implements {@link EventHandler<ActionEvent>}.<br/>
- * <br/>
+ * Checks if the listener class implements {@link EventHandler<ActionEvent>}.<br>
+ * <br>
  * Note: Not used/ implemented yet. Useful?
  * @author puce
  */
