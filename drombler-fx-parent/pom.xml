@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.acp</groupId>
         <artifactId>drombler-acp-parent</artifactId>
-        <version>0.4-SNAPSHOT</version>
+        <version>0.4</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.fx</groupId>
@@ -63,7 +63,7 @@ Contributor(s): .
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-fx</scm.parent.url>
         <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerFX/${project.version}/docs/site</distributionManagement.parent.url>
         <!--<url.parent>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url.parent>-->
-        <drombler-acp.version>0.4-SNAPSHOT</drombler-acp.version>
+        <drombler-acp.version>0.4</drombler-acp.version>
         <dollar>$</dollar>  
     </properties>
 
