@@ -14,7 +14,7 @@
  */
 package org.drombler.fx.core.action.impl;
 
-import org.drombler.fx.core.action.AbstractFXAction;
+import org.drombler.commons.action.fx.AbstractFXAction;
 
 /**
  *

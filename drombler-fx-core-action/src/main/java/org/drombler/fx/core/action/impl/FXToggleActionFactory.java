@@ -16,10 +16,10 @@ package org.drombler.fx.core.action.impl;
 
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.drombler.acp.core.action.ToggleActionListener;
 import org.drombler.acp.core.action.spi.ActionDescriptor;
 import org.drombler.acp.core.action.spi.ToggleActionFactory;
-import org.drombler.fx.core.action.FXToggleAction;
+import org.drombler.commons.action.ToggleActionListener;
+import org.drombler.commons.action.fx.FXToggleAction;
 
 /**
  *

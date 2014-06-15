@@ -18,10 +18,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.drombler.acp.core.action.ActionListener;
 import org.drombler.acp.core.action.spi.ActionDescriptor;
 import org.drombler.acp.core.action.spi.ActionFactory;
-import org.drombler.fx.core.action.FXAction;
+import org.drombler.commons.action.ActionListener;
+import org.drombler.commons.action.fx.FXAction;
 
 /**
  *

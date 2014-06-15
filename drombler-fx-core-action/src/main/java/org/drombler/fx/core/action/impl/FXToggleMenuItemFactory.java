@@ -22,7 +22,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.ToggleMenuEntryDescriptor;
 import org.drombler.acp.core.action.spi.ToggleMenuItemFactory;
-import org.drombler.fx.core.action.FXToggleAction;
+import org.drombler.commons.action.fx.FXToggleAction;
 
 /**
  *

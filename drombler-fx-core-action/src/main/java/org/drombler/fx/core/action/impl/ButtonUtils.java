@@ -18,7 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Tooltip;
 import org.drombler.acp.core.action.spi.ToolBarEntryDescriptor;
-import org.drombler.fx.core.action.FXAction;
+import org.drombler.commons.action.fx.FXAction;
 
 /**
  *

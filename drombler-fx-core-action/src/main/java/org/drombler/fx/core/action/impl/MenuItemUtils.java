@@ -17,7 +17,7 @@ package org.drombler.fx.core.action.impl;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import org.drombler.acp.core.action.spi.MenuEntryDescriptor;
-import org.drombler.fx.core.action.FXAction;
+import org.drombler.commons.action.fx.FXAction;
 
 /**
  *

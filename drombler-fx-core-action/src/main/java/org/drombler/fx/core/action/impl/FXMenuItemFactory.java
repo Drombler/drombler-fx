@@ -19,7 +19,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.MenuEntryDescriptor;
 import org.drombler.acp.core.action.spi.MenuItemFactory;
-import org.drombler.fx.core.action.FXAction;
+import org.drombler.commons.action.fx.FXAction;
 
 /**
  *

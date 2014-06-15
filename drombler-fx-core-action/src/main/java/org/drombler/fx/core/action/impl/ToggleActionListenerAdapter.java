@@ -21,8 +21,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import org.drombler.acp.core.action.ToggleActionListener;
-import org.drombler.fx.core.action.FXToggleAction;
+import org.drombler.commons.action.ToggleActionListener;
+import org.drombler.commons.action.fx.FXToggleAction;
 
 /**
  *

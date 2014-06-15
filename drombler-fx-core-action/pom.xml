@@ -35,8 +35,8 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
@@ -86,6 +86,14 @@ Contributor(s): .
         <dependency>
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-fx-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-action-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-action-fx</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>

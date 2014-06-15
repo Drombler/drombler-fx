@@ -17,7 +17,8 @@ package org.drombler.fx.core.action.impl;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javafx.event.ActionEvent;
-import org.drombler.acp.core.action.ActionListener;
+import org.drombler.commons.action.ActionListener;
+
 
 /**
  *
