@@ -21,6 +21,7 @@ import org.drombler.acp.core.action.spi.ToolBarToggleButtonFactory;
 import org.drombler.acp.core.action.spi.ToolBarToggleEntryDescriptor;
 import org.drombler.commons.action.fx.ButtonUtils;
 import org.drombler.commons.action.fx.FXToggleAction;
+import org.drombler.commons.fx.scene.control.XToggleButton;
 
 /**
  *
@@ -34,17 +35,8 @@ public class FXToolBarToggleButtonFactory implements ToolBarToggleButtonFactory<
 
     @Override
     public ToggleButton createToolBarToggleButton(ToolBarToggleEntryDescriptor toolBarToggleEntryDescriptor, FXToggleAction action, int iconSize) {
-        ToggleButton toggleButton = new ToggleButton() {
-
-            @Override
-            public void fire() {
-                if (getToggleGroup() == null || !isSelected()) {
-                    super.fire();
-                }
-            }
-        };
-        ButtonUtils.configureButton(toggleButton, action, iconSize);
-        toggleButton.selectedProperty().bindBidirectional(action.selectedProperty());
+        XToggleButton toggleButton = new XToggleButton();
+        ButtonUtils.configureToggleButton(toggleButton, action, iconSize);
         toggleGroupManager.configureToggle(toggleButton, toolBarToggleEntryDescriptor.getToggleGroupId());
         return toggleButton;
     }
