@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.ToolBarButtonFactory;
+import org.drombler.commons.action.fx.ButtonUtils;
 import org.drombler.commons.action.fx.FXAction;
 
 /**
