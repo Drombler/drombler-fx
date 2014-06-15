@@ -38,13 +38,13 @@ public class FXToggleMenuItemFactory implements ToggleMenuItemFactory<MenuItem, 
     public MenuItem createToggleMenuItem(ToggleMenuEntryDescriptor toggleMenuEntryDescriptor, FXToggleAction action, int iconSize) {
         if (StringUtils.isNotEmpty(toggleMenuEntryDescriptor.getToggleGroupId())) {
             RadioMenuItem menuItem = new RadioMenuItem(action.getDisplayName());
-            MenuItemUtils.configureMenuItem(menuItem, toggleMenuEntryDescriptor, action, iconSize);
+            MenuItemUtils.configureMenuItem(menuItem, action, iconSize);
             menuItem.selectedProperty().bindBidirectional(action.selectedProperty());
             toggleGroupManager.configureToggle(menuItem, toggleMenuEntryDescriptor.getToggleGroupId());
             return menuItem;
         } else {
             CheckMenuItem menuItem = new CheckMenuItem();
-            MenuItemUtils.configureMenuItem(menuItem, toggleMenuEntryDescriptor, action, iconSize);
+            MenuItemUtils.configureMenuItem(menuItem, action, iconSize);
             menuItem.selectedProperty().bindBidirectional(action.selectedProperty());
             return menuItem;
         }

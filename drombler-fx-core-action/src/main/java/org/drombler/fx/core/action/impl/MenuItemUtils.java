@@ -16,20 +16,18 @@ package org.drombler.fx.core.action.impl;
 
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
-import org.drombler.acp.core.action.spi.MenuEntryDescriptor;
 import org.drombler.commons.action.fx.FXAction;
 
 /**
  *
  * @author puce
  */
-class MenuItemUtils {
+public class MenuItemUtils {
 
     private MenuItemUtils() {
     }
 
-    public static void configureMenuItem(MenuItem menuItem, MenuEntryDescriptor menuEntryDescriptor, FXAction action,
-            int iconSize) {
+    public static void configureMenuItem(MenuItem menuItem, FXAction action,           int iconSize) {
         menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.setMnemonicParsing(true);
         menuItem.acceleratorProperty().bind(action.acceleratorProperty());
