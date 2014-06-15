@@ -17,20 +17,18 @@ package org.drombler.fx.core.action.impl;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Tooltip;
-import org.drombler.acp.core.action.spi.ToolBarEntryDescriptor;
 import org.drombler.commons.action.fx.FXAction;
 
 /**
  *
  * @author puce
  */
-class ButtonUtils {
+public class ButtonUtils {
 
     private ButtonUtils() {
     }
 
-    public static void configureButton(ButtonBase button, ToolBarEntryDescriptor toolBarEntryDescriptor, FXAction action,
-            int iconSize) {
+    public static void configureButton(ButtonBase button, FXAction action, int iconSize) {
 
 
 

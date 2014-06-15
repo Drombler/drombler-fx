@@ -42,7 +42,7 @@ public class FXToolBarToggleButtonFactory implements ToolBarToggleButtonFactory<
                 }
             }
         };
-        ButtonUtils.configureButton(toggleButton, toolBarToggleEntryDescriptor, action, iconSize);
+        ButtonUtils.configureButton(toggleButton, action, iconSize);
         toggleButton.selectedProperty().bindBidirectional(action.selectedProperty());
         toggleGroupManager.configureToggle(toggleButton, toolBarToggleEntryDescriptor.getToggleGroupId());
         return toggleButton;

@@ -18,7 +18,6 @@ import javafx.scene.control.Button;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.ToolBarButtonFactory;
-import org.drombler.acp.core.action.spi.ToolBarEntryDescriptor;
 import org.drombler.commons.action.fx.FXAction;
 
 /**
@@ -30,9 +29,9 @@ import org.drombler.commons.action.fx.FXAction;
 public class FXToolBarButtonFactory implements ToolBarButtonFactory<Button, FXAction> {
 
     @Override
-    public Button createToolBarButton(ToolBarEntryDescriptor toolBarEntryDescriptor, FXAction action, int iconSize) {
+    public Button createToolBarButton(FXAction action, int iconSize) {
         Button button = new Button();
-        ButtonUtils.configureButton(button, toolBarEntryDescriptor, action, iconSize);
+        ButtonUtils.configureButton(button, action, iconSize);
         return button;
     }
 }
