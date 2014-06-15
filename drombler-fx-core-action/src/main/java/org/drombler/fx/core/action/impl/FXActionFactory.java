@@ -14,6 +14,8 @@
  */
 package org.drombler.fx.core.action.impl;
 
+import org.drombler.commons.action.fx.ActionEventHandlerAdapter;
+import org.drombler.commons.action.fx.ActionListenerAdapter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import org.apache.felix.scr.annotations.Component;

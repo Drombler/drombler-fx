@@ -14,6 +14,7 @@
  */
 package org.drombler.fx.core.action.impl;
 
+import org.drombler.commons.action.fx.ToggleActionListenerAdapter;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.ActionDescriptor;
