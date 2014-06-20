@@ -32,7 +32,7 @@ public class FXToolBarButtonFactory implements ToolBarButtonFactory<Button, FXAc
     @Override
     public Button createToolBarButton(FXAction action, int iconSize) {
         Button button = new Button();
-        ButtonUtils.configureButton(button, action, iconSize);
+        ButtonUtils.configureToolbarButton(button, action, iconSize);
         return button;
     }
 }
