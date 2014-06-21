@@ -10,7 +10,7 @@ package ${package}.sample.impl;
 
 import ${package}.sample.ColoredCircle;
 import ${package}.sample.ColoredCircleManager;
-import org.drombler.acp.core.action.AbstractToggleActionListener;
+import org.drombler.commons.action.AbstractToggleActionListener;
 import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;

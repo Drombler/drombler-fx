@@ -10,7 +10,7 @@ package ${package}.sample.impl;
 
 import ${package}.sample.ColoredRectangle;
 import ${package}.sample.ColoredRectangleManager;
-import org.drombler.acp.core.action.AbstractToggleActionListener;
+import org.drombler.commons.action.AbstractToggleActionListener;
 import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
