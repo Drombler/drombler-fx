@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
+import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
@@ -33,9 +34,8 @@ import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 @ViewDocking(areaId = "right", position = 10, displayName = "%RightTestPane.displayName", icon = "right-test-pane.png",
-accelerator = "Shortcut+4",
-menuEntry =
-@WindowMenuEntry(path = "Other", position = 40))
+        accelerator = "Shortcut+4", resourceBundleBaseName = ResourceBundleUtils.PACKAGE_RESOURCE_BUNDLE_BASE_NAME,
+        menuEntry = @WindowMenuEntry(path = "Other", position = 40))
 public class RightTestPane extends DockablePane implements ActiveContextSensitive, LocalContextProvider {
 
     private final SimpleContextContent contextContent = new SimpleContextContent();
@@ -62,7 +62,7 @@ public class RightTestPane extends DockablePane implements ActiveContextSensitiv
     }
 
     private void loadFXML() throws IOException {
-        FXMLLoaders.loadRoot(this);
+        FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(RightTestPane.class));
     }
 
     @Override

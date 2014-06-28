@@ -31,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import org.drombler.acp.core.docking.EditorDocking;
 import org.drombler.acp.core.standard.action.Savable;
+import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
@@ -118,7 +119,7 @@ public class SampleEditorPane extends DockablePane implements LocalContextProvid
     }
 
     private void loadFXML() throws IOException {
-        FXMLLoaders.loadRoot(this);
+        FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(SampleEditorPane.class));
     }
 
     @Override

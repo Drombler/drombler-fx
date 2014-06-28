@@ -68,5 +68,10 @@ Contributor(s): .
             </plugins>
         </pluginManagement>
     </build>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-client-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>
