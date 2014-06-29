@@ -19,7 +19,7 @@ import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
-@ViewDocking(areaId = "left", position = 10, displayName = "%LeftTestPane.displayName", icon = "left-test-pane.png",
+@ViewDocking(areaId = "left", position = 10, displayName = "%displayName", icon = "left-test-pane.png",
 accelerator = "Shortcut+3",
 menuEntry =
  @WindowMenuEntry(path = "", position = 40))

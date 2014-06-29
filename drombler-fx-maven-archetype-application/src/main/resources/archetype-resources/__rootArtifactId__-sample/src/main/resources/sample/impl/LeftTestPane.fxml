@@ -7,5 +7,5 @@
 <?import org.drombler.commons.fx.docking.*?>
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
-    <Button text="%LeftTestPane.NewSampleButton.text" onAction="#onNewSampleAction"/>
+    <Button text="%newSampleButton.text" onAction="#onNewSampleAction"/>
 </fx:root>

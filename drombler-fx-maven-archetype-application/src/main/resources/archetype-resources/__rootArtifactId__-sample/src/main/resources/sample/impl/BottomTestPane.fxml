@@ -7,5 +7,5 @@
 <?import org.drombler.commons.fx.docking.*?>
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
-    <Label text="%BottomTestPane.Label.text"/>
+    <Label text="%label.text"/>
 </fx:root>
