@@ -38,11 +38,10 @@ import org.softsmithy.lib.util.Positionables;
 public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolBar, Node> {
 
     private final Map<String, PositionableAdapter<ToolBar>> toolBarsMap = new ConcurrentHashMap<>();// TODO: synchronized needed?
-    private final List<PositionableAdapter<ToolBar>> toolBars = Collections.synchronizedList(
-            new ArrayList<PositionableAdapter<ToolBar>>());// TODO: synchronized needed?
+    private final List<PositionableAdapter<ToolBar>> toolBars = Collections.synchronizedList(new ArrayList<>());// TODO: synchronized needed?
     private final ConcurrentMap<String, List<PositionableAdapter<? extends Node>>> toolBarButtonsMap = new ConcurrentHashMap<>();// TODO: synchronized needed?
     private final List<ToolBarContainerListener<ToolBar, Node>> containerListeners = Collections.synchronizedList(
-            new ArrayList<ToolBarContainerListener<ToolBar, Node>>()); // TODO: synchronized needed?
+            new ArrayList<>()); // TODO: synchronized needed?
     private final ConcurrentMap<String, List<ToolBarContainerListener<ToolBar, Node>>> containerListenerMap = new ConcurrentHashMap<>(); // TODO: synchronized needed?
 
     @Override
@@ -59,6 +58,9 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
         int insertionPoint = Positionables.getInsertionPoint(toolBars, toolBarAdapter);
         getChildren().add(insertionPoint, toolBarAdapter.getAdapted());
         toolBars.add(insertionPoint, toolBarAdapter);
+        toolBarAdapter.getAdapted().setMaxHeight(Double.MAX_VALUE);
+        toolBarAdapter.getAdapted().setMinWidth(0);
+
         if (insertionPoint == getChildren().size() - 1) {
             if (getChildren().size() > 1) {
                 HBox.setHgrow(getChildren().get(getChildren().size() - 2), null);
