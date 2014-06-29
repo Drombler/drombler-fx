@@ -38,7 +38,7 @@ public class FXToggleMenuItemFactory implements ToggleMenuItemFactory<MenuItem, 
     @Override
     public MenuItem createToggleMenuItem(ToggleMenuEntryDescriptor toggleMenuEntryDescriptor, FXToggleAction action, int iconSize) {
         if (StringUtils.isNotEmpty(toggleMenuEntryDescriptor.getToggleGroupId())) {
-            RadioMenuItem menuItem = new RadioMenuItem(action.getDisplayName());
+            RadioMenuItem menuItem = new RadioMenuItem();
             MenuItemUtils.configureRadioMenuItem(menuItem, action, iconSize);
             toggleGroupManager.configureToggle(menuItem, toggleMenuEntryDescriptor.getToggleGroupId());
             return menuItem;

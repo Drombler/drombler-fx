@@ -34,15 +34,13 @@ import org.slf4j.LoggerFactory;
 public class FXDockableFactory implements DockableFactory<DockablePane> {
 
     private static final Logger LOG = LoggerFactory.getLogger(FXDockableFactory.class);
-
-    private static final String MNEMONIC_CHAR = "_";
     private static final int ICON_SIZE = 16;
 
     @Override
     public DockablePane createDockable(ViewDockingDescriptor dockingDescriptor) {
         try {
             DockablePane dockablePane = (DockablePane) dockingDescriptor.getDockableClass().newInstance();
-            dockablePane.setTitle(dockingDescriptor.getDisplayName().replace(MNEMONIC_CHAR, ""));
+            dockablePane.setTitle(dockingDescriptor.getDisplayName());
             if (!StringUtils.isBlank(dockingDescriptor.getIcon())) {
                 IconFactory iconFactory = new IconFactory(dockingDescriptor.getIcon(), dockingDescriptor.
                         getResourceLoader(), false);
