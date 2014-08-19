@@ -14,10 +14,11 @@ import org.drombler.commons.action.AbstractToggleActionListener;
 import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
-import org.drombler.commons.context.ContextListener;
 
 
-public abstract class AbstractColoredRectangleAction extends AbstractToggleActionListener<Object> implements ActiveContextSensitive {
+
+public abstract class AbstractColoredRectangleAction extends AbstractToggleActionListener<Object> implements
+        ActiveContextSensitive {
 
     private ColoredRectangleManager coloredRectangleManager;
     private Context activeContext;
@@ -41,18 +42,14 @@ public abstract class AbstractColoredRectangleAction extends AbstractToggleActio
     @Override
     public void setActiveContext(Context activeContext) {
         this.activeContext = activeContext;
-        this.activeContext.addContextListener(ColoredRectangleManager.class, new ContextListener() {
-            @Override
-            public void contextChanged(ContextEvent event) {
-                AbstractColoredRectangleAction.this.contextChanged();
-            }
-        });
+        this.activeContext.addContextListener(ColoredRectangleManager.class,
+                (ContextEvent event) -> AbstractColoredRectangleAction.this.contextChanged());
         contextChanged();
     }
 
     private void contextChanged() {
         coloredRectangleManager = activeContext.find(ColoredRectangleManager.class);
-        setDisabled(coloredRectangleManager == null);
+        setEnabled(coloredRectangleManager != null);
         setSelected(coloredRectangleManager != null
                 && coloredRectangleManager.getColoredRectangles() != null
                 && coloredRectangleManager.getColoredRectangles().contains(coloredRectangle));

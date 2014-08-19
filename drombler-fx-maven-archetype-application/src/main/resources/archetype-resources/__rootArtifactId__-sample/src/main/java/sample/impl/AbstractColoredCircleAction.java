@@ -14,10 +14,10 @@ import org.drombler.commons.action.AbstractToggleActionListener;
 import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
-import org.drombler.commons.context.ContextListener;
 
 
-public abstract class AbstractColoredCircleAction extends AbstractToggleActionListener<Object> implements ActiveContextSensitive {
+public abstract class AbstractColoredCircleAction extends AbstractToggleActionListener<Object> implements
+        ActiveContextSensitive {
 
     private ColoredCircleManager coloredCircleManager;
     private Context activeContext;
@@ -37,18 +37,14 @@ public abstract class AbstractColoredCircleAction extends AbstractToggleActionLi
     @Override
     public void setActiveContext(Context activeContext) {
         this.activeContext = activeContext;
-        this.activeContext.addContextListener(ColoredCircleManager.class, new ContextListener() {
-            @Override
-            public void contextChanged(ContextEvent event) {
-                AbstractColoredCircleAction.this.contextChanged();
-            }
-        });
+        this.activeContext.addContextListener(ColoredCircleManager.class,
+                (ContextEvent event) -> AbstractColoredCircleAction.this.contextChanged());
         contextChanged();
     }
 
     private void contextChanged() {
         coloredCircleManager = activeContext.find(ColoredCircleManager.class);
-        setDisabled(coloredCircleManager == null);
+        setEnabled(coloredCircleManager != null);
         setSelected(coloredCircleManager != null
                 && coloredCircleManager.getColoredCircle() != null
                 && coloredCircleManager.getColoredCircle().equals(coloredCircle));
