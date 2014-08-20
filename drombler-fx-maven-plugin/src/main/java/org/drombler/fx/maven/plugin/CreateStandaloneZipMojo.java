@@ -17,14 +17,17 @@ package org.drombler.fx.maven.plugin;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.maven.artifact.installer.ArtifactInstaller;
@@ -43,6 +46,7 @@ import org.drombler.acp.startup.main.impl.ApplicationConfigProviderImpl;
 import org.drombler.acp.startup.main.impl.Main;
 import org.drombler.fx.core.application.impl.FXApplicationLauncher;
 import org.ops4j.pax.construct.util.ReflectMojo;
+import org.softsmithy.lib.nio.file.CopyFileVisitor;
 import org.softsmithy.lib.nio.file.JarFiles;
 
 /**
@@ -54,6 +58,9 @@ import org.softsmithy.lib.nio.file.JarFiles;
  * @requiresDependencyResolution compile+runtime
  */
 public class CreateStandaloneZipMojo extends AbstractMojo {
+
+    private static final Path RELATIVE_CONFIG_PROPERTIES_FILE_PATH = Paths.get(Main.CONFIG_DIRECTORY,
+            Main.CONFIG_PROPERTIES_FILE_NAME);
 
     /**
      * @parameter expression="${dromblerfx.brandingId}" @required
@@ -72,13 +79,15 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      */
     private double height;
     /**
-     * @parameter expression="${dromblerfx.userdir}" default-value="${dollar}{user.home}/.${brandingId}/${project.version}"
+     * @parameter expression="${dromblerfx.userdir}"
+     * default-value="${dollar}{user.home}/.${brandingId}/${project.version}"
      * @required
      */
     // TODO: good solution using "${dollar}"?
     private String userdir;
     /**
-     * @parameter expression="${dromblerfx.targetDirectory}" default-value="${project.build.directory}/deployment/standalone"
+     * @parameter expression="${dromblerfx.targetDirectory}"
+     * default-value="${project.build.directory}/deployment/standalone"
      * @required
      */
     private File targetDirectory;
@@ -93,16 +102,12 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      * @parameter default-value="${project}" @required @readonly
      */
     private MavenProject project;
+
     /**
-     * @parameter expression="${dromblerfx.configProperties}"
-     * default-value="${basedir}/src/main/resources/config.properties"
+     * @parameter expression="${dromblerfx.appSourceDir}" default-value="${basedir}/src/main/app"
      */
-    private File configPropertiesFile;
-    /**
-     * @parameter expression="${dromblerfx.systemProperties}"
-     * default-value="${basedir}/src/main/resources/system.properties"
-     */
-    private File systemPropertiesFile;
+    private File appSourceDir;
+
     /**
      * @component
      */
@@ -124,38 +129,20 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             Path targetDirPath = targetDirectory.toPath();
-            if (!Files.exists(targetDirPath)) {
-                Files.createDirectories(targetDirPath);
-            }
+
+            ensureDirExists(targetDirPath);
 
             Path binDirPath = targetDirPath.resolve("bin");
-            if (!Files.exists(binDirPath)) {
-                Files.createDirectories(binDirPath);
-            }
+
+            ensureDirExists(binDirPath);
 
             createMainJar(binDirPath);
 
-            Path confPath = targetDirPath.resolve(Main.CONFIG_DIRECTORY);
-            if (!Files.exists(confPath)) {
-                Files.createDirectories(confPath);
-            }
-            Properties systemProperties = new Properties();
-            if (systemPropertiesFile != null && systemPropertiesFile.exists()) {
-                try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(systemPropertiesFile))) {
-                    systemProperties.load(bis);
-                }
-            }
-            writeProperties(systemProperties, confPath, Main.SYSTEM_PROPERTIES_FILE_VALUE);
+            copyAppDir(targetDirPath);
 
-            userdir = userdir.replace("${brandingId}", brandingId);
-            Properties configProperties = new Properties();
-            configProperties.setProperty(Main.USER_DIR_PROPERTY, userdir);
-            if (configPropertiesFile != null && configPropertiesFile.exists()) {
-                try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(configPropertiesFile))) {
-                    configProperties.load(bis);
-                }
-            }
-            writeProperties(configProperties, confPath, Main.CONFIG_PROPERTIES_FILE_VALUE);
+            ensureDirExists(targetDirPath.resolve(Main.CONFIG_DIRECTORY));
+            ensureFileExists(targetDirPath, Paths.get(Main.CONFIG_DIRECTORY, Main.SYSTEM_PROPERTIES_FILE_NAME));
+            ensureFileExists(targetDirPath, RELATIVE_CONFIG_PROPERTIES_FILE_PATH);
 
 //            URI confURI = CreateStandaloneZipMojo.class.getResource("/conf").toURI();
 //            try (FileSystem jarFS = FileSystems.newFileSystem(JarFiles.getJarURI(confURI),
@@ -167,6 +154,38 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         } catch (URISyntaxException | IOException ex) {
             ex.printStackTrace();
             throw new MojoExecutionException("Creating standalone zip failed!", ex);
+        }
+    }
+
+    private void ensureDirExists(Path dirPath) throws IOException {
+        if (!Files.exists(dirPath)) {
+            Files.createDirectories(dirPath);
+        }
+    }
+
+    private void ensureFileExists(Path targetDirPath, final Path relativeFilePath) throws IOException {
+        Path targetFilePath = targetDirPath.resolve(relativeFilePath);
+        if (!Files.exists(targetFilePath)) {
+            Files.createFile(targetFilePath);
+        }
+    }
+
+    private void writeConfigPropertiesFile(Path targetConfigPropertiesFile) throws IOException {
+        userdir = userdir.replace("${brandingId}", brandingId);
+        Properties configProperties = new Properties();
+        configProperties.setProperty(Main.USER_DIR_PROPERTY, userdir);
+        Path configPropertiesFilePath = appSourceDir.toPath().resolve(RELATIVE_CONFIG_PROPERTIES_FILE_PATH);
+        if (Files.exists(configPropertiesFilePath)) {
+            try (BufferedInputStream bis = new BufferedInputStream(Files.newInputStream(configPropertiesFilePath))) {
+                configProperties.load(bis);
+            }
+        }
+        writeProperties(configProperties, targetConfigPropertiesFile);
+    }
+
+    private void writeProperties(Properties properties, Path propertiesFilePath) throws IOException {
+        try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(propertiesFilePath))) {
+            properties.store(bos, "");
         }
     }
 
@@ -236,10 +255,26 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         copyDependenciesMojo.execute();
     }
 
-    private void writeProperties(Properties properties, Path confPath, String propertiesFileName) throws IOException {
-        Path propertiesFilePath = confPath.resolve(propertiesFileName);
-        try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(propertiesFilePath))) {
-            properties.store(bos, "");
+    private void copyAppDir(Path targetDirPath) throws IOException {
+        Path appSourceDirPath = appSourceDir.toPath();
+        if (Files.exists(appSourceDirPath) && Files.isDirectory(appSourceDirPath)) {
+            FileVisitor copyFileVisitor = new CopyFileVisitor(appSourceDirPath, targetDirPath) {
+
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    if (appSourceDirPath.relativize(file).equals(RELATIVE_CONFIG_PROPERTIES_FILE_PATH)) {
+                        Path targetConfigPropertiesFilePath = targetDirPath.
+                                resolve(RELATIVE_CONFIG_PROPERTIES_FILE_PATH);
+                        writeConfigPropertiesFile(targetConfigPropertiesFilePath);
+                        return FileVisitResult.CONTINUE;
+                    } else {
+                        return super.visitFile(file, attrs);
+                    }
+                }
+
+            };
+            Files.walkFileTree(appSourceDirPath, copyFileVisitor);
         }
     }
+
 }
