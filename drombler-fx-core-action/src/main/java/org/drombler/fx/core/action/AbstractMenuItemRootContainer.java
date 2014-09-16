@@ -29,10 +29,11 @@ import org.drombler.acp.core.action.spi.PositionableMenuItemAdapter;
  *
  * @author puce
  */
-public abstract class AbstractMenuItemRootContainer extends AbstractMenuItemContainer implements MenuItemRootContainer<MenuItem, Menu> {
+public abstract class AbstractMenuItemRootContainer extends AbstractMenuItemContainer implements
+        MenuItemRootContainer<MenuItem, Menu> {
 
-    private final List<MenuItemContainerListener<MenuItem, Menu>> containerListeners = Collections.synchronizedList(
-            new ArrayList<MenuItemContainerListener<MenuItem, Menu>>()); // TODO: synchronized needed?
+    private final List<MenuItemContainerListener<MenuItem, Menu>> containerListeners
+            = Collections.synchronizedList(new ArrayList<>()); // TODO: synchronized needed?
 
     public AbstractMenuItemRootContainer(boolean supportingItems) {
         super(null, supportingItems, null);
@@ -51,17 +52,13 @@ public abstract class AbstractMenuItemRootContainer extends AbstractMenuItemCont
     void fireMenuAddedEvent(PositionableMenuItemAdapter<? extends Menu> menu, String id, List<String> path) {
         MenuItemContainerMenuEvent<MenuItem, Menu> event = new MenuItemContainerMenuEvent<>(getMenuItemRootContainer(),
                 menu, id, path);
-        for (MenuItemContainerListener<MenuItem, Menu> containerListener : containerListeners) {
-            containerListener.menuAdded(event);
-        }
+        containerListeners.forEach((containerListener) -> containerListener.menuAdded(event));
     }
 
     void fireMenuItemAddedEvent(PositionableMenuItemAdapter<? extends MenuItem> menuItem, List<String> path) {
         MenuItemContainerMenuItemEvent<MenuItem, Menu> event = new MenuItemContainerMenuItemEvent<>(
                 getMenuItemRootContainer(), menuItem, path);
-        for (MenuItemContainerListener<MenuItem, Menu> containerListener : containerListeners) {
-            containerListener.menuItemAdded(event);
-        }
+        containerListeners.stream().forEach((containerListener) -> containerListener.menuItemAdded(event));
     }
 
     @Override
