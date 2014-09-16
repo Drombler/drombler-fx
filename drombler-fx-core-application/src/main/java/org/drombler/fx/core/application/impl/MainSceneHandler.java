@@ -24,7 +24,7 @@ import org.osgi.service.component.ComponentContext;
  */
 //@Component(immediate = true)
 //@Reference(name = "applicationExecutorProvider", referenceInterface = ApplicationExecutorProvider.class)
-public class MainSceneHandler {
+class MainSceneHandler {
 
 //    @Reference
     private MainSceneProvider mainSceneProvider;
@@ -48,25 +48,11 @@ public class MainSceneHandler {
 
 //    @Activate
     protected void activate(ComponentContext context) {
-        Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-
-            }
-        };
-        applicationExecutor.execute(runnable);
+        applicationExecutor.execute(() -> {});
     }
 
 //    @Deactivate
     protected void deactivate(ComponentContext context) {
-        Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-
-            }
-        };
-        applicationExecutor.execute(runnable);
+        applicationExecutor.execute(() -> {});
     }
 }

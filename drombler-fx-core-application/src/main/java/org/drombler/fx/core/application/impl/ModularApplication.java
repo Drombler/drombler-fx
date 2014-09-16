@@ -79,13 +79,7 @@ public class ModularApplication extends Application {
 //                System.out.println("Focus changed: " + newValue);
 //            }
 //        });
-        mainSceneProvider = new MainSceneProvider() {
-
-            @Override
-            public Scene getMainScene() {
-                return scene;
-            }
-        };
+        mainSceneProvider = () -> scene;
         BUNDLE_CONTEXT.registerService(MainSceneProvider.class, mainSceneProvider, null);
         stage.setScene(scene);
         stage.sizeToScene();

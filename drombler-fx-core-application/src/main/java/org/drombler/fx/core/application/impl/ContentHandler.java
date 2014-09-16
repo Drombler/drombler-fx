@@ -72,25 +72,12 @@ public class ContentHandler {
     }
 
     private void initContentPane() {
-        Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                contentPaneProvider.getContentPane().setCenter(applicationContentProvider.getContentPane());
-            }
-        };
-        applicationExecutor.execute(runnable);
+        applicationExecutor.execute(()
+                -> contentPaneProvider.getContentPane().setCenter(applicationContentProvider.getContentPane()));
     }
 
     private void uninitContentPane() {
-        //TODO needed?
-        Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                contentPaneProvider.getContentPane().setCenter(null);
-            }
-        };
-        applicationExecutor.execute(runnable);
+        applicationExecutor.execute(()
+                -> contentPaneProvider.getContentPane().setCenter(null));
     }
 }

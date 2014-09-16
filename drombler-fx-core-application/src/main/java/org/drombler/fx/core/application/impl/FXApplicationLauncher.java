@@ -85,24 +85,10 @@ public class FXApplicationLauncher {
     private void startJavaFXThread(final BundleContext context, final String applicationTitle,
             final double applicationWidth,
             final double applicationHeight) {
-        Thread javaFXThread = Executors.defaultThreadFactory().newThread(new Runnable() {
-
-            @Override
-            public void run() {
-                LOG.info("Launching JavaFX Application...");
-                ModularApplication.launch(context, applicationTitle, applicationWidth, applicationHeight);
-                shutdownFramework();
-            }
-
-            // TODO: better way than to stop bundle 0?
-            private void shutdownFramework() {
-                try {
-                    LOG.info("Stopping OSGi framework...");
-                    context.getBundle(0).stop();
-                } catch (BundleException ex) {
-                    LOG.error("An Exception occured while stopping the OSGi framework...", ex);
-                }
-            }
+        Thread javaFXThread = Executors.defaultThreadFactory().newThread(() -> {
+            LOG.info("Launching JavaFX Application...");
+            ModularApplication.launch(context, applicationTitle, applicationWidth, applicationHeight);
+            shutdownFramework(context);
         });
         javaFXThread.start();
     }
@@ -110,5 +96,15 @@ public class FXApplicationLauncher {
     private void stopJavaFXThread() {
         Platform.exit();
         LOG.info("Exited JavaFX Platform.");
+    }
+
+    // TODO: better way than to stop bundle 0?
+    private void shutdownFramework(BundleContext context) {
+        try {
+            LOG.info("Stopping OSGi framework...");
+            context.getBundle(0).stop();
+        } catch (BundleException ex) {
+            LOG.error("An Exception occured while stopping the OSGi framework...", ex);
+        }
     }
 }
