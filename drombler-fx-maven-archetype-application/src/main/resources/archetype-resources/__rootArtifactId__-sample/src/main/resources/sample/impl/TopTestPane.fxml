@@ -4,8 +4,9 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.drombler.commons.fx.docking.*?>
 
-<fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
-    <Label text="%label.text"/>
+<fx:root type="BorderPane" xmlns:fx="http://javafx.com/fxml">
+    <center>
+        <Label text="%label.text"/>
+    </center>
 </fx:root>

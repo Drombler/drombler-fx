@@ -15,13 +15,11 @@
 package org.drombler.fx.core.docking.impl;
 
 
-import org.apache.commons.lang3.StringUtils;
+import javafx.scene.Node;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockableFactory;
 import org.drombler.acp.core.docking.spi.ViewDockingDescriptor;
-import org.drombler.commons.fx.docking.DockablePane;
-import org.drombler.commons.fx.scene.image.IconFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,22 +29,14 @@ import org.slf4j.LoggerFactory;
  */
 @Component
 @Service
-public class FXDockableFactory implements DockableFactory<DockablePane> {
+public class FXDockableFactory implements DockableFactory<Node> {
 
     private static final Logger LOG = LoggerFactory.getLogger(FXDockableFactory.class);
-    private static final int ICON_SIZE = 16;
 
     @Override
-    public DockablePane createDockable(ViewDockingDescriptor dockingDescriptor) {
+    public Node createDockable(ViewDockingDescriptor dockingDescriptor) {
         try {
-            DockablePane dockablePane = (DockablePane) dockingDescriptor.getDockableClass().newInstance();
-            dockablePane.setTitle(dockingDescriptor.getDisplayName());
-            if (!StringUtils.isBlank(dockingDescriptor.getIcon())) {
-                IconFactory iconFactory = new IconFactory(dockingDescriptor.getIcon(), dockingDescriptor.
-                        getResourceLoader(), false);
-                dockablePane.setGraphic(iconFactory.createGraphic(ICON_SIZE));
-            }
-            return dockablePane;
+            return (Node) dockingDescriptor.getDockableClass().newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
             LOG.error(ex.getMessage(), ex);
         }

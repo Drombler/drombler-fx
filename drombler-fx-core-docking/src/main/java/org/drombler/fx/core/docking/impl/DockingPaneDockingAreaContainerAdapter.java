@@ -17,62 +17,57 @@ package org.drombler.fx.core.docking.impl;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.SetChangeListener;
+import javafx.scene.Node;
 import org.drombler.acp.core.docking.spi.DockingAreaContainer;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerListener;
-import org.drombler.commons.client.docking.DockableEntry;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
-import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.docking.DockingPane;
+import org.drombler.commons.fx.docking.FXDockableData;
+import org.drombler.commons.fx.docking.FXDockableEntry;
 
 /**
  *
  * @author puce
  */
-public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContainer<DockablePane> {
+public class DockingPaneDockingAreaContainerAdapter implements
+        DockingAreaContainer<Node, FXDockableData, FXDockableEntry> {
 
-    private final List<DockingAreaContainerListener<DockablePane>> listeners = new ArrayList<>();
+    private final List<DockingAreaContainerListener<FXDockableEntry>> listeners = new ArrayList<>();
     private final DockingPane dockingPane;
 
     public DockingPaneDockingAreaContainerAdapter(DockingPane dockingPane) {
         this.dockingPane = dockingPane;
-        dockingPane.getDockingAreaDescriptors().addListener(new SetChangeListener<DockingAreaDescriptor>() {
-
-            @Override
-            public void onChanged(SetChangeListener.Change<? extends DockingAreaDescriptor> change) {
-                if (change.wasAdded()) {
-                    fireDockingAreaAdded(change.getElementAdded().getId());
-                } else if (change.wasRemoved()) {
-                    fireDockingAreaRemoved(change.getElementRemoved().getId());
-                }
-            }
-        });
+        dockingPane.getDockingAreaDescriptors().addListener(
+                (SetChangeListener.Change<? extends DockingAreaDescriptor> change) -> {
+                    if (change.wasAdded()) {
+                        fireDockingAreaAdded(change.getElementAdded().getId());
+                    } else if (change.wasRemoved()) {
+                        fireDockingAreaRemoved(change.getElementRemoved().getId());
+                    }
+                });
     }
 
     @Override
-    public void addDockingAreaContainerListener(DockingAreaContainerListener<DockablePane> listener) {
+    public void addDockingAreaContainerListener(DockingAreaContainerListener<FXDockableEntry> listener) {
         listeners.add(listener);
     }
 
     @Override
-    public void removeDockingAreaContainerListener(DockingAreaContainerListener<DockablePane> listener) {
+    public void removeDockingAreaContainerListener(DockingAreaContainerListener<FXDockableEntry> listener) {
         listeners.remove(listener);
     }
 
     private void fireDockingAreaAdded(String dockingAreaId) {
-        DockingAreaContainerDockingAreaEvent<DockablePane> event = new DockingAreaContainerDockingAreaEvent<>(this,
+        DockingAreaContainerDockingAreaEvent<FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(this,
                 dockingAreaId);
-        for (DockingAreaContainerListener<DockablePane> listener : listeners) {
-            listener.dockingAreaAdded(event);
-        }
+        listeners.forEach(listener -> listener.dockingAreaAdded(event));
     }
 
     private void fireDockingAreaRemoved(String dockingAreaId) {
-        DockingAreaContainerDockingAreaEvent<DockablePane> event = new DockingAreaContainerDockingAreaEvent<>(this,
+        DockingAreaContainerDockingAreaEvent<FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(this,
                 dockingAreaId);
-        for (DockingAreaContainerListener<DockablePane> listener : listeners) {
-            listener.dockingAreaRemoved(event);
-        }
+        listeners.forEach(listener -> listener.dockingAreaRemoved(event));
     }
 
     @Override
@@ -81,7 +76,7 @@ public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContai
     }
 
     @Override
-    public boolean addDockable(DockableEntry<? extends DockablePane> dockableEntry) {
+    public boolean addDockable(FXDockableEntry dockableEntry) {
         return dockingPane.getDockables().add(dockableEntry);
     }
 }

@@ -24,7 +24,7 @@ import org.drombler.commons.fx.scene.image.IconFactory;
  *
  * @author puce
  */
-public class FXActionUtils {
+public final class FXActionUtils {
 
     private FXActionUtils() {
     }

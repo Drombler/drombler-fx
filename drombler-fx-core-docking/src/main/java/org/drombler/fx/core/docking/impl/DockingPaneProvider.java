@@ -23,9 +23,10 @@ import org.drombler.commons.context.ActiveContextProvider;
 import org.drombler.commons.context.ApplicationContextProvider;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.docking.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
+import org.drombler.commons.fx.docking.FXDockableData;
+import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.fx.core.application.ApplicationContentProvider;
 
 /**
@@ -35,12 +36,12 @@ import org.drombler.fx.core.application.ApplicationContentProvider;
 @Component
 @Service
 public class DockingPaneProvider implements ApplicationContentProvider,
-        DockingAreaContainerProvider<DockablePane>,
+        DockingAreaContainerProvider<Node, FXDockableData, FXDockableEntry>,
         ActiveContextProvider, ApplicationContextProvider {
 
     private final ContextManager contextManager = new ContextManager();
     private DockingPane dockingPane;
-    private DockingAreaContainer dockingAreaContainer;
+    private DockingAreaContainer<Node, FXDockableData, FXDockableEntry> dockingAreaContainer;
     private DockingManager dockingManager;
 
     @Override
@@ -49,7 +50,7 @@ public class DockingPaneProvider implements ApplicationContentProvider,
     }
 
     @Override
-    public DockingAreaContainer<DockablePane> getDockingAreaContainer() {
+    public DockingAreaContainer<Node, FXDockableData, FXDockableEntry> getDockingAreaContainer() {
         if (dockingAreaContainer == null) {
             dockingAreaContainer = new DockingPaneDockingAreaContainerAdapter(getDockingPane());
         }

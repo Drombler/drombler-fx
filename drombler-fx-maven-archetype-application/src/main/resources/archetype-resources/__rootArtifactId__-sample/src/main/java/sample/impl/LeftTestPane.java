@@ -12,10 +12,10 @@ import ${package}.sample.Sample;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.BorderPane;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
 import org.drombler.acp.core.docking.spi.Dockables;
-import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
@@ -23,7 +23,7 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
 accelerator = "Shortcut+3",
 menuEntry =
  @WindowMenuEntry(path = "", position = 40))
-public class LeftTestPane extends DockablePane {
+public class LeftTestPane extends BorderPane {
 
     private int sampleCounter = 0;
 
@@ -40,6 +40,7 @@ public class LeftTestPane extends DockablePane {
         sampleCounter++;
         Sample sample = new Sample("Sample " + sampleCounter);
         SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
+        Dockables.inject(sampleEditorPane);
         Dockables.open(sampleEditorPane);
     }
 }

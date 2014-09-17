@@ -19,8 +19,8 @@ import javafx.collections.ObservableSet;
 
 public class Sample {
 
-    private StringProperty name = new SimpleStringProperty(this, "name");
-    private ObjectProperty<ColoredCircle> coloredCircle = new SimpleObjectProperty<>(this, "coloredCircle",
+    private final StringProperty name = new SimpleStringProperty(this, "name");
+    private final ObjectProperty<ColoredCircle> coloredCircle = new SimpleObjectProperty<>(this, "coloredCircle",
             ColoredCircle.RED);
     private final ObservableSet<ColoredRectangle> coloredRectangles = FXCollections.observableSet(EnumSet.noneOf(
             ColoredRectangle.class));

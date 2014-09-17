@@ -62,8 +62,10 @@ public class FXDockableDataFactory implements DockableDataFactory<FXDockableData
     public FXDockableData copyDockableData(FXDockableData dockableData) {
         FXDockableData copyDockableData = new FXDockableData();
         copyDockableData.setGraphicFactory(dockableData.getGraphicFactory());
-        // Don't copy the graphic since a Node can only have one parent. Rather create a new graphic via the GraphicFactory.
-        copyDockableData.setGraphic(copyDockableData.getGraphicFactory().createGraphic(ICON_SIZE));
+        if (copyDockableData.getGraphicFactory() != null) {
+            // Don't copy the graphic since a Node can only have one parent. Rather create a new graphic via the GraphicFactory.
+            copyDockableData.setGraphic(copyDockableData.getGraphicFactory().createGraphic(ICON_SIZE));
+        }
         copyDockableData.setTitle(dockableData.getTitle());
         return copyDockableData;
     }

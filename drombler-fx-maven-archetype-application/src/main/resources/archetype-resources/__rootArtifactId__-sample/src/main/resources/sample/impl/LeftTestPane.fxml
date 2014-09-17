@@ -4,8 +4,9 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.drombler.commons.fx.docking.*?>
 
-<fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml">
-    <Button text="%newSampleButton.text" onAction="#onNewSampleAction"/>
+<fx:root type="BorderPane" xmlns:fx="http://javafx.com/fxml">
+    <center>
+        <Button text="%newSampleButton.text" onAction="#onNewSampleAction"/>
+    </center>
 </fx:root>

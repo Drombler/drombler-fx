@@ -24,25 +24,26 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
-import javafx.collections.SetChangeListener;
 import javafx.collections.SetChangeListener.Change;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import org.drombler.acp.core.docking.EditorDocking;
 import org.drombler.acp.core.standard.action.Savable;
+import org.drombler.commons.client.docking.DockableDataSensitive;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
-import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.docking.FXDockableData;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
 
 @EditorDocking(areaId = "center")
-public class SampleEditorPane extends DockablePane implements LocalContextProvider {
+public class SampleEditorPane extends GridPane implements LocalContextProvider, DockableDataSensitive<FXDockableData> {
 
     private final SimpleContextContent contextContent = new SimpleContextContent();
     private final SimpleContext context = new SimpleContext(contextContent);
@@ -61,6 +62,7 @@ public class SampleEditorPane extends DockablePane implements LocalContextProvid
     private ObjectProperty<ColoredCircle> coloredCircle = new SimpleObjectProperty<>(this, "coloredCircle");
     private final ObservableSet<ColoredRectangle> coloredRectangles = FXCollections.observableSet(EnumSet.noneOf(
             ColoredRectangle.class));
+    private FXDockableData dockableData;
 
     public SampleEditorPane(Sample sample) throws IOException {
         loadFXML();
@@ -84,12 +86,7 @@ public class SampleEditorPane extends DockablePane implements LocalContextProvid
         });
 
         // Add a ColoredRectangleManager to the context to enable the ColoredRectangle actions.
-        contextContent.add(new ColoredRectangleManager() {
-            @Override
-            public ObservableSet<ColoredRectangle> getColoredRectangles() {
-                return coloredRectangles;
-            }
-        });
+        contextContent.add((ColoredRectangleManager) () -> coloredRectangles);
 
         initColoredRectangleImageViewsMap();
 
@@ -99,21 +96,16 @@ public class SampleEditorPane extends DockablePane implements LocalContextProvid
         coloredRectangles.addAll(sample.getColoredRectangles());
         initColoredRectangleImageViews();
 
-        titleProperty().bind(nameField.textProperty());
-
         // Mark this Editor as modified if any control has been modified
         nameField.textProperty().addListener(new ModifiedListener());
         coloredCircle.addListener(new ModifiedListener());
-        coloredRectangles.addListener(new SetChangeListener<ColoredRectangle>() {
-            @Override
-            public void onChanged(Change<? extends ColoredRectangle> change) {
-                if (change.wasAdded()) {
-                    setColoredRectangleImage(change.getElementAdded());
-                } else if (change.wasRemoved()) {
-                    coloredRectangleImageViews.get(change.getElementRemoved()).setImage(null);
-                }
-                markModified();
+        coloredRectangles.addListener((Change<? extends ColoredRectangle> change) -> {
+            if (change.wasAdded()) {
+                setColoredRectangleImage(change.getElementAdded());
+            } else if (change.wasRemoved()) {
+                coloredRectangleImageViews.get(change.getElementRemoved()).setImage(null);
             }
+            markModified();
         });
 
     }
@@ -125,6 +117,12 @@ public class SampleEditorPane extends DockablePane implements LocalContextProvid
     @Override
     public Context getLocalContext() {
         return context;
+    }
+
+    @Override
+    public void setDockableData(FXDockableData dockableData) {
+        this.dockableData = dockableData;
+        this.dockableData.titleProperty().bind(nameField.textProperty());
     }
 
     private void initColoredRectangleImageViewsMap() {
