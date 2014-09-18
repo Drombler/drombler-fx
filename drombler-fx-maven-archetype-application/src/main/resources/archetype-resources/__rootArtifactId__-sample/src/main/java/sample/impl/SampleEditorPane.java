@@ -42,7 +42,7 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
 
-@EditorDocking(areaId = "center")
+@EditorDocking(areaId = "center", icon = "sample.png")
 public class SampleEditorPane extends GridPane implements LocalContextProvider, DockableDataSensitive<FXDockableData> {
 
     private final SimpleContextContent contextContent = new SimpleContextContent();
