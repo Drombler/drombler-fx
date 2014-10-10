@@ -23,17 +23,15 @@ import org.drombler.acp.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerListener;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.fx.docking.DockingPane;
-import org.drombler.commons.fx.docking.FXDockableData;
 import org.drombler.commons.fx.docking.FXDockableEntry;
 
 /**
  *
  * @author puce
  */
-public class DockingPaneDockingAreaContainerAdapter implements
-        DockingAreaContainer<Node, FXDockableData, FXDockableEntry> {
+public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContainer<Node, FXDockableEntry> {
 
-    private final List<DockingAreaContainerListener<FXDockableEntry>> listeners = new ArrayList<>();
+    private final List<DockingAreaContainerListener<Node, FXDockableEntry>> listeners = new ArrayList<>();
     private final DockingPane dockingPane;
 
     public DockingPaneDockingAreaContainerAdapter(DockingPane dockingPane) {
@@ -49,24 +47,24 @@ public class DockingPaneDockingAreaContainerAdapter implements
     }
 
     @Override
-    public void addDockingAreaContainerListener(DockingAreaContainerListener<FXDockableEntry> listener) {
+    public void addDockingAreaContainerListener(DockingAreaContainerListener<Node, FXDockableEntry> listener) {
         listeners.add(listener);
     }
 
     @Override
-    public void removeDockingAreaContainerListener(DockingAreaContainerListener<FXDockableEntry> listener) {
+    public void removeDockingAreaContainerListener(DockingAreaContainerListener<Node, FXDockableEntry> listener) {
         listeners.remove(listener);
     }
 
     private void fireDockingAreaAdded(String dockingAreaId) {
-        DockingAreaContainerDockingAreaEvent<FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(this,
-                dockingAreaId);
+        DockingAreaContainerDockingAreaEvent<Node, FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(
+                this, dockingAreaId);
         listeners.forEach(listener -> listener.dockingAreaAdded(event));
     }
 
     private void fireDockingAreaRemoved(String dockingAreaId) {
-        DockingAreaContainerDockingAreaEvent<FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(this,
-                dockingAreaId);
+        DockingAreaContainerDockingAreaEvent<Node, FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(
+                this, dockingAreaId);
         listeners.forEach(listener -> listener.dockingAreaRemoved(event));
     }
 

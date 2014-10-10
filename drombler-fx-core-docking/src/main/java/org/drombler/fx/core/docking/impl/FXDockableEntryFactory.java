@@ -14,10 +14,11 @@
  */
 package org.drombler.fx.core.docking.impl;
 
-
 import javafx.scene.Node;
 import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.docking.spi.DockableDataManagerProvider;
 import org.drombler.acp.core.docking.spi.DockableEntryFactory;
 import org.drombler.commons.client.docking.DockablePreferences;
 import org.drombler.commons.fx.docking.FXDockableData;
@@ -29,11 +30,25 @@ import org.drombler.commons.fx.docking.FXDockableEntry;
  */
 @Component
 @Service
-public class FXDockableEntryFactory implements DockableEntryFactory<Node, FXDockableData, FXDockableEntry> {
+public class FXDockableEntryFactory implements DockableEntryFactory<Node, FXDockableEntry> {
+
+    @Reference
+    private DockableDataManagerProvider<Node, FXDockableData> dockableDataManagerProvider;
+
+    protected void bindDockableDataManagerProvider(
+            DockableDataManagerProvider<Node, FXDockableData> dockableDataManagerProvider) {
+        this.dockableDataManagerProvider = dockableDataManagerProvider;
+    }
+
+    protected void unbindDockableDataManagerProvider(
+            DockableDataManagerProvider<Node, FXDockableData> dockableDataManagerProvider) {
+        this.dockableDataManagerProvider = null;
+    }
 
     @Override
-    public FXDockableEntry createDockableEntry(Node dockable, FXDockableData dockableData,
-            DockablePreferences dockablePreferences) {
+    public FXDockableEntry createDockableEntry(Node dockable, DockablePreferences dockablePreferences) {
+        final FXDockableData dockableData = dockableDataManagerProvider.getDockableDataManager().getDockableData(
+                dockable);
         return new FXDockableEntry(dockable, dockableData, dockablePreferences);
     }
 }
