@@ -152,7 +152,6 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
             copyBundles(targetDirPath);
 
         } catch (URISyntaxException | IOException ex) {
-            ex.printStackTrace();
             throw new MojoExecutionException("Creating standalone zip failed!", ex);
         }
     }
