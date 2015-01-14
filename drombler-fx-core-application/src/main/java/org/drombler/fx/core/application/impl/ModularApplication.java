@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import org.drombler.acp.core.action.spi.ApplicationToolBarContainerProvider;
 import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
 import org.drombler.acp.core.application.ApplicationExecutorProvider;
+import org.drombler.acp.core.application.MainWindowProvider;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,7 @@ public class ModularApplication extends Application {
     private final FXApplicationExecutorProvider fxApplicationExecutorProvider = new FXApplicationExecutorProvider();
     private ApplicationPane root;
     private MainSceneProvider mainSceneProvider;
+    private MainWindowProvider<Stage> mainWindowProvider;
 
     public static void launch(BundleContext bundleContext, String applicationTitle, double applicationWidth,
             double applicationHeight) {
@@ -84,6 +86,9 @@ public class ModularApplication extends Application {
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
+
+        mainWindowProvider = () -> stage;
+        BUNDLE_CONTEXT.registerService(MainWindowProvider.class, mainWindowProvider, null);
         // Only register the ApplicationExecutorProvider once the JavaFX Platform has been started.
         BUNDLE_CONTEXT.registerService(ApplicationExecutorProvider.class, fxApplicationExecutorProvider, null);
         LOG.info("Started JavaFX Application '{}'", getTitle());
