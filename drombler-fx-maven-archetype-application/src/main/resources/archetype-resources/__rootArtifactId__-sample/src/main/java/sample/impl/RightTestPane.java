@@ -11,7 +11,6 @@ package ${package}.sample.impl;
 import ${package}.sample.ColoredCircle;
 import ${package}.sample.ColoredRectangle;
 import ${package}.sample.Sample;
-import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 import javafx.beans.value.ChangeListener;
@@ -55,12 +54,12 @@ public class RightTestPane extends GridPane implements ActiveContextSensitive, L
     private final ColoredRectanglesSetChangeListener coloredRectanglesSetChangeListener = new ColoredRectanglesSetChangeListener();
     private Sample sample;
 
-    public RightTestPane() throws IOException {
+    public RightTestPane() {
         loadFXML();
         initColoredRectangleImageViewsMap();
     }
 
-    private void loadFXML() throws IOException {
+    private void loadFXML() {
         FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(RightTestPane.class));
     }
 

@@ -8,7 +8,6 @@
  */
 package ${package}.sample.impl;
 
-import java.io.IOException;
 import javafx.scene.layout.BorderPane;
 import org.drombler.acp.core.docking.ViewDocking;
 import org.drombler.acp.core.docking.WindowMenuEntry;
@@ -20,11 +19,11 @@ menuEntry =
 @WindowMenuEntry(path = "", position = 30))
 public class BottomTestPane extends BorderPane {
 
-    public BottomTestPane() throws IOException {
+    public BottomTestPane() {
         loadFXML();
     }
 
-    private void loadFXML() throws IOException {
+    private void loadFXML() {
         FXMLLoaders.loadRoot(this);
     }
     

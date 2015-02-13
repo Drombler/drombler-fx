@@ -13,7 +13,6 @@ import ${package}.sample.ColoredCircleManager;
 import ${package}.sample.ColoredRectangle;
 import ${package}.sample.ColoredRectangleManager;
 import ${package}.sample.Sample;
-import java.io.IOException;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Locale;
@@ -64,7 +63,7 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
             ColoredRectangle.class));
     private FXDockableData dockableData;
 
-    public SampleEditorPane(Sample sample) throws IOException {
+    public SampleEditorPane(Sample sample) {
         loadFXML();
         this.sample = sample;
 
@@ -110,7 +109,7 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
 
     }
 
-    private void loadFXML() throws IOException {
+    private void loadFXML() {
         FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(SampleEditorPane.class));
     }
 

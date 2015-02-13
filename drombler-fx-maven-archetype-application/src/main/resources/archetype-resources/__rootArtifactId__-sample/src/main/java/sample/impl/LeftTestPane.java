@@ -9,7 +9,6 @@
 package ${package}.sample.impl;
 
 import ${package}.sample.Sample;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
@@ -27,16 +26,16 @@ public class LeftTestPane extends BorderPane {
 
     private int sampleCounter = 0;
 
-    public LeftTestPane() throws IOException {
+    public LeftTestPane() {
         load();
     }
 
-    private void load() throws IOException {
+    private void load() {
         FXMLLoaders.loadRoot(this);
     }
 
     @FXML
-    private void onNewSampleAction(ActionEvent event) throws IOException {
+    private void onNewSampleAction(ActionEvent event) {
         sampleCounter++;
         Sample sample = new Sample("Sample " + sampleCounter);
         SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
