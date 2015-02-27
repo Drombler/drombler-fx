@@ -68,6 +68,7 @@ Contributor(s): .
         <!--<module>javafx-8</module>-->
         <module>drombler-fx-maven-plugin</module>
         <module>drombler-fx-maven-archetype-application</module>
+        <module>drombler-fx-docs</module>
     </modules>
   
     <dependencyManagement>
