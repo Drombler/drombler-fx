@@ -52,7 +52,7 @@ public abstract class AbstractMenuItemRootContainer extends AbstractMenuItemCont
     void fireMenuAddedEvent(PositionableMenuItemAdapter<? extends Menu> menu, String id, List<String> path) {
         MenuItemContainerMenuEvent<MenuItem, Menu> event = new MenuItemContainerMenuEvent<>(getMenuItemRootContainer(),
                 menu, id, path);
-        containerListeners.forEach((containerListener) -> containerListener.menuAdded(event));
+        containerListeners.forEach(containerListener -> containerListener.menuAdded(event));
     }
 
     void fireMenuItemAddedEvent(PositionableMenuItemAdapter<? extends MenuItem> menuItem, List<String> path) {
