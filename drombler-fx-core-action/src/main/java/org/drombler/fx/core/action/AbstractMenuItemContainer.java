@@ -49,6 +49,7 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
     }
 
     /**
+     * @param id
      * @return the menuContainers
      */
     @Override
@@ -58,16 +59,17 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
 
     @Override
     public void addMenu(String id, PositionableMenuItemAdapter<? extends Menu> menu) {
-        MenuMenuItemContainer menuMenuContainer = new MenuMenuItemContainer(id, menu.getAdapted(), parentContainer,
+        MenuMenuItemContainer menuMenuContainer = new MenuMenuItemContainer(id, menu.getAdapted(), this,
                 getMenuItemRootContainer());
         menuContainers.put(id, menuMenuContainer);
 
         addMenuItem(menu, getMenus(), true);
-        fireMenuAddedEvent(menu, id);
+        fireMenuAddedEvent(menu, id, menuMenuContainer);
     }
 
-    private void fireMenuAddedEvent(PositionableMenuItemAdapter<? extends Menu> menu, String id) {
-        getMenuItemRootContainer().fireMenuAddedEvent(menu, id, getPath());
+    private void fireMenuAddedEvent(PositionableMenuItemAdapter<? extends Menu> menu, String id,
+            AbstractMenuItemContainer menuMenuContainer) {
+        getMenuItemRootContainer().fireMenuAddedEvent(menu, id, menuMenuContainer.getPath());
     }
 
     private List<String> getPath() {
