@@ -68,7 +68,19 @@
             <type>pom</type>
             <scope>runtime</scope>
         </dependency>
-        
+        <dependency>
+            <!-- Provides CDI integration. -->
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-cdi-runtime</artifactId>
+            <type>pom</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <!-- Provides the CDI extension for the Docking Framework -->
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-docking-cdi-extension</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <!-- Replace with any SLF4J binding you like-->
         <!-- Here the binding for java.util.logging is used, since the jar is very small. -->
         <dependency>

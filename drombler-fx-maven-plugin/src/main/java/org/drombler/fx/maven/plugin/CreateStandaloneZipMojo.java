@@ -28,11 +28,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.installer.ArtifactInstaller;
 import org.apache.maven.artifact.repository.ArtifactRepositoryFactory;
 import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
+import org.apache.maven.artifact.resolver.ArtifactResolver;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -40,6 +44,9 @@ import org.apache.maven.plugin.dependency.AbstractDependencyFilterMojo;
 import org.apache.maven.plugin.dependency.AbstractDependencyMojo;
 import org.apache.maven.plugin.dependency.AbstractFromDependenciesMojo;
 import org.apache.maven.plugin.dependency.CopyDependenciesMojo;
+import org.apache.maven.plugin.dependency.fromConfiguration.AbstractFromConfigurationMojo;
+import org.apache.maven.plugin.dependency.fromConfiguration.ArtifactItem;
+import org.apache.maven.plugin.dependency.fromConfiguration.CopyMojo;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -111,7 +118,6 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
-
     @Component
     private ArtifactRepositoryFactory artifactRepositoryFactory;
 
@@ -120,6 +126,12 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
 
     @Component
     private ArtifactInstaller artifactInstaller;
+
+    @Component
+    private ArtifactFactory artifactFactory;
+
+    @Component
+    private ArtifactResolver artifactResolver;
 
     @Component(role = Archiver.class, hint = "zip")
     private ZipArchiver zipArchiver;
@@ -136,6 +148,10 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
             ensureDirExists(binDirPath);
 
             createMainJar(binDirPath);
+
+            Path libDirPath = binDirPath.resolve("lib");
+
+            copyEndorsedLibs(libDirPath);
 
             copyAppDir(targetDirPath);
 
@@ -236,6 +252,11 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
             Files.createDirectories(bundleDirPath);
         }
 
+        copyDependencies(bundleDirPath, true, "system");
+    }
+
+    private void copyDependencies(Path bundleDirPath, boolean useRepositoryLayout, String excludeScope) throws
+            MojoExecutionException {
         CopyDependenciesMojo copyDependenciesMojo = new CopyDependenciesMojo();
 
         ReflectMojo reflectCopyDependenciesMojo = new ReflectMojo(copyDependenciesMojo, CopyDependenciesMojo.class);
@@ -246,18 +267,36 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         ReflectMojo reflectAbstractFromDependenciesMojo = new ReflectMojo(copyDependenciesMojo,
                 AbstractFromDependenciesMojo.class);
         reflectAbstractFromDependenciesMojo.setField("outputDirectory", bundleDirPath.toFile());
-        reflectAbstractFromDependenciesMojo.setField("useRepositoryLayout", true);
+        reflectAbstractFromDependenciesMojo.setField("useRepositoryLayout", useRepositoryLayout);
         reflectAbstractFromDependenciesMojo.setField("copyPom", false);
 
         ReflectMojo reflectAbstractDependencyFilterMojoMojo = new ReflectMojo(copyDependenciesMojo,
                 AbstractDependencyFilterMojo.class);
-        reflectAbstractDependencyFilterMojoMojo.setField("excludeScope", "system");
+        reflectAbstractDependencyFilterMojoMojo.setField("excludeScope", excludeScope);
 
         ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyDependenciesMojo,
                 AbstractDependencyMojo.class);
         reflectAbstractDependencyMojo.setField("project", project);
 
         copyDependenciesMojo.execute();
+    }
+
+    private void copyArtifacts(Path outputDirPath, boolean useRepositoryLayout, String excludeScope,
+            List<ArtifactItem> artifactItems) throws
+            MojoExecutionException {
+        CopyMojo copyMojo = new CopyMojo();
+
+        ReflectMojo reflectAbstractFromConfigurationMojo = new ReflectMojo(copyMojo, AbstractFromConfigurationMojo.class);
+        reflectAbstractFromConfigurationMojo.setField("outputDirectory", outputDirPath.toFile());
+        reflectAbstractFromConfigurationMojo.setField("artifactItems", artifactItems);
+        reflectAbstractFromConfigurationMojo.setField("artifactRepositoryManager", artifactRepositoryFactory);
+
+        ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyMojo, AbstractDependencyMojo.class);
+        reflectAbstractDependencyMojo.setField("factory", artifactFactory);
+        reflectAbstractDependencyMojo.setField("project", project);
+        reflectAbstractDependencyMojo.setField("resolver", artifactResolver);
+
+        copyMojo.execute();
     }
 
     private void copyAppDir(Path targetDirPath) throws IOException {
@@ -282,6 +321,24 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
 
     private Path getAppSourceDirPath() {
         return appSourceDir.toPath();
+    }
+
+    private void copyEndorsedLibs(Path libDirPath) throws IOException, MojoExecutionException {
+        Path endorsedDirPath = libDirPath.resolve("endorsed");
+        if (!Files.exists(endorsedDirPath)) {
+            Files.createDirectories(endorsedDirPath);
+        }
+
+        copyArtifacts(endorsedDirPath, true, "system", createEndorsedArtifactsList());
+    }
+
+    private List<ArtifactItem> createEndorsedArtifactsList() {
+        ArtifactItem javaxAnnotationArtifactItem = new ArtifactItem();
+        javaxAnnotationArtifactItem.setGroupId("javax.annotation");
+        javaxAnnotationArtifactItem.setArtifactId("javax.annotation-api");
+        javaxAnnotationArtifactItem.setVersion("1.2");
+
+        return Arrays.asList(javaxAnnotationArtifactItem);
     }
 
 }
