@@ -40,7 +40,13 @@ import org.apache.maven.plugin.dependency.AbstractDependencyFilterMojo;
 import org.apache.maven.plugin.dependency.AbstractDependencyMojo;
 import org.apache.maven.plugin.dependency.AbstractFromDependenciesMojo;
 import org.apache.maven.plugin.dependency.CopyDependenciesMojo;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.archiver.Archiver;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
 import org.drombler.acp.startup.main.impl.ApplicationConfigProviderImpl;
 import org.drombler.acp.startup.main.impl.Main;
@@ -49,80 +55,73 @@ import org.ops4j.pax.construct.util.ReflectMojo;
 import org.softsmithy.lib.nio.file.CopyFileVisitor;
 import org.softsmithy.lib.nio.file.JarFiles;
 
-/**
- *
- * @goal standalone-zip
- *
- * @phase package
- *
- * @requiresDependencyResolution compile+runtime
- */
+@Mojo(name = "standalone-zip", defaultPhase = LifecyclePhase.PACKAGE,
+        requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class CreateStandaloneZipMojo extends AbstractMojo {
 
     private static final Path RELATIVE_CONFIG_PROPERTIES_FILE_PATH = Paths.get(Main.CONFIG_DIRECTORY,
             Main.CONFIG_PROPERTIES_FILE_NAME);
 
     /**
-     * @parameter expression="${dromblerfx.brandingId}" @required
+     * The branding id.
      */
+    @Parameter(property = "dromblerfx.brandingId", required = true)
     private String brandingId;
     /**
-     * @parameter expression="${dromblerfx.title}" @required
+     * The application title.
      */
+    @Parameter(property = "dromblerfx.title", required = true)
     private String title;
     /**
-     * @parameter expression="${dromblerfx.width}" @required
+     * The default application width.
      */
+    @Parameter(property = "dromblerfx.width", required = true)
     private double width;
     /**
-     * @parameter expression="${dromblerfx.height}" @required
+     * The default application height.
      */
+    @Parameter(property = "dromblerfx.height", required = true)
     private double height;
     /**
-     * @parameter expression="${dromblerfx.userdir}"
-     * default-value="${dollar}{user.home}/.${brandingId}/${project.version}"
-     * @required
+     * The user directory.
      */
     // TODO: good solution using "${dollar}"?
+    @Parameter(property = "dromblerfx.userdir", defaultValue = "${dollar}{user.home}/.${brandingId}/${project.version}",
+            required = true)
     private String userdir;
     /**
-     * @parameter expression="${dromblerfx.targetDirectory}"
-     * default-value="${project.build.directory}/deployment/standalone"
-     * @required
+     * The target directory.
      */
+    @Parameter(property = "dromblerfx.targetDirectory",
+            defaultValue = "${project.build.directory}/deployment/standalone", required = true)
     private File targetDirectory;
-    /**
-     * @parameter default-value="${maven.dependency.org.apache.felix.org.apache.felix.main.jar.path}" @required
-     * @readonly
-     */
-    private String apacheFelixMainJarPathString;
-    /**
-     * The Maven project.
-     *
-     * @parameter default-value="${project}" @required @readonly
-     */
-    private MavenProject project;
 
     /**
-     * @parameter expression="${dromblerfx.appSourceDir}" default-value="${basedir}/src/main/app"
+     * The application resource source directory.
      */
+    @Parameter(property = "dromblerfx.appSourceDir", defaultValue = "${basedir}/src/main/app", required = true)
     private File appSourceDir;
 
+//    @Parameter(defaultValue = "${maven.dependency.org.apache.felix.org.apache.felix.main.jar.path}", required = true,
+//            readonly = true)
+//    private String apacheFelixMainJarPathString;
     /**
-     * @component
+     * The Maven project.
      */
+    @Parameter(defaultValue = "${project}", required = true, readonly = true)
+    private MavenProject project;
+
+
+    @Component
     private ArtifactRepositoryFactory artifactRepositoryFactory;
-    /**
-     * @component role="org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout"
-     */
+
+    @Component(role = ArtifactRepositoryLayout.class)
     private Map<String, ArtifactRepositoryLayout> artifactRepositoryLayouts;
-    /**
-     * @component
-     */
+
+    @Component
     private ArtifactInstaller artifactInstaller;
-    /**
-     * @component role="org.codehaus.plexus.archiver.Archiver" roleHint="zip"
-     */
+
+    @Component(role = Archiver.class, hint = "zip")
     private ZipArchiver zipArchiver;
 
     @Override
