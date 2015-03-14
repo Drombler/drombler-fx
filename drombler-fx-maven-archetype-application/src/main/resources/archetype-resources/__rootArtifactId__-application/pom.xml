@@ -71,7 +71,7 @@
         <dependency>
             <!-- Provides CDI integration. -->
             <groupId>org.drombler.acp</groupId>
-            <artifactId>drombler-acp-cdi-runtime</artifactId>
+            <artifactId>drombler-acp-cdi</artifactId>
             <type>pom</type>
             <scope>runtime</scope>
         </dependency>

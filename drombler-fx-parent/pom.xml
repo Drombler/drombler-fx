@@ -72,7 +72,7 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     
-<!--    <build>
+    <!--    <build>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -93,6 +93,13 @@ Contributor(s): .
                 <version>${drombler-acp.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <!-- TODO: not included in drombler-acp !??-->
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp-cdi</artifactId>
+                <version>${drombler-acp.version}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.drombler.commons</groupId>
