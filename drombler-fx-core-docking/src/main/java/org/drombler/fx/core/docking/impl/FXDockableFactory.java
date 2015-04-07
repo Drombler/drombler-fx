@@ -14,12 +14,10 @@
  */
 package org.drombler.fx.core.docking.impl;
 
-
 import javafx.scene.Node;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockableFactory;
 import org.drombler.acp.core.docking.spi.ViewDockingDescriptor;
+import org.ops4j.pax.cdi.api.OsgiServiceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,12 +25,15 @@ import org.slf4j.LoggerFactory;
  *
  * @author puce
  */
-@Component
-@Service
-public class FXDockableFactory implements DockableFactory<Node> {
+@OsgiServiceProvider
+//@ApplicationScoped
+public class FXDockableFactory implements DockableFactory {//<Object> {
 
     private static final Logger LOG = LoggerFactory.getLogger(FXDockableFactory.class);
 
+//    @Inject
+//    @OsgiService
+//    private Logger LOG;
     @Override
     public Node createDockable(ViewDockingDescriptor dockingDescriptor) {
         try {
@@ -42,4 +43,11 @@ public class FXDockableFactory implements DockableFactory<Node> {
         }
         return null;
     }
+
+//        @Override
+//    public Object createDockable(ViewDockingDescriptor dockingDescriptor) {
+//        Unmanaged<?> unmanagedView = new Unmanaged<>(dockingDescriptor.getDockableClass());
+//        Unmanaged.UnmanagedInstance<?> viewInstance = unmanagedView.newInstance();
+//        return viewInstance.produce().inject().postConstruct().get();
+//    }
 }
