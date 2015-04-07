@@ -14,7 +14,6 @@
  */
 package org.drombler.fx.core.docking.impl;
 
-import javafx.scene.Node;
 import org.drombler.acp.core.docking.spi.DockableFactory;
 import org.drombler.acp.core.docking.spi.ViewDockingDescriptor;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
@@ -35,9 +34,9 @@ public class FXDockableFactory implements DockableFactory {//<Object> {
 //    @OsgiService
 //    private Logger LOG;
     @Override
-    public Node createDockable(ViewDockingDescriptor dockingDescriptor) {
+    public Object createDockable(ViewDockingDescriptor dockingDescriptor) {
         try {
-            return (Node) dockingDescriptor.getDockableClass().newInstance();
+            return dockingDescriptor.getDockableClass().newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
             LOG.error(ex.getMessage(), ex);
         }
