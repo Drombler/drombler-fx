@@ -12,7 +12,32 @@
 
     <name>\${artifactId}</name>
 
+    <properties>
+        <additionalExecArgs></additionalExecArgs>
+    </properties>
+    
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <executions> 
+                        <execution>
+                            <id>default-cli</id>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <commandlineArgs>${additionalExecArgs} -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties -jar ${project.build.directory}/deployment/standalone/bin/\${brandingId}.jar --userdir ${project.build.directory}/userdir</commandlineArgs>
+                                <executable>java</executable>
+                                <classpathScope>runtime</classpathScope>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>  
                 <groupId>org.drombler.fx</groupId>
@@ -77,4 +102,13 @@
             <scope>runtime</scope>
         </dependency>
     </dependencies>
+    
+    <profiles>
+        <profile>
+            <id>debug</id>
+            <properties>
+                <additionalExecArgs>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address}</additionalExecArgs>
+            </properties>
+        </profile>
+    </profiles>
 </project>
