@@ -22,18 +22,39 @@ Contributor(s): .
         <relativePath>drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-docs</artifactId>
-    <packaging>pom</packaging>
+    <packaging>bundle</packaging>
     
     <name>Drombler FX - Docs</name>
     <description>This project provides the Drombler FX Documentation.</description>
     <inceptionYear>2015</inceptionYear>
-    
+
+    <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-action-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-action-fx</artifactId>
+        </dependency>
+    </dependencies>
 </project>

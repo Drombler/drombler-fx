@@ -1,35 +1,38 @@
 [[actionsMenusToolbars]]
 = Actions, Menus and Toolbars
 :toc:
+:sourcedir: ../java
+:source-highlighter: highlightjs
 
 [DromblerCommons] provides an Action Framework, which keeps the state (enabled/ disabled, selected/ unselected etc.), the information (texts, image etc.) and the logic between menu items and toolbar buttons in sync. In addition [DromblerACP] provides annotations to easily register new actions, menus, menu items, toolbars and toolbar buttons.
 
-The rest of this section describes how to use this framework in a Drombler FX application.
-Action Implementations supported by Drombler FX
+The rest of this section describes how to use this framework in a _Drombler FX_ application.
 
-Drombler FX supports 3 ways to implement actions.
-1. Implement org.drombler.commons.action.AbstractActionListener;
+== Action Implementations supported by _Drombler FX_
+
+_Drombler FX_ supports 3 ways to implement actions.
+
+=== 1. Implement org.drombler.commons.action.ActionListener;
 
 The easiest way to implement ActionListener is to extend AbstractActionListener:
 
-    import org.drombler.commons.action.AbstractActionListener;
-
-    public class Test1Action extends AbstractActionListener<Object> {
-
-        @Override
-        public void onAction(Object event) {
-            System.out.println("Test1 Action!");
-        }
-    }
+[source,java]
+----
+include::{sourcedir}/action/Test1Action.java[lines=17..25]
+----
 
 Pros:
-+ maximally reusable; GUI toolkit agnostic (no dependencies on JavaFX)
-Cons:
-- dependencies on Drombler Commons
+  + maximally reusable; GUI toolkit agnostic (no dependencies on _JavaFX_)
+Cons: 
+  - dependencies on _Drombler Commons_
 
-Note: For Drombler FX applications, the generic type parameter passed to ActionListener/ AbstractActionListener must be javafx.event.ActionEvent or one of its super-classes (here: Object).
-2. Implement javafx.event.EventHandler<javafx.event.ActionEvent>
 
+
+Note: For _Drombler FX_ applications, the generic type parameter passed to ActionListener/ AbstractActionListener must be javafx.event.ActionEvent or one of its super-classes (here: Object).
+ 
+=== 2. Implement javafx.event.EventHandler<javafx.event.ActionEvent>
+
+    ~~~~~java
     import javafx.event.ActionEvent;
     import javafx.event.EventHandler;
 
@@ -40,18 +43,22 @@ Note: For Drombler FX applications, the generic type parameter passed to ActionL
             System.out.println("Test2 Action!");
         }
     }
+    ~~~~~
+
 
 Pros:
-+ very close to standard JavaFX code
-+ no dependencies on Drombler Commons (apart from some annotations; see further down)
-Cons:
-- dependencies on JavaFX
-3. Implement org.drombler.commons.action.fx.FXAction
+  + very close to standard _JavaFX_ code
+  + no dependencies on _Drombler Commons_ (apart from some annotations; see further down)
+Cons: 
+  - dependencies on _JavaFX_
 
-FXAction is an extension of javafx.event.EventHandler<javafx.event.ActionEvent>.
+=== 3. Implement org.drombler.commons.action.fx.FXAction
+
+FXAction is an extension of javafx.event.EventHandler&lt;javafx.event.ActionEvent&gt;.
 
 The easiest way to implement FXAction is to extend AbstractFXAction:
 
+    ~~~~~java
     import javafx.event.ActionEvent;
     import org.drombler.commons.action.fx.AbstractFXAction;
 
@@ -62,235 +69,284 @@ The easiest way to implement FXAction is to extend AbstractFXAction:
             System.out.println("Test3 Action!");
         }
     }
+    ~~~~~
+
 
 Pros:
-+ maximal control
-Cons:
-- dependencies on JavaFX
-- dependencies on Drombler Commons
-Toggle Action Implementations supported by Drombler FX
+  + maximal control
+Cons: 
+  - dependencies on _JavaFX_
+  - dependencies on _Drombler Commons_
 
-Drombler FX supports 2 ways to implement toggle actions.
-1. Implement org.drombler.commons.action.ToggleActionListener
+== Toggle Action Implementations supported by _Drombler FX_
+
+_Drombler FX_ supports 2 ways to implement toggle actions.
+
+=== 1. Implement org.drombler.commons.action.ToggleActionListener
 
 The easiest way to implement ToggleActionListener is to extend AbstractToggleActionListener:
 
+    ~~~~~java
     import org.drombler.commons.action.AbstractToggleActionListener;
-
+    
     public class Test1ToggleAction extends AbstractToggleActionListener<Object> {
-
+    
         @Override
         public void onSelectionChanged(boolean oldValue, boolean newValue) {
             System.out.println("Test1 Toggle Action selection changed: " + newValue);
         }
     }
+    ~~~~~
 
-Note: For Drombler FX applications, the generic type parameter passed to ToggleActionListener/ AbstractToggleActionListener must be javafx.event.ActionEvent or one of its super-classes (here: Object).
+Note: For _Drombler FX_ applications, the generic type parameter passed to ToggleActionListener/ AbstractToggleActionListener must be _javafx.event.ActionEvent_ or one of its super-classes (here: Object).
 
 Pros:
-+ maximally reusable; GUI toolkit agnostic (no dependencies on JavaFX)
-Cons:
-- dependencies on Drombler Commons
-2. Implement org.drombler.commons.action.fx.FXToggleAction
+  + maximally reusable; GUI toolkit agnostic (no dependencies on JavaFX)
+Cons: 
+  - dependencies on _Drombler Commons_
+
+=== 2. Implement org.drombler.commons.action.fx.FXToggleAction
 
 FXToggleAction is an extension of FXAction.
 
 The easiest way to implement FXToggleAction is to extend AbstractFXAction:
 
+    ~~~~~java
     import javafx.beans.property.BooleanProperty;
     import javafx.beans.property.SimpleBooleanProperty;
     import javafx.beans.value.ObservableValue;
     import javafx.event.ActionEvent;
     import org.drombler.commons.action.fx.AbstractFXAction;
     import org.drombler.commons.action.fx.FXToggleAction;
-
+    
     public class Test2ToggleAction extends AbstractFXAction implements FXToggleAction {
-
+    
         private final BooleanProperty selected = new SimpleBooleanProperty(this, "selected");
-
+    
         public Test2ToggleAction() {
             selected.addListener((ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue)
                     -> System.out.println("Test1 Toggle Action selection changed: " + newValue));
         }
-
+    
         @Override
         public BooleanProperty selectedProperty() {
             return selected;
         }
-
+    
         @Override
         public final boolean isSelected() {
             return selectedProperty().get();
         }
-
+    
         @Override
         public final void setSelected(boolean selected) {
             selectedProperty().set(selected);
         }
-
+    
         @Override
         public void handle(ActionEvent t) {
             // do nothing
         }
     }
+    ~~~~~
+
 
 Pros:
-+ maximal control
-Cons:
-- dependencies on JavaFX
-- dependencies on Drombler Commons
-- currently: more code is required
-Registering Actions, Menu Items and Toolbar Buttons
+  + maximal control
+Cons: 
+  - dependencies on _JavaFX_
+  - dependencies on _Drombler Commons_
+  - currently: more code is required
+
+
+== Registering Actions, Menu Items and Toolbar Buttons
 
 The simplest way to register your actions, menu items and toolbar buttons is to use some annotations on your Action impementation.
-Register an Action
+
+=== Register an Action
 
 To register an Action use the @Action annotation:
 
+    ~~~~~java
     import org.drombler.acp.core.action.Action;
 
     @Action(id = "test1", category = "test", displayName = "%test1.displayName",
     accelerator = "Shortcut+T", icon = "test1.png")
+    ~~~~~
 
-Property 	Value
-id 	used by @MenuEntry and @ToolbarEntry
-category 	used to group actions (currently this has not effect, but might be used in future)
-displayName 	the text to be displayed, e.g. as the text for menu items or the tooltip for toolbar buttons. If the value starts with '%' the rest of the value is interpreted as a property key and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to be in the same package as the annotated action. Note: Maven expects resources to be in the resources directory.
-accelerator 	the accelerator to be used for this action
-icon 	the icon to be used for this action. Note that this only specifies the name pattern. Drombler FX looks for <icon-base-name>16.<icon-extension> for menu items (expected to be 16x16 pixels) and <icon-base-name>24.<icon-extension> for toolbar buttons (expected to be 24x24 pixels). In the example above Drombler FX would look for test116.png and test124.png. Note: Maven expects resources to be in a resources directory. If you're using drombler-fx-parent as your parent POM, it's best to put binary files under the resources-bin directory as this directory has been configured not to be filtered for variables.
+Property | Value
+-------- | ------
+id | used by @MenuEntry and @ToolbarEntry
+category | used to group actions (currently this has not effect, but might be used in future)
+displayName | the text to be displayed, e.g. as the text for menu items or the tooltip for toolbar buttons. If the value starts with '%' the rest of the value is interpreted as a property key and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to be in the same package as the annotated action. Note: Maven expects resources to be in the resources directory.
+accelerator | the accelerator to be used for this action
+icon | the icon to be used for this action. Note that this only specifies the name pattern. _Drombler FX_ looks for &lt;icon-base-name&gt;16.&lt;icon-extension&gt; for menu items (expected to be 16x16 pixels) and &lt;icon-base-name&gt;24.&lt;icon-extension&gt; for toolbar buttons (expected to be 24x24 pixels). In the example above _Drombler FX_ would look for test116.png and test124.png. Note: Maven expects resources to be in a resources directory. If you're using drombler-fx-parent as your parent POM, it's best to put binary files under the resources-bin directory as this directory has been configured not to be filtered for variables.
 
 Note: If the displayName contains an underscore ('_'), the following character is the mnemonic character of this action.
-Register a Menu Item
+
+=== Register a Menu Item
 
 To register a menu item use the @MenuEntry annotation:
 
+    ~~~~~java
     import org.drombler.acp.core.action.MenuEntry;
 
     @MenuEntry(actionId = "test1", path = "File", position = 20)
+    ~~~~~
 
-Property 	Value
-actionId 	the id of the Action to be registered as a menu item. This property can be omitted, if there is an @Action annotation on the same class.
-path 	a slash '/' delimited path of Menu IDs (see further down)
-position 	the position to order the menu items in a menu. It's a best practice to leave out some positions between entries to allow other bundles to register entries between some existing ones.
+Property | Value
+-------- | ------
+actionId | the id of the Action to be registered as a menu item. This property can be omitted, if there is an @Action annotation on the same class.
+path | a slash '/' delimited path of Menu IDs (see further down)
+position | the position to order the menu items in a menu. It's a best practice to leave out some positions between entries to allow other bundles to register entries between some existing ones.
 
-Separators: If the positions of two consecutive entries are not in the same thousand group, Drombler FX will add a separator between them.
-Register a Toolbar Button
+*Separators*: If the positions of two consecutive entries are not in the same thousand group, _Drombler FX_ will add a separator between them.
+
+=== Register a Toolbar Button
 
 To register a toolbar button use the @ToolBarEntry annotation:
 
+    ~~~~~java
     import org.drombler.acp.core.action.ToolBarEntry;
 
     @ToolBarEntry(actionId = "test1", toolBarId = "file", position = 30)
+    ~~~~~
 
-Property 	Value
-actionId 	the id of the Action to be registered as a toolbar button. This property can be omitted, if there is an @Action annotation on the same class.
-toolBarId 	the ID of the toolbar this toolbar button should be registered to (see further down)
-position 	the position to order the toolbar buttons in a toolbar. It's a best practice to leave out some positions between entries to allow other bundles to register entries between some existing ones.
-Register a Toggle Action
+Property | Value
+-------- | ------
+actionId | the id of the Action to be registered as a toolbar button. This property can be omitted, if there is an @Action annotation on the same class.
+toolBarId | the ID of the toolbar this toolbar button should be registered to (see further down)
+position | the position to order the toolbar buttons in a toolbar. It's a best practice to leave out some positions between entries to allow other bundles to register entries between some existing ones.
+
+=== Register a Toggle Action
 
 Toggle Actions need to be registered using the @ToggleAction annotation. The properties are the same as for the @Action annotation (see above).
-Register a Toggle Menu Item
+
+
+=== Register a Toggle Menu Item
 
 To register a toggle menu item use the @ToggleMenuEntry annotation. The properties are the same as for the @MenuEntry annotation (see above), but the actionId must be the ID of a toggle action and there is an additional property:
 
-toggleGroupId: if present, only one menu item of the same toggle group can be selected, else any number of menu items may be selected.
-Register a Toggle Toolbar Button
+*toggleGroupId*: if present, only one menu item of the same toggle group can be selected, else any number of menu items may be selected.
+
+=== Register a Toggle Toolbar Button
 
 To register a toggle toolbar button use the @ToolBarToggleEntry annotation. The properties are the same as for the @ToolBarEntry annotation (see above), but the actionId must be the ID of a toggle action and there is an additional property:
 
-toggleGroupId: if present, only one toolbar button of the same toggle group can be selected, else any number of toolbar buttons may be selected.
-Register Menus and Sub-Menus
+*toggleGroupId*: if present, only one toolbar button of the same toggle group can be selected, else any number of toolbar buttons may be selected.
+
+
+=== Register Menus and Sub-Menus
 
 Menus and sub-menus can be registered using the @Menu annotation on a package (usually in package-info.java):
 
+    ~~~~~java
     @Menu(id = "Custom", displayName = "%customMenu.displayName", position = 110),
     @Menu(id = "Sub", displayName = "%subMenu.displayName", path = "Custom", position = 30)
     package com.mycompany.test.sample.impl;
 
     import org.drombler.acp.core.action.Menu;
+    ~~~~~
 
-Property 	Value
-id 	the ID of the menu to be registered. This ID can be used in the path property of menus and menu items.
-displayName 	the text of the menu. If the value starts with '%' the rest of the value is interpreted as a property key and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to be in the same package. Note: Maven expects resources to be in the resources directory.
-path 	a slash '/' delimited path of Menu IDs. If it is omitted, then the menu will be registered directly in the menu bar.
-position 	the position to order the menus in a parent menu/ menu bar. It's a best practice to leave out some positions between entries to allow other bundles to register entries between some existing ones.
+Property | Value
+-------- | ------
+id | the ID of the menu to be registered. This ID can be used in the path property of menus and menu items.
+displayName | the text of the menu. If the value starts with '%' the rest of the value is interpreted as a property key and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to be in the same package. Note: Maven expects resources to be in the resources directory.
+path | a slash '/' delimited path of Menu IDs. If it is omitted, then the menu will be registered directly in the menu bar.
+position | the position to order the menus in a parent menu/ menu bar. It's a best practice to leave out some positions between entries to allow other bundles to register entries between some existing ones. 
 
 Note: If the displayName contains an underscore ('_'), the following character is the mnemonic character of this menu.
-Register Toolbars
+
+
+
+=== Register Toolbars
 
 Toolbars can be registered using the @ToolBar annotation on a package (usually in package-info.java):
 
+    ~~~~~java
     @ToolBar(id = "myToolbar1", displayName = "%myToolbar1.displayName", position = 50),
     @ToolBar(id = "myToolbar2", displayName = "%myToolbar2.displayName", position = 100, visible = false)
     package com.mycompany.test.sample.impl;
 
     import org.drombler.acp.core.action.ToolBar;
+    ~~~~~
 
-Property 	Value
-id 	the ID of the menu to be registered. This ID can be used as the toolBarId property of toolbar buttons.
-displayName 	the text of the toggle menu item registered at "View/Toolbars". If the value starts with '%' the rest of the value is interpreted as a property key and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to be in the same package. Note: Maven expects resources to be in the resources directory.
-position 	the position to order the toolbars in the toolbar container and in the "View/Toolbars" menu. It's a best practice to leave out some positions between entries to allow other bundles to register entries between some existing ones.
-visible 	indicates if the toolbar should initially be visible or not. The default is "true". The visibility can be toggled in the "View/Toolbars" menu.
+Property | Value
+-------- | ------
+id | the ID of the menu to be registered. This ID can be used as the toolBarId property of toolbar buttons.
+displayName | the text of the toggle menu item registered at "View/Toolbars". If the value starts with '%' the rest of the value is interpreted as a property key and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to be in the same package. Note: Maven expects resources to be in the resources directory.
+position | the position to order the toolbars in the toolbar container and in the "View/Toolbars" menu. It's a best practice to leave out some positions between entries to allow other bundles to register entries between some existing ones. 
+visible | indicates if the toolbar should initially be visible or not. The default is "true". The visibility can be toggled in the "View/Toolbars" menu.
 
 Note: If the displayName contains an underscore ('_'), the following character is the mnemonic character of the registered toggle menu item.
 
 Note: For every registered toolbar a toggle menu item will registered at "View/Toolbars".
-The Standard Actions, Menus and Toolbars
 
-As of this writing Drombler FX provides the following standard actions, menus, menu items, toolbars and toolbar buttons:
+== The Standard Actions, Menus and Toolbars
+
+As of this writing _Drombler FX_ provides the following standard actions, menus, menu items, toolbars and toolbar buttons:
 
 Menu IDs:
 
-    File (position = 10)
-    View (position = 40)
-        Toolbars (position = 5100)
-    Help (position = 900)
+ * *File* (position = 10)
+ * *View* (position = 40)
+     * *Toolbars* (position = 5100)
+ * *Help* (position = 900)
 
 Toolbar IDs:
-
-    file (position = 10)
+ 
+ * *file* (position = 10)
 
 Actions, Menu Items and Toolbar Buttons:
 
-Save:
+*Save*:
 
+    ~~~~~java
     @Action(id = "standard.save", category = "core", displayName = "%save.displayName",
     accelerator = "Shortcut+S", icon = "save.gif")
     @MenuEntry(path = "File", position = 4200)
     @ToolBarEntry(toolBarId = "file", position = 50)
+    ~~~~~
 
-Save All:
+*Save All*:
 
+    ~~~~~java
     @Action(id = "standard.saveAll", category = "core", 
     displayName = "%saveAll.displayName", accelerator = "Shortcut+Shift+S", 
     icon = "saveAll.png")
     @MenuEntry(path = "File", position = 4210)
     @ToolBarEntry(toolBarId = "file", position = 60)
+    ~~~~~
 
-The "Save" action looks for an instance of the interface org.drombler.acp.core.standard.action.Savable in the active context.
+The "Save" action looks for an instance of the interface org.drombler.acp.core.standard.action.Savable in the _active context_.
 
-The "Save All" action looks for all instances of the same interface in the application context.
+The "Save All" action looks for all instances of the same interface in the _application context_.
 
-See [ContextFramework] for more information about the Context Framework.
+See [ContextFramework] for more information about the _Context Framework_.
 
-Exit:
 
+*Exit*:
+
+    ~~~~~java
     @Action(id = "platform.exit", category = "core", displayName = "%exit.displayName", 
     accelerator = "Shortcut+Q")
     @MenuEntry(path = "File", position = 9900)
+    ~~~~~
 
-Context Sensitive Actions
+== Context Sensitive Actions
 
-Drombler FX checks if an Action implements org.drombler.commons.context.ActiveContextSensitive or org.drombler.commons.context.ApplicationContextSensitive and injects the active/ application-wide context.
+_Drombler FX_ checks if an Action implements org.drombler.commons.context.ActiveContextSensitive or org.drombler.commons.context.ApplicationContextSensitive and injects the active/ application-wide context.
 
 See [ContextFramework] for more information about the Context Framework.
-Samples
+
+== Samples
 
 In this section you will find some annotated Action samples.
-Basic Sample
 
+=== Basic Sample
 The following sample shows a simple action implementation, which is registered as a menu item in the menu with the ID "File" and as a toolbar button in the toolbar with the ID "file".
 
+    ~~~~~java
     package com.mycompany.test.sample.impl;
 
     import org.drombler.acp.core.action.Action;
@@ -309,11 +365,12 @@ The following sample shows a simple action implementation, which is registered a
             System.out.println("Test1 Action!");
         }
     }
+    ~~~~~
 
-Active Context Sensitive Sample
-
+=== Active Context Sensitive Sample
 The following sample shows a active context sensitive action implementation. It looks for a MyCommand instance in the active context and listens for changes of the active context. If it finds a MyCommand instance, the Action gets enabled, else it gets disabled. If the Action gets triggered (onAction-method), then a method of MyCommand gets called.
 
+    ~~~~~java
     package com.mycompany.test.sample.impl;
 
     import org.drombler.acp.core.action.Action;
@@ -329,37 +386,38 @@ The following sample shows a active context sensitive action implementation. It 
     @MenuEntry(path = "File", position = 3200)
     @ToolBarEntry(toolBarId = "file", position = 42)
     public class MyAction extends AbstractActionListener<Object> implements ActiveContextSensitive {
-
+    
         private MyCommand myCommand;
         private Context activeContext;
-
+    
         public MyAction() {
             setEnabled(false);
         }
-
+    
         @Override
         public void onAction(Object event) {
             myCommand.doSomething();
         }
-
+    
         @Override
         public void setActiveContext(Context activeContext) {
             this.activeContext = activeContext;
             this.activeContext.addContextListener(MyCommand.class, event -> contextChanged());
             contextChanged();
         }
-
+    
         private void contextChanged() {
             myCommand = activeContext.find(MyCommand.class);
             setEnabled(myCommand != null);
         }
-
+    
     }
+    ~~~~~
 
-Application Context Sensitive Sample
-
+=== Application Context Sensitive Sample
 The following sample shows a application context sensitive action implementation. It looks for all MyCommand instances in the application-wide context and listens for changes of this context. If it finds any MyCommand instance, the Action gets enabled, else it gets disabled. If the Action gets triggered (onAction-method), then a method of MyCommand gets called on all found instances.
 
+    ~~~~~java
     package com.mycompany.test.sample.impl;
 
     import java.util.ArrayList;
@@ -374,41 +432,44 @@ The following sample shows a application context sensitive action implementation
     import org.drombler.commons.context.Context;
     import com.mycompany.test.sample.MyCommand;
 
+
     @Action(id = "myaction", category = "mycategory", displayName = "%myaction.displayName", accelerator = "Shortcut+Shift+M", icon = "myaction.png")
     @MenuEntry(path = "File", position = 3210)
     @ToolBarEntry(toolBarId = "file", position = 72)
     public class MyAction extends AbstractActionListener<Object> implements ApplicationContextSensitive {
-
+    
         private Collection<? extends MyCommand> myCommands = Collections.emptyList();
         private Context applicationContext;
-
+    
         public MyAction() {
             setEnabled(false);
         }
-
+    
         @Override
         public void onAction(Object event) {
             List<MyCommand> currentMyCommands = new ArrayList<>(myCommands); // protect against modification during iteration TODO: needed?
             currentMyCommands.forEach(myCommand -> myCommand.doSomething());
         }
-
+    
         @Override
         public void setApplicationContext(Context applicationContext) {
             this.applicationContext = applicationContext;
             this.applicationContext.addContextListener(MyCommand.class, event -> contextChanged());
             contextChanged();
         }
-
+    
         private void contextChanged() {
             myCommands = applicationContext.findAll(MyCommand.class);
             setEnabled(!myCommands.isEmpty());
         }
     }
+    ~~~~~
 
-Basic Toggle Sample
+=== Basic Toggle Sample
 
 The following sample shows a simple toggle action implementation, which is registered as a toggle menu item in the menu with the ID "File" and as a toolbar toggle button in the toolbar with the ID "file". Both the menu item and the toolbar button participate in a toggle group.
 
+    ~~~~~java
     import org.drombler.acp.core.action.ToggleAction;
     import org.drombler.acp.core.action.ToggleMenuEntry;
     import org.drombler.acp.core.action.ToolBarToggleEntry;
@@ -425,7 +486,8 @@ The following sample shows a simple toggle action implementation, which is regis
             System.out.println("Test1 Toggle Action selection changed: " + newValue);
         }
     }
+    ~~~~~
 
-More Samples
+=== More Samples
 
 To see more samples have a look at the Sample Application described in the [GettingStarted] section.
