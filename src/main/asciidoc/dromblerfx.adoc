@@ -1,5 +1,5 @@
 = Drombler FX
-Florian Brunner <softsmithy@gmx.net>
+Florian Brunner <puce@users.sourceforge.net>
 v${project.version}
 :toc:
 

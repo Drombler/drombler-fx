@@ -1,3 +1,7 @@
 [[ide]]
 = IDEs
 :toc:
+
+== NetBeans
+
+== Eclipse
