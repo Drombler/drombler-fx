@@ -23,4 +23,13 @@ Where to go from here:
 
  * <<getting-started.adoc#ide,Getting Started>>
  * <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>>
+ * <<docking-framework.adoc#dockingFramework,Docking Framework>>
+ * <<context-framework.adoc#contextFramework,Context Framework>>
+ * <<localization.adoc#localization,Localization>>
+ * <<logging.adoc#logging,Logging>>
  * <<ide.adoc#ide,IDEs>>
+
+
+
+
+

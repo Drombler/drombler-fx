@@ -1,0 +1,74 @@
+[[logging]]
+= Logging
+:toc:
+
+The Drombler projects use SLF4J for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.
+
+The sample provided by the Drombler FX archetype uses the java.util.logging (JUL) binding by default, because the required jar is very small since java.util.logging is part of the JRE.
+
+You can replace the binding with the following steps:
+
+In the drombler-fx-application project:
+
+    In the POM: replace the slf4j-jdk14 dependency with the binding of your choice.
+    In src/main/logging (version >=0.5: src/main/app/conf): replace logging.properties with the logging configuration for your chosen logging framework.
+    In the nbactions.xml file: in all actions: replace -Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties with the system property required for your chosen logging framework
+
+Sample configurations
+
+The following sections describes the configuration of some bindings.
+Log4j 2
+
+    In the POM: replace
+
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-jdk14</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+with:
+
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>2.0.2</version>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.0.2</version>
+        <scope>runtime</scope>
+    </dependency>
+    <!-- The following dependency is needed due to the following Log4j 2 issue: http://issues.apache.org/jira/browse/LOG4J2-805 -->
+    <dependency>
+        <groupId>org.jboss.spec.javax.jms</groupId>
+        <artifactId>jboss-jms-api_1.1_spec</artifactId>
+        <version>1.0.1.Final</version>
+        <scope>runtime</scope>
+    </dependency>
+
+    In src/main/logging (version >=0.5: src/main/app/conf): replace logging.properties with log4j2.xml:
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Configuration status="WARN">
+        <Appenders>
+            <Console name="Console" target="SYSTEM_OUT">
+                <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+            </Console>
+        </Appenders>
+        <Loggers>
+            <logger name="org.drombler.commons.level" level="ERROR"/>
+            <logger name="org.drombler.acp.level" level="INFO"/>
+            <logger name="org.drombler.fx.level" level="INFO"/>
+            <Root level="INFO">
+                <AppenderRef ref="Console"/>
+            </Root>
+        </Loggers>
+    </Configuration>
+
+    In the nbactions.xml file: in all actions: replace
+    -Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties
+    with
+    -Dlog4j.configurationFile=${project.build.directory}/deployment/standalone/conf/log4j2.xml

@@ -1,0 +1,47 @@
+[[contextFramework]]
+= Context Framework
+:toc:
+
+The Context Framework allows components such as Dockable Panes and Actions to communicate in a loosly coupled way - even across bundle boundaries.
+
+The basic abstraction is the org.drombler.commons.context.Context interface. You can use it to look for instances of the specified type and listen for changes of its content.
+Content Providers
+
+To add content to a Context you need a mutable Context implementation such as: org.drombler.commons.context.SimpleContext
+
+Typical content providers are:
+
+    Editor Dockable Panes (the object to edit, custom implementations of action command interfaces such as org.drombler.acp.core.standard.action.Savable to interact with actions such as the "Save" action)
+    View Dockable Panes with a "current selection"
+
+Content Consumers
+
+Content consumers query a Context for some type and listen for changes in a Context content using a ContextListener.
+
+Typical content consumers are:
+
+    View Dockable Panes (show some information about an object)
+    Actions (look for instances of their action command interface)
+
+Active Context
+
+The Active Context provides access to the content of the local Context of the currently active object (in Drombler FX: Dockable Pane).
+
+Actions and Dockable Panes interested in the Active Context can implement the following interface: org.drombler.commons.context.ActiveContextSensitive
+
+Drombler FX will inject the Active Context.
+
+Note: Don't forget to listen for changes in the Active Context content using a ContextListener!
+
+See [GettingStarted] and [ActionsMenusToolbars] for samples.
+Application Context
+
+The Application-wide Context provides access to the combined content of the local Context of all currently open Dockable Panes.
+
+Actions and Dockable Panes interested in the Application-wide Context can implement the following interface: org.drombler.commons.context.ApplicationContextSensitive
+
+Drombler FX will inject the Application Context.
+
+Note: Don't forget to listen for changes in the Application Context content using a ContextListener!
+
+See [ActionsMenusToolbars] for a sample.
