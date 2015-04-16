@@ -56,5 +56,9 @@ Contributor(s): .
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-action-fx</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-action</artifactId>
+        </dependency>
     </dependencies>
 </project>
