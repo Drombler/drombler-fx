@@ -3,88 +3,116 @@
 :toc:
 
 == System Requirements
-
-    Java SE 8 with bundled JavaFX 8. Tested version: 1.8.0_31; Java HotSpot(TM) 64-Bit Server VM 25.31-b07
-    Maven 3. Tested version: 3.0.5
-    Environment variables:
-        JAVA_HOME: your JDK installation dir
-        M2_HOME: your Maven installation dir
-        M2: <M2_HOME>/bin
-
+ 
+ * Java SE 8 with bundled JavaFX 8. Tested version: 1.8.0_31; Java HotSpot(TM) 64-Bit Server VM 25.31-b07
+ * Maven 3. Tested version: 3.0.5
+ * Environment variables:
+     * JAVA_HOME: your JDK installation dir
+     * M2_HOME: your Maven installation dir
+     * M2: &lt;M2_HOME&gt;/bin
+ 
 Tested OS: Linux version 3.13.0-45-generic running on amd64; UTF-8; de_CH (nb)
 
 == Drombler FX Sample Application - create, build and run
 
-In this trail we'll create a Drombler FX sample application, build and run it in 3 simple steps.
+In this trail we'll create a *Drombler FX* sample application, build and run it in 3 simple steps.
 
 === Create the Application
+*Drombler FX* provides a Maven Archetype to create a simple *Drombler FX*-based sample application:
 
-Drombler FX provides a Maven Archetype to create a simple Drombler FX-based sample application:
+    :::bash
+    mvn archetype:generate -DarchetypeGroupId=org.drombler.fx -DarchetypeArtifactId=drombler-fx-maven-archetype-application -DarchetypeVersion=0.6 -DgroupId=com.mycompany.test -DartifactId=test -Dversion=0.1-SNAPSHOT -DbrandingId=foo
 
-mvn archetype:generate -DarchetypeGroupId=org.drombler.fx -DarchetypeArtifactId=drombler-fx-maven-archetype-application -DarchetypeVersion=0.6 -DgroupId=com.mycompany.test -DartifactId=test -Dversion=0.1-SNAPSHOT -DbrandingId=foo
-
-Note: You can replace groupId, artifactId, version and brandingId as you see fit, of course. But for the rest of this section we assume the values as shown above.
+Note: You can replace groupId, artifactId, version and brandingId as you see fit, of course. But for the rest of this 
+section we assume the values as shown above.
 
 === Build the Application
 
-cd test
-mvn clean install
+    :::bash
+    cd test
+    mvn clean install
 
 === Run the Application
 
 To run the application from the command line, you can use:
 
-cd test-application
-java -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=target/deployment/standalone/conf/logging.properties -jar target/deployment/standalone/bin/foo.jar --userdir target/userdir
+    :::bash
+    cd test-application
+    java -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=target/deployment/standalone/conf/logging.properties -jar target/deployment/standalone/bin/foo.jar --userdir target/userdir
+
 
 Or you can just double-click the foo.jar in the target/deployment/standalone/bin directory.
 
-The --userdir option is quite useful during development. If you omit it, the default location will be used: ${user.home}/.${brandingId}/${project.version}
+The *--userdir* option is quite useful during development. If you omit it, the default location will be used: ${user.home}/.${brandingId}/${project.version}
 
 == Drombler FX Sample Application - the running application explained
 
 When you start-up the application you should see the following:
-* A JavaFX Window with a custom title
-* A content pane consisting of four Views (Left, Right, Top and Bottom) around an empty center area
-* A Menu Bar with the following Menus: File, View, Custom, Window and Help
-* A Toolbar Container with three Toolbars: File, Rectangle and Circle
+ * A JavaFX Window with a custom title
+ * A content pane consisting of four *Views* (Left, Right, Top and Bottom) around an empty center area
+ * A Menu Bar with the following Menus: File, View, Custom, Window and Help
+ * A Toolbar Container with three Toolbars: File, Rectangle and Circle
 
-Drombler Sample Application - with 2 Sample Editors: 'Mixed' and 'Yellow'
-Image: Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'
+<div markdown style="float:left">
+<a href="GettingStarted/attachment/drombler-sample-application.png"><img src="GettingStarted/attachment/drombler-sample-application.png" width="100%" alt="Drombler Sample Application - with 2 Sample Editors: 'Mixed' and 'Yellow'"/></a>
+<label>Image: Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'</label></div>
 
 Let's start with the Content Pane.
 
 === The Content Pane
+What you actually can find here is an initial version of a Docking Framework: The Docking Framework splits up the 
+content area into any number of *Docking Areas*. *Drombler FX* provides 5 Docking Areas out-of-the-box: left, right, 
+top, bottom and center. The *Docking Areas* can be resized using the Dividers. Each *Docking Area* can hold any number 
+of *Dockable Panes*, which are layed out as Tabs. The left, right, top and bottom areas have been configured only to be 
+visible if they contain any docked *Dockable Pane*. The center area has been configured to be always visible.
 
-What you actually can find here is an initial version of a Docking Framework: The Docking Framework splits up the content area into any number of Docking Areas. Drombler FX provides 5 Docking Areas out-of-the-box: left, right, top, bottom and center. The Docking Areas can be resized using the Dividers. Each Docking Area can hold any number of Dockable Panes, which are layed out as Tabs. The left, right, top and bottom areas have been configured only to be visible if they contain any docked Dockable Pane. The center area has been configured to be always visible.
+The Left *Dockable Pane* has been provided by the sample and is docked to the left *Docking Area*. It contains a button 
+to create a new Sample object and open a Sample Editor *Dockable Pane* in the center *Docking Area*.
 
-The Left Dockable Pane has been provided by the sample and is docked to the left Docking Area. It contains a button to create a new Sample object and open a Sample Editor Dockable Pane in the center Docking Area.
+The Sample Editor (opened if you click on the "New Sample" button in the Left *Dockable Pane*) is provided by the sample
+ and contains a text field, which is bound to the Tab text of the Sampler Editor, and displays the currently selected circle and rectangles.
 
-The Sample Editor (opened if you click on the "New Sample" button in the Left Dockable Pane) is provided by the sample and contains a text field, which is bound to the Tab text of the Sampler Editor, and displays the currently selected circle and rectangles.
+The Right *Dockable Pane*, provided by this sample project and docked to the right *Docking Area*, shows the information 
+of the currently selected sample.
 
-The Right Dockable Pane, provided by this sample project and docked to the right Docking Area, shows the information of the currently selected sample.
-
-The sample also provides the two Dockable Panes Top and Bottom, which are docked to the top/ bottom Docking Area and contain a Label showing Top/ Bottom respectivly. These Dockable Panes are provided to make the corresponding Docking Areas visible.
+The sample also provides the two *Dockable Panes* Top and Bottom, which are docked to the top/ bottom *Docking Area* and 
+contain a Label showing Top/ Bottom respectivly. These *Dockable Panes* are provided to make the corresponding 
+*Docking Areas* visible.
 
 See [DockingFramework] for more information about the Docking Framework.
 
 Let's continue with the Toolbars.
 
 === The Toolbars
+Above the Content Pane you can find a Toolbar Container, which can contain any number of Toolbars. Currently three type 
+of Toolbar buttons are supported: "normal" Toolbar buttons, toggle Toolbar buttons without a ToggleGroup and toggle 
+Toolbar buttons within a ToggleGroup. The Toolbar Container is provided by *Drombler FX*.
 
-Above the Content Pane you can find a Toolbar Container, which can contain any number of Toolbars. Currently three type of Toolbar buttons are supported: "normal" Toolbar buttons, toggle Toolbar buttons without a ToggleGroup and toggle Toolbar buttons within a ToggleGroup. The Toolbar Container is provided by Drombler FX.
+An Action Framework keeps the state (enabled/ disabled, selected/ unselected etc.), the information (texts, image etc.) 
+and the logic between Menu items and Toolbar buttons in sync.
 
-An Action Framework keeps the state (enabled/ disabled, selected/ unselected etc.), the information (texts, image etc.) and the logic between Menu items and Toolbar buttons in sync.
+Actions may be always enabled or only under certain conditions. 
 
-Actions may be always enabled or only under certain conditions.
+The File Toolbar is a standard Toolbar and the "Save" and "Save All" Toolbar buttons are standard Toolbar buttons 
+provided by *Drombler FX*. The "Save" Toolbar button is only enabled if the *currently selected* *Dockable Pane* 
+contains something to save. The "Save All" Toolbar button is only enabled if *any* *Dockable Pane* contains something 
+to save. E.g. if you modify a Sample in the Sample Editor both the "Save" and the "Save All" buttons become enabled. 
+If you click on another *Dockable Pane* the "Save" button gets disabled again, if that *Dockable Pane* doesn't contain 
+modified data as well. The "Save All" button, however, stays enabled, since there is still an open Sample Editor with a 
+modified Sample.
 
-The File Toolbar is a standard Toolbar and the "Save" and "Save All" Toolbar buttons are standard Toolbar buttons provided by Drombler FX. The "Save" Toolbar button is only enabled if the currently selected Dockable Pane contains something to save. The "Save All" Toolbar button is only enabled if any Dockable Pane contains something to save. E.g. if you modify a Sample in the Sample Editor both the "Save" and the "Save All" buttons become enabled. If you click on another Dockable Pane the "Save" button gets disabled again, if that Dockable Pane doesn't contain modified data as well. The "Save All" button, however, stays enabled, since there is still an open Sample Editor with a modified Sample.
+The Rectangle Toolbar, provided by the sample project, provides three toggle Toolbar buttons with colored rectanlge 
+images. Since they don't belong to a toggle group any number of them may be selected. They are only enabled if the 
+currently selected *Dockable Pane* can manage colored rectangles - such as the Sample Editor.
 
-The Rectangle Toolbar, provided by the sample project, provides three toggle Toolbar buttons with colored rectanlge images. Since they don't belong to a toggle group any number of them may be selected. They are only enabled if the currently selected Dockable Pane can manage colored rectangles - such as the Sample Editor.
+The Circle Toolbar, also provided by the sample project, provides three toggle Toolbar buttons with colored circle 
+images. Since they belong to a toggle group only one can be selected at a time. They are only enabled if the currently 
+selected *Dockable Pane* can manage a colored circle - such as the Sample Editor.
 
-The Circle Toolbar, also provided by the sample project, provides three toggle Toolbar buttons with colored circle images. Since they belong to a toggle group only one can be selected at a time. They are only enabled if the currently selected Dockable Pane can manage a colored circle - such as the Sample Editor.
-
-Note that the selection of the toggle buttons is context sensitve as well. E.g. if you have two open Sample Editors you can have different selections for each of these editors. The buttons reflect the selection depending on the currently active Sample Editor. When you select a Dockable Pane, which cannot manage colored circle/ rectangles, the corresponding buttons become unselected and disabled again.
+Note that the selection of the toggle buttons is *context sensitve* as well. E.g. if you have two open Sample Editors 
+you can have different selections for each of these editors. The buttons reflect the selection depending on the 
+currently *active* Sample Editor. When you select a *Dockable Pane*, which cannot manage colored circle/ rectangles, 
+the corresponding buttons become unselected and disabled again.
 
 Note that the Toolbar buttons have been configured with Tooltips (only visible if they are enabled).
 
@@ -95,33 +123,47 @@ See [ActionsMenusToolbars] for more information about Actions and Toolbars.
 Let's continue with the Menus.
 
 === The Menus
+At the top there is a Menu Bar provided by *Drombler FX*.
 
-At the top there is a Menu Bar provided by Drombler FX.
+An Action Framework keeps the state (enabled/ disabled, selected/ unselected etc.), the information (texts, image etc.) 
+and the logic between Menu items and Toolbar buttons in sync.
 
-An Action Framework keeps the state (enabled/ disabled, selected/ unselected etc.), the information (texts, image etc.) and the logic between Menu items and Toolbar buttons in sync.
+The File menu, which is a standard menu provided by *Drombler FX*, contains 
 
-The File menu, which is a standard menu provided by Drombler FX, contains
+ * 3 test menu items ("Test 1", "Test 2" and "Test 3), which simply write some text to the standard output. These are 
+custom menu items provided by this sample.
+ * 2 Save menu items ("Save" and "Save All"). These are standard menu items provided by *Drombler FX*. They behave in 
+the same way as the corresponding Toolbar buttons described above.
+ * An Exit menu item, which properly shuts down the JavaFX Platform and the OSGi Platform. This is a standard menu item 
+provided by *Drombler FX*
+ * Some separators between some of the menu items.
 
-    3 test menu items ("Test 1", "Test 2" and "Test 3), which simply write some text to the standard output. These are custom menu items provided by this sample.
-    2 Save menu items ("Save" and "Save All"). These are standard menu items provided by Drombler FX. They behave in the same way as the corresponding Toolbar buttons described above.
-    An Exit menu item, which properly shuts down the JavaFX Platform and the OSGi Platform. This is a standard menu item provided by Drombler FX
-    Some separators between some of the menu items.
 
-The View menu contains a Toolbars menu, with a toggable menu item for each registered Toolbar. Here you can select which Toolbars should be visible. This is a standard feature of Drombler FX.
+The View menu contains a Toolbars menu, with a toggable menu item for each registered Toolbar. Here you can select which
+ Toolbars should be visible. This is a standard feature of *Drombler FX*.
 
-The Custom menu and its contents is provided by the sample. You can register any number of menu items and (possibly deeply nested) sub-menus. The Custom menu contains 3 rectangle actions and the Sub Menu contains 3 circle actions. They behave in the same way as the corresponding Toolbar buttons.
+The Custom menu and its contents is provided by the sample. You can register any number of menu items and (possibly 
+deeply nested) sub-menus. The Custom menu contains 3 rectangle actions and the Sub Menu contains 3 circle actions. 
+They behave in the same way as the corresponding Toolbar buttons.
 
-The Window menu contains a menu item for each registered View to open them again. (Views are treated as Singletons - there is only one instance per View type.) The View menu items can also be registered in some sub-menus. Here: the Right View is registered in the Others sub-menu. This is a standard feature provided by Drombler FX. See the Content Pane section above for more information about the Docking Framework.
+The Window menu contains a menu item for each registered *View* to open them again. (*Views* are treated as 
+Singletons - there is only one instance per *View* type.) The *View* menu items can also be registered in some 
+sub-menus. Here: the Right *View* is registered in the *Others* sub-menu. This is a standard feature provided 
+by *Drombler FX*. See the *Content Pane* section above for more information about the Docking Framework.
 
-You could try and close one of the sample Views: Left, Right, Top or Bottom. Note that as they are closed the space of their parent Docking Area is given to the other Docking Areas. If you click on the corresponding Window menu item the corresponding Docking Area will get some space again and the View is opened in that Docking Area.
+You could try and close one of the sample *Views*: Left, Right, Top or Bottom. Note that as they are closed the 
+space of their parent *Docking Area* is given to the other *Docking Areas*. If you click on the corresponding Window 
+menu item the corresponding *Docking Area* will get some space again and the *View* is opened in that *Docking Area*.
 
-The Help menu is also a standard menu provided by Drombler FX, but it is currently empty.
+The Help menu is also a standard menu provided by *Drombler FX*, but it is currently empty.
 
 Note that most menu items have been configured with accelerator and mnemonic keys.
 
-Note: If you run the application with a German locale the texts provided by Drombler FX are shown in German.
+Note: If you run the application with a German locale the texts provided by *Drombler FX* are shown in German.
+
 
 See [ActionsMenusToolbars] for more information about Actions and Menus.
+
 
 == Drombler FX Sample Application - the binaries explained
 
@@ -134,16 +176,19 @@ The jar has been branded using the specified brandingId.
 Let's have a look at the content of this jar.
 
 You can find:
+ 
+ * META-INF/MANIFEST.MF: a Manifest file with the correct JavaFX specific entries
+ * applicationConfig.properties: contains application configurations such as: title, width and height
+ * default.properties: Contains the properties to specify the Java, OSGi and Drombler startup system packages.
+ * the correct JavaFX startup classes
+ * the [Apache Felix Framework](http://felix.apache.org/) and OSGi specific classes
+ * the Drombler specific startup classes
+ * org/drombler/fx/startup/main/config.properties: Contains the properties to specify the JavaFX packages. This is the 
+OSGi mechanism to access the JavaFX classes provided by your Java installation.
+ 
 
-    META-INF/MANIFEST.MF: a Manifest file with the correct JavaFX specific entries
-    applicationConfig.properties: contains application configurations such as: title, width and height
-    default.properties: Contains the properties to specify the Java, OSGi and Drombler startup system packages.
-    the correct JavaFX startup classes
-    the Apache Felix Framework and OSGi specific classes
-    the Drombler specific startup classes
-    org/drombler/fx/startup/main/config.properties: Contains the properties to specify the JavaFX packages. This is the OSGi mechanism to access the JavaFX classes provided by your Java installation.
-
-In the bundle directory you can find all direct and transitive Maven dependencies with scope compile or test. The main jar will load these bundles.
+In the bundle directory you can find all direct and transitive Maven dependencies with scope compile or test. The main 
+jar will load these bundles.
 
 The conf directory contains property files for application and system properties. The user may change their values here.
 
@@ -151,32 +196,41 @@ The conf directory contains property files for application and system properties
 
 You should see now a directory "test", with the following content:
 
-    pom.xml
-    test-application
-    test-parent
-    test-sample
+ * pom.xml
+ * test-application
+ * test-parent
+ * test-sample
+
 
 These are in fact 4 Maven projects. Lets have a look at them one by one.
 
 === The Multi-Module Project
 
-The top-level project (the pom.xml in the test-directory) is a multi-module project. It's used to build all parts of your application with a single "mvn clean install".
+The top-level project (the pom.xml in the test-directory) is a multi-module project. It's used to build all parts of 
+your application with a single "mvn clean install".
 
 === The Drombler FX Application Project
 
-The project in the test-application directory is the Drombler FX Application project. Its Maven packaging type is "drombler-fx-application" and thus requires the Drombler FX Maven Plugin "org.drombler.fx:drombler-fx-maven-plugin" as an extension.
+The project in the test-application directory is the *Drombler FX Application* project. Its Maven packaging type is 
+"drombler-fx-application" and thus requires the *Drombler FX Maven Plugin* "org.drombler.fx:drombler-fx-maven-plugin" 
+as an extension. 
 
 This project is used to:
+ 
+ * configure the bundles your application is made of
+ * deploy them
+ * run the application
 
-    configure the bundles your application is made of
-    deploy them
-    run the application
 
-In the Drombler FX Maven Plugin configuration you can specify the brandingId and the application title, width and height.
+In the *Drombler FX Maven Plugin* configuration you can specify the brandingId and the application title, width and 
+height.
+
 
 Note: Currently you always need to rebuild this project if any of its bundles has changed!
 
-The nbactions.xml enables the "Run Project" and "Debug Project" buttons in NetBeans for this project. You can have a look at it to see how to run and debug the application. You can delete this file if you use another IDE than NetBeans.
+The nbactions.xml enables the "Run Project" and "Debug Project" buttons in NetBeans for this project. You can have a 
+look at it to see how to run and debug the application. You can delete this file if you use another IDE than NetBeans.
+
 
 === The Parent Project
 
@@ -184,55 +238,102 @@ The parent project contains the parent POM used by the other projects of this sa
 
 Have a look at the comments in the POM for more information.
 
-Note: I prefer to have the parent POM (used to inherit configurations) and the multi-module POM (used for reactor builds) in two separate POMs. If you prefer to use the multi-module POM as the parent POM, feel free to copy the content of the parent POM to the multi-module POM and to delete this parent POM.
+Note: I prefer to have the parent POM (used to inherit configurations) and the multi-module POM (used for 
+reactor builds) in two separate POMs. If you prefer to use the multi-module POM as the parent POM, feel free to copy 
+the content of the parent POM to the multi-module POM and to delete this parent POM.
 
 === The Sample Project
 
 This is the project which provides the actual sample specific parts.
 
-The sample project is a standard OSGi project. You can use org.apache.felix:maven-bundle-plugin as an extension plugin and the packaging type "bundle" to let Maven generate the OSGi Manifest entries for you (using a POM first approach).
+The sample project is a standard OSGi project. You can use org.apache.felix:maven-bundle-plugin as an extension plugin 
+and the packaging type "bundle" to let Maven generate the OSGi Manifest entries for you (using a POM first approach).
 
 You can access the JavaFX classes using a system dependency managed by the drombler-fx-parent.
 
-Since part of modular programming is about keeping APIs private and not exporting them, it's a good practice to start adding classes to a private package such as: *.impl.* (the org.apache.felix:maven-bundle-plugin takes care that such packages stay private by default.)
+
+Since part of modular programming is about keeping APIs private and not exporting them, it's a good practice to start 
+adding classes to a private package such as: \*.impl.\* (the org.apache.felix:maven-bundle-plugin takes care that such 
+packages stay private by default.)
 Only classes which should be accessible by other bundles should be in exported packages.
 
 So most classes are in the package: com.mycompany.test.sample.impl
 
-In this package you can find the abstract toggle action classes AbstractColoredCircleAction and AbstractColoredRectangleAction, both implementing the interface ActiveContextSensitive to set their state depending on the content of the active Context.
+In this package you can find the abstract toggle action classes AbstractColoredCircleAction and 
+AbstractColoredRectangleAction, both implementing the interface ActiveContextSensitive to set their state depending on 
+the content of the active Context. 
 
-As you can see they are looking for instances of the interface ColoredCircleManager/ ColoredRectangleManager in the active context. They register a listener to get notified whenever the content of the active context changes. When the selection state of the toggle action changes, they call the corresponding methods of ColoredCircleManager/ ColoredRectangleManager. This is the mechanism to loosly couple Actions to other parts of the application: At one end a DockingPane in one bundle adds an instance of the required interface to its local context. The Action at the other end (and possibly in a different bundle) looks for instances of this interface in e.g. the active context.
+As you can see they are looking for instances of the interface ColoredCircleManager/ ColoredRectangleManager in the 
+active context. They register a listener to get notified whenever the content of the active context changes. When the 
+selection state of the toggle action changes, they call the corresponding methods of ColoredCircleManager/ 
+ColoredRectangleManager. This is the mechanism to loosly couple Actions to other parts of the application: 
+At one end a DockingPane in one bundle adds an instance of the required interface to its local context. 
+The Action at the other end (and possibly in a different bundle) looks for instances of this interface in e.g. 
+the active context. 
 
-The BlueCircleAction, RedCircleAction and YellowCircleAction use annotations to register the toggle actions, the toggle menu entries and the toggle toolbar entries. Note that the toggle menu entries and the toggle toolbar entries specify the same toggleGroupId, which has the effect that only one of them can be selected at a time.
+The BlueCircleAction, RedCircleAction and YellowCircleAction use annotations to register the toggle actions, 
+the toggle menu entries and the toggle toolbar entries. Note that the toggle menu entries and the toggle toolbar entries
+ specify the same toggleGroupId, which has the effect that only one of them can be selected at a time.
 
-The BlueRectangleAction, RedRectangleAction and YellowRectangleAction also use annotations to register the toggle actions, the toggle menu entries and the toggle toolbar entries. Note that they don't specify a toggleGroupId, however, allowing them to be selected at the same time.
+The BlueRectangleAction, RedRectangleAction and YellowRectangleAction also use annotations to register the toggle 
+actions, the toggle menu entries and the toggle toolbar entries. Note that they don't specify a toggleGroupId, however, 
+allowing them to be selected at the same time.
 
 The actions Test1, Test2 and Test3 show 3 different ways to implement "normal" (non-toggle) actions.
+
 
 The package-info uses some annotations to register additional menus and toolbars.
 
 See [ActionsMenusToolbars] for more information about Actions, Menus and Toolbars.
 
-The LeftTestPane is a Dockable Pane using annotations to register itself as a view in the left Docking Area and a corresponding menu item in the Window menu. The onNewSampleAction logic, which gets triggered when the "New Sample" button gets clicked, creates a new Sample and opens it in a new SampleEditorPane.
+The LeftTestPane is a *Dockable Pane* using annotations to register itself as a view in the left *Docking Area* and a 
+corresponding menu item in the Window menu. The onNewSampleAction logic, which gets triggered when the "New Sample" button gets clicked, creates a new Sample and opens it in a new SampleEditorPane.
 
-The SampleEditorPane is a Dockable Pane using annotations to register itself as an editor in the center Docking Area. It configures a writable local context and adds to it an instance of a custom implementation of ColoredCircleManager and ColoredRectangleManager to enable the colored circle and colored rectangle toolbar buttons and menu items. It also adds the sample to its local context, so that other Dockable Panes can look for it and display some information about it.
+The SampleEditorPane is a *Dockable Pane* using annotations to register itself as an editor in the center 
+*Docking Area*. It configures a writable local context and adds to it an instance of a custom implementation of 
+ColoredCircleManager and ColoredRectangleManager to enable the colored circle and colored rectangle toolbar buttons and 
+menu items. It also adds the sample to its local context, so that other *Dockable Panes* can look for it and display 
+some information about it.
 
-It configures the controls from the values of the properties of the Sample. It does not bind the properties, so that the changes can easily be dropped.
+It configures the controls from the values of the properties of the Sample. It does not bind the properties, so that 
+the changes can easily be dropped.
 
-Whenever the content of the SampleEditorPane changes the method markModified() gets called to add an instance of a Sample specific implementation of the Save interface to its local context to enable the "Save" and "Save All" Actions. IF one of the Save toolbar buttons or menu items get clicked, the method save() of the private class SampleSavable gets called. It updates the Sample properties and removes itself from the local context to disable the Save actions. A real application would probably also call some methods here to make the changes persistent.
-Note: Since this SampleEditorPane updates the properties of the sample only when the sample gets saved, other Dockable Panes such as RightTestPane are only updated once one of the Save toolbar buttons or menu items gets clicked!
+Whenever the content of the SampleEditorPane changes the method markModified() gets called to add an instance of a 
+Sample specific implementation of the Save interface to its local context to enable the "Save" and "Save All" Actions. 
+If one of the Save toolbar buttons or menu items get clicked, the method save() of the private class SampleSavable gets 
+called. It updates the Sample properties and removes itself from the local context to disable the Save actions. 
+A real application would probably also call some methods here to make the changes persistent.
+Note: Since this SampleEditorPane updates the properties of the sample only when the sample gets saved, 
+other *Dockable Panes* such as RightTestPane are only updated once one of the Save toolbar buttons or menu items gets 
+clicked!
 
-The RightTestPane is a Dockable Pane using annotations to register itself as a view in the right Docking Area and a corresponding menu item in the Window/Other sub-menu. It implements ActiveContextSensitive to look for a Sample instance in the active context. If it finds one, it shows the properties of the sample. Note that it also configures a writable local context and adds the found Sample object to it. This has the effect that you can click on the RightTestPane and it continues to display the properties of the Sample.
 
-The TopTestPane and the BottomTestPane are Dockable Panes using annotations to register themselves as a view in the top/ bottom Docking Area and a corresponding menu item in the Window menu.
-The DockingPanes look for a FXML file with the same name in the same package, e.g. LeftTestPane looks for LeftTestPane.fxml. This is a convention of Drombler FX. (The FXML files are in the resource directory.)
+The RightTestPane is a *Dockable Pane* using annotations to register itself as a view in the right *Docking Area* and a 
+corresponding menu item in the Window/Other sub-menu. It implements ActiveContextSensitive to look for a Sample instance in the active context. If it finds one, it shows the properties of the sample. Note that it also configures a writable local context and adds the found Sample object to it. This has the effect that you can click on the RightTestPane and it continues to display the properties of the Sample.
 
-Note that the classes ColoredCircle, ColoredCircleManager, ColoredRectangle and ColoredRectangleManager are in the package com.mycompany.test.sample, which is an exported package (have a look at the generated Manifest file). This means that other bundles can use these classes to interact with the colored circle and rectangle actions, toolbar buttons and menu items. The same is true for the Sample class: since it is in the exported package, Views in other bundles can look for it in e.g. the active context.
+
+
+The TopTestPane and the BottomTestPane are *Dockable Panes* using annotations to register themselves as a view in the 
+top/ bottom *Docking Area* and a corresponding menu item in the Window menu.
+The DockingPanes look for a FXML file with the same name in the same package, e.g. LeftTestPane looks for 
+LeftTestPane.fxml. This is a convention of *Drombler FX*. (The FXML files are in the resource directory.)
+
+
+Note that the classes ColoredCircle, ColoredCircleManager, ColoredRectangle and ColoredRectangleManager are in the 
+package com.mycompany.test.sample, which is an exported package (have a look at the generated Manifest file). 
+This means that other bundles can use these classes to interact with the colored circle and rectangle actions, 
+toolbar buttons and menu items. The same is true for the Sample class: since it is in the exported package, 
+Views in other bundles can look for it in e.g. the active context.
 
 See [DockingFramework] for more information about the Docking Framework.
 
 See [ContextFramework] for more information about the Context Framework.
 
-The localized texts are expected to be specified in the Bundle.properties file (or a locale specific derivation of this file) in the same package as the annotated class in question. This is a convention of Drombler FX.
+The localized texts are expected to be  specified in the Bundle.properties file (or a locale specific derivation of 
+this file) in the same package as the annotated class in question. This is a convention of *Drombler FX*.
 
-See [Localization] for more information about localizing Drombler FX applications.
+
+See [Localization] for more information about localizing *Drombler FX* applications.
+
+
+
