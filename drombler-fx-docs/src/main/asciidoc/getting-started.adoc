@@ -64,7 +64,7 @@ The _--userdir_ option is quite useful during development. If you omit it, the d
 
 When you start-up the application you should see the following:
 
- * A JavaFX Window with a custom title
+ * A JavaFX window with a custom title
  * A content pane consisting of four _Views_ (Left, Right, Top and Bottom) around an empty center area
  * A Menu Bar with the following Menus: File, View, Custom, Window and Help
  * A Toolbar Container with three Toolbars: File, Rectangle and Circle
@@ -84,7 +84,7 @@ The Left _Dockable Pane_ has been provided by the sample and is docked to the le
 to create a new Sample object and open a Sample Editor _Dockable Pane_ in the center _Docking Area_.
 
 The Sample Editor (opened if you click on the "New Sample" button in the Left _Dockable Pane_) is provided by the sample
- and contains a text field, which is bound to the Tab text of the Sampler Editor, and displays the currently selected circle and rectangles.
+ and contains a text field, which is bound to the Tab text of the Sample Editor, and displays the currently selected circle and rectangles.
 
 The Right _Dockable Pane_, provided by this sample project and docked to the right _Docking Area_, shows the information 
 of the currently selected sample.
@@ -93,7 +93,7 @@ The sample also provides the two _Dockable Panes_ Top and Bottom, which are dock
 contain a Label showing Top/ Bottom respectivly. These _Dockable Panes_ are provided to make the corresponding 
 _Docking Areas_ visible.
 
-See [DockingFramework] for more information about the Docking Framework.
+See <<docking-framework.adoc#dockingFramework,Docking Framework>> for more information about the Docking Framework.
 
 Let's continue with the Toolbars.
 
@@ -132,7 +132,7 @@ Note that the Toolbar buttons have been configured with Tooltips (only visible i
 
 Note: If you run the application with a German locale the texts provided by Drombler FX are shown in German.
 
-See [ActionsMenusToolbars] for more information about Actions and Toolbars.
+See <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for more information about Actions and Toolbars.
 
 Let's continue with the Menus.
 
@@ -176,7 +176,7 @@ Note that most menu items have been configured with accelerator and mnemonic key
 Note: If you run the application with a German locale the texts provided by _Drombler FX_ are shown in German.
 
 
-See [ActionsMenusToolbars] for more information about Actions and Menus.
+See <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for more information about Actions and Menus.
 
 
 == Drombler FX Sample Application - the binaries explained
@@ -195,9 +195,9 @@ You can find:
  * applicationConfig.properties: contains application configurations such as: title, width and height
  * default.properties: Contains the properties to specify the Java, OSGi and Drombler startup system packages.
  * the correct JavaFX startup classes
- * the [Apache Felix Framework](http://felix.apache.org/) and OSGi specific classes
+ * the http://felix.apache.org[Apache Felix Framework] and OSGi specific classes
  * the Drombler specific startup classes
- * org/drombler/fx/startup/main/config.properties: Contains the properties to specify the JavaFX packages. This is the 
+ * _org/drombler/fx/startup/main/config.properties_: Contains the properties to specify the JavaFX packages. This is the 
 OSGi mechanism to access the JavaFX classes provided by your Java installation.
  
 
@@ -298,7 +298,7 @@ The actions Test1, Test2 and Test3 show 3 different ways to implement "normal" (
 
 The package-info uses some annotations to register additional menus and toolbars.
 
-See [ActionsMenusToolbars] for more information about Actions, Menus and Toolbars.
+See <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for more information about Actions, Menus and Toolbars.
 
 The LeftTestPane is a _Dockable Pane_ using annotations to register itself as a view in the left _Docking Area_ and a 
 corresponding menu item in the Window menu. The onNewSampleAction logic, which gets triggered when the "New Sample" button gets clicked, creates a new Sample and opens it in a new SampleEditorPane.
@@ -339,15 +339,15 @@ This means that other bundles can use these classes to interact with the colored
 toolbar buttons and menu items. The same is true for the Sample class: since it is in the exported package, 
 Views in other bundles can look for it in e.g. the active context.
 
-See [DockingFramework] for more information about the Docking Framework.
+See <<docking-framework.adoc#dockingFramework,Docking Framework>> for more information about the Docking Framework.
 
-See [ContextFramework] for more information about the Context Framework.
+See <<context-framework.adoc#contextFramework,Context Framework>> for more information about the Context Framework.
 
 The localized texts are expected to be  specified in the Bundle.properties file (or a locale specific derivation of 
 this file) in the same package as the annotated class in question. This is a convention of _Drombler FX_.
 
 
-See [Localization] for more information about localizing _Drombler FX_ applications.
+See <<localization.adoc#localization,Localization>> for more information about localizing _Drombler FX_ applications.
 
 
 
