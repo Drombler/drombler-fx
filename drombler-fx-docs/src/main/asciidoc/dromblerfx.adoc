@@ -1,7 +1,8 @@
 = Drombler FX
 Florian Brunner <puce@users.sourceforge.net>
-v${project.version}
+:revnumber: {project-version}
 :toc:
+
 _Drombler FX_ is a modular Rich Client Platform (RCP) for _JavaFX_ based on:
 
     * *OSGi*: _OSGi_ is the de facto standard for writing modular software in _Java_.
@@ -19,7 +20,7 @@ _Drombler FX_ uses http://felix.apache.org[Apache Felix] as its OSGi container b
 
 As an application framework it makes sure _JavaFX_ and _OSGi_ will get started properly and it provides the main window.
 
-Where to go from here:
+== Where to go from here
 
  * <<getting-started.adoc#gettingStarted,Getting Started>>
  * <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>>

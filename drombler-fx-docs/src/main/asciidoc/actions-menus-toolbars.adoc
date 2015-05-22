@@ -1,9 +1,6 @@
 [[actionsMenusToolbars]]
 = Actions, Menus and Toolbars
 :toc:
-:sourcedir: ../java
-:dromblersourcedir: ../../../target/drombler-sources
-:source-highlighter: highlightjs
 :numbered:
 
 [DromblerCommons] provides an Action Framework, which keeps the state (enabled/ disabled, selected/ unselected etc.), the information (texts, image etc.) and the logic between menu items and toolbar buttons in sync. In addition [DromblerACP] provides annotations to easily register new actions, menus, menu items, toolbars and toolbar buttons.
