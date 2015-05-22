@@ -1,51 +1,64 @@
 [[gettingStarted]]
 = Getting Started
 :toc:
-:imagesdir: images/
 :numbered:
 
 == System Requirements
  
- * Java SE 8 with bundled JavaFX 8. Tested version: 1.8.0_31; Java HotSpot(TM) 64-Bit Server VM 25.31-b07
- * Maven 3. Tested version: 3.0.5
+ * Java SE 8 with bundled JavaFX 8
+ * Maven 3
  * Environment variables:
  ** JAVA_HOME: your JDK installation dir
  ** M2_HOME: your Maven installation dir
  ** M2: &lt;M2_HOME&gt;/bin
- 
-Tested OS: Linux version 3.13.0-45-generic running on amd64; UTF-8; de_CH (nb)
 
-== Drombler FX Sample Application - create, build and run
+== Tested environment
 
-In this trail we'll create a _Drombler FX_ sample application, build and run it in 3 simple steps.
+ * Tested Java version: 1.8.0_45; Java HotSpot(TM) 64-Bit Server VM 25.45-b02
+ * Tested Maven version: 3.0.5
+ * Tested OS: Kubuntu 14.04.2 LTS; Linux version 3.13.0-45-generic running on amd64; UTF-8; de_CH
+
+== Drombler FX Sample Application - generate, build and run
+
+In this trail we'll generate a _Drombler FX_ sample application, build and run it in 3 simple steps.
 
 === Create the Application
 _Drombler FX_ provides a Maven Archetype to create a simple _Drombler FX_-based sample application:
 
-    :::bash
-    mvn archetype:generate -DarchetypeGroupId=org.drombler.fx -DarchetypeArtifactId=drombler-fx-maven-archetype-application -DarchetypeVersion=0.6 -DgroupId=com.mycompany.test -DartifactId=test -Dversion=0.1-SNAPSHOT -DbrandingId=foo
+[source,bash]
+----
+include::{bashsourcedir}/getting-started/generate-sample.sh[lines=2..2]
+----
 
 Note: You can replace groupId, artifactId, version and brandingId as you see fit, of course. But for the rest of this 
 section we assume the values as shown above.
 
 === Build the Application
 
-    :::bash
-    cd test
-    mvn clean install
+[source,bash]
+----
+include::{bashsourcedir}/getting-started/build-sample.sh[lines=2..3]
+----
 
 === Run the Application
 
-To run the application from the command line, you can use:
+To run the application from the command line, you can use either:
 
-    :::bash
-    cd test-application
-    java -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=target/deployment/standalone/conf/logging.properties -jar target/deployment/standalone/bin/foo.jar --userdir target/userdir
+[source,bash]
+----
+include::{bashsourcedir}/getting-started/run1-sample.sh[lines=2..3]
+----
 
+or:
 
-Or you can just double-click the foo.jar in the target/deployment/standalone/bin directory.
+[source,bash]
+----
+include::{bashsourcedir}/getting-started/run2-sample.sh[lines=2..3]
+----
 
-The _--userdir_ option is quite useful during development. If you omit it, the default location will be used: ${user.home}/.${brandingId}/${project.version}
+or you can just double-click the _foo.jar_ in the _target/deployment/standalone/bin_ directory.
+
+The _--userdir_ option is quite useful during development. If you omit it, the default location will be used: _${user.home}/.${brandingId}/${project.version}_
 
 == Drombler FX Sample Application - the running application explained
 
@@ -56,11 +69,7 @@ When you start-up the application you should see the following:
  * A Menu Bar with the following Menus: File, View, Custom, Window and Help
  * A Toolbar Container with three Toolbars: File, Rectangle and Circle
 
-image::getting-started/drombler-sample-application.png[alt="Drombler Sample Application - with 2 Sample Editors: 'Mixed' and 'Yellow'"]
-
-<div markdown style="float:left">
-<a href="GettingStarted/attachment/drombler-sample-application.png"><img src="GettingStarted/attachment/drombler-sample-application.png" width="100%" alt="Drombler Sample Application - with 2 Sample Editors: 'Mixed' and 'Yellow'"/></a>
-<label>Image: Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'</label></div>
+image::getting-started/drombler-sample-application.png[caption="Image 1: ", title="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'", alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'", link="{imagesdir}/getting-started/drombler-sample-application.png"]
 
 Let's start with the Content Pane.
 

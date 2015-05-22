@@ -102,6 +102,22 @@ Contributor(s): .
                                     </resources>              
                                 </configuration>            
                             </execution>
+                            <execution>
+                                <id>copy-bash-scripts</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/bash-sources</outputDirectory>
+                                    <resources>          
+                                        <resource>
+                                            <directory>src/main/bash</directory>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>              
+                                </configuration>            
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
