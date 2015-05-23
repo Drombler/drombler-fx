@@ -1,6 +1,7 @@
 [[dockingFramework]]
 = Docking Framework
 :toc:
+:numbered:
 
 This section describes an initial version of a _Docking Framework_.
 
@@ -54,7 +55,7 @@ _Drombler FX_ provides 5 _Docking Areas_ out-of-the-box: **left**, **right**, **
 include::{dromblersourcedir}/org/drombler/acp/core/standard/docking/impl/package-info.java[lines=15..29]
 ----
 
-<a href="DockingFramework/attachment/docking-areas-tutorial.png"><img src="DockingFramework/attachment/docking-areas-tutorial.png" width="100%" alt="Standard Docking Areas"/></a>
+image::docking/docking-areas-tutorial.png[caption="Image 1: ", title="Standard Docking Areas", alt="Standard Docking Areas", link="{imagesdir}/docking/docking-areas-tutorial.png"]
 
 As the image illustrates e.g. for the _Docking Area_ "right", the path {20, 80} and position 20 are interpreted as:
 
