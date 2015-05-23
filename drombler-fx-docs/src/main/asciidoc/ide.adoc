@@ -1,6 +1,7 @@
 [[ide]]
 = IDEs
 :toc:
+:numbered:
 
 == NetBeans
 

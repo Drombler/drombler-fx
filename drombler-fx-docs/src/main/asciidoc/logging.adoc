@@ -1,6 +1,7 @@
 [[logging]]
 = Logging
 :toc:
+:numbered:
 
 The Drombler projects use SLF4J for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.
 

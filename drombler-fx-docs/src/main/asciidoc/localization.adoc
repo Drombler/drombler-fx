@@ -1,6 +1,7 @@
 [[localization]]
 = Localization
 :toc:
+:numbered:
 
 The recommended way to localize your application is to use standard OSGi bundle fragments.
 

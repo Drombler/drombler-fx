@@ -1,6 +1,7 @@
 [[contextFramework]]
 = Context Framework
 :toc:
+:numbered:
 
 The Context Framework allows components such as Dockable Panes and Actions to communicate in a loosly coupled way - even across bundle boundaries.
 
