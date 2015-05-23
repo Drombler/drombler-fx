@@ -130,6 +130,7 @@ Contributor(s): .
                         <configuration>
                             <attributes>
                                 <drombler-acp-version>${drombler-acp.version}</drombler-acp-version>
+                                <drombler-commons-version>${drombler-commons.version}</drombler-commons-version>
                             </attributes>
                         </configuration>
                     </plugin>

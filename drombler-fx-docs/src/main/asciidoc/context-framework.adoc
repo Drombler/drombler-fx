@@ -5,7 +5,9 @@
 
 The _Context Framework_ allows components such as _Dockable Panes_ and _Actions_ to communicate in a loosly coupled way - even across bundle boundaries.
 
-The basic abstraction is the [org.drombler.commons.context.Context](http://www.drombler.org/DromblerCommons/current/docs/site/apidocs/org/drombler/commons/context/Context.html) interface. You can use it to look for instances of the specified type and listen for changes of its content.
+The basic abstraction is the 
+http://www.drombler.org/DromblerCommons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/Context.html[org.drombler.commons.context.Context] 
+interface. You can use it to look for instances of the specified type and listen for changes of its content.
 
 == Content Providers
 
@@ -13,7 +15,8 @@ To add content to a _Context_ you need a mutable _Context_ implementation such a
 
 Typical content providers are:
 
- * _Editor Dockable Panes_ (the object to edit, custom implementations of _action command interfaces_ such as org.drombler.acp.core.standard.action.Savable to interact with actions such as the "Save" action)
+ * _Editor Dockable Panes_ (the object to edit, custom implementations of _action command interfaces_ such as 
+org.drombler.acp.core.standard.action.Savable to interact with actions such as the "Save" action)
  * _View Dockable Panes_ with a "current selection"
 
 == Content Consumers
@@ -35,7 +38,7 @@ _Drombler FX_ will inject the _Active Context_.
 
 Note: Don't forget to listen for changes in the _Active Context_ content using a ContextListener!
 
-See [GettingStarted] and [ActionsMenusToolbars] for samples.
+See <<getting-started.adoc#gettingStarted,Getting Started>> and <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for samples.
 
 
 == Application Context
@@ -48,4 +51,4 @@ _Drombler FX_ will inject the _Application Context_.
 
 Note: Don't forget to listen for changes in the _Application Context_ content using a ContextListener!
 
-See [ActionsMenusToolbars] for a sample.
+See <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for a sample.
