@@ -3,33 +3,39 @@
 :toc:
 :numbered:
 
-The Drombler projects use SLF4J for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.
+The Drombler projects use [SLF4J](http://www.slf4j.org) for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.
 
-The sample provided by the Drombler FX archetype uses the java.util.logging (JUL) binding by default, because the required jar is very small since java.util.logging is part of the JRE.
+The sample provided by the Drombler FX archetype uses the _java.util.logging_ (_JUL_) binding by default, because the required jar is very small since _java.util.logging_ is part of the _JRE_.
 
 You can replace the binding with the following steps:
 
-In the drombler-fx-application project:
+In the _drombler-fx-application_ project:
 
-    In the POM: replace the slf4j-jdk14 dependency with the binding of your choice.
-    In src/main/logging (version >=0.5: src/main/app/conf): replace logging.properties with the logging configuration for your chosen logging framework.
-    In the nbactions.xml file: in all actions: replace -Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties with the system property required for your chosen logging framework
+. In _src/main/app/conf_: replace _logging.properties_ with the logging configuration for your chosen logging framework.
+. In the _POM_ file: 
+.. In the _exec-maven-plugin_ configuration: replace 
+   _-Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties_ 
+   with the system property required for your chosen logging framework.
+.. Replace the _slf4j-jdk14_ dependency with the binding of your choice.
 
-Sample configurations
-
+== Sample configurations
 The following sections describes the configuration of some bindings.
-Log4j 2
 
-    In the POM: replace
+=== Log4j 2
 
+* In the _POM_: replace 
+
+    ~~~~~xml
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-jdk14</artifactId>
         <scope>runtime</scope>
     </dependency>
+    ~~~~~
 
-with:
+   with:
 
+    ~~~~~xml
     <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-slf4j-impl</artifactId>
@@ -48,10 +54,13 @@ with:
         <artifactId>jboss-jms-api_1.1_spec</artifactId>
         <version>1.0.1.Final</version>
         <scope>runtime</scope>
-    </dependency>
+    </dependency>  
+    ~~~~~
 
-    In src/main/logging (version >=0.5: src/main/app/conf): replace logging.properties with log4j2.xml:
+* In _src/main/app/conf_: replace _logging.properties_ with _log4j2.xml_:
 
+
+    ~~~~~xml
     <?xml version="1.0" encoding="UTF-8"?>
     <Configuration status="WARN">
         <Appenders>
@@ -68,8 +77,9 @@ with:
             </Root>
         </Loggers>
     </Configuration>
+    ~~~~~
 
-    In the nbactions.xml file: in all actions: replace
-    -Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties
-    with
-    -Dlog4j.configurationFile=${project.build.directory}/deployment/standalone/conf/log4j2.xml
+* In the POM in the _exec-maven-plugin_ configuration: replace
+   _-Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties_
+   with
+   _-Dlog4j.configurationFile=${project.build.directory}/deployment/standalone/conf/log4j2.xml_
