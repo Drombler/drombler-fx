@@ -3,7 +3,7 @@
 :toc:
 :numbered:
 
-The Drombler projects use [SLF4J](http://www.slf4j.org) for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.
+The Drombler projects use http://www.slf4j.org[SLF4J] for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.
 
 The sample provided by the Drombler FX archetype uses the _java.util.logging_ (_JUL_) binding by default, because the required jar is very small since _java.util.logging_ is part of the _JRE_.
 
