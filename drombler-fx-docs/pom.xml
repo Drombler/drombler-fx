@@ -127,6 +127,11 @@ Contributor(s): .
                     <plugin>
                         <groupId>org.asciidoctor</groupId>
                         <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <configuration>
+                            <attributes>
+                                <drombler-acp-version>${drombler-acp.version}</drombler-acp-version>
+                            </attributes>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

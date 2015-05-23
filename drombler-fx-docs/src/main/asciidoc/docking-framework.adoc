@@ -64,7 +64,7 @@ As the image illustrates e.g. for the _Docking Area_ "right", the path {20, 80} 
      1. At path position 20 of this vertically splitted pane, add a horizontally splitted pane
      1. At path position 80 of this horizontally splitted pane, add a vertically splitted pane (= parent of the _Docking Area_, as the end of the path {20, 80} has been reached)
 
--&gt; an even number of path positions creates a vertically splitted pane, an odd number of path positions creates a horizontally splitted pane
+-> an even number of path positions creates a vertically splitted pane, an odd number of path positions creates a horizontally splitted pane
 
  * The _Docking Area_ "right" itself is then added to this parent vertically splitted pane at position 20.
 
@@ -110,7 +110,7 @@ Bundle.properties file (or a locale specific derivation of this file), which has
 annotated action. Note: Maven expects resources to be in the resources directory.
 |accelerator | the accelerator to open this _Dockable Pane_
 |icon | the icon to be used for this _Dockable Pane_. Note that this only specifies the name pattern. _Drombler FX_ 
-looks for &lt;icon-base-name&gt;16.&lt;icon-extension&gt; for menu items (expected to be 16x16 pixels). In the example 
+looks for <icon-base-name>16.<icon-extension> for menu items (expected to be 16x16 pixels). In the example 
 above _Drombler FX_ would look for myViewPane16.png. Note: Maven expects resources to be in a resources directory. If 
 you're using drombler-fx-parent as your parent POM, it's best to put binary files under the resources-bin directory as 
 this directory has been configured not to be filtered for variables.
@@ -124,7 +124,7 @@ this directory has been configured not to be filtered for variables.
 |===
 |Property | Value
 
-|path | The menu path relative to the Windows menu. See [ActionsMenusToolbars] for more information about menus.
+|path | The menu path relative to the Windows menu. See <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for more information about menus.
 |position | The position of the menu item in its parent menu.
 |===
 
@@ -132,7 +132,11 @@ this directory has been configured not to be filtered for variables.
 
 _Editor Dockable Panes_ are typically used to edit some data, e.g. in a form or a text editor.
 
-To open an editor, create an instance using the constructor and then call first the [Dockables.inject](http://www.drombler.org/DromblerACP/0.5/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#inject-D-) method and then the [Dockables.open](http://www.drombler.org/DromblerACP/0.5/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#open-D-) method.
+To open an editor, create an instance using the constructor and then call first the 
+http://www.drombler.org/DromblerACP/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#inject-D-[Dockables.inject] 
+method and then the 
+http://www.drombler.org/DromblerACP/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#open-D-[Dockables.open] 
+method.
 
 
 A _Dockable Pane_ can be registered as an _editor_ using the @EditorDocking annotation:
@@ -149,7 +153,7 @@ include::{sourcedir}/docking/DockableEditor.java[lines=18..21]
 |Property | Value
 
 |areaId | the ID of the _Dockable Area_ this _Dockable Pane_ should be registered to (see above for further information)
-|icon | the icon to be used for this _Dockable Pane_. Note that this only specifies the name pattern. _Drombler FX_ looks for &lt;icon-base-name&gt;16.&lt;icon-extension&gt; for tab items (expected to be 16x16 pixels). In the example above _Drombler FX_ would look for sample16.png. Note: Maven expects resources to be in a resources directory. If you're using drombler-fx-parent as your parent POM, it's best to put binary files under the resources-bin directory as this directory has been configured not to be filtered for variables.
+|icon | the icon to be used for this _Dockable Pane_. Note that this only specifies the name pattern. _Drombler FX_ looks for <icon-base-name>16.<icon-extension> for tab items (expected to be 16x16 pixels). In the example above _Drombler FX_ would look for sample16.png. Note: Maven expects resources to be in a resources directory. If you're using drombler-fx-parent as your parent POM, it's best to put binary files under the resources-bin directory as this directory has been configured not to be filtered for variables.
 |state | the initial docking state of this _Dockable Pane_. (This has currently no effect.)
 |===
 
@@ -178,13 +182,13 @@ be the parent type (here: "GridPane"):
 
 [source,xml]
 ----
-include::{resourcesdir}/docking/sample/MyViewPane.fxml[lines=1..12]
+include::{resourcesdir}/docking/sample/MyViewPane.fxml[lines=1..13]
 ----
 
-See [Localization] for more information about localization.
+See <<localization.adoc#localization,Localization>> for more information about localization.
 
 Note: Maven expects resources such as properties-files and FXML-files to be in the resources directory.
  
 ==== More Samples
 
-For more samples have a look at [GettingStarted].
+For more samples have a look at <<getting-started.adoc#gettingStarted,Getting Started>>.
