@@ -60,6 +60,10 @@ Contributor(s): .
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-action</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-docking</artifactId>
+        </dependency>
     </dependencies>
     
     <profiles>
@@ -137,6 +141,12 @@ Contributor(s): .
                     <groupId>org.drombler.fx</groupId>
                     <artifactId>drombler-fx-core-application</artifactId>
                     <version>${project.version}</version>
+                    <classifier>sources</classifier>
+                </dependency>
+                <dependency>
+                    <groupId>org.drombler.acp</groupId>
+                    <artifactId>drombler-acp-core-standard-docking</artifactId>
+                    <version>${drombler-acp.version}</version>
                     <classifier>sources</classifier>
                 </dependency>
             </dependencies>

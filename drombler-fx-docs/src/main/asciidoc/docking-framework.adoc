@@ -12,20 +12,10 @@ The _Docking Framework_ splits up the content area into any number of _Docking A
 
 _Docking Areas_ can be registered using the @DockingAreas, @DockingArea and @LayoutConstraints annotations on a package (usually in package-info.java):
 
-    ~~~~~java
-    @DockingArea(id = "myEditorArea", kind = DockingAreaKind.EDITOR, position = 25, 
-    path = {20, 40, 50}, permanent = true),
-    @DockingArea(id = "myUpperViewArea", kind = DockingAreaKind.VIEW, position = 40, 
-    path = {20, 40, 20}, layoutConstraints = @LayoutConstraints(prefHeight = 50)),
-    @DockingArea(id = "myLeftViewArea", kind = DockingAreaKind.VIEW, position = 10, 
-    path = {20, 20},
-    layoutConstraints = @LayoutConstraints(prefWidth = 200))
-    package com.mycompany.test.sample.impl;
-
-    import org.drombler.acp.core.docking.DockingArea;
-    import org.drombler.acp.core.docking.DockingAreaKind;
-    import org.drombler.acp.core.docking.LayoutConstraints;
-    ~~~~~
+[source,java]
+----
+include::{sourcedir}/docking/sample/package-info.java[lines=15..25]
+----
 
 The @DockingArea properties:
 
@@ -59,24 +49,10 @@ The next section covers these properties in further detail explaining the standa
 
 _Drombler FX_ provides 5 _Docking Areas_ out-of-the-box: **left**, **right**, **top**, **bottom** and **center**. The left, right, top and bottom areas have been configured only to be visible if they contain any docked _Dockable Pane_. The center area has been configured to be always visible.
 
-    ~~~~~java
-    @DockingArea(id = "center", kind = DockingAreaKind.EDITOR, position = 20, 
-    path = {20, 40, 50}, permanent = true),
-    @DockingArea(id = "top", kind = DockingAreaKind.VIEW, position = 20, 
-    path = {20, 40, 20}, layoutConstraints = @LayoutConstraints(prefHeight = 100)),
-    @DockingArea(id = "bottom", kind = DockingAreaKind.VIEW, position = 20, 
-    path = {20, 40, 80}, layoutConstraints = @LayoutConstraints(prefHeight = 100)),
-    @DockingArea(id = "left", kind = DockingAreaKind.VIEW, position = 20, 
-    path = {20, 20}, layoutConstraints = @LayoutConstraints(prefWidth = 200)),
-    @DockingArea(id = "right", kind = DockingAreaKind.VIEW, position = 20, 
-    path = {20, 80}, layoutConstraints = @LayoutConstraints(prefWidth = 200))
-    package org.drombler.acp.core.standard.docking;
-
-    import org.drombler.acp.core.docking.DockingArea;
-    import org.drombler.acp.core.docking.DockingAreaKind;
-    import org.drombler.acp.core.docking.LayoutConstraints;
-    ~~~~~
-
+[source,java]
+----
+include::{dromblersourcedir}/org/drombler/acp/core/standard/docking/impl/package-info.java[lines=15..29]
+----
 
 <a href="DockingFramework/attachment/docking-areas-tutorial.png"><img src="DockingFramework/attachment/docking-areas-tutorial.png" width="100%" alt="Standard Docking Areas"/></a>
 
@@ -113,16 +89,10 @@ _Drombler FX_ also provides the "Window" sub-menu "Other" out-of-the-box.
 
 A _Dockable Pane_ can be registered as a _view_ using the @ViewDocking and @WindowMenuEntry annotations:
 
-    ~~~~~java
-    import org.drombler.acp.core.docking.DockingState;
-    import org.drombler.acp.core.docking.ViewDocking;
-    import org.drombler.acp.core.docking.WindowMenuEntry;
-
-    @ViewDocking(areaId = "left", position = 50, displayName = "%MyViewPane.displayName",
-    accelerator = "Shortcut+4", icon = "myViewPane.png", state = DockingState.DOCKED,
-    menuEntry =
-    @WindowMenuEntry(path = "", position = 30))
-    ~~~~~
+[source,java]
+----
+include::{sourcedir}/docking/DockableView.java[lines=18..24]
+----
 
 @ViewDocking has the following properties:
 
@@ -166,12 +136,10 @@ To open an editor, create an instance using the constructor and then call first 
 
 A _Dockable Pane_ can be registered as an _editor_ using the @EditorDocking annotation:
 
-    ~~~~~java
-    import org.drombler.acp.core.docking.DockingState;
-    import org.drombler.acp.core.docking.EditorDocking;
-
-    @EditorDocking(areaId = "center", icon = "sample.png", state = DockingState.DOCKED)
-    ~~~~~
+[source,java]
+----
+include::{sourcedir}/docking/DockableEditor.java[lines=18..21]
+----
 
 @EditorDocking has the following properties:
 
@@ -190,61 +158,27 @@ A _Dockable Pane_ can be registered as an _editor_ using the @EditorDocking anno
 
 The sample code below shows a simple implementation of a _Dockable Pane_ registered as a view:
 
-    ~~~~~java
-    import java.io.IOException;
-    import javafx.event.ActionEvent;
-    import javafx.fxml.FXML;
-    import javafx.scene.image.ImageView;
-    import org.drombler.acp.core.docking.DockingState;
-    import org.drombler.acp.core.docking.ViewDocking;
-    import org.drombler.acp.core.docking.WindowMenuEntry;
-    import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
-
-
-    @ViewDocking(areaId = "left", position = 50, displayName = "%MyViewPane.displayName",
-    menuEntry =
-    @WindowMenuEntry(path = "", position = 30))
-    public class MyViewPane extends GridPane {
-
-        @FXML
-        private ImageView someImageView;
-
-        public MyViewPane() throws IOException {
-            load();
-        }
-
-        private void load() throws IOException {
-            FXMLLoaders.loadRoot(this);
-        }
-
-        @FXML
-        private void onSomeAction(ActionEvent event) throws IOException {
-            // do something
-        }
-    }
-    ~~~~~
+[source,java]
+----
+include::{sourcedir}/docking/sample/MyViewPane.java[lines=17..45]
+----
 
 Note: The @ViewDocking doesn't specify any values for accelerator or icon here as they are optional.
 
-The easiest way to load a FXML file is to use the _Drombler FX_ utility method FXMLLoaders.loadRoot(this). It expects an FXML and a ResourceBundle file with the same name as the _Dockable Pane_ (here: MyViewDockablePane.fxml and MyViewDockablePane.properties) in the same package. It registers the _Dockable Pane_ as root and as controller.
+The easiest way to load a FXML file is to use the _Drombler Commons_ utility method FXMLLoaders.loadRoot(this). 
+It expects an FXML and a ResourceBundle file with the same name as the _Dockable Pane_ (here: MyViewPane.fxml and 
+MyViewPane.properties) in the same package. It registers the _Dockable Pane_ as root and as controller.
 
-Since the _Dockable Pane_ gets registered as the controller, you can use the JavaFX @FXML annotation to inject controls and register method-callbacks.
+Since the _Dockable Pane_ gets registered as the controller, you can use the JavaFX @FXML annotation to inject controls 
+and register method-callbacks.
 
-Since the _Dockable Pane_ gets registered as the root, the FXML is expected to start with "fx:root" and type should be the parent type (here: "GridPane"):
+Since the _Dockable Pane_ gets registered as the root, the FXML is expected to start with "fx:root" and the type should 
+be the parent type (here: "GridPane"):
 
-    ~~~~~xml
-    <?xml version="1.0" encoding="UTF-8"?>
-
-    <?import java.lang.*?>
-    <?import javafx.scene.*?>
-    <?import javafx.scene.control.*?>
-    <?import javafx.scene.layout.*?>
-
-    <fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml">
-        <ImageView GridPane.rowIndex="0" GridPane.columnIndex="0" fx:id="someImageView" />
-        <Button GridPane.rowIndex="1" GridPane.columnIndex="0" text="%MyViewPane.SomeButton.text" onAction="#onSomeAction"/>
-    </fx:root>
-    ~~~~~
+[source,xml]
+----
+include::{resourcesdir}/docking/sample/MyViewPane.fxml[lines=1..12]
+----
 
 See [Localization] for more information about localization.
 
