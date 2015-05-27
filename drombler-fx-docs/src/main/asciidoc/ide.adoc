@@ -4,5 +4,9 @@
 :numbered:
 
 == NetBeans
+The sample application (see <<getting-started.adoc#gettingStarted,Getting Started>>) provides a _nbactions.xml_ file for
+the _drombler-fx-application_ project, which supports _run_ and _debug_ out-of-the-box.
+
+== IntelliJ
 
 == Eclipse

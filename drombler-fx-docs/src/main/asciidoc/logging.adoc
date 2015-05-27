@@ -25,59 +25,63 @@ The following sections describes the configuration of some bindings.
 
 * In the _POM_: replace 
 
-    ~~~~~xml
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-jdk14</artifactId>
-        <scope>runtime</scope>
-    </dependency>
-    ~~~~~
+[source,xml]
+----
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-jdk14</artifactId>
+    <scope>runtime</scope>
+</dependency>
+----
 
    with:
 
-    ~~~~~xml
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-slf4j-impl</artifactId>
-        <version>2.0.2</version>
-        <scope>runtime</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>2.0.2</version>
-        <scope>runtime</scope>
-    </dependency>
-    <!-- The following dependency is needed due to the following Log4j 2 issue: http://issues.apache.org/jira/browse/LOG4J2-805 -->
-    <dependency>
-        <groupId>org.jboss.spec.javax.jms</groupId>
-        <artifactId>jboss-jms-api_1.1_spec</artifactId>
-        <version>1.0.1.Final</version>
-        <scope>runtime</scope>
-    </dependency>  
-    ~~~~~
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-slf4j-impl</artifactId>
+    <version>2.0.2</version>
+    <scope>runtime</scope>
+</dependency>
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>2.0.2</version>
+    <scope>runtime</scope>
+</dependency>
+<!-- The following dependency is needed due to the following Log4j 2 issue: http://issues.apache.org/jira/browse/LOG4J2-805 -->
+<dependency>
+    <groupId>org.jboss.spec.javax.jms</groupId>
+    <artifactId>jboss-jms-api_1.1_spec</artifactId>
+    <version>1.0.1.Final</version>
+    <scope>runtime</scope>
+</dependency>  
+----
 
 * In _src/main/app/conf_: replace _logging.properties_ with _log4j2.xml_:
 
 
-    ~~~~~xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <Configuration status="WARN">
-        <Appenders>
-            <Console name="Console" target="SYSTEM_OUT">
-                <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
-            </Console>
-        </Appenders>
-        <Loggers>
-            <logger name="org.drombler.commons.level" level="ERROR"/>
-            <logger name="org.drombler.acp.level" level="INFO"/>
-            <logger name="org.drombler.fx.level" level="INFO"/>
-            <Root level="INFO">
-                <AppenderRef ref="Console"/>
-            </Root>
-        </Loggers>
-    </Configuration>
-    ~~~~~
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern=
+                "%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <logger name="org.drombler.commons.level" level="ERROR"/>
+        <logger name="org.drombler.acp.level" level="INFO"/>
+        <logger name="org.drombler.fx.level" level="INFO"/>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+----
 
 * In the POM in the _exec-maven-plugin_ configuration: replace
    _-Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties_
