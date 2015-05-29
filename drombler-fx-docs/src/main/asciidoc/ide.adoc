@@ -8,5 +8,21 @@ The sample application (see <<getting-started.adoc#gettingStarted,Getting Starte
 the _drombler-fx-application_ project, which supports _run_ and _debug_ out-of-the-box.
 
 == IntelliJ
+To *run* the application:
+
+ * Create a Maven run configuration
+ * *Working directory*: the _drombler-fx-application_ project
+ * *Command line*: _exec:exec_
+
+To *debug* the application:
+
+TBD
 
 == Eclipse
+To *run* the application:
+
+TBD
+
+To *debug* the application:
+
+TBD
