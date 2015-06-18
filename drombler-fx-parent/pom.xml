@@ -49,7 +49,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <name>Drombler FX</name>
             <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
         </site>
@@ -61,7 +61,10 @@ Contributor(s): .
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-fx</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-fx</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-fx</scm.parent.url>
-        <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerFX/${project.version}/docs/site</distributionManagement.parent.url>
+        <!-- URL to use with the standard site plugin with the git wagon -->
+        <distributionManagement.parent.url>github:http://drombler.github.io/drombler-fx/${project.version}/docs/site</distributionManagement.parent.url>
+        <!-- URL to use with the GitHub site plugin -->
+        <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
         <!--<url.parent>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url.parent>-->
         <drombler-acp.version>0.7-SNAPSHOT</drombler-acp.version>
         <dollar>$</dollar>  
@@ -72,7 +75,7 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     
-<!--    <build>
+    <!--    <build>
         <pluginManagement>
             <plugins>
                 <plugin>
