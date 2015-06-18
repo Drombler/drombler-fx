@@ -58,9 +58,9 @@ Contributor(s): .
     <properties>
         
         <!-- Dev Environment Defaults -->
-        <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-fx</scm.parent.connection>
-        <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-fx</scm.parent.developerConnection>
-        <scm.parent.url>http://sourceforge.net/p/drombler/drombler-fx</scm.parent.url>
+        <scm.parent.connection>scm:git:https://github.com/Drombler/drombler-fx.git</scm.parent.connection>
+        <scm.parent.developerConnection>scm:git:git@github.com:Drombler/drombler-fx.git</scm.parent.developerConnection>
+        <scm.parent.url>https://github.com/Drombler/drombler-fx</scm.parent.url>
         <!-- URL to use with the standard site plugin with the git wagon -->
         <distributionManagement.parent.url>github:http://drombler.github.io/drombler-fx/${project.version}/docs/site</distributionManagement.parent.url>
         <!-- URL to use with the GitHub site plugin -->
