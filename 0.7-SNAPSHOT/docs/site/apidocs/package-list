@@ -1,0 +1,9 @@
+action
+action.menu.sample
+action.sample
+action.toolbar.sample
+docking
+docking.sample
+org.drombler.fx.core.action
+org.drombler.fx.core.application
+org.drombler.fx.startup.main
