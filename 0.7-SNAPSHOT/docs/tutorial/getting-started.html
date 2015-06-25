@@ -415,6 +415,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body id="gettingStarted" class="article toc2 toc-right">
 <div id="header">
 <h1>Getting Started</h1>
+<div class="details">
+<span id="revnumber">version 0.7-SNAPSHOT</span>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -509,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mvn archetype:generate -DarchetypeGroupId=org.drombler.fx -DarchetypeArtifactId=drombler-fx-maven-archetype-application -DarchetypeVersion=0.7-SNAPSHOT -DgroupId=com.mycompany.test -DartifactId=test -Dversion=0.1-SNAPSHOT -DbrandingId=foo</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">Unresolved directive in getting-started.adoc - include::/fastdata/Programming/Java/drombler/drombler-fx/drombler-fx.git/drombler-fx-docs/target/bash-sources/tutorial/tutorial/getting-started/generate-sample.sh[lines=2..2]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -521,8 +524,7 @@ section we assume the values as shown above.</p>
 <h3 id="_build_the_application">3.2. Build the Application</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">cd test
-mvn clean install</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">Unresolved directive in getting-started.adoc - include::/fastdata/Programming/Java/drombler/drombler-fx/drombler-fx.git/drombler-fx-docs/target/bash-sources/tutorial/tutorial/getting-started/build-sample.sh[lines=2..3]</code></pre>
 </div>
 </div>
 </div>
@@ -533,8 +535,7 @@ mvn clean install</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">cd test-application
-java -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=target/deployment/standalone/conf/logging.properties -jar target/deployment/standalone/bin/foo.jar --userdir target/userdir</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">Unresolved directive in getting-started.adoc - include::/fastdata/Programming/Java/drombler/drombler-fx/drombler-fx.git/drombler-fx-docs/target/bash-sources/tutorial/tutorial/getting-started/run1-sample.sh[lines=2..3]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -542,8 +543,7 @@ java -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=ta
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">cd test-application
-mvn exec:exec</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">Unresolved directive in getting-started.adoc - include::/fastdata/Programming/Java/drombler/drombler-fx/drombler-fx.git/drombler-fx-docs/target/bash-sources/tutorial/tutorial/getting-started/run2-sample.sh[lines=2..3]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -579,7 +579,7 @@ mvn exec:exec</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<a class="image" href="./images/getting-started/drombler-sample-application.png"><img src="./images/getting-started/drombler-sample-application.png" alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'"></a>
+<a class="image" href="../images/tutorial/getting-started/drombler-sample-application.png"><img src="./images/tutorial/getting-started/drombler-sample-application.png" alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'"></a>
 </div>
 <div class="title">Image 1: Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'</div>
 </div>
@@ -985,7 +985,8 @@ this file) in the same package as the annotated class in question. This is a con
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-19 00:29:37 CEST
+Version 0.7-SNAPSHOT<br>
+Last updated 2015-06-25 00:29:36 CEST
 </div>
 </div>
 </body>

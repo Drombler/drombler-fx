@@ -5,6 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
+<meta name="author" content="Florian Brunner">
 <title>Drombler FX</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
 <style>
@@ -412,29 +413,94 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
 </head>
-<body class="article">
+<body id="tutorial" class="article toc2 toc-right">
 <div id="header">
 <h1>Drombler FX</h1>
 <div class="details">
+<span id="author" class="author">Florian Brunner</span><br>
+<span id="email" class="email"><a href="mailto:puce@users.sourceforge.net">puce@users.sourceforge.net</a></span><br>
 <span id="revnumber">version 0.7-SNAPSHOT</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_where_to_go_from_here">Where to go from here</a></li>
+</ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Drombler FX</em> is a modular Rich Client Platform (RCP) for <em>JavaFX</em> based on:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="docs">Documentation</a></p>
+<p><strong>OSGi</strong>: <em>OSGi</em> is the de facto standard for writing modular software in <em>Java</em>.</p>
 </li>
 <li>
-<p><a href="docs/site/modules.html">Maven Coordinates &amp; Download Links</a></p>
+<p><strong>Maven (POM-first)</strong>: <em>Drombler FX</em> applications can be build with <em>Maven</em>.
+The build follows the standard POM-first approach (the OSGi meta data will be generated for you).
+A custom Maven Plugin will help you to easily create <em>JavaFX</em> applications with Maven.
+A custom Maven Archetype will help you to get started.</p>
+</li>
+<li>
+<p><strong>Declarative programming model</strong>: Annotations can be used at many places to register elements such as menus, toolbars and GUI components.</p>
+</li>
+<li>
+<p><strong>Drombler ACP</strong>: <em>Drombler FX</em> is a <em>JavaFX</em> specific extension for <em>Drombler ACP</em> providing
+<em>JavaFX</em>-based implementations for the abstract definitions. Read more about <em>Drombler ACP</em> here: [DromblerACP]</p>
+</li>
+<li>
+<p><strong>Drombler Commons</strong>: <em>Drombler Commons</em> is a collection of reusable libraries and frameworks.
+They ship with OSGi meta data but don&#8217;t require an OSGi environment. Read more about <em>Drombler Commons</em> here: [DromblerCommons]</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><em>Drombler FX</em> uses <a href="http://felix.apache.org">Apache Felix</a> as its OSGi container by default.</p>
+</div>
+<div class="paragraph">
+<p>As an application framework it makes sure <em>JavaFX</em> and <em>OSGi</em> will get started properly and it provides the main window.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_where_to_go_from_here">Where to go from here</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="getting-started.html#gettingStarted">Getting Started</a></p>
+</li>
+<li>
+<p><a href="actions-menus-toolbars.html#actionsMenusToolbars">Actions, Menus and Toolbars</a></p>
+</li>
+<li>
+<p><a href="docking-framework.html#dockingFramework">Docking Framework</a></p>
+</li>
+<li>
+<p><a href="context-framework.html#contextFramework">Context Framework</a></p>
+</li>
+<li>
+<p><a href="localization.html#localization">Localization</a></p>
+</li>
+<li>
+<p><a href="logging.html#logging">Logging</a></p>
+</li>
+<li>
+<p><a href="ide.html#ide">IDEs</a></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.7-SNAPSHOT<br>
-Last updated 2015-06-25 23:14:57 CEST
+Last updated 2015-06-25 00:40:00 CEST
 </div>
 </div>
 </body>

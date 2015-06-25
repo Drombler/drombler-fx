@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
-<title>Logging</title>
+<title>Drombler FX</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -412,160 +412,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
 </head>
-<body id="logging" class="article toc2 toc-right">
+<body class="article">
 <div id="header">
-<h1>Logging</h1>
+<h1>Drombler FX</h1>
 <div class="details">
 <span id="revnumber">version 0.7-SNAPSHOT</span>
 </div>
-<div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_sample_configurations">1. Sample configurations</a>
-<ul class="sectlevel2">
-<li><a href="#_log4j_2">1.1. Log4j 2</a></li>
-</ul>
-</li>
-</ul>
-</div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>The Drombler projects use <a href="http://www.slf4j.org">SLF4J</a> for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.</p>
-</div>
-<div class="paragraph">
-<p>The sample provided by the Drombler FX archetype uses the <em>java.util.logging</em> (<em>JUL</em>) binding by default, because the required jar is very small since <em>java.util.logging</em> is part of the <em>JRE</em>.</p>
-</div>
-<div class="paragraph">
-<p>You can replace the binding with the following steps:</p>
-</div>
-<div class="paragraph">
-<p>In the <em>drombler-fx-application</em> project:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>In <em>src/main/app/conf</em>: replace <em>logging.properties</em> with the logging configuration for your chosen logging framework.</p>
-</li>
-<li>
-<p>In the <em>POM</em> file:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>In the <em>exec-maven-plugin</em> configuration: replace
-<em>-Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties</em>
-with the system property required for your chosen logging framework.</p>
-</li>
-<li>
-<p>Replace the <em>slf4j-jdk14</em> dependency with the binding of your choice.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sample_configurations">1. Sample configurations</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The following sections describes the configuration of some bindings.</p>
-</div>
-<div class="sect2">
-<h3 id="_log4j_2">1.1. Log4j 2</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>In the <em>POM</em>: replace</p>
+<p><a href="docs">Documentation</a></p>
 </li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
-    &lt;artifactId&gt;slf4j-jdk14&lt;/artifactId&gt;
-    &lt;scope&gt;runtime&lt;/scope&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>with:</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
-    &lt;artifactId&gt;log4j-slf4j-impl&lt;/artifactId&gt;
-    &lt;version&gt;2.0.2&lt;/version&gt;
-    &lt;scope&gt;runtime&lt;/scope&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
-    &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
-    &lt;version&gt;2.0.2&lt;/version&gt;
-    &lt;scope&gt;runtime&lt;/scope&gt;
-&lt;/dependency&gt;
-&lt;!-- The following dependency is needed due to the following Log4j 2 issue: http://issues.apache.org/jira/browse/LOG4J2-805 --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.jboss.spec.javax.jms&lt;/groupId&gt;
-    &lt;artifactId&gt;jboss-jms-api_1.1_spec&lt;/artifactId&gt;
-    &lt;version&gt;1.0.1.Final&lt;/version&gt;
-    &lt;scope&gt;runtime&lt;/scope&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
 <li>
-<p>In <em>src/main/app/conf</em>: replace <em>logging.properties</em> with <em>log4j2.xml</em>:</p>
+<p><a href="docs/site/modules.html">Maven Coordinates &amp; Download Links</a></p>
 </li>
 </ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;Configuration status="ERROR"&gt;
-    &lt;Appenders&gt;
-        &lt;Console name="Console" target="SYSTEM_OUT"&gt;
-            &lt;PatternLayout pattern=
-                "%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/&gt;
-        &lt;/Console&gt;
-    &lt;/Appenders&gt;
-    &lt;Loggers&gt;
-        &lt;logger name="org.drombler.commons.level" level="ERROR"/&gt;
-        &lt;logger name="org.drombler.acp.level" level="INFO"/&gt;
-        &lt;logger name="org.drombler.fx.level" level="INFO"/&gt;
-        &lt;Root level="INFO"&gt;
-            &lt;AppenderRef ref="Console"/&gt;
-        &lt;/Root&gt;
-    &lt;/Loggers&gt;
-&lt;/Configuration&gt;</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>In the POM in the <em>exec-maven-plugin</em> configuration: replace
-<em>-Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties</em>
-with
-<em>-Dlog4j.configurationFile=${project.build.directory}/deployment/standalone/conf/log4j2.xml</em></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.7-SNAPSHOT<br>
-Last updated 2015-06-19 00:29:37 CEST
+Last updated 2015-06-25 23:14:57 CEST
 </div>
 </div>
 </body>
