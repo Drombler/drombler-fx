@@ -923,7 +923,7 @@ toolbar buttons may be selected.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Menu(id = "Custom", displayName = "%customMenu.displayName", position = 110)
 @Menu(id = "Sub", displayName = "%subMenu.displayName", path = "Custom", position = 30)
-package action.menu.sample;
+package tutorial.action.menu;
 
 import org.drombler.acp.core.action.Menu;</code></pre>
 </div>
@@ -976,7 +976,7 @@ bar.</p></td>
 <pre class="highlightjs highlight"><code class="language-java" data-lang="java">@ToolBar(id = "myToolbar1", displayName = "%myToolbar1.displayName", position = 50)
 @ToolBar(id = "myToolbar2", displayName = "%myToolbar2.displayName", position = 100,
         visible = false)
-package action.toolbar.sample;</code></pre>
+package tutorial.action.toolbar;</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -1132,7 +1132,7 @@ toggled in the "View/Toolbars" menu.</p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">package action.sample.impl;
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">package tutorial.action.sample.impl;
 
 import org.drombler.acp.core.action.Action;
 import org.drombler.acp.core.action.MenuEntry;
@@ -1161,9 +1161,9 @@ public class MyAction1 extends AbstractActionListener&lt;Object&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">package action.sample.impl;
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">package tutorial.action.sample.impl;
 
-import action.sample.MyCommand;
+import tutorial.action.sample.MyCommand;
 import org.drombler.acp.core.action.Action;
 import org.drombler.acp.core.action.MenuEntry;
 import org.drombler.acp.core.action.ToolBarEntry;
@@ -1212,9 +1212,9 @@ public class MyAction2 extends AbstractActionListener&lt;Object&gt; implements A
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">package action.sample.impl;
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">package tutorial.action.sample.impl;
 
-import action.sample.MyCommand;
+import tutorial.action.sample.MyCommand;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1267,7 +1267,7 @@ public class MyAction3 extends AbstractActionListener&lt;Object&gt; implements A
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">package action.sample.impl;
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">package tutorial.action.sample.impl;
 
 import org.drombler.acp.core.action.ToggleAction;
 import org.drombler.acp.core.action.ToggleMenuEntry;
@@ -1300,7 +1300,7 @@ public class MyToggleAction extends AbstractToggleActionListener&lt;Object&gt; {
 <div id="footer">
 <div id="footer-text">
 Version 0.7-SNAPSHOT<br>
-Last updated 2015-06-19 00:29:37 CEST
+Last updated 2015-06-26 23:48:59 CEST
 </div>
 </div>
 </body>
