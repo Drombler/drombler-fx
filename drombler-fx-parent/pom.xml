@@ -62,8 +62,8 @@ Contributor(s): .
         <scm.parent.developerConnection>scm:git:git@github.com:Drombler/drombler-fx.git</scm.parent.developerConnection>
         <scm.parent.url>https://github.com/Drombler/drombler-fx</scm.parent.url>
         <!-- URLs to use with the standard site plugin with the git wagon -->
-        <distributionManagement.parent.docs.url>github:http://drombler.github.io/drombler-fx/${project.version}/docs</distributionManagement.parent.docs.url>
-        <distributionManagement.parent.url>${distributionManagement.parent.docs.url}/site</distributionManagement.parent.url>
+        <distributionManagement.base.url>github:http://drombler.github.io/drombler-fx/${project.version}</distributionManagement.base.url>
+        <distributionManagement.parent.url>${distributionManagement.base.url}/docs/site</distributionManagement.parent.url>
         <!-- URL to use with the GitHub site plugin -->
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
         <!--<url.parent>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url.parent>-->

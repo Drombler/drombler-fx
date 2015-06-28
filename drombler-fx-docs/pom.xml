@@ -38,7 +38,7 @@ Contributor(s): .
     <distributionManagement>
         <site>
             <id>github</id>
-            <url>${distributionManagement.parent.docs.url}/tutorial</url>
+            <url>${distributionManagement.base.url}</url>
         </site>
     </distributionManagement>
     
@@ -95,13 +95,19 @@ Contributor(s): .
     </dependencies>
     
     <reporting>
-        <!-- asciidoctor-maven-plugin output directory -->
+        <!-- set to asciidoctor-maven-plugin output directory -->
         <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
     </reporting>
     
     <profiles>
         <profile>
             <id>release-profile</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -130,10 +136,10 @@ Contributor(s): .
                                     <goal>copy-resources</goal>
                                 </goals>
                                 <configuration>
-                                    <outputDirectory>${project.build.directory}/generated-docs/images</outputDirectory>
+                                    <outputDirectory>${project.build.directory}/generated-docs/docs/tutorial/images</outputDirectory>
                                     <resources>          
                                         <resource>
-                                            <directory>src/main/images</directory>
+                                            <directory>src/main/images/tutorial</directory>
                                             <filtering>false</filtering>
                                         </resource>
                                     </resources>              
