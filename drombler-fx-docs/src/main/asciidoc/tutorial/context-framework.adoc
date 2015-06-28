@@ -6,7 +6,7 @@
 The _Context Framework_ allows components such as _Dockable Panes_ and _Actions_ to communicate in a loosly coupled way - even across bundle boundaries.
 
 The basic abstraction is the 
-http://www.drombler.org/DromblerCommons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/Context.html[org.drombler.commons.context.Context] 
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/Context.html[org.drombler.commons.context.Context] 
 interface. You can use it to look for instances of the specified type and listen for changes of its content.
 
 == Content Providers
