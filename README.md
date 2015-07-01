@@ -9,9 +9,9 @@ The modular application framework for *JavaFX* based on:
 
 - **Declarative programming model**: Annotations can be used at many places to register elements such as menus, toolbars and GUI components.
 
-- **Drombler ACP**: *Drombler FX* is a *JavaFX* specific extension for *Drombler ACP* providing *JavaFX*-based implementations for the abstract definitions. Read more about *Drombler ACP* here: [Drombler ACP](https://github.com/Drombler/drombler-acp)
+- **Drombler ACP**: *Drombler FX* is a *JavaFX* specific extension for *Drombler ACP* providing *JavaFX*-based implementations for the abstract definitions. Read more about *Drombler ACP* here: [Drombler ACP](../drombler-acp)
 
-- **Drombler Commons**: *Drombler Commons* is a collection of reusable libraries and frameworks. They ship with *OSGi* meta data but don’t require an *OSGi* environment. Read more about *Drombler Commons* here: [Drombler Commons](https://github.com/Drombler/drombler-commons)
+- **Drombler Commons**: *Drombler Commons* is a collection of reusable libraries and frameworks. They ship with *OSGi* meta data but don’t require an *OSGi* environment. Read more about *Drombler Commons* here: [Drombler Commons](../drombler-commons)
 
 *Drombler FX* uses [Apache Felix](http://felix.apache.org) as its OSGi container by default.
 
