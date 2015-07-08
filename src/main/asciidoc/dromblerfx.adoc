@@ -1,6 +1,0 @@
-= Drombler FX
-Florian Brunner <softsmithy@gmx.net>
-v${project.version}
-:toc:
-
-<<ide.adoc#ide,IDEs>>

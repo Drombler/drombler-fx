@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml">
+    <ImageView GridPane.rowIndex="0" GridPane.columnIndex="0" fx:id="someImageView" />
+    <Button GridPane.rowIndex="1" GridPane.columnIndex="0" 
+            text="%MyViewPane.SomeButton.text" onAction="#onSomeAction"/>
+</fx:root>
