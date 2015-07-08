@@ -1,0 +1,89 @@
+[[logging]]
+= Logging
+:toc:
+:numbered:
+
+The Drombler projects use http://www.slf4j.org[SLF4J] for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.
+
+The sample provided by the Drombler FX archetype uses the _java.util.logging_ (_JUL_) binding by default, because the required jar is very small since _java.util.logging_ is part of the _JRE_.
+
+You can replace the binding with the following steps:
+
+In the _drombler-fx-application_ project:
+
+. In _src/main/app/conf_: replace _logging.properties_ with the logging configuration for your chosen logging framework.
+. In the _POM_ file: 
+.. In the _exec-maven-plugin_ configuration: replace 
+   _-Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties_ 
+   with the system property required for your chosen logging framework.
+.. Replace the _slf4j-jdk14_ dependency with the binding of your choice.
+
+== Sample configurations
+The following sections describes the configuration of some bindings.
+
+=== Log4j 2
+
+* In the _POM_: replace 
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-jdk14</artifactId>
+    <scope>runtime</scope>
+</dependency>
+----
+
+   with:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-slf4j-impl</artifactId>
+    <version>2.0.2</version>
+    <scope>runtime</scope>
+</dependency>
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>2.0.2</version>
+    <scope>runtime</scope>
+</dependency>
+<!-- The following dependency is needed due to the following Log4j 2 issue: http://issues.apache.org/jira/browse/LOG4J2-805 -->
+<dependency>
+    <groupId>org.jboss.spec.javax.jms</groupId>
+    <artifactId>jboss-jms-api_1.1_spec</artifactId>
+    <version>1.0.1.Final</version>
+    <scope>runtime</scope>
+</dependency>  
+----
+
+* In _src/main/app/conf_: replace _logging.properties_ with _log4j2.xml_:
+
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern=
+                "%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <logger name="org.drombler.commons.level" level="ERROR"/>
+        <logger name="org.drombler.acp.level" level="INFO"/>
+        <logger name="org.drombler.fx.level" level="INFO"/>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+----
+
+* In the POM in the _exec-maven-plugin_ configuration: replace
+   _-Djava.util.logging.config.file=${project.build.directory}/deployment/standalone/conf/logging.properties_
+   with
+   _-Dlog4j.configurationFile=${project.build.directory}/deployment/standalone/conf/log4j2.xml_

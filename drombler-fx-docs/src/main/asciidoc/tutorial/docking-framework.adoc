@@ -1,0 +1,194 @@
+[[dockingFramework]]
+= Docking Framework
+:toc:
+:numbered:
+
+This section describes an initial version of a _Docking Framework_.
+
+== Docking Areas
+
+The _Docking Framework_ splits up the content area into any number of _Docking Areas_. The _Docking Areas_ can be resized using the dividers. Each _Docking Area_ can hold any number of _Dockable Panes_, which are layed out as Tabs. 
+
+=== Registering Docking Areas
+
+_Docking Areas_ can be registered using the @DockingAreas, @DockingArea and @LayoutConstraints annotations on a package (usually in package-info.java):
+
+[source,java]
+----
+include::{sourcedir}/tutorial/docking/package-info.java[lines=15..25]
+----
+
+The @DockingArea properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|id | the ID of the _Docking Area_. This ID can be used when registering _Dockable Panes_ (see further down)
+|kind | the kind of the _Docking Area_. Note: Currently this has no effect.
+|position | the position in the parent split pane. It's a best practice to leave out some positions between entries to 
+allow other bundles to register entries between some existing ones.
+|path | the path positions of the parent split pane. It's a best practice to leave out some path positions between 
+entries to allow other bundles to register entries between some existing ones.
+|permanent | if true, visible also when empty, else only visible if not empty
+|layoutConstraints | the layout constraints (see further down)
+|===
+
+The @LayoutConstraints properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|prefWidth | the preferred width of the _Docking Area_. Can be negative to indicate a flexible width (default).
+|prefHeight | the preferred height of the _Docking Area_. Can be negative to indicate a flexible height (default).
+|===
+
+The next section covers these properties in further detail explaining the standard _Docking Areas_ provided by _Drombler FX_.
+
+=== Standard Docking Areas provided by Drombler FX
+
+_Drombler FX_ provides 5 _Docking Areas_ out-of-the-box: **left**, **right**, **top**, **bottom** and **center**. The left, right, top and bottom areas have been configured only to be visible if they contain any docked _Dockable Pane_. The center area has been configured to be always visible.
+
+[source,java]
+----
+include::{dromblersourcedir}/org/drombler/acp/core/standard/docking/impl/package-info.java[lines=15..29]
+----
+
+image::docking/docking-areas-tutorial.png[caption="Image 1: ", title="Standard Docking Areas", alt="Standard Docking Areas", link="{imagesdir}/docking/docking-areas-tutorial.png"]
+
+As the image illustrates e.g. for the _Docking Area_ "right", the path {20, 80} and position 20 are interpreted as:
+
+ * The parent of the _Docking Area_ is located at:
+     1. Start with a vertically splitted pane.
+     1. At path position 20 of this vertically splitted pane, add a horizontally splitted pane
+     1. At path position 80 of this horizontally splitted pane, add a vertically splitted pane (= parent of the _Docking Area_, as the end of the path {20, 80} has been reached)
+
+-> an even number of path positions creates a vertically splitted pane, an odd number of path positions creates a horizontally splitted pane
+
+ * The _Docking Area_ "right" itself is then added to this parent vertically splitted pane at position 20.
+
+Note: To use the standard _Docking Areas_ provided by _Drombler FX_, you need to add a runtime dependency (usually in your drombler-fx-application project) to: org.drombler.acp:drombler-acp-core-standard-docking
+
+== Dockable Panes
+
+In _Drombler FX_ applications you don't design the whole application window, as this is managed by _Drombler FX_. Instead you design _Dockable Panes_, which are docked as tabs to _Docking Areas_.
+
+_Dockable Panes_ can extend from any Node such as layout pane.
+
+Currently, there are 2 kinds of _Dockable Panes_: views and editors.
+
+=== View Dockable Panes
+
+_View Dockable Panes_ are typically used to show or select some data.
+
+_Views_ are singletons: only one instance per type is used in the application.
+
+_Drombler FX_ provides a "Window" menu and requires each view to register a menu item, which can be used to open the view. The menu item implementation is provided by _Drombler FX_.
+
+_Drombler FX_ also provides the "Window" sub-menu "Other" out-of-the-box.
+
+A _Dockable Pane_ can be registered as a _view_ using the @ViewDocking and @WindowMenuEntry annotations:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/docking/DockableView.java[lines=18..24]
+----
+
+@ViewDocking has the following properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|areaId | the ID of the _Dockable Area_ this _Dockable Pane_ should be registered to (see above for further information)
+|position | the (tab) position in the parent _Dockable Area_. It's a best practice to leave out some positions between 
+entries to allow other bundles to register entries between some existing ones.
+|displayName | the text to be used as the title of the _Dockable Pane_ and as the text of the registered menu item. 
+If the value starts with '%' the rest of the value is interpreted as a property key and the value gets looked-up in the 
+Bundle.properties file (or a locale specific derivation of this file), which has to be in the same package as the 
+annotated action. Note: Maven expects resources to be in the resources directory.
+|accelerator | the accelerator to open this _Dockable Pane_
+|icon | the icon to be used for this _Dockable Pane_. Note that this only specifies the name pattern. _Drombler FX_ 
+looks for <icon-base-name>16.<icon-extension> for menu items (expected to be 16x16 pixels). In the example 
+above _Drombler FX_ would look for myViewPane16.png. Note: Maven expects resources to be in a resources directory. If 
+you're using drombler-fx-parent as your parent POM, it's best to put binary files under the resources-bin directory as 
+this directory has been configured not to be filtered for variables.
+|state | the initial docking state of this _Dockable Pane_. (This has currently no effect.)
+|menuEntry | the menu item registration. (See further down for more information.)
+|===
+
+@WindowMenuEntry has the following properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|path | The menu path relative to the Windows menu. See <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for more information about menus.
+|position | The position of the menu item in its parent menu.
+|===
+
+=== Editor Dockable Panes
+
+_Editor Dockable Panes_ are typically used to edit some data, e.g. in a form or a text editor.
+
+To open an editor, create an instance using the constructor and then call first the 
+http://www.drombler.org/DromblerACP/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#inject-D-[Dockables.inject] 
+method and then the 
+http://www.drombler.org/DromblerACP/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#open-D-[Dockables.open] 
+method.
+
+
+A _Dockable Pane_ can be registered as an _editor_ using the @EditorDocking annotation:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/docking/DockableEditor.java[lines=18..21]
+----
+
+@EditorDocking has the following properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|areaId | the ID of the _Dockable Area_ this _Dockable Pane_ should be registered to (see above for further information)
+|icon | the icon to be used for this _Dockable Pane_. Note that this only specifies the name pattern. _Drombler FX_ looks for <icon-base-name>16.<icon-extension> for tab items (expected to be 16x16 pixels). In the example above _Drombler FX_ would look for sample16.png. Note: Maven expects resources to be in a resources directory. If you're using drombler-fx-parent as your parent POM, it's best to put binary files under the resources-bin directory as this directory has been configured not to be filtered for variables.
+|state | the initial docking state of this _Dockable Pane_. (This has currently no effect.)
+|===
+
+=== Samples
+
+==== View Sample
+
+The sample code below shows a simple implementation of a _Dockable Pane_ registered as a view:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/docking/MyViewPane.java[lines=17..45]
+----
+
+Note: The @ViewDocking doesn't specify any values for accelerator or icon here as they are optional.
+
+The easiest way to load a FXML file is to use the _Drombler Commons_ utility method FXMLLoaders.loadRoot(this). 
+It expects an FXML and a ResourceBundle file with the same name as the _Dockable Pane_ (here: MyViewPane.fxml and 
+MyViewPane.properties) in the same package. It registers the _Dockable Pane_ as root and as controller.
+
+Since the _Dockable Pane_ gets registered as the controller, you can use the JavaFX @FXML annotation to inject controls 
+and register method-callbacks.
+
+Since the _Dockable Pane_ gets registered as the root, the FXML is expected to start with "fx:root" and the type should 
+be the parent type (here: "GridPane"):
+
+[source,xml]
+----
+include::{resourcesdir}/tutorial/docking/MyViewPane.fxml[lines=1..13]
+----
+
+See <<localization.adoc#localization,Localization>> for more information about localization.
+
+Note: Maven expects resources such as properties-files and FXML-files to be in the resources directory.
+ 
+==== More Samples
+
+For more samples have a look at <<getting-started.adoc#gettingStarted,Getting Started>>.

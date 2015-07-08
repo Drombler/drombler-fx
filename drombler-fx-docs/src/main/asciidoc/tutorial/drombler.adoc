@@ -1,0 +1,36 @@
+= Drombler FX
+Florian Brunner <puce@users.sourceforge.net>
+v${project.version}
+:toc:
+
+_Drombler FX_ is a modular Rich Client Platform (RCP) for _JavaFX_ based on:
+
+    * *OSGi*: _OSGi_ is the de facto standard for writing modular software in _Java_.
+    * *Maven (POM-first)*: _Drombler FX_ applications can be build with _Maven_. 
+                          The build follows the standard POM-first approach (the OSGi meta data will be generated for you). 
+                          A custom Maven Plugin will help you to easily create _JavaFX_ applications with Maven. 
+                          A custom Maven Archetype will help you to get started.
+    * *Declarative programming model*: Annotations can be used at many places to register elements such as menus, toolbars and GUI components.
+    * *Drombler ACP*: _Drombler FX_ is a _JavaFX_ specific extension for _Drombler ACP_ providing 
+                      _JavaFX_-based implementations for the abstract definitions. Read more about _Drombler ACP_ here: [DromblerACP]
+    * *Drombler Commons*: _Drombler Commons_ is a collection of reusable libraries and frameworks. 
+                          They ship with OSGi meta data but don't require an OSGi environment. Read more about _Drombler Commons_ here: [DromblerCommons]
+
+_Drombler FX_ uses http://felix.apache.org[Apache Felix] as its OSGi container by default.
+
+As an application framework it makes sure _JavaFX_ and _OSGi_ will get started properly and it provides the main window.
+
+Where to go from here:
+
+ * <<getting-started.adoc#gettingStarted,Getting Started>>
+ * <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>>
+ * <<docking-framework.adoc#dockingFramework,Docking Framework>>
+ * <<context-framework.adoc#contextFramework,Context Framework>>
+ * <<localization.adoc#localization,Localization>>
+ * <<logging.adoc#logging,Logging>>
+ * <<ide.adoc#ide,IDEs>>
+
+
+
+
+

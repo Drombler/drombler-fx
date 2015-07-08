@@ -1,0 +1,13 @@
+[[localization]]
+= Localization
+:toc:
+:numbered:
+
+The recommended way to localize your application is to use standard OSGi bundle fragments.
+
+TODO: provide a sample how to build OSGi bundle fragments with Maven
+
+== Currently Supported Locales
+
+* _en_ (English; default)
+* _de_ (German)

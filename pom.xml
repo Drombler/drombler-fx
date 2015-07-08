@@ -24,7 +24,7 @@ Contributor(s): .
     <artifactId>drombler-fx</artifactId>
     <packaging>pom</packaging>
     
-    <name>Drombler FX - All</name>
+    <name>Drombler FX</name>
     <description>Drombler FX is a modular Rich Client Platform for JavaFX based on Maven and OSGi. You can use this POM 
         file e.g. in your dependencyManagement section to manage your Drombler FX dependencies.</description>
     <inceptionYear>2012</inceptionYear>
@@ -35,12 +35,12 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
+      <tag>HEAD</tag>
     </scm>
   
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <url>${distributionManagement.parent.url}/</url>
         </site>
     </distributionManagement>
@@ -68,16 +68,9 @@ Contributor(s): .
         <!--<module>javafx-8</module>-->
         <module>drombler-fx-maven-plugin</module>
         <module>drombler-fx-maven-archetype-application</module>
+        <module>drombler-fx-docs</module>
     </modules>
   
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.asciidoctor</groupId>
-                <artifactId>asciidoctor-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
     <dependencyManagement>
         <dependencies>
             <dependency>
