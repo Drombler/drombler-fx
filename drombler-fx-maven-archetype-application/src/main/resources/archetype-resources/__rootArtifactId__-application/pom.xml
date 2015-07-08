@@ -29,7 +29,7 @@
                                 <goal>exec</goal>
                             </goals>
                             <configuration>
-                                <commandlineArgs>\${additionalExecArgs} -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=\${project.build.directory}/deployment/standalone/conf/logging.properties -jar \${project.build.directory}/deployment/standalone/bin/\${brandingId}.jar --userdir \${project.build.directory}/userdir</commandlineArgs>
+                                <commandlineArgs>\${additionalExecArgs} -Djava.endorsed.dirs=${project.build.directory}/deployment/standalone/bin/lib/endorsed -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=\${project.build.directory}/deployment/standalone/conf/logging.properties -jar \${project.build.directory}/deployment/standalone/bin/\${brandingId}.jar --userdir \${project.build.directory}/userdir</commandlineArgs>
                                 <executable>java</executable>
                                 <classpathScope>runtime</classpathScope>
                             </configuration>
