@@ -14,9 +14,15 @@
  */
 package org.drombler.fx.core.docking.impl;
 
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.Unmanaged;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockableFactory;
 import org.drombler.acp.core.docking.spi.ViewDockingDescriptor;
-import org.ops4j.pax.cdi.api.OsgiServiceProvider;
+import org.ops4j.pax.cdi.spi.CdiContainerFactory;
+import org.osgi.framework.FrameworkUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,29 +30,34 @@ import org.slf4j.LoggerFactory;
  *
  * @author puce
  */
-@OsgiServiceProvider
+//@OsgiServiceProvider
 //@ApplicationScoped
-public class FXDockableFactory implements DockableFactory {//<Object> {
+@Component
+@Service
+public class FXDockableFactory implements DockableFactory<Object> {
 
     private static final Logger LOG = LoggerFactory.getLogger(FXDockableFactory.class);
+
+    @Reference
+    private CdiContainerFactory cdiContainerFactory;
+
+    protected void bindCdiContainerFactory(CdiContainerFactory cdiContainerFactory) {
+        this.cdiContainerFactory = cdiContainerFactory;
+    }
+
+    protected void unbindCdiContainerFactory(CdiContainerFactory cdiContainerFactory) {
+        this.cdiContainerFactory = null;
+    }
 
 //    @Inject
 //    @OsgiService
 //    private Logger LOG;
     @Override
     public Object createDockable(ViewDockingDescriptor dockingDescriptor) {
-        try {
-            return dockingDescriptor.getDockableClass().newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
-            LOG.error(ex.getMessage(), ex);
-        }
-        return null;
+        BeanManager beanManager = cdiContainerFactory.getContainer(
+                FrameworkUtil.getBundle(dockingDescriptor.getDockableClass())).getBeanManager();
+        Unmanaged<?> unmanagedView = new Unmanaged<>(beanManager, dockingDescriptor.getDockableClass());
+        Unmanaged.UnmanagedInstance<?> viewInstance = unmanagedView.newInstance();
+        return viewInstance.produce().inject().postConstruct().get();
     }
-
-//        @Override
-//    public Object createDockable(ViewDockingDescriptor dockingDescriptor) {
-//        Unmanaged<?> unmanagedView = new Unmanaged<>(dockingDescriptor.getDockableClass());
-//        Unmanaged.UnmanagedInstance<?> viewInstance = unmanagedView.newInstance();
-//        return viewInstance.produce().inject().postConstruct().get();
-//    }
 }
