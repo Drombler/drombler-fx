@@ -23,7 +23,8 @@ import org.drombler.commons.context.ActiveContextProvider;
 import org.drombler.commons.context.ApplicationContextProvider;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.fx.docking.DockingManager;
+import org.drombler.commons.docking.fx.context.DockableDataModifiedManager;
+import org.drombler.commons.docking.fx.context.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.fx.core.application.ApplicationContentProvider;
@@ -42,6 +43,7 @@ public class DockingPaneProvider implements ApplicationContentProvider,
     private DockingPane dockingPane;
     private DockingAreaContainer<Node, FXDockableEntry> dockingAreaContainer;
     private DockingManager dockingManager;
+    private DockableDataModifiedManager dockableDataModifiedManager;
 
     @Override
     public Node getContentPane() {
@@ -71,6 +73,8 @@ public class DockingPaneProvider implements ApplicationContentProvider,
             dockingPane = new DockingPane();
             // TODO: remove "stop" DockingManager
             dockingManager = new DockingManager(dockingPane, contextManager);
+            // TODO: remove "stop" DockableDataModifiedManager
+            dockableDataModifiedManager = new DockableDataModifiedManager(dockingPane);
         }
         return dockingPane;
     }
