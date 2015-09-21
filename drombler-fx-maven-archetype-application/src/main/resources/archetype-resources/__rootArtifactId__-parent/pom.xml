@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <!-- You might want to replace this parent with your Corporate POM (which might inherit from 
-        drombler-fx-parent or one of its parents in turn).
+        drombler-oss-parent or one of its parents in turn).
         Run 'mvn help:effective-pom' on this parent project to get an idea what you need to configure. -->
-        <groupId>org.drombler.fx</groupId>
-        <artifactId>drombler-fx-parent</artifactId>
-        <version>${project.version}</version>
-        <relativePath></relativePath>
+        <groupId>org.drombler</groupId>
+        <artifactId>drombler-oss-parent</artifactId>
+        <version>2.2-SNAPSHOT</version>
+        <relativePath />
     </parent>
     <groupId>\${groupId}</groupId>
     <artifactId>\${artifactId}</artifactId>

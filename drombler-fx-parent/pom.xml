@@ -16,9 +16,9 @@ Contributor(s): .
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.drombler.acp</groupId>
-        <artifactId>drombler-acp-parent</artifactId>
-        <version>0.7-SNAPSHOT</version>
+        <groupId>org.drombler</groupId>
+        <artifactId>drombler-oss-parent</artifactId>
+        <version>2.2-SNAPSHOT</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.fx</groupId>
@@ -95,13 +95,6 @@ Contributor(s): .
                 <groupId>org.drombler.acp</groupId>
                 <artifactId>drombler-acp</artifactId>
                 <version>${drombler-acp.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.drombler.commons</groupId>
-                <artifactId>drombler-commons-fx</artifactId>
-                <version>${drombler-commons.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

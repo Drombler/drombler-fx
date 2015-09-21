@@ -35,7 +35,7 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
+        <tag>HEAD</tag>
     </scm>
   
     <distributionManagement>
@@ -109,6 +109,14 @@ Contributor(s): .
                 <artifactId>drombler-fx-locale-all</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.drombler.acp</groupId>
+                <artifactId>drombler-acp</artifactId>
+                <version>${drombler-acp.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
