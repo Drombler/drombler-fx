@@ -34,8 +34,8 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
@@ -72,6 +72,10 @@ Contributor(s): .
         <dependency>
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-client-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-action-command</artifactId>
         </dependency>
     </dependencies>
 </project>

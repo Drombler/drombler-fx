@@ -29,7 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.drombler.acp.core.docking.EditorDocking;
-import org.drombler.acp.core.standard.action.Savable;
+import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.client.docking.DockableDataSensitive;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Context;
