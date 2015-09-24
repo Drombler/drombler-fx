@@ -127,11 +127,5 @@ Contributor(s): .
             <artifactId>softsmithy-devlib-core</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.drombler.commons</groupId>
-            <artifactId>drombler-commons-action-command</artifactId>
-            <version>0.7-SNAPSHOT</version>
-            <type>jar</type>
-        </dependency>
     </dependencies>
 </project>
