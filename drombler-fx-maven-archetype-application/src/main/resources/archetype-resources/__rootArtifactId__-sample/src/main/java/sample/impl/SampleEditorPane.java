@@ -30,13 +30,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.drombler.acp.core.docking.EditorDocking;
 import org.drombler.commons.action.command.Savable;
-import org.drombler.commons.client.docking.DockableDataSensitive;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
-import org.drombler.commons.fx.docking.FXDockableData;
+import org.drombler.commons.docking.DockableDataSensitive;
+import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
