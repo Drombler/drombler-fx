@@ -21,9 +21,9 @@ import javafx.scene.Node;
 import org.drombler.acp.core.docking.spi.DockingAreaContainer;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerListener;
-import org.drombler.commons.client.docking.DockingAreaDescriptor;
-import org.drombler.commons.fx.docking.DockingPane;
-import org.drombler.commons.fx.docking.FXDockableEntry;
+import org.drombler.commons.docking.DockingAreaDescriptor;
+import org.drombler.commons.docking.fx.DockingPane;
+import org.drombler.commons.docking.fx.FXDockableEntry;
 
 /**
  *

@@ -20,9 +20,9 @@ import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockableDataManagerProvider;
 import org.drombler.acp.core.docking.spi.DockableEntryFactory;
-import org.drombler.commons.client.docking.DockablePreferences;
-import org.drombler.commons.fx.docking.FXDockableData;
-import org.drombler.commons.fx.docking.FXDockableEntry;
+import org.drombler.commons.docking.DockablePreferences;
+import org.drombler.commons.docking.fx.FXDockableData;
+import org.drombler.commons.docking.fx.FXDockableEntry;
 
 /**
  *

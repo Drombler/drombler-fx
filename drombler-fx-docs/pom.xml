@@ -98,6 +98,10 @@ Contributor(s): .
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-docking</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-docking-core</artifactId>
+        </dependency>
     </dependencies>
     
     <reporting>

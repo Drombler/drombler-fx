@@ -97,7 +97,7 @@ Contributor(s): .
         </dependency>
         <dependency>
             <groupId>org.drombler.commons</groupId>
-            <artifactId>drombler-commons-fx-docking</artifactId>
+            <artifactId>drombler-commons-docking-fx</artifactId>
         </dependency>
         <dependency>
             <groupId>org.drombler.commons</groupId>

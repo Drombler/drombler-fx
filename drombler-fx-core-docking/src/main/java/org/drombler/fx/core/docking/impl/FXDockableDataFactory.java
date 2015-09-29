@@ -21,7 +21,7 @@ import org.drombler.acp.core.docking.spi.AbstractDockableDockingDescriptor;
 import org.drombler.acp.core.docking.spi.DockableDataFactory;
 import org.drombler.acp.core.docking.spi.EditorDockingDescriptor;
 import org.drombler.acp.core.docking.spi.ViewDockingDescriptor;
-import org.drombler.commons.fx.docking.FXDockableData;
+import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.fx.scene.image.IconFactory;
 
 /**

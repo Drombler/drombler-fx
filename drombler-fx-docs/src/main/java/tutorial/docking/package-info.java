@@ -22,4 +22,4 @@ package tutorial.docking;
 
 import org.drombler.acp.core.docking.DockingArea;
 import org.drombler.acp.core.docking.LayoutConstraints;
-import org.drombler.commons.client.docking.DockingAreaKind;
+import org.drombler.commons.docking.DockingAreaKind;
