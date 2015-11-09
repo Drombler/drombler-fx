@@ -113,10 +113,16 @@ Contributor(s): .
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
