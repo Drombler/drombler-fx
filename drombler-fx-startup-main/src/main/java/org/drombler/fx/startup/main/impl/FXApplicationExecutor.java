@@ -12,15 +12,19 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.application;
+package org.drombler.fx.startup.main.impl;
 
-import javafx.scene.Node;
+import java.util.concurrent.Executor;
 
 /**
  *
  * @author puce
  */
-public interface ApplicationContentProvider {
+public class FXApplicationExecutor implements Executor {
 
-    Node getContentPane();
+    @Override
+    public void execute(Runnable command) {
+//        command.run();
+        PlatformUtils.runOnFxApplicationThread(command);
+    }
 }

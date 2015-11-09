@@ -15,7 +15,7 @@
 package org.drombler.fx.core.application.impl;
 
 import java.util.concurrent.Executor;
-import org.drombler.acp.core.application.ApplicationExecutorProvider;
+import org.drombler.acp.startup.main.ApplicationExecutorProvider;
 import org.osgi.service.component.ComponentContext;
 
 /**

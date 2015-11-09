@@ -12,16 +12,21 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.application.impl;
+package org.drombler.fx.startup.main.impl;
 
-import javafx.scene.layout.BorderPane;
+import java.util.concurrent.Executor;
+import org.drombler.acp.startup.main.ApplicationExecutorProvider;
 
 /**
  *
  * @author puce
  */
-public interface ContentPaneProvider {
-// TODO: replace BorderPane with a custom layout pane similar to DockablePane
+public class FXApplicationExecutorProvider implements ApplicationExecutorProvider {
 
-    BorderPane getContentPane();
+    private final Executor executor = new FXApplicationExecutor();
+
+    @Override
+    public Executor getApplicationExecutor() {
+        return executor;
+    }
 }

@@ -28,11 +28,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.installer.ArtifactInstaller;
 import org.apache.maven.artifact.repository.ArtifactRepositoryFactory;
 import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
+import org.apache.maven.artifact.resolver.ArtifactResolver;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -40,89 +43,92 @@ import org.apache.maven.plugin.dependency.AbstractDependencyFilterMojo;
 import org.apache.maven.plugin.dependency.AbstractDependencyMojo;
 import org.apache.maven.plugin.dependency.AbstractFromDependenciesMojo;
 import org.apache.maven.plugin.dependency.CopyDependenciesMojo;
+import org.apache.maven.plugin.dependency.fromConfiguration.AbstractFromConfigurationMojo;
+import org.apache.maven.plugin.dependency.fromConfiguration.ArtifactItem;
+import org.apache.maven.plugin.dependency.fromConfiguration.CopyMojo;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.archiver.Archiver;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
-import org.drombler.acp.startup.main.impl.ApplicationConfigProviderImpl;
-import org.drombler.acp.startup.main.impl.Main;
-import org.drombler.fx.core.application.impl.FXApplicationLauncher;
+import org.drombler.acp.startup.main.DromblerACPConfiguration;
+import org.drombler.fx.startup.main.DromblerFXApplication;
+import org.drombler.fx.startup.main.DromblerFXConfiguration;
 import org.ops4j.pax.construct.util.ReflectMojo;
 import org.softsmithy.lib.nio.file.CopyFileVisitor;
 import org.softsmithy.lib.nio.file.JarFiles;
 
-/**
- *
- * @goal standalone-zip
- *
- * @phase package
- *
- * @requiresDependencyResolution compile+runtime
- */
+@Mojo(name = "standalone-zip", defaultPhase = LifecyclePhase.PACKAGE,
+        requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class CreateStandaloneZipMojo extends AbstractMojo {
 
-    private static final Path RELATIVE_CONFIG_PROPERTIES_FILE_PATH = Paths.get(Main.CONFIG_DIRECTORY,
-            Main.CONFIG_PROPERTIES_FILE_NAME);
+    private static final Path RELATIVE_CONFIG_PROPERTIES_FILE_PATH
+            = Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY, DromblerACPConfiguration.CONFIG_PROPERTIES_FILE_NAME);
 
     /**
-     * @parameter expression="${dromblerfx.brandingId}" @required
+     * The branding id.
      */
+    @Parameter(property = "dromblerfx.brandingId", required = true)
     private String brandingId;
     /**
-     * @parameter expression="${dromblerfx.title}" @required
+     * The application title.
      */
+    @Parameter(property = "dromblerfx.title", required = true)
     private String title;
     /**
-     * @parameter expression="${dromblerfx.width}" @required
+     * The default application width.
      */
+    @Parameter(property = "dromblerfx.width", required = true)
     private double width;
     /**
-     * @parameter expression="${dromblerfx.height}" @required
+     * The default application height.
      */
+    @Parameter(property = "dromblerfx.height", required = true)
     private double height;
     /**
-     * @parameter expression="${dromblerfx.userdir}"
-     * default-value="${dollar}{user.home}/.${brandingId}/${project.version}"
-     * @required
+     * The user directory.
      */
     // TODO: good solution using "${dollar}"?
+    @Parameter(property = "dromblerfx.userdir", defaultValue = "${dollar}{user.home}/.${brandingId}/${project.version}",
+            required = true)
     private String userdir;
     /**
-     * @parameter expression="${dromblerfx.targetDirectory}"
-     * default-value="${project.build.directory}/deployment/standalone"
-     * @required
+     * The target directory.
      */
+    @Parameter(property = "dromblerfx.targetDirectory",
+            defaultValue = "${project.build.directory}/deployment/standalone", required = true)
     private File targetDirectory;
     /**
-     * @parameter default-value="${maven.dependency.org.apache.felix.org.apache.felix.main.jar.path}" @required
-     * @readonly
+     * The application resource source directory.
      */
-    private String apacheFelixMainJarPathString;
-    /**
-     * The Maven project.
-     *
-     * @parameter default-value="${project}" @required @readonly
-     */
-    private MavenProject project;
-
-    /**
-     * @parameter expression="${dromblerfx.appSourceDir}" default-value="${basedir}/src/main/app"
-     */
+    @Parameter(property = "dromblerfx.appSourceDir", defaultValue = "${basedir}/src/main/app", required = true)
     private File appSourceDir;
 
     /**
-     * @component
+     * The Maven project.
      */
+    @Parameter(defaultValue = "${project}", required = true, readonly = true)
+    private MavenProject project;
+
+    @Component
     private ArtifactRepositoryFactory artifactRepositoryFactory;
-    /**
-     * @component role="org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout"
-     */
+
+    @Component(role = ArtifactRepositoryLayout.class)
     private Map<String, ArtifactRepositoryLayout> artifactRepositoryLayouts;
-    /**
-     * @component
-     */
+
+    @Component
     private ArtifactInstaller artifactInstaller;
-    /**
-     * @component role="org.codehaus.plexus.archiver.Archiver" roleHint="zip"
-     */
+
+    @Component
+    private ArtifactFactory artifactFactory;
+
+    @Component
+    private ArtifactResolver artifactResolver;
+
+    @Component(role = Archiver.class, hint = "zip")
     private ZipArchiver zipArchiver;
 
     @Override
@@ -138,10 +144,13 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
 
             createMainJar(binDirPath);
 
+            copyLibs(binDirPath);
+
             copyAppDir(targetDirPath);
 
-            ensureDirExists(targetDirPath.resolve(Main.CONFIG_DIRECTORY));
-            ensureFileExists(targetDirPath, Paths.get(Main.CONFIG_DIRECTORY, Main.SYSTEM_PROPERTIES_FILE_NAME));
+            ensureDirExists(targetDirPath.resolve(DromblerACPConfiguration.CONFIG_DIRECTORY));
+            ensureFileExists(targetDirPath, Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY,
+                    DromblerACPConfiguration.SYSTEM_PROPERTIES_FILE_NAME));
             ensureConfigPropertiesFileExists(targetDirPath);
 
 //            URI confURI = CreateStandaloneZipMojo.class.getResource("/conf").toURI();
@@ -179,7 +188,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
     private void writeConfigPropertiesFile(Path targetConfigPropertiesFile) throws IOException {
         userdir = userdir.replace("${brandingId}", brandingId);
         Properties configProperties = new Properties();
-        configProperties.setProperty(Main.USER_DIR_PROPERTY, userdir);
+        configProperties.setProperty(DromblerACPConfiguration.USER_DIR_PROPERTY, userdir);
         Path configPropertiesFilePath = getAppSourceDirPath().resolve(RELATIVE_CONFIG_PROPERTIES_FILE_PATH);
         if (Files.exists(configPropertiesFilePath)) {
             try (BufferedInputStream bis = new BufferedInputStream(Files.newInputStream(configPropertiesFilePath))) {
@@ -206,7 +215,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         //                    Arrays.asList(new ArtifactItem(new Artifact() {
         //            })))
         //            copyMojo.execute();
-        Path mainJarPath = JarFiles.getJarPath(Main.class);
+        Path mainJarPath = JarFiles.getJarPath(DromblerFXApplication.class);
         if (!Files.exists(jarPath)) {
             Files.copy(mainJarPath, jarPath);
 
@@ -218,13 +227,12 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
 
     private void createApplicationConfigProperties(FileSystem jarFS) throws IOException {
         Properties applicationConfigProperties = new Properties();
-        applicationConfigProperties.setProperty(FXApplicationLauncher.APPLICATION_TITLE_PROPERTY_NAME, title);
-        applicationConfigProperties.setProperty(FXApplicationLauncher.APPLICATION_WIDTH_PROPERTY_NAME,
+        applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_TITLE_PROPERTY_NAME, title);
+        applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_WIDTH_PROPERTY_NAME,
                 Double.toString(width));
-        applicationConfigProperties.setProperty(FXApplicationLauncher.APPLICATION_HEIGHT_PROPERTY_NAME,
+        applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_HEIGHT_PROPERTY_NAME,
                 Double.toString(height));
-        Path applicationConfigPropertiesPath = jarFS.getPath(
-                ApplicationConfigProviderImpl.APPLICATION_PROPERTIES_FILE_PATH);
+        Path applicationConfigPropertiesPath = jarFS.getPath(DromblerACPConfiguration.APPLICATION_PROPERTIES_FILE_PATH);
 
         try (OutputStream os = Files.newOutputStream(applicationConfigPropertiesPath)) {
             applicationConfigProperties.store(os, null);
@@ -261,6 +269,23 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         copyDependenciesMojo.execute();
     }
 
+    private void copyArtifacts(Path outputDirPath, boolean useRepositoryLayout, String excludeScope,
+            List<ArtifactItem> artifactItems) throws MojoExecutionException {
+        CopyMojo copyMojo = new CopyMojo();
+
+        ReflectMojo reflectAbstractFromConfigurationMojo = new ReflectMojo(copyMojo, AbstractFromConfigurationMojo.class);
+        reflectAbstractFromConfigurationMojo.setField("outputDirectory", outputDirPath.toFile());
+        reflectAbstractFromConfigurationMojo.setField("artifactItems", artifactItems);
+        reflectAbstractFromConfigurationMojo.setField("artifactRepositoryManager", artifactRepositoryFactory);
+
+        ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyMojo, AbstractDependencyMojo.class);
+        reflectAbstractDependencyMojo.setField("factory", artifactFactory);
+        reflectAbstractDependencyMojo.setField("project", project);
+        reflectAbstractDependencyMojo.setField("resolver", artifactResolver);
+
+        copyMojo.execute();
+    }
+
     private void copyAppDir(Path targetDirPath) throws IOException {
         Path appSourceDirPath = getAppSourceDirPath();
         if (Files.exists(appSourceDirPath) && Files.isDirectory(appSourceDirPath)) {
@@ -285,4 +310,37 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         return appSourceDir.toPath();
     }
 
+    private void copyLibs(Path binDirPath) throws IOException, MojoExecutionException {
+//        Path libDirPath = binDirPath.resolve("lib");
+//        if (!Files.exists(libDirPath)) {
+//            Files.createDirectories(libDirPath);
+//        }
+//        List<Dependency> dependencies = project.getDependencies();
+//        Dependency dromblerFXStartupMainDependency = dependencies.stream().filter(dependency
+//                -> dependency.getGroupId().equals("org.drombler.fx")
+//                && dependency.getArtifactId().equals("drombler-fx-startup-main")).
+//                findFirst().
+//                orElseThrow(() -> new MojoExecutionException("???"));
+//
+//        Set<Artifact> artifacts = project.getArtifacts();
+//        Artifact dromblerFXStartupMainArtifact = artifacts.stream().
+//                filter(artifact
+//                        -> artifact.getGroupId().equals("org.drombler.fx")
+//                        && artifact.getArtifactId().equals("drombler-fx-startup-main")).
+//                findFirst().
+//                orElseThrow(() -> new MojoExecutionException("???"));
+//        List<Artifact> libs = new ArrayList<>();
+//        libs.add(dromblerFXStartupMainArtifact);
+//        dromblerFXStartupMainArtifact.getDependencyTrail();
+//        copyArtifacts(libDirPath, true, "system", createEndorsedArtifactsList());
+    }
+
+//    private List<ArtifactItem> createEndorsedArtifactsList() {
+//        ArtifactItem javaxAnnotationArtifactItem = new ArtifactItem();
+//        javaxAnnotationArtifactItem.setGroupId("javax.annotation");
+//        javaxAnnotationArtifactItem.setArtifactId("javax.annotation-api");
+//        javaxAnnotationArtifactItem.setVersion("1.2");
+//
+//        return Arrays.asList(javaxAnnotationArtifactItem);
+//    }
 }

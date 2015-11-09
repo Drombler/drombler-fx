@@ -14,20 +14,26 @@
  */
 package org.drombler.fx.core.docking.impl;
 
+import java.util.concurrent.Executor;
 import javafx.scene.Node;
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Deactivate;
+import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockingAreaContainer;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerProvider;
+import org.drombler.acp.startup.main.ApplicationExecutorProvider;
 import org.drombler.commons.context.ActiveContextProvider;
 import org.drombler.commons.context.ApplicationContextProvider;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.docking.fx.context.DockableDataModifiedManager;
-import org.drombler.commons.docking.fx.context.DockingManager;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableEntry;
-import org.drombler.fx.core.application.ApplicationContentProvider;
+import org.drombler.commons.docking.fx.context.DockableDataModifiedManager;
+import org.drombler.commons.docking.fx.context.DockingManager;
+import org.drombler.fx.startup.main.ApplicationContentProvider;
+import org.osgi.service.component.ComponentContext;
 
 /**
  *
@@ -39,22 +45,56 @@ public class DockingPaneProvider implements ApplicationContentProvider,
         DockingAreaContainerProvider<Node, FXDockableEntry>,
         ActiveContextProvider, ApplicationContextProvider {
 
+    @Reference
+    private ApplicationExecutorProvider applicationExecutorProvider;
+
+    // TODO: move ContextManager to ACP
     private final ContextManager contextManager = new ContextManager();
     private DockingPane dockingPane;
     private DockingAreaContainer<Node, FXDockableEntry> dockingAreaContainer;
     private DockingManager dockingManager;
     private DockableDataModifiedManager dockableDataModifiedManager;
 
+    protected void bindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
+        this.applicationExecutorProvider = applicationExecutorProvider;
+    }
+
+    protected void unbindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
+        this.applicationExecutorProvider = null;
+    }
+
+    @Activate
+    protected void activate(ComponentContext context) {
+        getApplicationExecutor().execute(() -> {
+            dockingPane = new DockingPane();
+            dockingAreaContainer = new DockingPaneDockingAreaContainerAdapter(dockingPane);
+            dockingManager = new DockingManager(dockingPane, contextManager);
+            dockableDataModifiedManager = new DockableDataModifiedManager(dockingPane);
+
+        });
+    }
+
+    @Deactivate
+    protected void deactivate(ComponentContext context) {
+        getApplicationExecutor().execute(() -> {
+            dockingManager.close();
+            dockableDataModifiedManager.close();
+            dockingAreaContainer = null;
+            dockingPane = null;
+        });
+    }
+
+    private Executor getApplicationExecutor() {
+        return applicationExecutorProvider.getApplicationExecutor();
+    }
+
     @Override
     public Node getContentPane() {
-        return getDockingPane();
+        return dockingPane;
     }
 
     @Override
     public DockingAreaContainer<Node, FXDockableEntry> getDockingAreaContainer() {
-        if (dockingAreaContainer == null) {
-            dockingAreaContainer = new DockingPaneDockingAreaContainerAdapter(getDockingPane());
-        }
         return dockingAreaContainer;
     }
 
@@ -68,14 +108,4 @@ public class DockingPaneProvider implements ApplicationContentProvider,
         return contextManager.getActiveContext();
     }
 
-    private DockingPane getDockingPane() {
-        if (dockingPane == null) {
-            dockingPane = new DockingPane();
-            // TODO: remove "stop" DockingManager
-            dockingManager = new DockingManager(dockingPane, contextManager);
-            // TODO: remove "stop" DockableDataModifiedManager
-            dockableDataModifiedManager = new DockableDataModifiedManager(dockingPane);
-        }
-        return dockingPane;
-    }
 }

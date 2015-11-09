@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.application.impl;
+package org.drombler.fx.core.standard.desktop.classic.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;

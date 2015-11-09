@@ -7,25 +7,25 @@
  * http://www.opensource.org/licenses/cddl1.txt
  *
  * The Original Code is Drombler.org. The Initial Developer of the
- * Original Code is Florian Brunner (Sourceforge.net user: puce).
- * Copyright 2012 Drombler.org. All Rights Reserved.
+ * Original Code is Florian Brunner (GitHub user: puce77).
+ * Copyright 2015 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.application.impl;
+package org.drombler.fx.startup.main.impl;
 
-import java.util.concurrent.Executor;
-import org.drombler.commons.fx.application.PlatformUtils;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
  * @author puce
  */
-public class FXApplicationExecutor implements Executor {
+public class DefaultRootPane extends BorderPane {
 
-    @Override
-    public void execute(Runnable command) {
-//        command.run();
-        PlatformUtils.runOnFxApplicationThread(command);
+    public DefaultRootPane() {
+        ProgressIndicator progressIndicator = new ProgressIndicator(-1.0);
+        setCenter(progressIndicator);
     }
+
 }

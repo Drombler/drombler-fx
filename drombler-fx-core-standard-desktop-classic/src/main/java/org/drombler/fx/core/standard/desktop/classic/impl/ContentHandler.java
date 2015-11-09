@@ -12,18 +12,19 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.application.impl;
+package org.drombler.fx.core.standard.desktop.classic.impl;
 
 import java.util.concurrent.Executor;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
-import org.drombler.acp.core.application.ApplicationExecutorProvider;
-import org.drombler.fx.core.application.ApplicationContentProvider;
+import org.drombler.acp.startup.main.ApplicationExecutorProvider;
+import org.drombler.fx.startup.main.ApplicationContentProvider;
 import org.osgi.service.component.ComponentContext;
 
 /**
+ * This handler is looking for a content pane for the application pane.
  *
  * @author puce
  */
@@ -42,7 +43,6 @@ public class ContentHandler {
     }
 
     protected void unbindContentPaneProvider(ContentPaneProvider contentPaneProvider) {
-        this.contentPaneProvider = null;
     }
 
     protected void bindApplicationContentProvider(ApplicationContentProvider applicationContentProvider) {
@@ -63,21 +63,16 @@ public class ContentHandler {
 
     @Activate
     protected void activate(ComponentContext context) {
-        initContentPane();
-    }
-
-    @Deactivate
-    protected void deactivate(ComponentContext context) {
-        uninitContentPane();
-    }
-
-    private void initContentPane() {
         applicationExecutor.execute(()
                 -> contentPaneProvider.getContentPane().setCenter(applicationContentProvider.getContentPane()));
     }
 
-    private void uninitContentPane() {
-        applicationExecutor.execute(()
-                -> contentPaneProvider.getContentPane().setCenter(null));
+    @Deactivate
+    protected void deactivate(ComponentContext context) {
+        applicationExecutor.execute(() -> {
+            contentPaneProvider.getContentPane().setCenter(null);
+            contentPaneProvider = null;
+        });
     }
+
 }

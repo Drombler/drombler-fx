@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.application.impl;
+package org.drombler.fx.core.standard.desktop.classic.impl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,7 +37,7 @@ import org.drombler.fx.core.action.MenuBarMenuContainer;
  *
  * @author puce
  */
-public class ApplicationPane extends GridPane implements MenuBarMenuContainerProvider<MenuItem, Menu>, ContentPaneProvider,
+public class ClassicDesktopApplicationPane extends GridPane implements MenuBarMenuContainerProvider<MenuItem, Menu>, ContentPaneProvider,
         ApplicationToolBarContainerProvider<ToolBar, Node>, Initializable {
 
     private final MenuItemRootContainer<MenuItem, Menu> menuBarMenuContainer;
@@ -49,7 +49,7 @@ public class ApplicationPane extends GridPane implements MenuBarMenuContainerPro
     private BorderPane contentPane;
 
 //    private final ActionTracker actionTracker;
-    public ApplicationPane() throws IOException {
+    public ClassicDesktopApplicationPane() throws IOException {
 //        actionTracker = new ActionTracker(bundleContext, new ExtensionTrackerListener<List<ActionDescriptor>>() {
 //
 //            @Override
@@ -62,7 +62,7 @@ public class ApplicationPane extends GridPane implements MenuBarMenuContainerPro
 //                        menuItem.setOnAction((EventHandler<ActionEvent>) actionDescriptor.getListenerClass().newInstance());
 //                        menuItems.add(menuItems.size() - 1, menuItem);
 //                    } catch (InstantiationException | IllegalAccessException | ClassCastException ex) {
-//                        Logger.getLogger(ApplicationPane.class.getName()).log(Level.SEVERE, null, ex);
+//                        Logger.getLogger(ClassicDesktopApplicationPane.class.getName()).log(Level.SEVERE, null, ex);
 //                    }
 //                }
 //            }
@@ -73,11 +73,11 @@ public class ApplicationPane extends GridPane implements MenuBarMenuContainerPro
 //            }
 //        });
 //        FXMLLoader loader = new FXMLLoader();
-//        Class<?> type = ApplicationPane.class;
+//        Class<?> type = ClassicDesktopApplicationPane.class;
 //        loader.setClassLoader(type.getClassLoader());
 //        loader.setResources(ResourceBundle.getBundle(type.getPackage().getName() + ".Bundle"));
 //        Pane root = (Pane) loader.load(type.getResourceAsStream(type.getSimpleName() + ".fxml"));
-//        controller = (ApplicationPane.Controller) loader.getController();
+//        controller = (ClassicDesktopApplicationPane.Controller) loader.getController();
         load();
         menuBarMenuContainer = new MenuBarMenuContainer(menuBar);
 //
