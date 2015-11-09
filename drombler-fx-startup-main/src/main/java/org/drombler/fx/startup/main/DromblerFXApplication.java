@@ -41,6 +41,7 @@ public class DromblerFXApplication extends Application {
     private MainWindowProvider<Stage> mainWindowProvider;
     private DromblerFXConfiguration configuration;
     private DromblerACPStarter starter;
+    private boolean stopped = false;
 
     // TODO: is this method still needed on Mac OS?
     public static final void main(String... args) {
@@ -84,9 +85,16 @@ public class DromblerFXApplication extends Application {
 
     @Override
     public void stop() throws BundleException, InterruptedException {
-        logInfo("Stopping JavaFX Application \"{0}\"...", getTitle());
-        starter.stop();
-        logInfo("Stopped JavaFX Application \"{0}\"", getTitle());
+        stopStarter();
+    }
+
+    private synchronized void stopStarter() throws InterruptedException, BundleException {
+        if (!stopped) {
+            stopped = true;
+            logInfo("Stopping JavaFX Application \"{0}\"...", getTitle());
+            starter.stop();
+            logInfo("Stopped JavaFX Application \"{0}\"", getTitle());
+        }
     }
 
     private void startOSGiThread() {
@@ -98,7 +106,7 @@ public class DromblerFXApplication extends Application {
                 logError(ex);
             } finally {
                 try {
-                    DromblerFXApplication.this.stop();
+                    DromblerFXApplication.this.stopStarter();
                 } catch (BundleException | InterruptedException ex) {
                     logError(ex);
                 }
