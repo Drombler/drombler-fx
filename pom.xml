@@ -63,6 +63,7 @@ Contributor(s): .
         <module>drombler-fx-core-application-locale-de</module>
         <module>drombler-fx-core-docking</module>
         <module>drombler-fx-core-action</module>
+        <module>drombler-fx-core-standard-desktop-classic</module>
         <module>drombler-fx-locale-de</module>
         <module>drombler-fx-locale-all</module>
         <!--<module>javafx-8</module>-->
@@ -96,6 +97,11 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-fx-core-action</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

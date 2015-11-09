@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.application;
+package org.drombler.fx.startup.main;
 
 import javafx.scene.Node;
 

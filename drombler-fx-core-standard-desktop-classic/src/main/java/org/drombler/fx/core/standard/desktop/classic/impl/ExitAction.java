@@ -12,16 +12,24 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.application.impl;
+package org.drombler.fx.core.standard.desktop.classic.impl;
 
-import javafx.scene.layout.BorderPane;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import org.drombler.acp.core.action.Action;
+import org.drombler.acp.core.action.MenuEntry;
 
 /**
  *
  * @author puce
  */
-public interface ContentPaneProvider {
-// TODO: replace BorderPane with a custom layout pane similar to DockablePane
+@Action(id = "platform.exit", category = "core", displayName = "%exit.displayName", accelerator = "Shortcut+Q")
+@MenuEntry(path = "File", position = 9900)
+public class ExitAction implements EventHandler<ActionEvent> {
 
-    BorderPane getContentPane();
+    @Override
+    public void handle(ActionEvent t) {
+        Platform.exit();
+    }
 }

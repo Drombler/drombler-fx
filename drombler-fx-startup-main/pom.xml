@@ -34,8 +34,8 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
@@ -60,13 +60,24 @@ Contributor(s): .
                 <configuration>
                     <instructions>
                         <_donotcopy>(CVS|.svn|config.properties)</_donotcopy>
-                        <Main-Class>org.drombler.fx.startup.main.Main</Main-Class>
+                        <Main-Class>org.drombler.fx.startup.main.DromblerFXApplication</Main-Class>
                         <Embed-Dependency>*;artifactId=drombler-acp-startup-main;inline=true</Embed-Dependency>
                         <Private-Package>org.drombler.fx.startup.main.*</Private-Package>
                         <Export-Package>!org.osgi.service.log, !org.osgi.service.obr,org.osgi.*, !org.drombler.acp.startup.main.impl.*, org.drombler.acp.startup.main.*</Export-Package>
                         <Import-Package>!*</Import-Package>
                     </instructions>
+                    <versions>
+                        <drombler.fx.osgi.version.clean>${project.version}</drombler.fx.osgi.version.clean>
+                    </versions>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>cleanVersions</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

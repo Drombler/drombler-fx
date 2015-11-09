@@ -17,7 +17,7 @@ Contributor(s): .
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.drombler.fx.core.application.impl.*?>
+<?import org.drombler.fx.core.standard.desktop.classic.impl.*?>
 
 <fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml">
     <MenuBar GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" fx:id="menuBar"/>
