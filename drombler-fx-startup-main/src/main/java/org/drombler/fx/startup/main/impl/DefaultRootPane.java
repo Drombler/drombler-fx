@@ -14,18 +14,20 @@
  */
 package org.drombler.fx.startup.main.impl;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 
 /**
  *
  * @author puce
  */
-public class DefaultRootPane extends BorderPane {
+public class DefaultRootPane extends GridPane {
 
     public DefaultRootPane() {
+        setAlignment(Pos.CENTER);
         ProgressIndicator progressIndicator = new ProgressIndicator(-1.0);
-        setCenter(progressIndicator);
+        add(progressIndicator, 0, 0);
     }
 
 }
