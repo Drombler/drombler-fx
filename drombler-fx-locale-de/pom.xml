@@ -56,7 +56,7 @@ Contributor(s): .
         </dependency>
         <dependency>
             <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-core-application-locale-de</artifactId>
+            <artifactId>drombler-fx-core-standard-desktop-classic-locale-de</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
