@@ -79,11 +79,6 @@ Contributor(s): .
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-core-application</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-docking</artifactId>
         </dependency>

@@ -194,7 +194,7 @@ Contributor(s): .
                 </dependency>
                 <dependency>
                     <groupId>org.drombler.fx</groupId>
-                    <artifactId>drombler-fx-core-application</artifactId>
+                    <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
                     <version>${project.version}</version>
                     <classifier>sources</classifier>
                 </dependency>

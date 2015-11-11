@@ -22,11 +22,11 @@ Contributor(s): .
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>drombler-fx-core-application-locale-de</artifactId>
+    <artifactId>drombler-fx-core-standard-desktop-classic-locale-de</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Drombler FX - Core - Application - Locale - German</name>
-    <description>L10n (German) of the core application framework.</description>
+    <name>Drombler FX - Core - Standard - Desktop - Classic - Locale - German</name>
+    <description>L10n (German) of the classic desktop application layout.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
@@ -57,7 +57,7 @@ Contributor(s): .
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Fragment-Host>org.drombler.fx.drombler-fx-core-application;bundle-version=${drombler.fx.osgi.version.clean}</Fragment-Host>
+                        <Fragment-Host>org.drombler.fx.drombler-fx-core-standard-desktop-classic;bundle-version=${drombler.fx.osgi.version.clean}</Fragment-Host>
                     </instructions>
                     <versions>
                         <drombler.fx.osgi.version.clean>${project.version}</drombler.fx.osgi.version.clean>
@@ -79,7 +79,7 @@ Contributor(s): .
     <dependencies>
         <dependency>
             <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-core-application</artifactId>
+            <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

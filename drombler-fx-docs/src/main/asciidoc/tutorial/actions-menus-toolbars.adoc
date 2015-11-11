@@ -316,7 +316,7 @@ See <<context-framework.adoc#contextFramework,Context Framework>> for more infor
 
 [source,java]
 ----
-include::{dromblersourcedir}/org/drombler/fx/core/application/impl/ExitAction.java[lines=27..28]
+include::{dromblersourcedir}/org/drombler/fx/core/standard/desktop/classic/impl/ExitAction.java[lines=27..28]
 ----
 
 == Context Sensitive Actions
