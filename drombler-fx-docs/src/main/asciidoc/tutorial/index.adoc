@@ -1,21 +1,22 @@
 [[tutorial]]
 = Drombler FX
-Florian Brunner <puce@users.sourceforge.net>
+Florian Brunner <fbrunnerreg@gmx.ch>
 :revnumber: {project-version}
 :toc:
 
-_Drombler FX_ is a modular Rich Client Platform (RCP) for _JavaFX_ based on:
+The modular application framework for _JavaFX_ based on:
 
     * *OSGi*: _OSGi_ is the de facto standard for writing modular software in _Java_.
     * *Maven (POM-first)*: _Drombler FX_ applications can be build with _Maven_. 
-                          The build follows the standard POM-first approach (the OSGi meta data will be generated for you). 
-                          A custom Maven Plugin will help you to easily create _JavaFX_ applications with Maven. 
-                          A custom Maven Archetype will help you to get started.
+                       The build follows the standard POM-first approach (the OSGi meta data will be generated for you).
+                       A custom Maven Plugin will help you to easily create _JavaFX_ applications with Maven. 
+                       A custom Maven Archetype will help you to get started.
     * *Declarative programming model*: Annotations can be used at many places to register elements such as menus, toolbars and GUI components.
     * *Drombler ACP*: _Drombler FX_ is a _JavaFX_ specific extension for _Drombler ACP_ providing 
-                      _JavaFX_-based implementations for the abstract definitions. Read more about _Drombler ACP_ here: [DromblerACP]
+                      _JavaFX_-based implementations for the abstract definitions. 
+                      Read more about _Drombler ACP_ here: http://www.drombler.org/drombler-acp[Drombler ACP]
     * *Drombler Commons*: _Drombler Commons_ is a collection of reusable libraries and frameworks. 
-                          They ship with OSGi meta data but don't require an OSGi environment. Read more about _Drombler Commons_ here: [DromblerCommons]
+                          They ship with _OSGi_ meta data but don't require an _OSGi_ environment. Read more about _Drombler Commons_ here: http://www.drombler.org/drombler-commons[Drombler Commons]
 
 _Drombler FX_ uses http://felix.apache.org[Apache Felix] as its OSGi container by default.
 
