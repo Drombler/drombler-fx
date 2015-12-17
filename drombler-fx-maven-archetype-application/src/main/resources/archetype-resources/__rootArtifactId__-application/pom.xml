@@ -48,6 +48,8 @@
                     <title>MyApplication \${project.version}</title>
                     <width>1500</width>
                     <height>1000</height>
+                    <!--Uncomment the following line and specifcy an unused port to create a single instance application -->
+                    <!--<defaultSingleInstancePort>some unused port</defaultSingleInstancePort>-->
                 </configuration>
             </plugin>
         </plugins>
