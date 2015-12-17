@@ -35,7 +35,9 @@ import org.drombler.commons.context.Context;
 import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
+import org.drombler.commons.docking.Deselect;
 import org.drombler.commons.docking.DockableDataSensitive;
+import org.drombler.commons.docking.Select;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
@@ -151,6 +153,16 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
                 setColoredRectangleImage(coloredRectangle);
             }
         }
+    }
+
+    @Select
+    public void select() {
+        System.out.println("Selected sample: " + dockableData.getTitle());
+    }
+
+    @Deselect
+    public void deselect() {
+        System.out.println("Deselected sample: " + dockableData.getTitle());
     }
 
     private class ModifiedListener implements ChangeListener<Object> {
