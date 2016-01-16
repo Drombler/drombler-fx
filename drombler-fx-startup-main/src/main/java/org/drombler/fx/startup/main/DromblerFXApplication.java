@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.drombler.acp.startup.main.ApplicationExecutorProvider;
@@ -51,8 +52,11 @@ public class DromblerFXApplication extends Application {
         this.configuration = new DromblerFXConfiguration(getParameters());
         this.starter = new DromblerACPStarter(configuration);
         logInfo("Initializing JavaFX Application \"{0}\" ({1}x{2})...", getTitle(), getWidth(), getHeight());
-        this.starter.init();
-        logInfo("Initialized JavaFX Application \"{0}\"", getTitle());
+        if (this.starter.init()) {
+            logInfo("Initialized JavaFX Application \"{0}\"", getTitle());
+        } else {
+            Platform.exit();
+        }
     }
 
     @Override
