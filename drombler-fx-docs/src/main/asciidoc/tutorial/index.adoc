@@ -1,6 +1,8 @@
 [[tutorial]]
 = Drombler FX
 Florian Brunner <fbrunnerreg@gmx.ch>
+:description: The modular application framework for JavaFX.
+:keywords: Application Framework, Drombler FX, Java, JavaFX, Maven, OSGi, RCP
 :revnumber: {project-version}
 :toc:
 
