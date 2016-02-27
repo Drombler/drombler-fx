@@ -35,13 +35,13 @@ public class FXDockableDataFactory implements DockableDataFactory<FXDockableData
     private static final int ICON_SIZE = 16;
 
     @Override
-    public FXDockableData createDockableData(ViewDockingDescriptor dockingDescriptor) {
+    public FXDockableData createDockableData(ViewDockingDescriptor<?> dockingDescriptor) {
         FXDockableData dockableData = createCommonDockableData(dockingDescriptor);
         dockableData.setTitle(dockingDescriptor.getDisplayName());
         return dockableData;
     }
 
-    private FXDockableData createCommonDockableData(AbstractDockableDockingDescriptor dockingDescriptor) {
+    private FXDockableData createCommonDockableData(AbstractDockableDockingDescriptor<?> dockingDescriptor) {
         FXDockableData dockableData = new FXDockableData();
         if (!StringUtils.isBlank(dockingDescriptor.getIcon())) {
             // TODO: reuse IconFactory of FXActionUtils if possible
@@ -54,7 +54,7 @@ public class FXDockableDataFactory implements DockableDataFactory<FXDockableData
     }
 
     @Override
-    public FXDockableData createDockableData(EditorDockingDescriptor dockingDescriptor) {
+    public FXDockableData createDockableData(EditorDockingDescriptor<?> dockingDescriptor) {
         return createCommonDockableData(dockingDescriptor);
     }
 
