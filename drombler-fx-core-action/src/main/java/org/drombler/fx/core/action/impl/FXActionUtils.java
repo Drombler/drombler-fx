@@ -29,7 +29,7 @@ public final class FXActionUtils {
     private FXActionUtils() {
     }
 
-    public static void configureAction(FXAction fxAction, ActionDescriptor actionDescriptor) {
+    public static void configureAction(FXAction fxAction, ActionDescriptor<?> actionDescriptor) {
         fxAction.setDisplayName(actionDescriptor.getDisplayName());
         if (actionDescriptor.getAccelerator() != null && !actionDescriptor.getAccelerator().equals("")) {
             fxAction.setAccelerator(KeyCombination.keyCombination(actionDescriptor.getAccelerator()));
