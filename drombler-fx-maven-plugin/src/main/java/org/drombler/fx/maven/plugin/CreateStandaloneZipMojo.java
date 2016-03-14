@@ -265,6 +265,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyDependenciesMojo,
                 AbstractDependencyMojo.class);
         reflectAbstractDependencyMojo.setField("project", project);
+        reflectAbstractDependencyMojo.setField("factory", artifactFactory);
 
         copyDependenciesMojo.execute();
     }
