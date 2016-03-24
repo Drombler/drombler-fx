@@ -25,7 +25,7 @@ The @DockingArea properties:
 |Property | Value
 
 |id | the ID of the _Docking Area_. This ID can be used when registering _Dockable Panes_ (see further down)
-|kind | the kind of the _Docking Area_. Note: Currently this has no effect.
+|kind | the kind of the _Docking Area_.
 |position | the position in the parent split pane. It's a best practice to leave out some positions between entries to 
 allow other bundles to register entries between some existing ones.
 |path | the path positions of the parent split pane. It's a best practice to leave out some path positions between 

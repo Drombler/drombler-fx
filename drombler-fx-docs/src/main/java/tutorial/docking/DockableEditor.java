@@ -15,10 +15,9 @@
 package tutorial.docking;
 
 import javafx.scene.layout.GridPane;
-import org.drombler.acp.core.docking.DockingState;
 import org.drombler.acp.core.docking.EditorDocking;
 
-@EditorDocking(areaId = "center", icon = "sample.png", state = DockingState.DOCKED)
+@EditorDocking(contentType = Foo.class)
 public class DockableEditor extends GridPane {
 
 }
