@@ -19,6 +19,7 @@ import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.util.concurrent.Executors;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.drombler.acp.startup.main.ApplicationExecutorProvider;
@@ -72,6 +73,7 @@ public class DromblerFXApplication extends Application {
 
         mainWindowProvider = () -> stage;
         getBundleContext().registerService(MainWindowProvider.class, mainWindowProvider, null);
+        getBundleContext().registerService(HostServices.class, getHostServices(), null);
         // Only register the ApplicationExecutorProvider once the JavaFX Platform has been started.
         getBundleContext().registerService(ApplicationExecutorProvider.class,
                 fxApplicationExecutorProvider, null);
