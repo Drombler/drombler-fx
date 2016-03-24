@@ -75,6 +75,13 @@ public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContai
 
     @Override
     public boolean addDockable(FXDockableEntry dockableEntry) {
-        return dockingPane.getDockables().add(dockableEntry);
+        boolean added = dockingPane.getDockables().add(dockableEntry);
+        dockableEntry.getDockable().requestFocus();
+        return added;
+    }
+
+    @Override
+    public String getDefaultEditorAreaId() {
+        return dockingPane.getDefaultEditorAreaId();
     }
 }
