@@ -28,6 +28,7 @@ As an application framework it makes sure _JavaFX_ and _OSGi_ will get started p
  * <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>>
  * <<docking-framework.adoc#dockingFramework,Docking Framework>>
  * <<context-framework.adoc#contextFramework,Context Framework>>
+ * <<data-framework.adoc#dataFramework,Data Framework>>
  * <<localization.adoc#localization,Localization>>
  * <<logging.adoc#logging,Logging>>
  * <<ide.adoc#ide,IDEs>>
