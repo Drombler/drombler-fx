@@ -60,6 +60,7 @@ Contributor(s): .
         <module>drombler-fx-parent</module>
         <module>drombler-fx-startup-main</module>
         <module>drombler-fx-core-application</module>
+        <module>drombler-fx-core-data</module>
         <module>drombler-fx-core-docking</module>
         <module>drombler-fx-core-action</module>
         <module>drombler-fx-core-standard-desktop-classic</module>
@@ -82,6 +83,11 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-fx-core-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-fx-core-data</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
