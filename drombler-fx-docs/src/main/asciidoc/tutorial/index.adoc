@@ -1,6 +1,8 @@
 [[tutorial]]
 = Drombler FX
 Florian Brunner <fbrunnerreg@gmx.ch>
+:description: The modular application framework for JavaFX.
+:keywords: Application Framework, Drombler FX, Java, JavaFX, Maven, OSGi, RCP
 :revnumber: {project-version}
 :toc:
 
@@ -31,6 +33,7 @@ As an application framework it makes sure _JavaFX_ and _OSGi_ will get started p
  * <<localization.adoc#localization,Localization>>
  * <<logging.adoc#logging,Logging>>
  * <<ide.adoc#ide,IDEs>>
+ * <<single-instance-application.adoc#singleInstanceApplication,Single Instance Application>>
 
 
 
