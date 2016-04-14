@@ -28,7 +28,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import org.drombler.acp.core.docking.POJOEditor;
+import org.drombler.acp.core.docking.EditorDocking;
 import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Context;
@@ -43,7 +43,7 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
 
-@POJOEditor(pojoType = Sample.class)
+@EditorDocking(areaId = "center", icon = "sample.png")
 public class SampleEditorPane extends GridPane implements LocalContextProvider, DockableDataSensitive<FXDockableData> {
 
     private final SimpleContextContent contextContent = new SimpleContextContent();
