@@ -14,8 +14,6 @@
  */
 package org.drombler.fx.core.action.impl;
 
-import org.drombler.commons.action.fx.ActionEventHandlerAdapter;
-import org.drombler.commons.action.fx.ActionListenerAdapter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import org.apache.felix.scr.annotations.Component;
@@ -23,6 +21,8 @@ import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.ActionDescriptor;
 import org.drombler.acp.core.action.spi.ActionFactory;
 import org.drombler.commons.action.ActionListener;
+import org.drombler.commons.action.fx.ActionEventHandlerAdapter;
+import org.drombler.commons.action.fx.ActionListenerAdapter;
 import org.drombler.commons.action.fx.FXAction;
 
 /**
@@ -35,7 +35,7 @@ public class FXActionFactory implements ActionFactory<FXAction> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public FXAction createAction(ActionDescriptor actionDescriptor) {
+    public FXAction createAction(ActionDescriptor<?> actionDescriptor) {
         Object listener = actionDescriptor.getListener();
         FXAction fxAction = null;
         if (listener instanceof FXAction) {
