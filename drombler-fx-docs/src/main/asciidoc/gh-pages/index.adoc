@@ -1,4 +1,6 @@
 = Drombler FX
+:description: The modular application framework for JavaFX.
+:keywords: Application Framework, Drombler FX, Java, JavaFX, Maven, OSGi, RCP
 
  * link:docs[Documentation]
  * link:docs/site/modules.html[Maven Coordinates & Download Links]

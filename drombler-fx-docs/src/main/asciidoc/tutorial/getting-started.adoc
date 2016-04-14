@@ -14,9 +14,9 @@
 
 == Tested environment
 
- * Tested Java version: 1.8.0_45; Java HotSpot(TM) 64-Bit Server VM 25.45-b02
+ * Tested Java version: 1.8.0_66; Java HotSpot(TM) 64-Bit Server VM 25.66-b17
  * Tested Maven version: 3.0.5
- * Tested OS: Kubuntu 14.04.2 LTS; Linux version 3.13.0-45-generic running on amd64; UTF-8; de_CH
+ * Tested OS: Kubuntu 14.04.2 LTS; Linux version 3.13.0-74-generic running on amd64; UTF-8; de_CH (nb)
 
 == Drombler FX Sample Application - generate, build and run
 

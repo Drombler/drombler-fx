@@ -48,6 +48,8 @@
                     <title>MyApplication \${project.version}</title>
                     <width>1500</width>
                     <height>1000</height>
+                    <!--Uncomment the following line and specifcy an unused port to create a single instance application -->
+                    <!--<defaultSingleInstancePort>some unused port</defaultSingleInstancePort>-->
                 </configuration>
             </plugin>
         </plugins>
@@ -72,7 +74,8 @@
         <dependency>
             <!--  Provides a classic desktop application layout with a menubar, a toolbar and a content area 
             as the content of the JavaFX Application. 
-            You could replace this with your own definition of the application layout. -->
+            You could replace this with your own definition of the application layout by providing an implementation
+            of MainSceneRootProvider and registering it as an OSGi service. -->
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
             <scope>runtime</scope>
@@ -82,7 +85,8 @@
             desktop application layout.
             You could omit this dependency as long as it is a transitive dependency. 
             (E.g. if you use a project such as \${rootArtifactId}-sample, which provides some DockingPanes) 
-            You could also replace this with your own implementation of the ApplicationContentProvider.-->
+            You could also replace this with your own implementation of the ApplicationContentProvider and register
+            it as an OSGi service.-->
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-core-docking</artifactId>
             <scope>runtime</scope>
