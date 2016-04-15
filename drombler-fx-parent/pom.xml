@@ -27,7 +27,7 @@ Contributor(s): .
     <packaging>pom</packaging>
     
     <name>Drombler FX - Parent</name>
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
     <description>The parent POM of the Drombler FX project. This Drombler FX Parent POM should be the parent (either directly or indirectly) of every Drombler FX project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
