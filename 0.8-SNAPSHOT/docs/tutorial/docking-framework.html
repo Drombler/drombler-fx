@@ -449,12 +449,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_docking_areas">1. Docking Areas</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <em>Docking Framework</em> splits up the content area into any number of <em>Docking Areas</em>. The <em>Docking Areas</em> can be resized using the dividers. Each <em>Docking Area</em> can hold any number of <em>Dockable Panes</em>, which are layed out as Tabs.</p>
+<p>The <em>Docking Framework</em> splits up the content area into any number of <em>Docking Areas</em>. The <em>Docking Areas</em> can be resized using the dividers. Each <em>Docking Area</em> can hold any number of
+<em>Dockable Panes</em>, which are layed out as Tabs.</p>
 </div>
 <div class="sect2">
 <h3 id="_registering_docking_areas">1.1. Registering Docking Areas</h3>
 <div class="paragraph">
-<p><em>Docking Areas</em> can be registered using the @DockingAreas, @DockingArea and @LayoutConstraints annotations on a package (usually in package-info.java):</p>
+<p><em>Docking Areas</em> can be registered using the <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/DockingArea.html">@DockingArea</a> and
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/LayoutConstraints.html">@LayoutConstraints</a> annotations on a package (usually in <em>package-info.java</em>):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -472,7 +474,7 @@ import org.drombler.commons.docking.DockingAreaKind;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The @DockingArea properties:</p>
+<p>The <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/DockingArea.html">@DockingArea</a> properties:</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -492,7 +494,7 @@ import org.drombler.commons.docking.DockingAreaKind;</code></pre>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">kind</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the kind of the <em>Docking Area</em>. Note: Currently this has no effect.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the kind of the <em>Docking Area</em>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">position</p></td>
@@ -515,7 +517,7 @@ entries to allow other bundles to register entries between some existing ones.</
 </tbody>
 </table>
 <div class="paragraph">
-<p>The @LayoutConstraints properties:</p>
+<p>The <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/LayoutConstraints.html">@LayoutConstraints</a> properties:</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -546,7 +548,13 @@ entries to allow other bundles to register entries between some existing ones.</
 <div class="sect2">
 <h3 id="_standard_docking_areas_provided_by_drombler_fx">1.2. Standard Docking Areas provided by Drombler FX</h3>
 <div class="paragraph">
-<p><em>Drombler FX</em> provides 5 <em>Docking Areas</em> out-of-the-box: <strong>left</strong>, <strong>right</strong>, <strong>top</strong>, <strong>bottom</strong> and <strong>center</strong>. The left, right, top and bottom areas have been configured only to be visible if they contain any docked <em>Dockable Pane</em>. The center area has been configured to be always visible.</p>
+<p><em>Drombler FX</em> provides 5 <em>Docking Areas</em> out-of-the-box: <strong>left</strong>, <strong>right</strong>, <strong>top</strong>, <strong>bottom</strong> and <strong>editor</strong>.
+The left, right, top and bottom areas have been configured to be visible only if they contain any docked <em>Dockable Pane</em>. They have been configured as
+<a href="http://www.drombler.org/drombler-commons//docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#VIEW">VIEW</a> Docking Areas and thus are intended for
+view Dockables.
+The editor area has been configured to be always visible, even if it&#8217;s empty. It has been configured as
+<a href="http://www.drombler.org/drombler-commons//docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#EDITOR">EDITOR</a> Docking Area and is thus the default
+Docking Area for editor Dockables.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -619,7 +627,7 @@ import org.drombler.commons.docking.DockingAreaKind;</code></pre>
 <p>In <em>Drombler FX</em> applications you don&#8217;t design the whole application window, as this is managed by <em>Drombler FX</em>. Instead you design <em>Dockable Panes</em>, which are docked as tabs to <em>Docking Areas</em>.</p>
 </div>
 <div class="paragraph">
-<p><em>Dockable Panes</em> can extend from any Node such as layout pane.</p>
+<p><em>Dockable Panes</em> can extend from any Node such as layout panes.</p>
 </div>
 <div class="paragraph">
 <p>Currently, there are 2 kinds of <em>Dockable Panes</em>: views and editors.</p>
@@ -639,7 +647,8 @@ import org.drombler.commons.docking.DockingAreaKind;</code></pre>
 <p><em>Drombler FX</em> also provides the "Window" sub-menu "Other" out-of-the-box.</p>
 </div>
 <div class="paragraph">
-<p>A <em>Dockable Pane</em> can be registered as a <em>view</em> using the @ViewDocking and @WindowMenuEntry annotations:</p>
+<p>A <em>Dockable Pane</em> can be registered as a <em>view</em> using the <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/api/docs/org/drombler/acp/core/docking/ViewDocking.html">@ViewDocking</a> and
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/WindowMenuEntry.html">@WindowMenuEntry</a> annotations:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -653,7 +662,7 @@ import org.drombler.acp.core.docking.WindowMenuEntry;
 </div>
 </div>
 <div class="paragraph">
-<p>@ViewDocking has the following properties:</p>
+<p><a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/ViewDocking.html">@ViewDocking</a> has the following properties:</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -706,7 +715,7 @@ this directory has been configured not to be filtered for variables.</p></td>
 </tbody>
 </table>
 <div class="paragraph">
-<p>@WindowMenuEntry has the following properties:</p>
+<p><a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/WindowMenuEntry.html">@WindowMenuEntry</a> has the following properties:</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -738,20 +747,20 @@ this directory has been configured not to be filtered for variables.</p></td>
 </div>
 <div class="paragraph">
 <p>To open an editor, create an instance using the constructor and then call first the
-<a href="http://www.drombler.org/DromblerACP/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#inject-D-">Dockables.inject</a>
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#inject-D-">Dockables.inject</a>
 method and then the
-<a href="http://www.drombler.org/DromblerACP/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#open-D-">Dockables.open</a>
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#open-D-">Dockables.open</a>
 method.</p>
 </div>
 <div class="paragraph">
-<p>A <em>Dockable Pane</em> can be registered as an <em>editor</em> using the @EditorDocking annotation:</p>
+<p>A <em>Dockable Pane</em> can be registered as an <em>editor</em> using the <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/EditorDocking.html">@EditorDocking</a> annotation:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">import org.drombler.acp.core.docking.DockingState;
-import org.drombler.acp.core.docking.EditorDocking;
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">import org.drombler.acp.core.docking.EditorDocking;
 
-@EditorDocking(areaId = "center", icon = "sample.png", state = DockingState.DOCKED)</code></pre>
+@EditorDocking(contentType = Foo.class)
+public class DockableEditor extends GridPane {</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -770,16 +779,8 @@ import org.drombler.acp.core.docking.EditorDocking;
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">areaId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the ID of the <em>Dockable Area</em> this <em>Dockable Pane</em> should be registered to (see above for further information)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">icon</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the icon to be used for this <em>Dockable Pane</em>. Note that this only specifies the name pattern. <em>Drombler FX</em> looks for &lt;icon-base-name&gt;16.&lt;icon-extension&gt; for tab items (expected to be 16x16 pixels). In the example above <em>Drombler FX</em> would look for sample16.png. Note: Maven expects resources to be in a resources directory. If you&#8217;re using drombler-fx-parent as your parent POM, it&#8217;s best to put binary files under the resources-bin directory as this directory has been configured not to be filtered for variables.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">state</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the initial docking state of this <em>Dockable Pane</em>. (This has currently no effect.)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contentType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the data handler class</p></td>
 </tr>
 </tbody>
 </table>
@@ -877,7 +878,7 @@ be the parent type (here: "GridPane"):</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.8-SNAPSHOT<br>
-Last updated 2016-04-14 21:03:20 +02:00
+Last updated 2016-05-19 01:00:47 +02:00
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
-<title>Single Instance Application</title>
+<title>Data Framework</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -412,9 +412,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
 </head>
-<body id="singleInstanceApplication" class="article toc2 toc-right">
+<body id="dataFramework" class="article toc2 toc-right">
 <div id="header">
-<h1>Single Instance Application</h1>
+<h1>Data Framework</h1>
 <div class="details">
 <span id="revnumber">version 0.8-SNAPSHOT</span>
 </div>
@@ -425,68 +425,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="paragraph">
-<p><em>Single Instance Application</em> is an optional feature, which ensures that there is only one instance of your application running,
-even if the user starts the application several times.</p>
-</div>
-<div class="paragraph">
-<p>This feature is provided out-of-the-box. It is disabled by default, however, but can be enabled by simply specifying the
-<a href="http://www.drombler.org/drombler-fx/0.8-SNAPSHOT/docs/site/drombler-fx-maven-plugin/drombler-fx-maven-plugin/standalone-zip-mojo.html#defaultSingleInstancePort">defaultSingleInstancePort</a>
-property of the <em>Drombler FX Maven Plugin</em>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
-    &lt;groupId&gt;org.drombler.fx&lt;/groupId&gt;
-    &lt;artifactId&gt;drombler-fx-maven-plugin&lt;/artifactId&gt;
-    &lt;extensions&gt;true&lt;/extensions&gt;
-    &lt;configuration&gt;
-        ...
-        &lt;!--Uncomment the following line and
-            specifcy an unused port to create a single instance application --&gt;
-        &lt;!--&lt;defaultSingleInstancePort&gt;some unused port&lt;/defaultSingleInstancePort&gt;--&gt;
-        ...
-    &lt;/configuration&gt;
-&lt;/plugin&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Use a port which is unlikely already be used on your customers computer. This also means that it&#8217;s recommended to use a different port for each application.</p>
-</div>
-<div class="paragraph">
-<p>At first start, the application will check if the port is free. If not, it will try to find another free port.
-The port used by the application is then configured in the userdir at "conf/singleInstance.properties" as the "port" property.
-By changing this property in this configuration file, the user is still able to re-configure the application in case there is another application, which uses the same port but was not running at the
-time of the first start. The user should stop the application instance before changing this configuration file.</p>
-</div>
-<div class="paragraph">
-<p>The user is still able to run multiple instances (e.g. for testing purposes), by specifying the "--userdir" command line option as every userdir is treated
-independently.</p>
-</div>
-<div class="paragraph">
-<p>If this feature is enabled and one instance is aleady running, each other application start will pass all its unnamed parameters to the first instance and shuts
-itself then down. Drombler FX will register a new instance of
-<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/startup/main/AdditionalArgumentsProvider.html">AdditionalArgumentsProvider</a>
-for every application start notification.</p>
-</div>
-<div class="paragraph">
-<p>With the Felix SCR annotations (Declarative Services) you can listen for multiple instances with the following class annotation:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Reference(name = "additionalArgumentsProvider",
-           referenceInterface = AdditionalArgumentsProvider.class,
-           cardinality = ReferenceCardinality.OPTIONAL_MULTIPLE,
-           policy = ReferencePolicy.DYNAMIC)}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Please note that the <a href="data-framework.html#dataFramework">Data Framework</a> already provides file path arguments support out-of-the-box.</p>
+<p>To be done</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.8-SNAPSHOT<br>
-Last updated 2016-05-19 01:02:30 +02:00
+Last updated 2016-05-19 00:14:27 +02:00
 </div>
 </div>
 </body>
