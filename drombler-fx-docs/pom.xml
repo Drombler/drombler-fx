@@ -186,6 +186,7 @@ Contributor(s): .
                         <artifactId>asciidoctor-maven-plugin</artifactId>
                         <configuration>
                             <attributes>
+                                <drombler-fx-version>${project.version}</drombler-fx-version>
                                 <drombler-acp-version>${drombler-acp.version}</drombler-acp-version>
                                 <drombler-commons-version>${drombler-commons.version}</drombler-commons-version>
                             </attributes>

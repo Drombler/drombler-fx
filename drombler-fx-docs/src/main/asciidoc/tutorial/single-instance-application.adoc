@@ -3,4 +3,53 @@
 :toc:
 :numbered:
 
-TODO
+_Single Instance Application_ is an optional feature, which ensures that there is only one instance of your application running, 
+even if the user starts the application several times.
+
+This feature is provided out-of-the-box. It is disabled by default, however, but can be enabled by simply specifying the 
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/drombler-fx-maven-plugin/drombler-fx-maven-plugin/standalone-zip-mojo.html#defaultSingleInstancePort[defaultSingleInstancePort]
+property of the _Drombler FX Maven Plugin_.
+
+[source,xml]
+----
+<plugin>  
+    <groupId>org.drombler.fx</groupId>
+    <artifactId>drombler-fx-maven-plugin</artifactId>
+    <extensions>true</extensions>
+    <configuration>
+        ...
+        <!--Uncomment the following line and 
+            specifcy an unused port to create a single instance application -->
+        <!--<defaultSingleInstancePort>some unused port</defaultSingleInstancePort>-->
+        ...
+    </configuration>
+</plugin>
+----
+
+Use a port which is unlikely already be used on your customers computer. This also means that it's recommended to use a different port for each application.
+
+At first start, the application will check if the port is free. If not, it will try to find another free port.
+The port used by the application is then configured in the userdir at "conf/singleInstance.properties" as the "port" property. 
+By changing this property in this configuration file, the user is still able to re-configure the application in case there is another application, which uses the same port but was not running at the 
+time of the first start. The user should stop the application instance before changing this configuration file.
+
+The user is still able to run multiple instances (e.g. for testing purposes), by specifying the "--userdir" command line option as every userdir is treated
+independently.
+
+If this feature is enabled and one instance is aleady running, each other application start will pass all its unnamed parameters to the first instance and shuts 
+itself then down. Drombler FX will register a new instance of 
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/startup/main/AdditionalArgumentsProvider.html[AdditionalArgumentsProvider]
+for every application start notification.
+
+With the Felix SCR annotations (Declarative Services) you can listen for multiple instances with the following class annotation:
+
+[source,java]
+----
+@Reference(name = "additionalArgumentsProvider", 
+           referenceInterface = AdditionalArgumentsProvider.class,
+           cardinality = ReferenceCardinality.OPTIONAL_MULTIPLE, 
+           policy = ReferencePolicy.DYNAMIC)}
+----
+
+Please note that the <<data-framework.adoc#dataFramework,Data Framework>> already provides file path arguments support out-of-the-box.
+
