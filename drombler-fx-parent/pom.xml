@@ -68,6 +68,7 @@ Contributor(s): .
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
         <!--<url.parent>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url.parent>-->
         <drombler-acp.version>0.8-SNAPSHOT</drombler-acp.version>
+        <drombler-commons.version>0.8-SNAPSHOT</drombler-commons.version>
         <dollar>$</dollar>  
     </properties>
 
