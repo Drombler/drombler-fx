@@ -84,11 +84,6 @@ public class FXFileChooserProvider implements FileChooserProvider {
 
     @Override
     public List<Path> showOpenMultipleDialog() {
-
-//        final FileChooser.ExtensionFilter fxmlExtensionFilter = new FileChooser.ExtensionFilter("FXML Document",
-//                "*.fxml");
-//        fileChooser.getExtensionFilters().add(fxmlExtensionFilter);
-//        fileChooser.setSelectedExtensionFilter(fxmlExtensionFilter);
         fileChooser.setTitle(resourceBundle.getString("fileChooser.open.title"));
         List<File> filesToOpen = fileChooser.showOpenMultipleDialog(mainWindowProvider.getMainWindow());
         if (filesToOpen != null && !filesToOpen.isEmpty()) {
