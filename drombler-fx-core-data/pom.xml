@@ -15,28 +15,29 @@ Contributor(s): .
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
         <version>0.8-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
-
-    <artifactId>drombler-fx-core-standard-desktop-classic-locale-de</artifactId>
+    <artifactId>drombler-fx-core-data</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Drombler FX - Core - Standard - Desktop - Classic - Locale - German</name>
-    <description>L10n (German) of the classic desktop application layout.</description>
-    <inceptionYear>2012</inceptionYear>
+
+    <name>Drombler FX - Core - Data</name>
+    <description>A JavaFX-based implementation of the Drombler ACP Data Framework.</description>
+    <inceptionYear>2016</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
@@ -48,39 +49,60 @@ Contributor(s): .
     <prerequisites>
         <maven>${maven.version}</maven>
     </prerequisites>
-    
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Fragment-Host>org.drombler.fx.drombler-fx-core-standard-desktop-classic;bundle-version=${drombler.fx.osgi.version.clean}</Fragment-Host>
-                    </instructions>
-                    <versions>
-                        <drombler.fx.osgi.version.clean>${project.version}</drombler.fx.osgi.version.clean>
-                    </versions>
-                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>generate-sources</phase>
+                        <id>generate-scr-scrdescriptor</id>
                         <goals>
-                            <goal>cleanVersions</goal>
+                            <goal>scr</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-
-   
     <dependencies>
         <dependency>
-            <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-data-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-startup-main</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr.annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <scope>provided</scope>
+        </dependency>
+      
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

@@ -15,29 +15,29 @@ Contributor(s): .
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-  
+
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
         <version>0.8-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-fx-locale-all</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>drombler-fx-core-data-l10n-de</artifactId>
+    <packaging>bundle</packaging>
 
-    <name>Drombler FX - Locale - All</name>
-    <description>L10n of Drombler FX. You can use this POM file e.g. in your dependencies section to manage your 
-        Drombler FX L10n dependencies.</description>
-    <inceptionYear>2012</inceptionYear>
+
+    <name>Drombler FX - Core - Data - L10N - German</name>
+    <description>L10n (German) of the Drombler FX Data Framework.</description>
+    <inceptionYear>2016</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
-    
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
+
     <scm>
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
@@ -49,13 +49,39 @@ Contributor(s): .
     <prerequisites>
         <maven>${maven.version}</maven>
     </prerequisites>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Fragment-Host>org.drombler.fx.drombler-fx-core-data;bundle-version=${drombler.fx.osgi.version.clean}</Fragment-Host>
+                    </instructions>
+                    <versions>
+                        <drombler.fx.osgi.version.clean>${project.version}</drombler.fx.osgi.version.clean>
+                    </versions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>cleanVersions</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
     
     <dependencies>
         <dependency>
-            <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-locale-de</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-core-data</artifactId>
             <version>${project.version}</version>
-            <type>pom</type>
         </dependency>
     </dependencies>
+
 </project>

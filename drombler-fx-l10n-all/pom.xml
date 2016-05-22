@@ -15,17 +15,19 @@ Contributor(s): .
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+  
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
         <version>0.8-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-fx-maven-archetype-application</artifactId>
-    <packaging>maven-archetype</packaging>
+    <artifactId>drombler-fx-l10n-all</artifactId>
+    <packaging>pom</packaging>
 
-    <name>Drombler FX - Maven Archetype - Application</name>
-    <description>A sample Drombler FX application template.</description>
+    <name>Drombler FX - L10N - All</name>
+    <description>L10n of Drombler FX. You can use this POM file e.g. in your dependencies section to manage your 
+        Drombler FX L10n dependencies.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
@@ -34,15 +36,13 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
-        <!--        <main-resources.filtering>false</main-resources.filtering>-->
-        <maven.resources.escapeString>\</maven.resources.escapeString>
     </properties>
     
     <!-- Not inherited!?? -->
@@ -50,32 +50,12 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     
-    <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.archetype</groupId>
-                <artifactId>archetype-packaging</artifactId>
-                <version>2.2</version>
-            </extension>
-        </extensions>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-archetype-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
     <dependencies>
         <dependency>
-            <groupId>org.drombler.commons</groupId>
-            <artifactId>drombler-commons-client-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.drombler.commons</groupId>
-            <artifactId>drombler-commons-action-command</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-l10n-de</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
         </dependency>
     </dependencies>
 </project>

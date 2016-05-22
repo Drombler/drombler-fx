@@ -8,16 +8,9 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (Sourceforge.net user: puce).
- * Copyright 2015 Drombler.org. All Rights Reserved.
+ * Copyright 2016 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
-package tutorial.docking;
 
-import javafx.scene.layout.GridPane;
-import org.drombler.acp.core.docking.EditorDocking;
-
-@EditorDocking(contentType = FooHandler.class)
-public class DockableEditor extends GridPane {
-
-}
+package org.drombler.fx.core.data.impl;

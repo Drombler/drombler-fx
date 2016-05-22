@@ -19,6 +19,7 @@ import java.util.List;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 import org.drombler.acp.core.docking.spi.DockingAreaContainer;
+import org.drombler.acp.core.docking.spi.DockingAreaContainerDockableEvent;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerDockingAreaEvent;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerListener;
 import org.drombler.commons.docking.DockingAreaDescriptor;
@@ -44,6 +45,14 @@ public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContai
                         fireDockingAreaRemoved(change.getElementRemoved().getId());
                     }
                 });
+        dockingPane.getDockables().addListener(
+                (SetChangeListener.Change<? extends FXDockableEntry> change) -> {
+                    if (change.wasAdded()) {
+                        fireDockableAdded(change.getElementAdded());
+                    } else if (change.wasRemoved()) {
+                        fireDockableRemoved(change.getElementRemoved());
+                    }
+                });
     }
 
     @Override
@@ -57,15 +66,23 @@ public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContai
     }
 
     private void fireDockingAreaAdded(String dockingAreaId) {
-        DockingAreaContainerDockingAreaEvent<Node, FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(
-                this, dockingAreaId);
+        DockingAreaContainerDockingAreaEvent<Node, FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(this, dockingAreaId);
         listeners.forEach(listener -> listener.dockingAreaAdded(event));
     }
 
     private void fireDockingAreaRemoved(String dockingAreaId) {
-        DockingAreaContainerDockingAreaEvent<Node, FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(
-                this, dockingAreaId);
+        DockingAreaContainerDockingAreaEvent<Node, FXDockableEntry> event = new DockingAreaContainerDockingAreaEvent<>(this, dockingAreaId);
         listeners.forEach(listener -> listener.dockingAreaRemoved(event));
+    }
+
+    private void fireDockableAdded(FXDockableEntry dockableEntry) {
+        DockingAreaContainerDockableEvent<Node, FXDockableEntry> event = new DockingAreaContainerDockableEvent<>(this, dockableEntry);
+        listeners.forEach(listener -> listener.dockableAdded(event));
+    }
+
+    private void fireDockableRemoved(FXDockableEntry dockableEntry) {
+        DockingAreaContainerDockableEvent<Node, FXDockableEntry> event = new DockingAreaContainerDockableEvent<>(this, dockableEntry);
+        listeners.forEach(listener -> listener.dockableRemoved(event));
     }
 
     @Override
@@ -75,6 +92,14 @@ public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContai
 
     @Override
     public boolean addDockable(FXDockableEntry dockableEntry) {
-        return dockingPane.getDockables().add(dockableEntry);
+        boolean added = dockingPane.getDockables().add(dockableEntry);
+        dockableEntry.getDockable().requestFocus();
+        return added;
     }
+
+    @Override
+    public String getDefaultEditorAreaId() {
+        return dockingPane.getDefaultEditorAreaId();
+    }
+
 }

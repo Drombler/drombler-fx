@@ -20,6 +20,7 @@ import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockableDataManagerProvider;
 import org.drombler.acp.core.docking.spi.DockableEntryFactory;
+import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
@@ -35,20 +36,17 @@ public class FXDockableEntryFactory implements DockableEntryFactory<Node, FXDock
     @Reference
     private DockableDataManagerProvider<Node, FXDockableData> dockableDataManagerProvider;
 
-    protected void bindDockableDataManagerProvider(
-            DockableDataManagerProvider<Node, FXDockableData> dockableDataManagerProvider) {
+    protected void bindDockableDataManagerProvider(DockableDataManagerProvider<Node, FXDockableData> dockableDataManagerProvider) {
         this.dockableDataManagerProvider = dockableDataManagerProvider;
     }
 
-    protected void unbindDockableDataManagerProvider(
-            DockableDataManagerProvider<Node, FXDockableData> dockableDataManagerProvider) {
+    protected void unbindDockableDataManagerProvider(DockableDataManagerProvider<Node, FXDockableData> dockableDataManagerProvider) {
         this.dockableDataManagerProvider = null;
     }
 
     @Override
-    public FXDockableEntry createDockableEntry(Node dockable, DockablePreferences dockablePreferences) {
-        final FXDockableData dockableData = dockableDataManagerProvider.getDockableDataManager().getDockableData(
-                dockable);
-        return new FXDockableEntry(dockable, dockableData, dockablePreferences);
+    public FXDockableEntry createDockableEntry(Node dockable, DockableKind kind, DockablePreferences dockablePreferences) {
+        final FXDockableData dockableData = dockableDataManagerProvider.getDockableDataManager().getDockableData(dockable);
+        return new FXDockableEntry(dockable, kind, dockableData, dockablePreferences);
     }
 }
