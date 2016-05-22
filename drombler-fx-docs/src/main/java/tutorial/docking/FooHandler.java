@@ -6,6 +6,6 @@ package tutorial.docking;
  */
 
 
-public class Foo {
+public class FooHandler {
 
 }
