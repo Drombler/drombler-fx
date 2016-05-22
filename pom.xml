@@ -61,12 +61,13 @@ Contributor(s): .
         <module>drombler-fx-startup-main</module>
         <module>drombler-fx-core-application</module>
         <module>drombler-fx-core-data</module>
+        <module>drombler-fx-core-data-l10n-de</module>
         <module>drombler-fx-core-docking</module>
         <module>drombler-fx-core-action</module>
         <module>drombler-fx-core-standard-desktop-classic</module>
-        <module>drombler-fx-core-standard-desktop-classic-locale-de</module>
-        <module>drombler-fx-locale-de</module>
-        <module>drombler-fx-locale-all</module>
+        <module>drombler-fx-core-standard-desktop-classic-l10n-de</module>
+        <module>drombler-fx-l10n-de</module>
+        <module>drombler-fx-l10n-all</module>
         <!--<module>javafx-8</module>-->
         <module>drombler-fx-maven-plugin</module>
         <module>drombler-fx-maven-archetype-application</module>
@@ -92,6 +93,11 @@ Contributor(s): .
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-fx-core-data-l10n-de</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-fx-core-docking</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -107,18 +113,18 @@ Contributor(s): .
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-fx-core-standard-desktop-classic-locale-de</artifactId>
+                <artifactId>drombler-fx-core-standard-desktop-classic-l10n-de</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-fx-locale-de</artifactId>
+                <artifactId>drombler-fx-l10n-de</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-fx-locale-all</artifactId>
+                <artifactId>drombler-fx-l10n-all</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
             </dependency>

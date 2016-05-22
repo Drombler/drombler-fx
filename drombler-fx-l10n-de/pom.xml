@@ -21,10 +21,10 @@ Contributor(s): .
         <version>0.8-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-fx-locale-de</artifactId>
+    <artifactId>drombler-fx-l10n-de</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler FX - Locale - German</name>
+    <name>Drombler FX - L10N - German</name>
     <description>L10n (German) of Drombler FX.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
@@ -34,8 +34,8 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
@@ -51,12 +51,17 @@ Contributor(s): .
     <dependencies>
         <dependency>
             <groupId>org.drombler.acp</groupId>
-            <artifactId>drombler-acp-locale-de</artifactId>
+            <artifactId>drombler-acp-l10n-de</artifactId>
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-core-standard-desktop-classic-locale-de</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-core-data-l10n-de</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-core-standard-desktop-classic-l10n-de</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

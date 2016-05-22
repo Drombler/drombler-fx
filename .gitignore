@@ -3,13 +3,13 @@
 /drombler-fx-startup-main/target/
 /drombler-fx-core-action/target/
 /drombler-fx-core-docking/target/
-/drombler-fx-locale-de/target/
+/drombler-fx-l10n-de/target/
 /drombler-fx-core-application/target/
-/drombler-fx-locale-all/target/
-/drombler-fx-core-application-locale-de/target/
+/drombler-fx-l10n-all/target/
 /target/
 /drombler-fx-maven-plugin/target/
 /drombler-fx-maven-archetype-application/target/
 /drombler-fx-core-standard-desktop-classic/target/
-/drombler-fx-core-standard-desktop-classic-locale-de/target/
 /drombler-fx-core-data/target/
+/drombler-fx-core-data-l10n-de/target/
+/drombler-fx-core-standard-desktop-classic-l10n-de/target/

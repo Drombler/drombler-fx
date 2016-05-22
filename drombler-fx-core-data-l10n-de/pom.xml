@@ -22,12 +22,12 @@ Contributor(s): .
         <version>0.8-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-fx-core-data</artifactId>
+    <artifactId>drombler-fx-core-data-l10n-de</artifactId>
     <packaging>bundle</packaging>
 
 
-    <name>Drombler FX - Core - Data</name>
-    <description>A JavaFX-based implementation of the Drombler ACP Data Framework.</description>
+    <name>Drombler FX - Core - Data - L10N - German</name>
+    <description>L10n (German) of the Drombler FX Data Framework.</description>
     <inceptionYear>2016</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
@@ -56,53 +56,32 @@ Contributor(s): .
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-scr-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Fragment-Host>org.drombler.fx.drombler-fx-core-data;bundle-version=${drombler.fx.osgi.version.clean}</Fragment-Host>
+                    </instructions>
+                    <versions>
+                        <drombler.fx.osgi.version.clean>${project.version}</drombler.fx.osgi.version.clean>
+                    </versions>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>generate-scr-scrdescriptor</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>scr</goal>
+                            <goal>cleanVersions</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+    
     <dependencies>
         <dependency>
-            <groupId>org.drombler.acp</groupId>
-            <artifactId>drombler-acp-core-data-spi</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.drombler.acp</groupId>
-            <artifactId>drombler-acp-startup-main</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.scr.annotations</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.compendium</artifactId>
-            <scope>provided</scope>
-        </dependency>
-      
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-core-data</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
+
 </project>
