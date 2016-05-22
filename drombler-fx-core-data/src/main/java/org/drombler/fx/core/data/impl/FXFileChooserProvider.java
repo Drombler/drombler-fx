@@ -79,7 +79,7 @@ public class FXFileChooserProvider implements FileChooserProvider {
     }
 
     private void removeFileExtensionFilter(FileExtensionDescriptor fileExtensionDescriptor) {
-
+// TODO
     }
 
     @Override
