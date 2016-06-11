@@ -73,6 +73,11 @@ Contributor(s): .
     </build>
     <dependencies>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-core-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-startup-main</artifactId>
             <version>${project.version}</version>

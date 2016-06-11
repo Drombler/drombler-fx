@@ -16,6 +16,7 @@ package org.drombler.fx.core.docking.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 import org.drombler.acp.core.docking.spi.DockingAreaContainer;
@@ -100,6 +101,11 @@ public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContai
     @Override
     public String getDefaultEditorAreaId() {
         return dockingPane.getDefaultEditorAreaId();
+    }
+
+    @Override
+    public Set<FXDockableEntry> getDockables() {
+        return dockingPane.getDockables();
     }
 
 }
