@@ -109,8 +109,9 @@ public class FXFileChooserProvider implements FileChooserProvider {
     }
 
     @Override
-    public Path showSaveAsDialog() {
+    public Path showSaveAsDialog(String initialFileName) {
         fileChooser.setTitle(resourceBundle.getString("fileChooser.saveAs.title"));
+        fileChooser.setInitialFileName(initialFileName);
         File file = fileChooser.showSaveDialog(mainWindowProvider.getMainWindow());
         if (file != null) {
             Path filePath = file.toPath();

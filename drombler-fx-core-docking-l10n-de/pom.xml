@@ -21,21 +21,22 @@ Contributor(s): .
         <version>0.8-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-fx-l10n-de</artifactId>
-    <packaging>pom</packaging>
 
-    <name>Drombler FX - L10N - German</name>
-    <description>L10n (German) of Drombler FX.</description>
-    <inceptionYear>2012</inceptionYear>
+    <artifactId>drombler-fx-core-docking-l10n-de</artifactId>
+    <packaging>bundle</packaging>
+
+    <name>Drombler FX - Core - Docking - L10N - German</name>
+    <description>L10n (German) of the JavaFX-based implementation of the Drombler ACP Docking Framework.</description>
+    <inceptionYear>2016</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
-    
+
     <scm>
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
 
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
@@ -48,25 +49,37 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Fragment-Host>org.drombler.fx.drombler-fx-core-docking;bundle-version=${drombler.fx.osgi.version.clean}</Fragment-Host>
+                    </instructions>
+                    <versions>
+                        <drombler.fx.osgi.version.clean>${project.version}</drombler.fx.osgi.version.clean>
+                    </versions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>cleanVersions</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+   
     <dependencies>
         <dependency>
-            <groupId>org.drombler.acp</groupId>
-            <artifactId>drombler-acp-l10n-de</artifactId>
-            <type>pom</type>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-fx-core-data-l10n-de</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-fx-core-docking-l10n-de</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-fx-core-standard-desktop-classic-l10n-de</artifactId>
+            <artifactId>drombler-fx-core-docking</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
