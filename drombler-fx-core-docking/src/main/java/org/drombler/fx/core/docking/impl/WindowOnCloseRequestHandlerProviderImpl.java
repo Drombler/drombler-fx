@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 public class WindowOnCloseRequestHandlerProviderImpl implements WindowOnCloseRequestHandlerProvider {
 
     private static final Logger LOG = LoggerFactory.getLogger(WindowOnCloseRequestHandlerProviderImpl.class);
+
     private final ResourceBundle resourceBundle = ResourceBundleUtils.getClassResourceBundle(WindowOnCloseRequestHandlerProviderImpl.class);
 
     @Reference
