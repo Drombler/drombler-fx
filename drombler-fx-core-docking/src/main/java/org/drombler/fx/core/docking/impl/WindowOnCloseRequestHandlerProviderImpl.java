@@ -55,6 +55,7 @@ public class WindowOnCloseRequestHandlerProviderImpl implements WindowOnCloseReq
             if (!modifiedDockables.isEmpty()) {
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setTitle(resourceBundle.getString("dialog.title"));
+                dialog.setResizable(true);
                 SaveModifiedDockablesPane saveModifiedDockablesPane = new SaveModifiedDockablesPane(modifiedDockables);
                 saveModifiedDockablesPane.emptyProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue) {

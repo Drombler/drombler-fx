@@ -8,14 +8,14 @@ import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.context.Contexts;
-import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
+import org.drombler.commons.docking.fx.FXDockableEntryRenderer;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
+import org.drombler.commons.fx.scene.control.RenderedListCellFactory;
 
 /**
  *
@@ -31,7 +31,7 @@ public class SaveModifiedDockablesPane extends BorderPane {
 
     public SaveModifiedDockablesPane(List<FXDockableEntry> modifiedDockableEntries) {
         FXMLLoaders.loadRoot(this);
-        modifiedDockablesListView.setCellFactory((ListView<FXDockableEntry> listView) -> new DockableEntryListCell());
+        modifiedDockablesListView.setCellFactory(new RenderedListCellFactory<>(new FXDockableEntryRenderer(16)));
         modifiedDockablesListView.getItems().setAll(modifiedDockableEntries);
         modifiedDockablesListView.getItems().addListener((ListChangeListener.Change<? extends FXDockableEntry> c) -> {
             if (modifiedDockablesListView.getItems().isEmpty()) {
@@ -87,24 +87,6 @@ public class SaveModifiedDockablesPane extends BorderPane {
         modifiedDockablesListView.getItems().clear();
     }
 
-    private class DockableEntryListCell extends ListCell<FXDockableEntry> {
-
-        @Override
-        protected void updateItem(FXDockableEntry item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty || item == null) {
-                setText(null);
-                setGraphic(null);
-                setTooltip(null);
-            } else {
-                FXDockableData dockableData = item.getDockableData();
-                setText(dockableData.getTitle());
-                setGraphic(dockableData.getGraphicFactory().createGraphic(16)); // TODO: avoid creating new graphic nodes (dockableData.getGraphic() cannot be used since it already has a parent (Tab))
-                setTooltip(dockableData.getTooltip());
-            }
-        }
-
-    }
 
     private class EmptyProperty extends ReadOnlyBooleanPropertyBase {
 
