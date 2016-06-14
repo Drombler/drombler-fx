@@ -43,16 +43,16 @@ public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContai
                     if (change.wasAdded()) {
                         fireDockingAreaAdded(change.getElementAdded().getId());
                     } else if (change.wasRemoved()) {
-                        fireDockingAreaRemoved(change.getElementRemoved().getId());
-                    }
+                            fireDockingAreaRemoved(change.getElementRemoved().getId());
+                        }
                 });
         dockingPane.getDockables().addListener(
                 (SetChangeListener.Change<? extends FXDockableEntry> change) -> {
                     if (change.wasAdded()) {
                         fireDockableAdded(change.getElementAdded());
                     } else if (change.wasRemoved()) {
-                        fireDockableRemoved(change.getElementRemoved());
-                    }
+                            fireDockableRemoved(change.getElementRemoved());
+                        }
                 });
     }
 
@@ -92,9 +92,11 @@ public class DockingPaneDockingAreaContainerAdapter implements DockingAreaContai
     }
 
     @Override
-    public boolean addDockable(FXDockableEntry dockableEntry) {
+    public boolean addDockable(FXDockableEntry dockableEntry, boolean active) {
         boolean added = dockingPane.getDockables().add(dockableEntry);
-        dockableEntry.getDockable().requestFocus();
+        if (active) {
+            dockingPane.setActiveDockable(dockableEntry);
+        }
         return added;
     }
 
