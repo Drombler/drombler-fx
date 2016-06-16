@@ -15,6 +15,11 @@ import org.drombler.commons.docking.fx.FXDockableData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Utility class for {@link FXDockableData}.
+ *
+ * @author puce
+ */
 public final class FXDockableDataUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(FXDockableDataUtils.class);
@@ -25,6 +30,12 @@ public final class FXDockableDataUtils {
     private FXDockableDataUtils() {
     }
 
+    /**
+     * Configures the {@link FXDockableData} with a document handler.
+     *
+     * @param dockableData the dockable data
+     * @param documentHandler the document handler
+     */
     public static void configureDockableData(FXDockableData dockableData, AbstractDocumentHandler documentHandler) {
         if (documentHandler.getPath() != null) {
             configureDockabelDataExisting(dockableData, documentHandler);
@@ -49,6 +60,14 @@ public final class FXDockableDataUtils {
         return documentHandler.getPath().toString();
     }
 
+    /**
+     * Creates a {@link Savable} for a document.
+     *
+     * @param documentHandler the document handler
+     * @param dockableData the dockable data
+     * @param postSaveHandler the handler, which should be called after the document has been saved
+     * @return a {@link Savable} for a document
+     */
     public static Savable createDocumentSavable(AbstractDocumentHandler documentHandler, FXDockableData dockableData, Consumer<Savable> postSaveHandler) {
         return new Savable() {
             @Override
