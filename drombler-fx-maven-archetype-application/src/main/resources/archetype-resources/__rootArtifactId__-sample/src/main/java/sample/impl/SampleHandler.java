@@ -9,7 +9,7 @@
 package ${package}.sample.impl;
 
 import ${package}.sample.Sample;
-import org.drombler.acp.core.data.spi.AbstractDataHandler;
+import org.drombler.acp.core.data.AbstractDataHandler;
 import org.drombler.acp.core.data.BusinessObjectHandler;
 
 /**
