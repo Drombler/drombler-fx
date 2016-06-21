@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+        COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+
+The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+Version 1.0 (the "License"); you may not use this file except in
+compliance with the License. A copy of the License is available at
+http://www.opensource.org/licenses/cddl1.txt
+
+The Original Code is Drombler.org. The Initial Developer of the
+Original Code is Florian Brunner (Sourceforge.net user: puce).
+Copyright 2012 Drombler.org. All Rights Reserved.
+
+Contributor(s): .
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+  
+    <parent>
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
+        <version>0.8-SNAPSHOT</version>
+        <relativePath>../drombler-fx-parent/pom.xml</relativePath>
+    </parent>
+    <artifactId>drombler-fx-l10n-all</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Drombler FX - L10N - All</name>
+    <description>L10n of Drombler FX. You can use this POM file e.g. in your dependencies section to manage your 
+        Drombler FX L10n dependencies.</description>
+    <inceptionYear>2012</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
+    
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+      <tag>HEAD</tag>
+  </scm>
+
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+    </properties>
+    
+    <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+    
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-l10n-de</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+</project>

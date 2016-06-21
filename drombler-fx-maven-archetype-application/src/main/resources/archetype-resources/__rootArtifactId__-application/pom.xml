@@ -101,7 +101,7 @@
         <dependency>
             <!-- Provides some localized resources. -->
             <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-locale-all</artifactId>
+            <artifactId>drombler-fx-l10n-all</artifactId>
             <type>pom</type>
             <scope>runtime</scope>
         </dependency>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root prefHeight="201.0" prefWidth="411.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1">
+         <center>
+            <ListView fx:id="modifiedDockablesListView">
+         <BorderPane.margin>
+            <Insets right="6.0" />
+         </BorderPane.margin></ListView>
+         </center>
+         <right>
+            <VBox spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="saveButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save" text="%saveButton.text" />
+            <Button fx:id="discardButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#discard" text="%discardButton.text" />
+            <Button fx:id="saveAllButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveAll" text="%saveAllButton.text" />
+            <Button fx:id="discardAllButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#discardAll" text="%discardAllButton.text" />
+               </children>
+         <BorderPane.margin>
+            <Insets left="6.0" />
+         </BorderPane.margin>
+            </VBox>
+         </right>
+</fx:root>
+

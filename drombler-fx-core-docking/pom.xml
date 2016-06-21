@@ -30,7 +30,7 @@ Contributor(s): .
     <description>A JavaFX-based implementation of the Drombler ACP Docking Framework.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -72,6 +72,11 @@ Contributor(s): .
         </plugins>
     </build>
     <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-core-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-startup-main</artifactId>
