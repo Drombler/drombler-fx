@@ -20,4 +20,10 @@ import org.drombler.acp.core.docking.EditorDocking;
 @EditorDocking(contentType = FooHandler.class)
 public class DockableEditor extends GridPane {
 
+    private final FooHandler fooHandler;
+
+    public DockableEditor(FooHandler fooHandler) {
+        this.fooHandler = fooHandler;
+    }
+
 }

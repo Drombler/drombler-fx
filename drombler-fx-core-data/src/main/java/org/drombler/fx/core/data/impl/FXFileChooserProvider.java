@@ -14,7 +14,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.drombler.acp.core.data.spi.FileChooserProvider;
+import org.drombler.acp.core.data.FileChooserProvider;
 import org.drombler.acp.core.data.spi.FileExtensionDescriptor;
 import org.drombler.acp.core.data.spi.FileExtensionDescriptorRegistry;
 import org.drombler.acp.core.data.spi.FileExtensionEvent;
