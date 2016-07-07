@@ -38,11 +38,11 @@ public class WindowOnCloseRequestHandlerProviderImpl implements WindowOnCloseReq
     @Reference
     private DockingAreaContainerProvider<Node, FXDockableEntry> dockingAreaContainerProvider;
 
-    protected void bindDockingAreaContainerProvider(DockingAreaContainerProvider dockingAreaContainerProvider) {
+    protected void bindDockingAreaContainerProvider(DockingAreaContainerProvider<Node, FXDockableEntry> dockingAreaContainerProvider) {
         this.dockingAreaContainerProvider = dockingAreaContainerProvider;
     }
 
-    protected void unbindDockingAreaContainerProvider(DockingAreaContainerProvider dockingAreaContainerProvider) {
+    protected void unbindDockingAreaContainerProvider(DockingAreaContainerProvider<Node, FXDockableEntry> dockingAreaContainerProvider) {
         this.dockingAreaContainerProvider = null;
     }
 
