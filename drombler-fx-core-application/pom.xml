@@ -95,10 +95,6 @@ Contributor(s): .
             <artifactId>drombler-commons-fx-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.softsmithy.lib</groupId>
-            <artifactId>softsmithy-lib-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
             <scope>provided</scope>

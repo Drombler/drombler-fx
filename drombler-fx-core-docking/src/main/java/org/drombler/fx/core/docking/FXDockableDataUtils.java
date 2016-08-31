@@ -38,13 +38,13 @@ public final class FXDockableDataUtils {
      */
     public static void configureDockableData(FXDockableData dockableData, AbstractDocumentHandler documentHandler) {
         if (documentHandler.getPath() != null) {
-            configureDockabelDataExisting(dockableData, documentHandler);
+            configureDockableDataExisting(dockableData, documentHandler);
         } else {
             dockableData.setTitle("Untitled " + COUNTER.getAndIncrement());
         }
     }
 
-    private static void configureDockabelDataExisting(FXDockableData dockableData, AbstractDocumentHandler documentHandler) {
+    private static void configureDockableDataExisting(FXDockableData dockableData, AbstractDocumentHandler documentHandler) {
         dockableData.setTitle(documentHandler.getPath().getFileName().toString());
         Tooltip tooltip = dockableData.getTooltip();
         if (tooltip == null) {
@@ -76,7 +76,7 @@ public final class FXDockableDataUtils {
                     if (documentHandler.getPath() == null) {
                         String initialFileName = dockableData.getTitle().toLowerCase().replace(' ', '-') + documentHandler.getDefaultFileExtenion();
                         if (documentHandler.saveAs(initialFileName)) {
-                            configureDockabelDataExisting(dockableData, documentHandler);
+                            configureDockableDataExisting(dockableData, documentHandler);
                             postSaveHandler.accept(this);
                         }
                     } else {

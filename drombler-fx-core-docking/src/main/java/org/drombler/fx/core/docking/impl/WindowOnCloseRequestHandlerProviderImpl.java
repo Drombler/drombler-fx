@@ -18,6 +18,7 @@ import org.drombler.acp.core.docking.spi.DockingAreaContainerProvider;
 import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Contexts;
+import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.fx.core.application.WindowOnCloseRequestHandlerProvider;
 import org.slf4j.Logger;
@@ -36,13 +37,13 @@ public class WindowOnCloseRequestHandlerProviderImpl implements WindowOnCloseReq
     private final ResourceBundle resourceBundle = ResourceBundleUtils.getClassResourceBundle(WindowOnCloseRequestHandlerProviderImpl.class);
 
     @Reference
-    private DockingAreaContainerProvider<Node, FXDockableEntry> dockingAreaContainerProvider;
+    private DockingAreaContainerProvider<Node, FXDockableData, FXDockableEntry> dockingAreaContainerProvider;
 
-    protected void bindDockingAreaContainerProvider(DockingAreaContainerProvider<Node, FXDockableEntry> dockingAreaContainerProvider) {
+    protected void bindDockingAreaContainerProvider(DockingAreaContainerProvider<Node, FXDockableData, FXDockableEntry> dockingAreaContainerProvider) {
         this.dockingAreaContainerProvider = dockingAreaContainerProvider;
     }
 
-    protected void unbindDockingAreaContainerProvider(DockingAreaContainerProvider<Node, FXDockableEntry> dockingAreaContainerProvider) {
+    protected void unbindDockingAreaContainerProvider(DockingAreaContainerProvider<Node, FXDockableData, FXDockableEntry> dockingAreaContainerProvider) {
         this.dockingAreaContainerProvider = null;
     }
 
