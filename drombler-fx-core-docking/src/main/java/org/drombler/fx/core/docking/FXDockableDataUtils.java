@@ -74,7 +74,7 @@ public final class FXDockableDataUtils {
             public void save() {
                 try {
                     if (documentHandler.getPath() == null) {
-                        String initialFileName = dockableData.getTitle().toLowerCase().replace(' ', '-') + documentHandler.getDefaultFileExtenion();
+                        String initialFileName = dockableData.getTitle().toLowerCase().replace(' ', '-') + "." + documentHandler.getDefaultFileExtenion();
                         if (documentHandler.saveAs(initialFileName)) {
                             configureDockableDataExisting(dockableData, documentHandler);
                             postSaveHandler.accept(this);
