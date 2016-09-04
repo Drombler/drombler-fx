@@ -83,6 +83,11 @@ Contributor(s): .
         </dependency>
         
         <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-data</artifactId>
+        </dependency>
+        
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>

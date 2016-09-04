@@ -14,13 +14,13 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.drombler.acp.core.data.FileChooserProvider;
-import org.drombler.acp.core.data.spi.FileExtensionDescriptor;
-import org.drombler.acp.core.data.spi.FileExtensionDescriptorRegistry;
-import org.drombler.acp.core.data.spi.FileExtensionEvent;
-import org.drombler.acp.core.data.spi.FileExtensionListener;
+import org.drombler.acp.core.data.spi.FileExtensionDescriptorRegistryProvider;
 import org.drombler.acp.startup.main.MainWindowProvider;
+import org.drombler.commons.client.dialog.FileChooserProvider;
 import org.drombler.commons.client.util.ResourceBundleUtils;
+import org.drombler.commons.data.file.FileExtensionDescriptor;
+import org.drombler.commons.data.file.FileExtensionEvent;
+import org.drombler.commons.data.file.FileExtensionListener;
 import org.osgi.service.component.ComponentContext;
 
 /**
@@ -36,7 +36,7 @@ public class FXFileChooserProvider implements FileChooserProvider {
     @Reference
     private MainWindowProvider<Stage> mainWindowProvider;
     @Reference
-    private FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry;
+    private FileExtensionDescriptorRegistryProvider fileExtensionDescriptorRegistryProvider;
 
     private final FileExtensionListener fileExtensionListener = new FileExtensionFilterListener();
     private final FileChooser fileChooser = new FileChooser();
@@ -54,13 +54,13 @@ public class FXFileChooserProvider implements FileChooserProvider {
 
     @Activate
     protected void activate(ComponentContext context) {
-        fileExtensionDescriptorRegistry.registerFileExtensionListener(fileExtensionListener);
-        fileExtensionDescriptorRegistry.getAllFileExtensionDescriptors().forEach(this::addFileExtensionFilter);
+        fileExtensionDescriptorRegistryProvider.getFileExtensionDescriptorRegistry().registerFileExtensionListener(fileExtensionListener);
+        fileExtensionDescriptorRegistryProvider.getFileExtensionDescriptorRegistry().getAllFileExtensionDescriptors().forEach(this::addFileExtensionFilter);
     }
 
     @Deactivate
     protected void deactivate(ComponentContext context) {
-        fileExtensionDescriptorRegistry.unregisterFileExtensionListener(fileExtensionListener);
+        fileExtensionDescriptorRegistryProvider.getFileExtensionDescriptorRegistry().unregisterFileExtensionListener(fileExtensionListener);
     }
 
     private void addFileExtensionFilter(FileExtensionDescriptor fileExtensionDescriptor) {
