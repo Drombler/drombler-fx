@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.Tooltip;
 import org.drombler.acp.core.data.AbstractDocumentHandler;
+import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.docking.fx.FXDockableData;
@@ -31,33 +32,40 @@ public final class FXDockableDataUtils {
     }
 
     /**
-     * Configures the {@link FXDockableData} with a document handler.
+     * Configures the {@link FXDockableData} with a data handler.
      *
      * @param dockableData the dockable data
-     * @param documentHandler the document handler
+     * @param dataHandler the data handler
      */
-    public static void configureDockableData(FXDockableData dockableData, AbstractDocumentHandler documentHandler) {
-        if (documentHandler.getPath() != null) {
-            configureDockableDataExisting(dockableData, documentHandler);
+    public static void configureDockableData(FXDockableData dockableData, DataHandler<?> dataHandler) {
+        configureDockableData(dockableData, dataHandler, "Untitled");
+    }
+
+    /**
+     * Configures the {@link FXDockableData} with a data handler.
+     *
+     * @param dockableData the dockable data
+     * @param dataHandler the data handler
+     * @param defaultTitlePrefix the default title prefix
+     */
+    public static void configureDockableData(FXDockableData dockableData, DataHandler<?> dataHandler, String defaultTitlePrefix) {
+        if (dataHandler.getUniqueKey() != null) {
+            configureDockableDataExisting(dockableData, dataHandler);
         } else {
-            dockableData.setTitle("Untitled " + COUNTER.getAndIncrement());
+            dockableData.setTitle(defaultTitlePrefix + " " + COUNTER.getAndIncrement());
         }
     }
 
-    private static void configureDockableDataExisting(FXDockableData dockableData, AbstractDocumentHandler documentHandler) {
-        dockableData.setTitle(documentHandler.getPath().getFileName().toString());
+    public static void configureDockableDataExisting(FXDockableData dockableData, DataHandler<?> dataHandler) {
+        dockableData.setTitle(dataHandler.getTitle());
         Tooltip tooltip = dockableData.getTooltip();
         if (tooltip == null) {
-            tooltip = new Tooltip(getTooltipText(documentHandler));
+            tooltip = new Tooltip(dataHandler.getTooltipText());
             tooltip.setTextOverrun(OverrunStyle.CENTER_WORD_ELLIPSIS);
             dockableData.setTooltip(tooltip);
         } else {
-            tooltip.setText(getTooltipText(documentHandler));
+            tooltip.setText(dataHandler.getTooltipText());
         }
-    }
-
-    private static String getTooltipText(AbstractDocumentHandler documentHandler) {
-        return documentHandler.getPath().toString();
     }
 
     /**
@@ -75,7 +83,7 @@ public final class FXDockableDataUtils {
                 try {
                     if (documentHandler.getPath() == null) {
                         String initialFileName = dockableData.getTitle().toLowerCase().replace(' ', '-') + "." + documentHandler.getDefaultFileExtenion();
-                        if (documentHandler.saveAs(initialFileName)) {
+                        if (documentHandler.saveNew(initialFileName)) {
                             configureDockableDataExisting(dockableData, documentHandler);
                             postSaveHandler.accept(this);
                         }
