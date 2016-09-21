@@ -12,30 +12,41 @@ import ${package}.sample.Sample;
 import org.drombler.acp.core.data.AbstractDataHandler;
 import org.drombler.acp.core.data.BusinessObjectHandler;
 
-/**
- *
- * @author puce
- */
-
 
 @BusinessObjectHandler(icon = "sample.png")
 public class SampleHandler extends AbstractDataHandler<String> {
 
-    private final Sample sample;
+    private final SampleServiceClient client = new SampleServiceClient();
+    private Sample sample;
 
     public SampleHandler(Sample sample) {
         this.sample = sample;
     }
 
-    /**
-     * @return the sample
-     */
     public Sample getSample() {
+        if (isDirty()) {
+            sample = client.getSample(sample.getName());
+            markClean();
+        }
         return sample;
     }
 
     @Override
     public String getUniqueKey() {
+        return sample.getName();
+    }
+
+    public void save() {
+        client.saveSample(sample);
+    }
+
+    @Override
+    public String getTitle() {
+        return sample.getName();
+    }
+
+    @Override
+    public String getTooltipText() {
         return sample.getName();
     }
 
