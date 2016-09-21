@@ -64,6 +64,13 @@
             <scope>runtime</scope>
         </dependency>
         
+        <dependency>
+            <!-- Provides foo file support -->
+            <groupId>\${groupId}</groupId>
+            <artifactId>\${rootArtifactId}-foo</artifactId>
+            <version>\${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
  
         <dependency> 
             <!-- Configures the provided content of the JavaFX Application. -->
