@@ -74,5 +74,28 @@ Contributor(s): .
                 </fileSet>
             </fileSets>
         </module>
+        <module id="${rootArtifactId}-foo" dir="__rootArtifactId__-foo" name="${rootArtifactId}-foo" >
+            <fileSets>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                    <includes>
+                        <include>**/*.properties</include>
+                        <include>**/*.fxml</include>
+                    </includes>
+                </fileSet>
+                <fileSet packaged="true" filtered="false" encoding="UTF-8">
+                    <directory>src/main/resources-bin</directory>
+                    <includes>
+                        <include>**/*.png</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
     </modules>
 </archetype-descriptor>

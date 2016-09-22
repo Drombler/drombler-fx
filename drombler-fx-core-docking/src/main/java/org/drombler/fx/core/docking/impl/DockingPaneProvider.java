@@ -24,14 +24,17 @@ import javafx.scene.control.ButtonType;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
+import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerProvider;
+import org.drombler.acp.core.docking.spi.EditorDockingDescriptorRegistry;
 import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.ActiveContextProvider;
 import org.drombler.commons.context.ApplicationContextProvider;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.Contexts;
+import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.docking.context.DockingAreaContainer;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableData;
@@ -59,6 +62,17 @@ public class DockingPaneProvider implements ApplicationContentProvider,
     private DockingPane dockingPane;
 
     private DockingPaneDockingAreaContainerAdapter dockingAreaContainer;
+
+    @Reference
+    private EditorDockingDescriptorRegistry<Node> editorDockingDescriptorRegistry;
+
+    protected void bindAEditorDockingDescriptorRegistry(EditorDockingDescriptorRegistry editorDockingDescriptorRegistry) {
+        this.editorDockingDescriptorRegistry = editorDockingDescriptorRegistry;
+    }
+
+    protected void unbindEditorDockingDescriptorRegistry(EditorDockingDescriptorRegistry editorDockingDescriptorRegistry) {
+        this.editorDockingDescriptorRegistry = null;
+    }
 
     @Activate
     protected void activate(ComponentContext context) {
@@ -118,9 +132,16 @@ public class DockingPaneProvider implements ApplicationContentProvider,
                 if (result.get() == saveButton) {
                     savable.save();
                     return Contexts.find(dockable, Savable.class) != null;
-                } else {
-                    return result.get() == cancelButton;
-                }
+                } else if (result.get() == discardButton) {
+                        final Class<?> contentType = editorDockingDescriptorRegistry.getContentType(dockable.getClass());
+                        if (DataHandler.class.isAssignableFrom(contentType)) {
+                            DataHandler<?> dataHandler = dockingAreaContainer.getContent(dockable, (Class<DataHandler<?>>) contentType);
+                            dataHandler.markDirty();
+                        }
+                        return false;
+                    } else {
+                        return result.get() == cancelButton;
+                    }
             } else {
                 LOG.debug("stopClosingDockable: no result!");
                 return true;

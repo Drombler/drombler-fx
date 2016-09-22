@@ -13,6 +13,7 @@ import ${package}.sample.ColoredCircleManager;
 import ${package}.sample.ColoredRectangle;
 import ${package}.sample.ColoredRectangleManager;
 import ${package}.sample.Sample;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Locale;
@@ -26,7 +27,6 @@ import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener.Change;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.drombler.acp.core.docking.EditorDocking;
@@ -41,6 +41,7 @@ import org.drombler.commons.docking.DockableDataSensitive;
 import org.drombler.commons.docking.Select;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
+import org.drombler.fx.core.docking.FXDockableDataUtils;
 
 
 
@@ -69,9 +70,6 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
     public SampleEditorPane(SampleHandler sampleHandler) {
         loadFXML();
         this.sampleHandler = sampleHandler;
-
-        // Add the sample to the context, so Views can see it
-        contextContent.add(sampleHandler);
 
         // Add a ColoredCircleManager to the context to enable the ColoredCircle actions.
         contextContent.add(new ColoredCircleManager() {
@@ -102,8 +100,8 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
             if (change.wasAdded()) {
                 setColoredRectangleImage(change.getElementAdded());
             } else if (change.wasRemoved()) {
-                coloredRectangleImageViews.get(change.getElementRemoved()).setImage(null);
-            }
+                    coloredRectangleImageViews.get(change.getElementRemoved()).setImage(null);
+                }
             markModified();
         });
 
@@ -111,9 +109,15 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
 
     private void configureEditorContent(Sample sample) {
         nameField.setText(sample.getName());
+        configureNameField(sample);
         coloredCircle.set(sample.getColoredCircle());
         coloredCircleImageView.setImage(sample.getColoredCircle().getImage());
         coloredRectangles.addAll(sample.getColoredRectangles());
+    }
+
+    private void configureNameField(Sample sample) {
+        nameField.setEditable(sample.getName() == null);
+        nameField.setFocusTraversable(sample.getName() == null);
     }
 
     private void loadFXML() {
@@ -128,10 +132,9 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
     @Override
     public void setDockableData(FXDockableData dockableData) {
         this.dockableData = dockableData;
-        this.dockableData.titleProperty().bind(nameField.textProperty());
-        Tooltip tooltip = new Tooltip();
-        tooltip.textProperty().bind(nameField.textProperty());
-        this.dockableData.setTooltip(tooltip);
+
+        FXDockableDataUtils.configureDockableData(dockableData, sampleHandler, "Sample");
+        nameField.setText(this.dockableData.getTitle());
     }
 
     private void initColoredRectangleImageViewsMap() {
@@ -152,11 +155,9 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
     }
 
     private void initColoredRectangleImageViews() {
-        for (ColoredRectangle coloredRectangle : ColoredRectangle.values()) {
-            if (coloredRectangles.contains(coloredRectangle)) {
-                setColoredRectangleImage(coloredRectangle);
-            }
-        }
+        Arrays.stream(ColoredRectangle.values())
+                .filter(coloredRectangles::contains)
+                .forEach(this::setColoredRectangleImage);
     }
 
     @Select
@@ -181,10 +182,11 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
 
         @Override
         public void save() {
-            System.out.println("Save " + getDisplayString(Locale.getDefault()));
             updateSample(sampleHandler.getSample());
+            sampleHandler.save();
+            configureNameField(sampleHandler.getSample());
+            FXDockableDataUtils.configureDockableData(dockableData, sampleHandler, "Sample");
 
-            // Here you would e.g. write to a file/ db, call a WebService ...
             contextContent.remove(this);
         }
 
