@@ -1,8 +1,6 @@
 package org.drombler.fx.core.docking.impl;
 
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.stage.WindowEvent;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
@@ -12,7 +10,7 @@ import org.drombler.acp.core.docking.spi.DockingAreaContainerProvider;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.commons.docking.fx.context.WindowOnCloseRequestHandler;
-import org.drombler.fx.core.application.WindowOnCloseRequestHandlerProvider;
+import org.drombler.fx.core.application.OnExitRequestHandler;
 import org.osgi.service.component.ComponentContext;
 
 /**
@@ -21,7 +19,7 @@ import org.osgi.service.component.ComponentContext;
  */
 @Component
 @Service
-public class WindowOnCloseRequestHandlerProviderImpl implements WindowOnCloseRequestHandlerProvider {
+public class OnExitRequestHandlerImpl implements OnExitRequestHandler {
 
     private WindowOnCloseRequestHandler windowOnCloseRequestHandler;
 
@@ -46,9 +44,10 @@ public class WindowOnCloseRequestHandlerProviderImpl implements WindowOnCloseReq
         windowOnCloseRequestHandler = null;
     }
 
+
     @Override
-    public EventHandler<WindowEvent> getWindowOnCloseRequestHandler() {
-        return windowOnCloseRequestHandler;
+    public boolean handleExitRequest() {
+        return windowOnCloseRequestHandler.handleModifiedDockables();
     }
 
 }
