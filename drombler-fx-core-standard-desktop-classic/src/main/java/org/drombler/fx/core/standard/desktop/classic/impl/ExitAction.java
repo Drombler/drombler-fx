@@ -19,6 +19,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import org.drombler.acp.core.action.Action;
 import org.drombler.acp.core.action.MenuEntry;
+import org.drombler.acp.core.commons.util.SimpleServiceTrackerCustomizer;
+import org.drombler.fx.core.application.OnExitRequestHandler;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
  *
@@ -28,8 +31,26 @@ import org.drombler.acp.core.action.MenuEntry;
 @MenuEntry(path = "File", position = 9900)
 public class ExitAction implements EventHandler<ActionEvent> {
 
+    private final ServiceTracker<OnExitRequestHandler, OnExitRequestHandler> onExitRequestHandlerServiceTracker;
+    private OnExitRequestHandler onExitRequestHandler;
+
+    public ExitAction() {
+        this.onExitRequestHandlerServiceTracker = SimpleServiceTrackerCustomizer.createServiceTracker(OnExitRequestHandler.class, this::setOnExitRequestHandler);
+        this.onExitRequestHandlerServiceTracker.open(true);
+    }
+
     @Override
     public void handle(ActionEvent t) {
-        Platform.exit();
+        if (onExitRequestHandler != null) {
+            if (onExitRequestHandler.handleExitRequest()) {
+                Platform.exit();
+            }
+        } else {
+            Platform.exit();
+        }
+    }
+
+    private void setOnExitRequestHandler(OnExitRequestHandler onExitRequestHandler) {
+        this.onExitRequestHandler = onExitRequestHandler;
     }
 }

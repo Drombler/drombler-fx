@@ -66,11 +66,11 @@ public class DockingPaneProvider implements ApplicationContentProvider,
     @Reference
     private EditorDockingDescriptorRegistry<Node> editorDockingDescriptorRegistry;
 
-    protected void bindAEditorDockingDescriptorRegistry(EditorDockingDescriptorRegistry editorDockingDescriptorRegistry) {
+    protected void bindEditorDockingDescriptorRegistry(EditorDockingDescriptorRegistry<Node> editorDockingDescriptorRegistry) {
         this.editorDockingDescriptorRegistry = editorDockingDescriptorRegistry;
     }
 
-    protected void unbindEditorDockingDescriptorRegistry(EditorDockingDescriptorRegistry editorDockingDescriptorRegistry) {
+    protected void unbindEditorDockingDescriptorRegistry(EditorDockingDescriptorRegistry<Node> editorDockingDescriptorRegistry) {
         this.editorDockingDescriptorRegistry = null;
     }
 
