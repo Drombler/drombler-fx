@@ -3,4 +3,60 @@
 :toc:
 :numbered:
 
-To be done
+This section describes an initial version of a _Data Framework_.
+
+== Data Handlers for Business Objects
+[source,java]
+----
+include::{sourcedir}/tutorial/data/BarHandler.java[lines=24..25]
+----
+
+The http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/BusinessObjectHandler.html[@BusinessObjectHandler] properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|icon | The icon name pattern to resolve the icons to be used for this file type handler. Note that this only specifies the name pattern. 
+Drombler ACP Docking Framework looks for &lt;icon-base-name&gt;16.&lt;icon-extension&gt; (expected to be 16x16 pixels). So if icon is &quot;test.png&quot;, 
+the Drombler ACP Docking Framework would look for test16.png.
+|===
+== Data Handlers for Documents
+[source,java]
+----
+include::{sourcedir}/tutorial/data/FooHandler.java[lines=26..27]
+----
+
+The http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/DocumentHandler.html[@DocumentHandler] properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|mimeType | The MIME type of the document.
+|icon | The icon name pattern to resolve the icons to be used for this file type handler. Note that this only specifies the name pattern. Drombler ACP looks for 
+&lt;icon-base-name&gt;16.&lt;icon-extension&gt; for data types (expected to be 16x16 pixels). So if icon is &quot;test.png&quot;, Drombler ACP would look for test16.png.
+|===
+=== File Extension
+[source,java]
+----
+include::{sourcedir}/tutorial/data/package-info.java[lines=15..16]
+----
+
+The http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/FileExtension.html[@FileExtension] properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|displayName | The text to be displayed, e.g. as the text for filters in file dialogs. If the value starts with '%' the rest of the value is interpreted as
+a property key and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to be in the same 
+package as the annotated data type.
+|mimeType | The MIME type for the specified file extensions.
+|fileExtensions | The file extensions for the specified MIME type.
+|position | The position, e.g. to order the file extensions in filters of file dialogs. It's a best practice to leave out some positions between entries 
+to allow other bundles to register entries between some existing ones.
+|===
+=== Standard File Actions
+=== File Path Arguments Support
+

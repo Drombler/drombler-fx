@@ -14,31 +14,16 @@
  */
 package tutorial.data;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import org.drombler.acp.core.data.AbstractDocumentHandler;
-import org.drombler.acp.core.data.DocumentHandler;
-
 /**
  *
  * @author puce
  */
-@DocumentHandler(mimeType = "text/foo", icon = "foo.png")
-public class FooHandler extends AbstractDocumentHandler {
 
-    private static final String FILE_EXTENSION = "foo";
 
-    public FooHandler() {
-        super(FILE_EXTENSION);
-    }
+public class Bar {
 
-    public FooHandler(Path path) {
-        super(FILE_EXTENSION, path);
-    }
-
-    @Override
-    protected void writeContent() throws IOException {
-        // Files.write(getPath(), <some content> ...);
+    String getId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
