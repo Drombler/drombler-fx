@@ -12,5 +12,4 @@
  *
  * Contributor(s): .
  */
-
 package org.drombler.fx.core.application;
