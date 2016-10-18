@@ -36,7 +36,7 @@ time of the first start. The user should stop the application instance before ch
 The user is still able to run multiple instances (e.g. for testing purposes), by specifying the "--userdir" command line option as every userdir is treated
 independently.
 
-If this feature is enabled and one instance is aleady running, each other application start will pass all its unnamed parameters to the first instance and shuts 
+If this feature is enabled and one instance is aleady running, each other application start will pass all its http://docs.oracle.com/javase/8/javafx/api/javafx/application/Application.Parameters.html#getUnnamed--[unnamed parameters] to the first instance and shuts 
 itself then down. Drombler FX will register a new instance of 
 http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/startup/main/AdditionalArgumentsProvider.html[AdditionalArgumentsProvider]
 for every application start notification.
@@ -51,5 +51,5 @@ With the Felix SCR annotations (Declarative Services) you can listen for multipl
            policy = ReferencePolicy.DYNAMIC)}
 ----
 
-Please note that the <<data-framework.adoc#dataFramework,Data Framework>> already provides file path arguments support out-of-the-box.
+Please note that the <<data-framework.adoc#dataFramework,Data Framework>> already provides _file path arguments_ support out-of-the-box.
 

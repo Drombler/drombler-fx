@@ -1,3 +1,17 @@
+/*
+ *         COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+ *
+ * The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. A copy of the License is available at
+ * http://www.opensource.org/licenses/cddl1.txt
+ *
+ * The Original Code is Drombler.org. The Initial Developer of the
+ * Original Code is Florian Brunner (GitHub user: puce77).
+ * Copyright 2016 Drombler.org. All Rights Reserved.
+ *
+ * Contributor(s): .
+ */
 package org.drombler.fx.core.data.impl;
 
 import java.io.File;
@@ -19,9 +33,9 @@ import org.drombler.acp.startup.main.MainWindowProvider;
 import org.drombler.commons.client.dialog.FileChooserProvider;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.data.file.FileExtensionDescriptor;
-import org.drombler.commons.data.file.FileExtensionEvent;
-import org.drombler.commons.data.file.FileExtensionListener;
 import org.osgi.service.component.ComponentContext;
+import org.softsmithy.lib.util.SetChangeEvent;
+import org.softsmithy.lib.util.SetChangeListener;
 
 /**
  *
@@ -38,7 +52,7 @@ public class FXFileChooserProvider implements FileChooserProvider {
     @Reference
     private FileExtensionDescriptorRegistryProvider fileExtensionDescriptorRegistryProvider;
 
-    private final FileExtensionListener fileExtensionListener = new FileExtensionFilterListener();
+    private final SetChangeListener<FileExtensionDescriptor> fileExtensionListener = new FileExtensionFilterListener();
     private final FileChooser fileChooser = new FileChooser();
 
     private final ResourceBundle resourceBundle;
@@ -54,13 +68,13 @@ public class FXFileChooserProvider implements FileChooserProvider {
 
     @Activate
     protected void activate(ComponentContext context) {
-        fileExtensionDescriptorRegistryProvider.getFileExtensionDescriptorRegistry().registerFileExtensionListener(fileExtensionListener);
+        fileExtensionDescriptorRegistryProvider.getFileExtensionDescriptorRegistry().addFileExtensionListener(fileExtensionListener);
         fileExtensionDescriptorRegistryProvider.getFileExtensionDescriptorRegistry().getAllFileExtensionDescriptors().forEach(this::addFileExtensionFilter);
     }
 
     @Deactivate
     protected void deactivate(ComponentContext context) {
-        fileExtensionDescriptorRegistryProvider.getFileExtensionDescriptorRegistry().unregisterFileExtensionListener(fileExtensionListener);
+        fileExtensionDescriptorRegistryProvider.getFileExtensionDescriptorRegistry().removeFileExtensionListener(fileExtensionListener);
     }
 
     private void addFileExtensionFilter(FileExtensionDescriptor fileExtensionDescriptor) {
@@ -134,16 +148,16 @@ public class FXFileChooserProvider implements FileChooserProvider {
         }
     }
 
-    private class FileExtensionFilterListener implements FileExtensionListener {
+    private class FileExtensionFilterListener implements SetChangeListener<FileExtensionDescriptor> {
 
         @Override
-        public void fileExtensionAdded(FileExtensionEvent event) {
-            addFileExtensionFilter(event.getFileExtensionDescriptor());
+        public void elementAdded(SetChangeEvent<FileExtensionDescriptor> event) {
+            addFileExtensionFilter(event.getElement());
         }
 
         @Override
-        public void fileExtensionRemoved(FileExtensionEvent event) {
-            removeFileExtensionFilter(event.getFileExtensionDescriptor());
+        public void elementRemoved(SetChangeEvent<FileExtensionDescriptor> event) {
+            removeFileExtensionFilter(event.getElement());
         }
 
     }

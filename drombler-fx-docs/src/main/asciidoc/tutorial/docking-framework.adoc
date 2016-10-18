@@ -165,6 +165,14 @@ include::{sourcedir}/tutorial/docking/DockableEditor.java[lines=18..21]
 |contentType | the data handler class
 |===
 
+=== Data Support
+The _Docking Framework_ registers an implementation of 
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/data/DataCapabilityProvider.html[DataCapabilityProvider] 
+for the 
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/data/Openable.html[Openable] 
+_Data Capability_. It tries to open an _Editor_ for a _Data Handler_ by calling
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#openEditorForContent-java.lang.Object-[Dockables.openEditorForContent].
+
 === Samples
 
 ==== View Sample

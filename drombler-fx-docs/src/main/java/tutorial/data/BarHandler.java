@@ -14,31 +14,35 @@
  */
 package tutorial.data;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import org.drombler.acp.core.data.AbstractDocumentHandler;
-import org.drombler.acp.core.data.DocumentHandler;
+import org.drombler.acp.core.data.AbstractDataHandler;
+import org.drombler.acp.core.data.BusinessObjectHandler;
 
 /**
  *
  * @author puce
  */
-@DocumentHandler(mimeType = "text/foo", icon = "foo.png")
-public class FooHandler extends AbstractDocumentHandler {
+@BusinessObjectHandler(icon = "bar.png")
+public class BarHandler extends AbstractDataHandler<String> {
 
-    private static final String FILE_EXTENSION = "foo";
+    private final Bar bar;
 
-    public FooHandler() {
-        super(FILE_EXTENSION);
-    }
-
-    public FooHandler(Path path) {
-        super(FILE_EXTENSION, path);
+    public BarHandler(Bar bar) {
+        this.bar = bar;
     }
 
     @Override
-    protected void writeContent() throws IOException {
-        // Files.write(getPath(), <some content> ...);
+    public String getTitle() {
+        return bar.getId();
+    }
+
+    @Override
+    public String getTooltipText() {
+        return bar.getId();
+    }
+
+    @Override
+    public String getUniqueKey() {
+        return bar.getId();
     }
 
 }

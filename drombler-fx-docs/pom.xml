@@ -189,6 +189,7 @@ Contributor(s): .
                                 <drombler-fx-version>${project.version}</drombler-fx-version>
                                 <drombler-acp-version>${drombler-acp.version}</drombler-acp-version>
                                 <drombler-commons-version>${drombler-commons.version}</drombler-commons-version>
+                                <softsmithy-version>${dependency.softsmithy.version}</softsmithy-version>
                             </attributes>
                         </configuration>
                     </plugin>
@@ -210,6 +211,12 @@ Contributor(s): .
                 <dependency>
                     <groupId>org.drombler.acp</groupId>
                     <artifactId>drombler-acp-core-standard-docking</artifactId>
+                    <version>${drombler-acp.version}</version>
+                    <classifier>sources</classifier>
+                </dependency>
+                <dependency>
+                    <groupId>org.drombler.acp</groupId>
+                    <artifactId>drombler-acp-core-standard-action-data-file</artifactId>
                     <version>${drombler-acp.version}</version>
                     <classifier>sources</classifier>
                 </dependency>

@@ -14,9 +14,9 @@
 
 == Tested environment
 
- * Tested Java version: 1.8.0_66; Java HotSpot(TM) 64-Bit Server VM 25.66-b17
+ * Tested Java version: 1.8.0_101; Java HotSpot(TM) 64-Bit Server VM 25.101-b13
  * Tested Maven version: 3.0.5
- * Tested OS: Kubuntu 14.04.2 LTS; Linux version 3.13.0-74-generic running on amd64; UTF-8; de_CH (nb)
+ * Tested OS: Kubuntu 14.04.2 LTS; Linux version 3.13.0-95-generic running on amd64; UTF-8; de_CH (nb)
 
 == Drombler FX Sample Application - generate, build and run
 
@@ -65,7 +65,7 @@ The _--userdir_ option is quite useful during development. If you omit it, the d
 When you start-up the application you should see the following:
 
  * A JavaFX window with a custom title
- * A content pane consisting of four _Views_ (Left, Right, Top and Bottom) around an empty center area
+ * A content pane consisting of four _Views_ (Left, Right, Top and Bottom) around an empty editor area
  * A Menu Bar with the following Menus: File, View, Custom, Window and Help
  * A Toolbar Container with three Toolbars: File, Rectangle and Circle
 
@@ -76,12 +76,12 @@ Let's start with the Content Pane.
 === The Content Pane
 What you actually can find here is an initial version of a Docking Framework: The Docking Framework splits up the 
 content area into any number of _Docking Areas_. _Drombler FX_ provides 5 Docking Areas out-of-the-box: left, right, 
-top, bottom and center. The _Docking Areas_ can be resized using the Dividers. Each _Docking Area_ can hold any number 
+top, bottom and editor. The _Docking Areas_ can be resized using the dividers. Each _Docking Area_ can hold any number 
 of _Dockable Panes_, which are layed out as Tabs. The left, right, top and bottom areas have been configured only to be 
-visible if they contain any docked _Dockable Pane_. The center area has been configured to be always visible.
+visible if they contain any docked _Dockable Pane_. The editor area has been configured to be always visible.
 
 The Left _Dockable Pane_ has been provided by the sample and is docked to the left _Docking Area_. It contains a button 
-to create a new Sample object and open a Sample Editor _Dockable Pane_ in the center _Docking Area_.
+to create a new Sample object and open a Sample Editor _Dockable Pane_ in the editor _Docking Area_.
 
 The Sample Editor (opened if you click on the "New Sample" button in the Left _Dockable Pane_) is provided by the sample
  and contains a text field, which is bound to the Tab text of the Sample Editor, and displays the currently selected circle and rectangles.
@@ -110,10 +110,14 @@ Actions may be always enabled or only under certain conditions.
 The File Toolbar is a standard Toolbar and the "Save" and "Save All" Toolbar buttons are standard Toolbar buttons 
 provided by _Drombler FX_. The "Save" Toolbar button is only enabled if the _currently selected_ _Dockable Pane_ 
 contains something to save. The "Save All" Toolbar button is only enabled if _any_ _Dockable Pane_ contains something 
-to save. E.g. if you modify a Sample in the Sample Editor both the "Save" and the "Save All" buttons become enabled. 
-If you click on another _Dockable Pane_ the "Save" button gets disabled again, if that _Dockable Pane_ doesn't contain 
-modified data as well. The "Save All" button, however, stays enabled, since there is still an open Sample Editor with a 
-modified Sample.
+to save. E.g. the sample editor and the foo editor are marked as modified by default. You can see this as the save actions are enabled
+and the text of the tab is in bold. If you save an Editor the "Save" button becomes disabled and the text of the tab is back to normal again. 
+If you click on another modified _Dockable Pane_ the "Save" button gets enabled again. 
+The "Save All" button, however, stays enabled as long as there is still a modified _Dockable Pane_ open.
+Once a new sample gets saved, the name text field is not editable anymore.
+For every saved Editor there is also a configured tooltip of the tab: for sample editors it's simply the name and for foo Editors it's the file path.
+If you close an unsaved Editor or if you close the window/ application while there are still unsaved Editors open, the _Docking Framework_ detects this
+and provides an according dialog.
 
 The Rectangle Toolbar, provided by the sample project, provides three toggle Toolbar buttons with colored rectanlge 
 images. Since they don't belong to a toggle group any number of them may be selected. They are only enabled if the 
@@ -144,8 +148,11 @@ and the logic between Menu items and Toolbar buttons in sync.
 
 The File menu, which is a standard menu provided by _Drombler FX_, contains 
 
+ * A New menu item, which opens a new "foo" document in an Editor. This custom menu item is provided by the sample.
  * 3 test menu items ("Test 1", "Test 2" and "Test 3), which simply write some text to the standard output. These are 
 custom menu items provided by this sample.
+ * A Open menu item, which provides a generic open file dialog and supports "foo" files. This is a standard menu item provided
+by _Drombler FX_.
  * 2 Save menu items ("Save" and "Save All"). These are standard menu items provided by _Drombler FX_. They behave in 
 the same way as the corresponding Toolbar buttons described above.
  * An Exit menu item, which properly shuts down the JavaFX Platform and the OSGi Platform. This is a standard menu item 
@@ -194,7 +201,6 @@ You can find:
  * META-INF/MANIFEST.MF: a Manifest file with the correct JavaFX specific entries
  * applicationConfig.properties: contains application configurations such as: title, width and height
  * default.properties: Contains the properties to specify the Java, OSGi and Drombler startup system packages.
- * the correct JavaFX startup classes
  * the http://felix.apache.org[Apache Felix Framework] and OSGi specific classes
  * the Drombler specific startup classes
  * _org/drombler/fx/startup/main/config.properties_: Contains the properties to specify the JavaFX packages. This is the 
@@ -212,11 +218,12 @@ You should see now a directory "test", with the following content:
 
  * pom.xml
  * test-application
+ * test-foo
  * test-parent
  * test-sample
 
 
-These are in fact 4 Maven projects. Lets have a look at them one by one.
+These are in fact 5 Maven projects. Let's have a look at them one by one.
 
 === The Multi-Module Project
 
@@ -245,6 +252,20 @@ Note: Currently you always need to rebuild this project if any of its bundles ha
 The nbactions.xml enables the "Run Project" and "Debug Project" buttons in NetBeans for this project. You can have a 
 look at it to see how to run and debug the application. You can delete this file if you use another IDE than NetBeans.
 
+=== The Foo Project
+It shows how to register support for "foo" files.
+
+The foo project is a standard OSGi project. You can use org.apache.felix:maven-bundle-plugin as an extension plugin 
+and the packaging type "bundle" to let Maven generate the OSGi Manifest entries for you (using a POM first approach).
+
+The FooHandler is registered as a Document Handler for the MIME type "text/x-foo+xml". It knows how to load and write the content of "foo" files.
+
+The package-info provides a file extension registration which associates the "foo" file extension with the "text/x-foo+xml" MIME type.
+
+The FooEditorPane implements a _Dockable Pane_ which gets registered as an Editor for FooHandler. This sample code provides a simple TextArea to edit the
+text of the foo files.
+
+The NewAction implements an action which creates a new FooHandler and opens an Editor for this FooHandler.
 
 === The Parent Project
 
@@ -262,9 +283,6 @@ This is the project which provides the actual sample specific parts.
 
 The sample project is a standard OSGi project. You can use org.apache.felix:maven-bundle-plugin as an extension plugin 
 and the packaging type "bundle" to let Maven generate the OSGi Manifest entries for you (using a POM first approach).
-
-You can access the JavaFX classes using a system dependency managed by the drombler-fx-parent.
-
 
 Since part of modular programming is about keeping APIs private and not exporting them, it's a good practice to start 
 adding classes to a private package such as: \*.impl.\* (the org.apache.felix:maven-bundle-plugin takes care that such 
@@ -303,14 +321,12 @@ See <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolba
 The LeftTestPane is a _Dockable Pane_ using annotations to register itself as a view in the left _Docking Area_ and a 
 corresponding menu item in the Window menu. The onNewSampleAction logic, which gets triggered when the "New Sample" button gets clicked, creates a new Sample and opens it in a new SampleEditorPane.
 
-The SampleEditorPane is a _Dockable Pane_ using annotations to register itself as an editor in the center 
-_Docking Area_. It configures a writable local context and adds to it an instance of a custom implementation of 
+The SampleEditorPane is a _Dockable Pane_ using annotations to register itself as an Editor. It configures a writable local context and adds to it an instance of a custom implementation of 
 ColoredCircleManager and ColoredRectangleManager to enable the colored circle and colored rectangle toolbar buttons and 
 menu items. It also adds the sample to its local context, so that other _Dockable Panes_ can look for it and display 
 some information about it.
 
-It configures the controls from the values of the properties of the Sample. It does not bind the properties, so that 
-the changes can easily be dropped.
+It configures the controls from the values of the properties of the Sample.
 
 Whenever the content of the SampleEditorPane changes the method markModified() gets called to add an instance of a 
 Sample specific implementation of the Save interface to its local context to enable the "Save" and "Save All" Actions. 

@@ -9,9 +9,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.Tooltip;
 import org.drombler.acp.core.data.AbstractDocumentHandler;
-import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.client.util.ResourceBundleUtils;
+import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,7 @@ public final class FXDockableDataUtils {
         }
     }
 
-    public static void configureDockableDataExisting(FXDockableData dockableData, DataHandler<?> dataHandler) {
+    private static void configureDockableDataExisting(FXDockableData dockableData, DataHandler<?> dataHandler) {
         dockableData.setTitle(dataHandler.getTitle());
         Tooltip tooltip = dockableData.getTooltip();
         if (tooltip == null) {
