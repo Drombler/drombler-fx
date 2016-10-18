@@ -65,6 +65,7 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
     private ObjectProperty<ColoredCircle> coloredCircle = new SimpleObjectProperty<>(this, "coloredCircle");
     private final ObservableSet<ColoredRectangle> coloredRectangles = FXCollections.observableSet(EnumSet.noneOf(
             ColoredRectangle.class));
+    private final ModifiedListener modifiedListener = new ModifiedListener();
     private FXDockableData dockableData;
 
     public SampleEditorPane(SampleHandler sampleHandler) {
@@ -94,8 +95,8 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
         initColoredRectangleImageViews();
 
         // Mark this Editor as modified if any control has been modified
-        nameField.textProperty().addListener(new ModifiedListener());
-        coloredCircle.addListener(new ModifiedListener());
+        nameField.textProperty().addListener(modifiedListener);
+        coloredCircle.addListener(modifiedListener);
         coloredRectangles.addListener((Change<? extends ColoredRectangle> change) -> {
             if (change.wasAdded()) {
                 setColoredRectangleImage(change.getElementAdded());

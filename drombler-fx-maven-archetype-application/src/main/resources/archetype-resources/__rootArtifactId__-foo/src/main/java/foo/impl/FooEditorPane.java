@@ -52,6 +52,7 @@ public class FooEditorPane extends BorderPane implements DockableDataSensitive<F
         this.dockableData = dockableData;
         FXDockableDataUtils.configureDockableData(this.dockableData, fooHandler);
         this.fooSavable = FXDockableDataUtils.createDocumentSavable(fooHandler, dockableData, this::cleanupAfterSave);
+        contentModified();
     }
 
     private void contentModified() {
