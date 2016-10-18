@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-@FileExtension(displayName = "%displayName", mimeType = "text/foo", fileExtensions = "foo", position = 10)
+@FileExtension(displayName = "%fooFileExtension.displayName", mimeType = "text/foo", fileExtensions = "foo", position = 10)
 package tutorial.data;
 
 import org.drombler.acp.core.data.FileExtension;
