@@ -97,7 +97,7 @@ _Drombler FX_ provides a "Window" menu and requires each view to register a menu
 
 _Drombler FX_ also provides the "Window" sub-menu "Other" out-of-the-box.
 
-A _Dockable Pane_ can be registered as a _view_ using the http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/api/docs/org/drombler/acp/core/docking/ViewDocking.html[@ViewDocking] and 
+A _Dockable Pane_ can be registered as a _view_ using the http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/ViewDocking.html[@ViewDocking] and 
 http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/WindowMenuEntry.html[@WindowMenuEntry] annotations:
 
 [source,java]
@@ -142,11 +142,8 @@ http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/or
 
 _Editor Dockable Panes_ are typically used to edit some data, e.g. in a form or a text editor.
 
-To open an editor, create an instance using the constructor and then call first the 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#inject-D-[Dockables.inject] 
-method and then the 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#open-D-[Dockables.open] 
-method.
+To open an editor for a _Data Handler_ call
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#openEditorForContent-org.softsmithy.lib.util.UniqueKeyProvider-[Dockables.openEditorForContent].
 
 
 A _Dockable Pane_ can be registered as an _editor_ using the http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/EditorDocking.html[@EditorDocking] annotation:
