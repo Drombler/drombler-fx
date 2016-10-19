@@ -442,8 +442,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_the_multi_module_project">6.1. The Multi-Module Project</a></li>
 <li><a href="#_the_drombler_fx_application_project">6.2. The Drombler FX Application Project</a></li>
-<li><a href="#_the_parent_project">6.3. The Parent Project</a></li>
-<li><a href="#_the_sample_project">6.4. The Sample Project</a></li>
+<li><a href="#_the_foo_project">6.3. The Foo Project</a></li>
+<li><a href="#_the_parent_project">6.4. The Parent Project</a></li>
+<li><a href="#_the_sample_project">6.5. The Sample Project</a></li>
 </ul>
 </li>
 </ul>
@@ -487,13 +488,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Tested Java version: 1.8.0_66; Java HotSpot&#8482; 64-Bit Server VM 25.66-b17</p>
+<p>Tested Java version: 1.8.0_101; Java HotSpot&#8482; 64-Bit Server VM 25.101-b13</p>
 </li>
 <li>
 <p>Tested Maven version: 3.0.5</p>
 </li>
 <li>
-<p>Tested OS: Kubuntu 14.04.2 LTS; Linux version 3.13.0-74-generic running on amd64; UTF-8; de_CH (nb)</p>
+<p>Tested OS: Kubuntu 14.04.2 LTS; Linux version 3.13.0-95-generic running on amd64; UTF-8; de_CH (nb)</p>
 </li>
 </ul>
 </div>
@@ -570,7 +571,7 @@ mvn exec:exec</code></pre>
 <p>A JavaFX window with a custom title</p>
 </li>
 <li>
-<p>A content pane consisting of four <em>Views</em> (Left, Right, Top and Bottom) around an empty center area</p>
+<p>A content pane consisting of four <em>Views</em> (Left, Right, Top and Bottom) around an empty editor area</p>
 </li>
 <li>
 <p>A Menu Bar with the following Menus: File, View, Custom, Window and Help</p>
@@ -594,13 +595,13 @@ mvn exec:exec</code></pre>
 <div class="paragraph">
 <p>What you actually can find here is an initial version of a Docking Framework: The Docking Framework splits up the
 content area into any number of <em>Docking Areas</em>. <em>Drombler FX</em> provides 5 Docking Areas out-of-the-box: left, right,
-top, bottom and center. The <em>Docking Areas</em> can be resized using the Dividers. Each <em>Docking Area</em> can hold any number
+top, bottom and editor. The <em>Docking Areas</em> can be resized using the dividers. Each <em>Docking Area</em> can hold any number
 of <em>Dockable Panes</em>, which are layed out as Tabs. The left, right, top and bottom areas have been configured only to be
-visible if they contain any docked <em>Dockable Pane</em>. The center area has been configured to be always visible.</p>
+visible if they contain any docked <em>Dockable Pane</em>. The editor area has been configured to be always visible.</p>
 </div>
 <div class="paragraph">
 <p>The Left <em>Dockable Pane</em> has been provided by the sample and is docked to the left <em>Docking Area</em>. It contains a button
-to create a new Sample object and open a Sample Editor <em>Dockable Pane</em> in the center <em>Docking Area</em>.</p>
+to create a new Sample object and open a Sample Editor <em>Dockable Pane</em> in the editor <em>Docking Area</em>.</p>
 </div>
 <div class="paragraph">
 <p>The Sample Editor (opened if you click on the "New Sample" button in the Left <em>Dockable Pane</em>) is provided by the sample
@@ -640,10 +641,14 @@ and the logic between Menu items and Toolbar buttons in sync.</p>
 <p>The File Toolbar is a standard Toolbar and the "Save" and "Save All" Toolbar buttons are standard Toolbar buttons
 provided by <em>Drombler FX</em>. The "Save" Toolbar button is only enabled if the <em>currently selected</em> <em>Dockable Pane</em>
 contains something to save. The "Save All" Toolbar button is only enabled if <em>any</em> <em>Dockable Pane</em> contains something
-to save. E.g. if you modify a Sample in the Sample Editor both the "Save" and the "Save All" buttons become enabled.
-If you click on another <em>Dockable Pane</em> the "Save" button gets disabled again, if that <em>Dockable Pane</em> doesn&#8217;t contain
-modified data as well. The "Save All" button, however, stays enabled, since there is still an open Sample Editor with a
-modified Sample.</p>
+to save. E.g. the sample editor and the foo editor are marked as modified by default. You can see this as the save actions are enabled
+and the text of the tab is in bold. If you save an Editor the "Save" button becomes disabled and the text of the tab is back to normal again.
+If you click on another modified <em>Dockable Pane</em> the "Save" button gets enabled again.
+The "Save All" button, however, stays enabled as long as there is still a modified <em>Dockable Pane</em> open.
+Once a new sample gets saved, the name text field is not editable anymore.
+For every saved Editor there is also a configured tooltip of the tab: for sample editors it&#8217;s simply the name and for foo Editors it&#8217;s the file path.
+If you close an unsaved Editor or if you close the window/ application while there are still unsaved Editors open, the <em>Docking Framework</em> detects this
+and provides an according dialog.</p>
 </div>
 <div class="paragraph">
 <p>The Rectangle Toolbar, provided by the sample project, provides three toggle Toolbar buttons with colored rectanlge
@@ -689,8 +694,15 @@ and the logic between Menu items and Toolbar buttons in sync.</p>
 <div class="ulist">
 <ul>
 <li>
+<p>A New menu item, which opens a new "foo" document in an Editor. This custom menu item is provided by the sample.</p>
+</li>
+<li>
 <p>3 test menu items ("Test 1", "Test 2" and "Test 3), which simply write some text to the standard output. These are
 custom menu items provided by this sample.</p>
+</li>
+<li>
+<p>A Open menu item, which provides a generic open file dialog and supports "foo" files. This is a standard menu item provided
+by <em>Drombler FX</em>.</p>
 </li>
 <li>
 <p>2 Save menu items ("Save" and "Save All"). These are standard menu items provided by <em>Drombler FX</em>. They behave in
@@ -769,9 +781,6 @@ The jar has been branded using the specified brandingId.</p>
 <p>default.properties: Contains the properties to specify the Java, OSGi and Drombler startup system packages.</p>
 </li>
 <li>
-<p>the correct JavaFX startup classes</p>
-</li>
-<li>
 <p>the <a href="http://felix.apache.org">Apache Felix Framework</a> and OSGi specific classes</p>
 </li>
 <li>
@@ -807,6 +816,9 @@ jar will load these bundles.</p>
 <p>test-application</p>
 </li>
 <li>
+<p>test-foo</p>
+</li>
+<li>
 <p>test-parent</p>
 </li>
 <li>
@@ -815,7 +827,7 @@ jar will load these bundles.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>These are in fact 4 Maven projects. Lets have a look at them one by one.</p>
+<p>These are in fact 5 Maven projects. Let&#8217;s have a look at them one by one.</p>
 </div>
 <div class="sect2">
 <h3 id="_the_multi_module_project">6.1. The Multi-Module Project</h3>
@@ -860,7 +872,30 @@ look at it to see how to run and debug the application. You can delete this file
 </div>
 </div>
 <div class="sect2">
-<h3 id="_the_parent_project">6.3. The Parent Project</h3>
+<h3 id="_the_foo_project">6.3. The Foo Project</h3>
+<div class="paragraph">
+<p>It shows how to register support for "foo" files.</p>
+</div>
+<div class="paragraph">
+<p>The foo project is a standard OSGi project. You can use org.apache.felix:maven-bundle-plugin as an extension plugin
+and the packaging type "bundle" to let Maven generate the OSGi Manifest entries for you (using a POM first approach).</p>
+</div>
+<div class="paragraph">
+<p>The FooHandler is registered as a Document Handler for the MIME type "text/x-foo+xml". It knows how to load and write the content of "foo" files.</p>
+</div>
+<div class="paragraph">
+<p>The package-info provides a file extension registration which associates the "foo" file extension with the "text/x-foo+xml" MIME type.</p>
+</div>
+<div class="paragraph">
+<p>The FooEditorPane implements a <em>Dockable Pane</em> which gets registered as an Editor for FooHandler. This sample code provides a simple TextArea to edit the
+text of the foo files.</p>
+</div>
+<div class="paragraph">
+<p>The NewAction implements an action which creates a new FooHandler and opens an Editor for this FooHandler.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_parent_project">6.4. The Parent Project</h3>
 <div class="paragraph">
 <p>The parent project contains the parent POM used by the other projects of this sample.</p>
 </div>
@@ -874,16 +909,13 @@ the content of the parent POM to the multi-module POM and to delete this parent 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_the_sample_project">6.4. The Sample Project</h3>
+<h3 id="_the_sample_project">6.5. The Sample Project</h3>
 <div class="paragraph">
 <p>This is the project which provides the actual sample specific parts.</p>
 </div>
 <div class="paragraph">
 <p>The sample project is a standard OSGi project. You can use org.apache.felix:maven-bundle-plugin as an extension plugin
 and the packaging type "bundle" to let Maven generate the OSGi Manifest entries for you (using a POM first approach).</p>
-</div>
-<div class="paragraph">
-<p>You can access the JavaFX classes using a system dependency managed by the drombler-fx-parent.</p>
 </div>
 <div class="paragraph">
 <p>Since part of modular programming is about keeping APIs private and not exporting them, it&#8217;s a good practice to start
@@ -932,15 +964,13 @@ allowing them to be selected at the same time.</p>
 corresponding menu item in the Window menu. The onNewSampleAction logic, which gets triggered when the "New Sample" button gets clicked, creates a new Sample and opens it in a new SampleEditorPane.</p>
 </div>
 <div class="paragraph">
-<p>The SampleEditorPane is a <em>Dockable Pane</em> using annotations to register itself as an editor in the center
-<em>Docking Area</em>. It configures a writable local context and adds to it an instance of a custom implementation of
+<p>The SampleEditorPane is a <em>Dockable Pane</em> using annotations to register itself as an Editor. It configures a writable local context and adds to it an instance of a custom implementation of
 ColoredCircleManager and ColoredRectangleManager to enable the colored circle and colored rectangle toolbar buttons and
 menu items. It also adds the sample to its local context, so that other <em>Dockable Panes</em> can look for it and display
 some information about it.</p>
 </div>
 <div class="paragraph">
-<p>It configures the controls from the values of the properties of the Sample. It does not bind the properties, so that
-the changes can easily be dropped.</p>
+<p>It configures the controls from the values of the properties of the Sample.</p>
 </div>
 <div class="paragraph">
 <p>Whenever the content of the SampleEditorPane changes the method markModified() gets called to add an instance of a
@@ -989,7 +1019,7 @@ this file) in the same package as the annotated class in question. This is a con
 <div id="footer">
 <div id="footer-text">
 Version 0.8-SNAPSHOT<br>
-Last updated 2016-04-15 00:31:52 +02:00
+Last updated 2016-10-19 00:29:19 +02:00
 </div>
 </div>
 </body>

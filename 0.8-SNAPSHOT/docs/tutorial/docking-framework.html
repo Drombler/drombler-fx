@@ -431,7 +431,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_view_dockable_panes">2.1. View Dockable Panes</a></li>
 <li><a href="#_editor_dockable_panes">2.2. Editor Dockable Panes</a></li>
-<li><a href="#_samples">2.3. Samples</a></li>
+<li><a href="#_data_support">2.3. Data Support</a></li>
+<li><a href="#_samples">2.4. Samples</a></li>
 </ul>
 </li>
 </ul>
@@ -456,7 +457,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="_registering_docking_areas">1.1. Registering Docking Areas</h3>
 <div class="paragraph">
 <p><em>Docking Areas</em> can be registered using the <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/DockingArea.html">@DockingArea</a> and
-<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/LayoutConstraints.html">@LayoutConstraints</a> annotations on a package (usually in <em>package-info.java</em>):</p>
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/LayoutConstraints.html">@LayoutConstraints</a> annotations on a package (usually in
+<em>package-info.java</em>):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -550,15 +552,15 @@ entries to allow other bundles to register entries between some existing ones.</
 <div class="paragraph">
 <p><em>Drombler FX</em> provides 5 <em>Docking Areas</em> out-of-the-box: <strong>left</strong>, <strong>right</strong>, <strong>top</strong>, <strong>bottom</strong> and <strong>editor</strong>.
 The left, right, top and bottom areas have been configured to be visible only if they contain any docked <em>Dockable Pane</em>. They have been configured as
-<a href="http://www.drombler.org/drombler-commons//docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#VIEW">VIEW</a> Docking Areas and thus are intended for
+<a href="http://www.drombler.org/drombler-commons/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#VIEW">VIEW</a> Docking Areas and thus are intended for
 view Dockables.
 The editor area has been configured to be always visible, even if it&#8217;s empty. It has been configured as
-<a href="http://www.drombler.org/drombler-commons//docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#EDITOR">EDITOR</a> Docking Area and is thus the default
+<a href="http://www.drombler.org/drombler-commons/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#EDITOR">EDITOR</a> Docking Area and is thus the default
 Docking Area for editor Dockables.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@DockingArea(id = "center", kind = DockingAreaKind.EDITOR, position = 20,
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@DockingArea(id = "editor", kind = DockingAreaKind.EDITOR, position = 20,
         path = {20, 40, 50}, permanent = true)
 @DockingArea(id = "top", kind = DockingAreaKind.VIEW, position = 20,
         path = {20, 40, 20}, layoutConstraints = @LayoutConstraints(prefHeight = 100))
@@ -759,7 +761,7 @@ method.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java" data-lang="java">import org.drombler.acp.core.docking.EditorDocking;
 
-@EditorDocking(contentType = Foo.class)
+@EditorDocking(contentType = FooHandler.class)
 public class DockableEditor extends GridPane {</code></pre>
 </div>
 </div>
@@ -786,9 +788,20 @@ public class DockableEditor extends GridPane {</code></pre>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_samples">2.3. Samples</h3>
+<h3 id="_data_support">2.3. Data Support</h3>
+<div class="paragraph">
+<p>The <em>Docking Framework</em> registers an implementation of
+<a href="http://www.drombler.org/drombler-commons/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/commons/data/DataCapabilityProvider.html">DataCapabilityProvider</a>
+for the
+<a href="http://www.drombler.org/drombler-commons/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/commons/data/Openable.html">Openable</a>
+<em>Data Capability</em>. It tries to open an <em>Editor</em> for a <em>Data Handler</em> by calling
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#openEditorForContent-java.lang.Object-">Dockables.openEditorForContent</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_samples">2.4. Samples</h3>
 <div class="sect3">
-<h4 id="_view_sample">2.3.1. View Sample</h4>
+<h4 id="_view_sample">2.4.1. View Sample</h4>
 <div class="paragraph">
 <p>The sample code below shows a simple implementation of a <em>Dockable Pane</em> registered as a view:</p>
 </div>
@@ -866,7 +879,7 @@ be the parent type (here: "GridPane"):</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_more_samples">2.3.2. More Samples</h4>
+<h4 id="_more_samples">2.4.2. More Samples</h4>
 <div class="paragraph">
 <p>For more samples have a look at <a href="getting-started.html#gettingStarted">Getting Started</a>.</p>
 </div>
@@ -878,7 +891,7 @@ be the parent type (here: "GridPane"):</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.8-SNAPSHOT<br>
-Last updated 2016-05-19 01:00:47 +02:00
+Last updated 2016-10-18 22:15:42 +02:00
 </div>
 </div>
 </body>

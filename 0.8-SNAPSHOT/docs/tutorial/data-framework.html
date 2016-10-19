@@ -420,18 +420,203 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-
+<ul class="sectlevel1">
+<li><a href="#_data_handlers_for_business_objects">1. Data Handlers for Business Objects</a></li>
+<li><a href="#_data_handlers_for_documents">2. Data Handlers for Documents</a>
+<ul class="sectlevel2">
+<li><a href="#_file_extension">2.1. File Extension</a></li>
+<li><a href="#_standard_file_actions">2.2. Standard File Actions</a></li>
+<li><a href="#_file_path_arguments_support">2.3. File Path Arguments Support</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>To be done</p>
+<p>This section describes an initial version of a <em>Data Framework</em>.</p>
+</div>
+<div class="paragraph">
+<p>At the core of the <em>Data Framework</em> is the concept of <em>Data Handlers</em>. A <a href="http://www.drombler.org/drombler-commons/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/commons/data/DataHandler.html">Data Handler</a>
+wraps an instance of a particular kind of data and usually knows how to read, save etc. this particular kind of data.</p>
+</div>
+<div class="paragraph">
+<p>To integrate with the <a href="docking-framework.html#dockingFramework">Docking Framework</a> a <em>Data Handler</em> needs to implement at least
+<a href="http://www.softsmithy.org/softsmithy-lib/lib/0.6/docs/site/apidocs/org/softsmithy/lib/util/UniqueKeyProvider.html">UniqueKeyProvider</a>.
+The unique key can be e.g. the unique business key of the data instance or the path to the file for file based <em>Data Handlers</em> or any other kind
+of key which allows the <em>Docking Framework</em> to detect if there&#8217;s already an editor open for this data instance. The unique key can be null for newly
+created data instances but must be non-null after it has been saved and must not change afterwards.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_handlers_for_business_objects">1. Data Handlers for Business Objects</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To register a <em>Data Handler</em> for a business object, which e.g. has been obtained from a web service call, use the
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/data/BusinessObjectHandler.html">@BusinessObjectHandler</a> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@BusinessObjectHandler(icon = "bar.png")
+public class BarHandler extends AbstractDataHandler&lt;String&gt; {</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/data/BusinessObjectHandler.html">@BusinessObjectHandler</a> properties:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 9%;">
+<col style="width: 90%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">icon</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The icon name pattern to resolve the icons to be used for this file type handler. Note that this only specifies the name pattern.
+Drombler ACP Docking Framework looks for &lt;icon-base-name&gt;16.&lt;icon-extension&gt; (expected to be 16x16 pixels). So if icon is &quot;test.png&quot;,
+the Drombler ACP Docking Framework would look for test16.png.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>As the code sample shows, the easiest way to implement a <em>Data Handler</em> for a business object is to extend <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/data/AbstractDataHandler.html">AbstractDataHandler</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_handlers_for_documents">2. Data Handlers for Documents</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To register a <em>Data Handler</em> for a document use the
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/data/DocumentHandler.html">@DocumentHandler</a> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@DocumentHandler(mimeType = "text/foo", icon = "foo.png")
+public class FooHandler extends AbstractDocumentHandler {</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/data/DocumentHandler.html">@DocumentHandler</a> properties:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 9%;">
+<col style="width: 90%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mimeType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The MIME type of the document.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">icon</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The icon name pattern to resolve the icons to be used for this file type handler. Note that this only specifies the name pattern. Drombler ACP looks for
+&lt;icon-base-name&gt;16.&lt;icon-extension&gt; for data types (expected to be 16x16 pixels). So if icon is &quot;test.png&quot;, Drombler ACP would look for test16.png.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>As the code sample shows, the easiest way to implement a <em>Data Handler</em> for a file based document is to extend <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/data/AbstractDocumentHandler.html">AbstractDocumentHandler</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_file_extension">2.1. File Extension</h3>
+<div class="paragraph">
+<p>To associate some file extensions with a MIME type you can register the file extensions using the
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/data/FileExtension.html">@FileExtension</a> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@FileExtension(displayName = "%fooFileExtension.displayName", mimeType = "text/foo", fileExtensions = "foo", position = 10)
+package tutorial.data;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/data/FileExtension.html">@FileExtension</a> properties:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 9%;">
+<col style="width: 90%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">displayName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The text to be displayed, e.g. as the text for filters in file dialogs. If the value starts with '%' the rest of the value is interpreted as
+a property key and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to be in the same
+package as the annotated data type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mimeType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The MIME type for the specified file extensions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fileExtensions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file extensions for the specified MIME type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">position</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The position, e.g. to order the file extensions in filters of file dialogs. It&#8217;s a best practice to leave out some positions between entries
+to allow other bundles to register entries between some existing ones.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_standard_file_actions">2.2. Standard File Actions</h3>
+<div class="paragraph">
+<p>The org.drombler.acp:drombler-acp-core-standard-action-data-file Maven module registers the following file based action:</p>
+</div>
+<div class="paragraph">
+<p><strong>Open Files</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Action(id = "open", category = "core", displayName = "%open.displayName", accelerator = "Shortcut+O")
+@MenuEntry(path = "File", position = 1010)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <em>Open Files</em> action provides a generic open file dialog and tries to open the selected files by calling
+<a href="http://www.drombler.org/drombler-commons/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/commons/data/file/FileUtils.html#openFile-java.nio.file.Path-org.drombler.commons.data.file.FileExtensionDescriptorRegistry-org.drombler.commons.data.file.DocumentHandlerDescriptorRegistry-">FileUtils.openFile</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_file_path_arguments_support">2.3. File Path Arguments Support</h3>
+<div class="paragraph">
+<p>The <em>Data Framework</em> registers an implementation of <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/startup/main/AdditionalArgumentsProvider.html">AdditionalArgumentsProvider</a>,
+which tries to open unnamed file path arguments passed to the application on application start by calling
+<a href="http://www.drombler.org/drombler-commons/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/commons/data/file/FileUtils.html#openFile-java.nio.file.Path-org.drombler.commons.data.file.FileExtensionDescriptorRegistry-org.drombler.commons.data.file.DocumentHandlerDescriptorRegistry-">FileUtils.openFile</a>.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.8-SNAPSHOT<br>
-Last updated 2016-05-19 00:14:27 +02:00
+Last updated 2016-10-18 22:06:57 +02:00
 </div>
 </div>
 </body>
