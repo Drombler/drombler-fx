@@ -135,7 +135,13 @@ public class SampleEditorPane extends GridPane implements LocalContextProvider, 
         this.dockableData = dockableData;
 
         FXDockableDataUtils.configureDockableData(dockableData, sampleHandler, "Sample");
+        if (sampleHandler.getUniqueKey() != null) {
+            nameField.textProperty().removeListener(modifiedListener);
+        }
         nameField.setText(this.dockableData.getTitle());
+        if (sampleHandler.getUniqueKey() != null) {
+            nameField.textProperty().addListener(modifiedListener);
+        }
     }
 
     private void initColoredRectangleImageViewsMap() {
