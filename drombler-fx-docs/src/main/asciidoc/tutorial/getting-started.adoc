@@ -69,7 +69,7 @@ When you start-up the application you should see the following:
  * A Menu Bar with the following Menus: File, View, Custom, Window and Help
  * A Toolbar Container with three Toolbars: File, Rectangle and Circle
 
-image::getting-started/drombler-sample-application.png[caption="Image 1: ", title="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'", alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'", link="{imagesdir}/getting-started/drombler-sample-application.png"]
+image::getting-started/drombler-sample-application.png[caption="Image 1: ", title="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2' and 1 Foo Editor: 'Untitled 3'", alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2' and 1 Foo Editor: 'Untitled 3'", link="{imagesdir}/getting-started/drombler-sample-application.png"]
 
 Let's start with the Content Pane.
 
