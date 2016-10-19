@@ -99,12 +99,24 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <!-- Provides the standard Docking Areas: left, right, top, bottom and center
+            <!-- Provides the standard Docking Areas: left, right, top, bottom and editor
             You could replace this with your own definition of these Docking Areas. -->
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-standard-docking</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- Provides the standard actions, toolbar buttons and menu items such as "Save" and "Save All" -->
+        <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-standard-action</artifactId>
+            <scope>runtime</scope>
+        </dependency>  
+        <!-- Provides the standard file based actions, toolbar buttons and menu items such as "Open" -->
+        <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-standard-action-data-file</artifactId>
+            <scope>runtime</scope>
+        </dependency>  
         <dependency>
             <!-- Provides some localized resources. -->
             <groupId>org.drombler.fx</groupId>

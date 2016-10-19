@@ -87,6 +87,7 @@ Contributor(s): .
                     <includes>
                         <include>**/*.properties</include>
                         <include>**/*.fxml</include>
+                        <include>**/*.txt</include>
                     </includes>
                 </fileSet>
                 <fileSet packaged="true" filtered="false" encoding="UTF-8">
