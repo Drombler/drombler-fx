@@ -69,7 +69,7 @@ When you start-up the application you should see the following:
  * A Menu Bar with the following Menus: File, View, Custom, Window and Help
  * A Toolbar Container with three Toolbars: File, Rectangle and Circle
 
-image::getting-started/drombler-sample-application.png[caption="Image 1: ", title="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2' and 1 Foo Editor: 'Untitled 3'", alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2' and 1 Foo Editor: 'Untitled 3'", link="{imagesdir}/getting-started/drombler-sample-application.png"]
+image::getting-started/drombler-sample-application.png[caption="Image 1: ", title="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Some Sample' and 1 Foo Editor: 'Untitled 3'", alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Some Sample' and 1 Foo Editor: 'Untitled 3'", link="{imagesdir}/getting-started/drombler-sample-application.png"]
 
 Let's start with the Content Pane.
 
@@ -85,6 +85,9 @@ to create a new Sample object and open a Sample Editor _Dockable Pane_ in the ed
 
 The Sample Editor (opened if you click on the "New Sample" button in the Left _Dockable Pane_) is provided by the sample
  and contains a text field, which is bound to the Tab text of the Sample Editor, and displays the currently selected circle and rectangles.
+
+The Foo Editor (opened if you click on the "File -> New" menu item or open a foo file with "File -> Open" or by passing a foo file path as argument at application start) is provided by the sample
+ and contains a text area to display the text content of the foo file.
 
 The Right _Dockable Pane_, provided by this sample project and docked to the right _Docking Area_, shows the information 
 of the currently selected sample.
@@ -118,6 +121,8 @@ Once a new sample gets saved, the name text field is not editable anymore.
 For every saved Editor there is also a configured tooltip of the tab: for sample editors it's simply the name and for foo Editors it's the file path.
 If you close an unsaved Editor or if you close the window/ application while there are still unsaved Editors open, the _Docking Framework_ detects this
 and provides an according dialog.
+
+image::getting-started/unsaved-editors-on-closing-window.png[caption="Image 2: ", title="Unsaved Editors on closing window - with 1 Sample Editor: 'Sample 1' and 1 Foo Editor: 'Untitled 3'", alt="Unsaved Editors on closing window - with 1 Sample Editor: 'Sample 1' and 1 Foo Editor: 'Untitled 3'", link="{imagesdir}/getting-started/unsaved-editors-on-closing-window.png"]
 
 The Rectangle Toolbar, provided by the sample project, provides three toggle Toolbar buttons with colored rectanlge 
 images. Since they don't belong to a toggle group any number of them may be selected. They are only enabled if the 
