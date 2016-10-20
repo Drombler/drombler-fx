@@ -12,19 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.application;
-
 /**
- * A service interface for an on application exit request handler.
- *
- * @author puce
+ * Drombler FX specific utility classes and extensions for the Docking Framework.
  */
-public interface OnExitRequestHandler {
-
-    /**
-     * Handles application exit requests.
-     *
-     * @return true, if the application can exit, false if the request is vetoed.
-     */
-    boolean handleExitRequest();
-}
+package org.drombler.fx.core.docking;

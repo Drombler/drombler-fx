@@ -12,4 +12,7 @@
  *
  * Contributor(s): .
  */
+/**
+ * Core Drombler FX Application classes.
+ */
 package org.drombler.fx.core.application;
