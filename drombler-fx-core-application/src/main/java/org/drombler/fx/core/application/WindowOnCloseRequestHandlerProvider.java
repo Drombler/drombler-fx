@@ -18,10 +18,17 @@ import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 
 /**
+ * A service interface for a window on close request handler provider. It provides an {@link EventHandler} for window on close request events.
  *
  * @author puce
  */
 public interface WindowOnCloseRequestHandlerProvider {
 
+    /**
+     * Gets a window on close request event handler.
+     *
+     * @return a window on close request event handler. The request can be vetoed by consuming the {@link WindowEvent}.
+     * @see WindowEvent#consume()
+     */
     EventHandler<WindowEvent> getWindowOnCloseRequestHandler();
 }
