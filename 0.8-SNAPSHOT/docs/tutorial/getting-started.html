@@ -538,7 +538,7 @@ mvn clean install</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">cd test-application
-java -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=target/deployment/standalone/conf/logging.properties -jar target/deployment/standalone/bin/foo.jar --userdir target/userdir</code></pre>
+java -Duser.language=en -Duser.country=US -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=target/deployment/standalone/conf/logging.properties -jar target/deployment/standalone/bin/foo.jar --userdir target/userdir</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -583,9 +583,9 @@ mvn exec:exec</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<a class="image" href="./images/getting-started/drombler-sample-application.png"><img src="./images/getting-started/drombler-sample-application.png" alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'"></a>
+<a class="image" href="./images/getting-started/drombler-sample-application.png"><img src="./images/getting-started/drombler-sample-application.png" alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Some Sample' and 1 Foo Editor: 'Untitled 3'"></a>
 </div>
-<div class="title">Image 1: Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Sample 2'</div>
+<div class="title">Image 1: Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Some Sample' and 1 Foo Editor: 'Untitled 3'</div>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s start with the Content Pane.</p>
@@ -606,6 +606,10 @@ to create a new Sample object and open a Sample Editor <em>Dockable Pane</em> in
 <div class="paragraph">
 <p>The Sample Editor (opened if you click on the "New Sample" button in the Left <em>Dockable Pane</em>) is provided by the sample
  and contains a text field, which is bound to the Tab text of the Sample Editor, and displays the currently selected circle and rectangles.</p>
+</div>
+<div class="paragraph">
+<p>The Foo Editor (opened if you click on the "File &#8594; New" menu item or open a foo file with "File &#8594; Open" or by passing a foo file path as argument at application start) is provided by the sample
+ and contains a text area to display the text content of the foo file.</p>
 </div>
 <div class="paragraph">
 <p>The Right <em>Dockable Pane</em>, provided by this sample project and docked to the right <em>Docking Area</em>, shows the information
@@ -649,6 +653,12 @@ Once a new sample gets saved, the name text field is not editable anymore.
 For every saved Editor there is also a configured tooltip of the tab: for sample editors it&#8217;s simply the name and for foo Editors it&#8217;s the file path.
 If you close an unsaved Editor or if you close the window/ application while there are still unsaved Editors open, the <em>Docking Framework</em> detects this
 and provides an according dialog.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="./images/getting-started/unsaved-editors-on-closing-window.png"><img src="./images/getting-started/unsaved-editors-on-closing-window.png" alt="Unsaved Editors on closing window - with 1 Sample Editor: 'Sample 1' and 1 Foo Editor: 'Untitled 3'"></a>
+</div>
+<div class="title">Image 2: Unsaved Editors on closing window - with 1 Sample Editor: 'Sample 1' and 1 Foo Editor: 'Untitled 3'</div>
 </div>
 <div class="paragraph">
 <p>The Rectangle Toolbar, provided by the sample project, provides three toggle Toolbar buttons with colored rectanlge
@@ -1019,7 +1029,7 @@ this file) in the same package as the annotated class in question. This is a con
 <div id="footer">
 <div id="footer-text">
 Version 0.8-SNAPSHOT<br>
-Last updated 2016-10-19 00:29:19 +02:00
+Last updated 2016-10-20 01:55:42 +02:00
 </div>
 </div>
 </body>

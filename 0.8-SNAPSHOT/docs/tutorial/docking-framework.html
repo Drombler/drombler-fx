@@ -649,7 +649,7 @@ import org.drombler.commons.docking.DockingAreaKind;</code></pre>
 <p><em>Drombler FX</em> also provides the "Window" sub-menu "Other" out-of-the-box.</p>
 </div>
 <div class="paragraph">
-<p>A <em>Dockable Pane</em> can be registered as a <em>view</em> using the <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/api/docs/org/drombler/acp/core/docking/ViewDocking.html">@ViewDocking</a> and
+<p>A <em>Dockable Pane</em> can be registered as a <em>view</em> using the <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/ViewDocking.html">@ViewDocking</a> and
 <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/WindowMenuEntry.html">@WindowMenuEntry</a> annotations:</p>
 </div>
 <div class="listingblock">
@@ -748,11 +748,8 @@ this directory has been configured not to be filtered for variables.</p></td>
 <p><em>Editor Dockable Panes</em> are typically used to edit some data, e.g. in a form or a text editor.</p>
 </div>
 <div class="paragraph">
-<p>To open an editor, create an instance using the constructor and then call first the
-<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#inject-D-">Dockables.inject</a>
-method and then the
-<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#open-D-">Dockables.open</a>
-method.</p>
+<p>To open an editor for a <em>Data Handler</em> call
+<a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#openEditorForContent-org.softsmithy.lib.util.UniqueKeyProvider-">Dockables.openEditorForContent</a>.</p>
 </div>
 <div class="paragraph">
 <p>A <em>Dockable Pane</em> can be registered as an <em>editor</em> using the <a href="http://www.drombler.org/drombler-acp/0.8-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/EditorDocking.html">@EditorDocking</a> annotation:</p>
@@ -891,7 +888,7 @@ be the parent type (here: "GridPane"):</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.8-SNAPSHOT<br>
-Last updated 2016-10-18 22:15:42 +02:00
+Last updated 2016-10-19 22:12:11 +02:00
 </div>
 </div>
 </body>
