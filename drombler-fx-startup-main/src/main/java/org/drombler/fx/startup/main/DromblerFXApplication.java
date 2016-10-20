@@ -17,8 +17,9 @@ package org.drombler.fx.startup.main;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
-import java.util.concurrent.Executors;
 import javafx.application.Application;
+import javafx.application.HostServices;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.drombler.acp.startup.main.ApplicationExecutorProvider;
@@ -28,7 +29,6 @@ import org.drombler.acp.startup.main.MissingPropertyException;
 import org.drombler.fx.startup.main.impl.DefaultRootPane;
 import org.drombler.fx.startup.main.impl.FXApplicationExecutorProvider;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 
 /**
  *
@@ -41,7 +41,7 @@ public class DromblerFXApplication extends Application {
     private MainWindowProvider<Stage> mainWindowProvider;
     private DromblerFXConfiguration configuration;
     private DromblerACPStarter starter;
-    private boolean stopped = false;
+
 
     // TODO: is this method still needed on Mac OS?
     public static final void main(String... args) {
@@ -49,12 +49,15 @@ public class DromblerFXApplication extends Application {
     }
 
     @Override
-    public void init() throws URISyntaxException, IOException, MissingPropertyException, BundleException {
+    public void init() throws URISyntaxException, IOException, MissingPropertyException, Exception {
         this.configuration = new DromblerFXConfiguration(getParameters());
         this.starter = new DromblerACPStarter(configuration);
         logInfo("Initializing JavaFX Application \"{0}\" ({1}x{2})...", getTitle(), getWidth(), getHeight());
-        this.starter.init();
-        logInfo("Initialized JavaFX Application \"{0}\"", getTitle());
+        if (this.starter.init()) {
+            logInfo("Initialized JavaFX Application \"{0}\"", getTitle());
+        } else {
+            Platform.exit();
+        }
     }
 
     @Override
@@ -72,10 +75,11 @@ public class DromblerFXApplication extends Application {
 
         mainWindowProvider = () -> stage;
         getBundleContext().registerService(MainWindowProvider.class, mainWindowProvider, null);
+        getBundleContext().registerService(HostServices.class, getHostServices(), null);
         // Only register the ApplicationExecutorProvider once the JavaFX Platform has been started.
         getBundleContext().registerService(ApplicationExecutorProvider.class,
                 fxApplicationExecutorProvider, null);
-        startOSGiThread();
+        starter.start();
         logInfo("Started JavaFX Application \"{0}\"", getTitle());
     }
 
@@ -84,35 +88,10 @@ public class DromblerFXApplication extends Application {
     }
 
     @Override
-    public void stop() throws BundleException, InterruptedException {
-        stopStarter();
-    }
-
-    private synchronized void stopStarter() throws InterruptedException, BundleException {
-        if (!stopped) {
-            stopped = true;
-            logInfo("Stopping JavaFX Application \"{0}\"...", getTitle());
-            starter.stop();
-            logInfo("Stopped JavaFX Application \"{0}\"", getTitle());
-        }
-    }
-
-    private void startOSGiThread() {
-        Thread osgiThread = Executors.defaultThreadFactory().newThread(() -> {
-            try {
-                logInfo("Starting OSGi Framework...");
-                starter.startAndWait();
-            } catch (BundleException | InterruptedException ex) {
-                logError(ex);
-            } finally {
-                try {
-                    DromblerFXApplication.this.stopStarter();
-                } catch (BundleException | InterruptedException ex) {
-                    logError(ex);
-                }
-            }
-        });
-        osgiThread.start();
+    public void stop() {
+        logInfo("Stopping JavaFX Application \"{0}\"...", getTitle());
+        starter.stop();
+        logInfo("Stopped JavaFX Application \"{0}\"", getTitle());
     }
 
     private double getWidth() {

@@ -22,5 +22,6 @@
         <module>\${rootArtifactId}-parent</module>
         <module>\${rootArtifactId}-application</module>
         <module>\${rootArtifactId}-sample</module>
+        <module>\${rootArtifactId}-foo</module>
     </modules>
 </project>

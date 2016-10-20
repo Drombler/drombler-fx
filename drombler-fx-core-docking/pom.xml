@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.7</version>
+        <version>0.8</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-core-docking</artifactId>
@@ -30,7 +30,7 @@ Contributor(s): .
     <description>A JavaFX-based implementation of the Drombler ACP Docking Framework.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -73,6 +73,11 @@ Contributor(s): .
     </build>
     <dependencies>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-core-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-startup-main</artifactId>
             <version>${project.version}</version>
@@ -92,15 +97,15 @@ Contributor(s): .
         </dependency>
         <dependency>
             <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-docking-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-docking-fx</artifactId>
         </dependency>
         <dependency>
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-docking-fx-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.softsmithy.lib</groupId>
-            <artifactId>softsmithy-lib-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>

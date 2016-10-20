@@ -18,16 +18,16 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>2.2</version>
+        <version>2.3</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.fx</groupId>
     <artifactId>drombler-fx-parent</artifactId>
-    <version>0.7</version>
+    <version>0.8</version>
     <packaging>pom</packaging>
     
     <name>Drombler FX - Parent</name>
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
     <description>The parent POM of the Drombler FX project. This Drombler FX Parent POM should be the parent (either directly or indirectly) of every Drombler FX project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
@@ -66,8 +66,9 @@ Contributor(s): .
         <distributionManagement.parent.url>${distributionManagement.base.url}/docs/site</distributionManagement.parent.url>
         <!-- URL to use with the GitHub site plugin -->
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
-        <!--<url.parent>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url.parent>-->
-        <drombler-acp.version>0.7</drombler-acp.version>
+        <!--<url.parent>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
+        <drombler-acp.version>0.8</drombler-acp.version>
+        <drombler-commons.version>0.8</drombler-commons.version>
         <dollar>$</dollar>  
     </properties>
 

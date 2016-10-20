@@ -52,7 +52,7 @@ public class RightTestPane extends GridPane implements ActiveContextSensitive, L
     private final Map<ColoredRectangle, ImageView> coloredRectangleImageViews = new EnumMap<>(ColoredRectangle.class);
     private final ColoredCircleChangeListener coloredCircleChangeListener = new ColoredCircleChangeListener();
     private final ColoredRectanglesSetChangeListener coloredRectanglesSetChangeListener = new ColoredRectanglesSetChangeListener();
-    private Sample sample;
+    private SampleHandler sampleHandler;
 
     public RightTestPane() {
         loadFXML();
@@ -77,29 +77,30 @@ public class RightTestPane extends GridPane implements ActiveContextSensitive, L
     @Override
     public void setActiveContext(Context activeContext) {
         this.activeContext = activeContext;
-        this.activeContext.addContextListener(Sample.class, (ContextEvent event) -> contextChanged());
+        this.activeContext.addContextListener(SampleHandler.class, (ContextEvent event) -> contextChanged());
         contextChanged();
     }
 
     private void contextChanged() {
-        Sample newSample = activeContext.find(Sample.class);
-        if ((sample == null && newSample != null) || (sample != null && !sample.equals(newSample))) {
-            if (sample != null) {
+        SampleHandler newSampleHandler = activeContext.find(SampleHandler.class);
+        if ((sampleHandler == null && newSampleHandler != null) || (sampleHandler != null && !sampleHandler.equals(newSampleHandler))) {
+            if (sampleHandler != null) {
                 unregister();
             }
-            sample = newSample;
-            if (sample != null) {
+            sampleHandler = newSampleHandler;
+            if (sampleHandler != null) {
                 register();
             }
         }
     }
 
     private void unregister() {
-        contextContent.remove(sample);
+        contextContent.remove(sampleHandler);
 
         nameLabel.textProperty().unbind();
         nameLabel.setText(null);
 
+        Sample sample = sampleHandler.getSample();
         sample.coloredCircleProperty().removeListener(coloredCircleChangeListener);
         coloredCircleImageView.setImage(null);
 
@@ -108,6 +109,7 @@ public class RightTestPane extends GridPane implements ActiveContextSensitive, L
     }
 
     private void register() {
+        Sample sample = sampleHandler.getSample();
         nameLabel.textProperty().bind(sample.nameProperty());
 
         sample.coloredCircleProperty().addListener(coloredCircleChangeListener);
@@ -116,7 +118,7 @@ public class RightTestPane extends GridPane implements ActiveContextSensitive, L
         initColoredRectangleImageViews();
         sample.getColoredRectangles().addListener(coloredRectanglesSetChangeListener);
 
-        contextContent.add(sample);
+        contextContent.add(sampleHandler);
     }
 
     private void configureColoredCircleImageView(ColoredCircle coloredCircle) {
@@ -129,7 +131,7 @@ public class RightTestPane extends GridPane implements ActiveContextSensitive, L
 
     private void initColoredRectangleImageViews() {
         for (ColoredRectangle coloredRectangle : ColoredRectangle.values()) {
-            if (sample.getColoredRectangles().contains(coloredRectangle)) {
+            if (sampleHandler.getSample().getColoredRectangles().contains(coloredRectangle)) {
                 setColoredRectangleImage(coloredRectangle);
             }
         }

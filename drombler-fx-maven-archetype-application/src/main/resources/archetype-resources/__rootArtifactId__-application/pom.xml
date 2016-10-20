@@ -29,7 +29,7 @@
                                 <goal>exec</goal>
                             </goals>
                             <configuration>
-                                <commandlineArgs>\${additionalExecArgs} -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=\${project.build.directory}/deployment/standalone/conf/logging.properties -jar \${project.build.directory}/deployment/standalone/bin/\${brandingId}.jar --userdir \${project.build.directory}/userdir</commandlineArgs>
+                                <commandlineArgs>\${additionalExecArgs} -Duser.language=en -Duser.country=US -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=\${project.build.directory}/deployment/standalone/conf/logging.properties -jar \${project.build.directory}/deployment/standalone/bin/\${brandingId}.jar --userdir \${project.build.directory}/userdir</commandlineArgs>
                                 <executable>java</executable>
                                 <classpathScope>runtime</classpathScope>
                             </configuration>
@@ -48,6 +48,8 @@
                     <title>MyApplication \${project.version}</title>
                     <width>1500</width>
                     <height>1000</height>
+                    <!--Uncomment the following line and specifcy an unused port to create a single instance application -->
+                    <!--<defaultSingleInstancePort>some unused port</defaultSingleInstancePort>-->
                 </configuration>
             </plugin>
         </plugins>
@@ -62,6 +64,13 @@
             <scope>runtime</scope>
         </dependency>
         
+        <dependency>
+            <!-- Provides foo file support -->
+            <groupId>\${groupId}</groupId>
+            <artifactId>\${rootArtifactId}-foo</artifactId>
+            <version>\${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
  
         <dependency> 
             <!-- Configures the provided content of the JavaFX Application. -->
@@ -72,7 +81,8 @@
         <dependency>
             <!--  Provides a classic desktop application layout with a menubar, a toolbar and a content area 
             as the content of the JavaFX Application. 
-            You could replace this with your own definition of the application layout. -->
+            You could replace this with your own definition of the application layout by providing an implementation
+            of MainSceneRootProvider and registering it as an OSGi service. -->
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
             <scope>runtime</scope>
@@ -82,22 +92,35 @@
             desktop application layout.
             You could omit this dependency as long as it is a transitive dependency. 
             (E.g. if you use a project such as \${rootArtifactId}-sample, which provides some DockingPanes) 
-            You could also replace this with your own implementation of the ApplicationContentProvider.-->
+            You could also replace this with your own implementation of the ApplicationContentProvider and register
+            it as an OSGi service.-->
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-core-docking</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <!-- Provides the standard Docking Areas: left, right, top, bottom and center
+            <!-- Provides the standard Docking Areas: left, right, top, bottom and editor
             You could replace this with your own definition of these Docking Areas. -->
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-standard-docking</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- Provides the standard actions, toolbar buttons and menu items such as "Save" and "Save All" -->
+        <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-standard-action</artifactId>
+            <scope>runtime</scope>
+        </dependency>  
+        <!-- Provides the standard file based actions, toolbar buttons and menu items such as "Open" -->
+        <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-standard-action-data-file</artifactId>
+            <scope>runtime</scope>
+        </dependency>  
         <dependency>
             <!-- Provides some localized resources. -->
             <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-locale-all</artifactId>
+            <artifactId>drombler-fx-l10n-all</artifactId>
             <type>pom</type>
             <scope>runtime</scope>
         </dependency>

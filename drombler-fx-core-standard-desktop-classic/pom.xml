@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.7</version>
+        <version>0.8</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
@@ -16,7 +16,7 @@
     <description>A classic desktop application layout.</description>
     <inceptionYear>2015</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -67,12 +67,17 @@
             <artifactId>drombler-commons-fx-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.drombler.fx</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>drombler-fx-core-action</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.drombler.fx</groupId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-core-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>drombler-fx-startup-main</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
@@ -80,6 +85,7 @@
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

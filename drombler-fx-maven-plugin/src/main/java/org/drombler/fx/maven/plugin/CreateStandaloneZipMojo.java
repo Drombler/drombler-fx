@@ -54,6 +54,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.archiver.Archiver;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
+import org.drombler.acp.startup.main.ApplicationConfiguration;
 import org.drombler.acp.startup.main.DromblerACPConfiguration;
 import org.drombler.fx.startup.main.DromblerFXApplication;
 import org.drombler.fx.startup.main.DromblerFXConfiguration;
@@ -106,6 +107,14 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      */
     @Parameter(property = "dromblerfx.appSourceDir", defaultValue = "${basedir}/src/main/app", required = true)
     private File appSourceDir;
+
+    /**
+     * The default port used for a single instance application or null if this is not a single instance application
+     * (default). The port must be between 0 and 65535, inclusive. A port number of 0 means that the port number is
+     * automatically allocated, typically from an ephemeral port range.
+     */
+    @Parameter(property = "dromblerfx.defaultSingleInstancePort")
+    private Integer defaultSingleInstancePort;
 
     /**
      * The Maven project.
@@ -232,7 +241,12 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
                 Double.toString(width));
         applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_HEIGHT_PROPERTY_NAME,
                 Double.toString(height));
-        Path applicationConfigPropertiesPath = jarFS.getPath(DromblerACPConfiguration.APPLICATION_PROPERTIES_FILE_PATH);
+        if (defaultSingleInstancePort != null && defaultSingleInstancePort > 0 && defaultSingleInstancePort <= 65535) {
+            applicationConfigProperties.setProperty(
+                    ApplicationConfiguration.APPLICATION_DEFAULT_SINGLE_INSTANCE_PORT_PROPERTY_NAME,
+                    Integer.toString(defaultSingleInstancePort));
+        }
+        Path applicationConfigPropertiesPath = jarFS.getPath(ApplicationConfiguration.APPLICATION_PROPERTIES_FILE_PATH);
 
         try (OutputStream os = Files.newOutputStream(applicationConfigPropertiesPath)) {
             applicationConfigProperties.store(os, null);
@@ -265,6 +279,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyDependenciesMojo,
                 AbstractDependencyMojo.class);
         reflectAbstractDependencyMojo.setField("project", project);
+        reflectAbstractDependencyMojo.setField("factory", artifactFactory);
 
         copyDependenciesMojo.execute();
     }

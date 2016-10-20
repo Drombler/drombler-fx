@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.7</version>
+        <version>0.8</version>
         <relativePath>drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx</artifactId>
@@ -29,7 +29,7 @@ Contributor(s): .
         file e.g. in your dependencyManagement section to manage your Drombler FX dependencies.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
         
     <scm>
         <connection>${scm.connection}</connection>
@@ -60,12 +60,15 @@ Contributor(s): .
         <module>drombler-fx-parent</module>
         <module>drombler-fx-startup-main</module>
         <module>drombler-fx-core-application</module>
+        <module>drombler-fx-core-data</module>
+        <module>drombler-fx-core-data-l10n-de</module>
         <module>drombler-fx-core-docking</module>
+        <module>drombler-fx-core-docking-l10n-de</module>
         <module>drombler-fx-core-action</module>
         <module>drombler-fx-core-standard-desktop-classic</module>
-        <module>drombler-fx-core-standard-desktop-classic-locale-de</module>
-        <module>drombler-fx-locale-de</module>
-        <module>drombler-fx-locale-all</module>
+        <module>drombler-fx-core-standard-desktop-classic-l10n-de</module>
+        <module>drombler-fx-l10n-de</module>
+        <module>drombler-fx-l10n-all</module>
         <!--<module>javafx-8</module>-->
         <module>drombler-fx-maven-plugin</module>
         <module>drombler-fx-maven-archetype-application</module>
@@ -86,7 +89,22 @@ Contributor(s): .
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-fx-core-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-fx-core-data-l10n-de</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-fx-core-docking</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-fx-core-docking-l10n-de</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -101,18 +119,18 @@ Contributor(s): .
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-fx-core-standard-desktop-classic-locale-de</artifactId>
+                <artifactId>drombler-fx-core-standard-desktop-classic-l10n-de</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-fx-locale-de</artifactId>
+                <artifactId>drombler-fx-l10n-de</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-fx-locale-all</artifactId>
+                <artifactId>drombler-fx-l10n-all</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
             </dependency>

@@ -34,9 +34,9 @@ public class FXDockableFactory implements DockableFactory<Node> {
     private static final Logger LOG = LoggerFactory.getLogger(FXDockableFactory.class);
 
     @Override
-    public Node createDockable(ViewDockingDescriptor dockingDescriptor) {
+    public <D extends Node> D createDockable(ViewDockingDescriptor<D> dockingDescriptor) {
         try {
-            return (Node) dockingDescriptor.getDockableClass().newInstance();
+            return dockingDescriptor.getDockableClass().newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
             LOG.error(ex.getMessage(), ex);
         }

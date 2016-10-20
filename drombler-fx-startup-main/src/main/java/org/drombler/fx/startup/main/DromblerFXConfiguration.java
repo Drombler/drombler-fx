@@ -56,7 +56,7 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
     }
 
     private String determineApplicationTitle() {
-        String title = getApplicationConfig(APPLICATION_TITLE_PROPERTY_NAME);
+        String title = getApplicationConfig().getStringProperty(APPLICATION_TITLE_PROPERTY_NAME);
 
         if (title == null) {
             title = DEFAULT_APPLICATION_TITLE;
@@ -65,13 +65,13 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
     }
 
     private double determineApplicationWidth() {
-        return getApplicationPositiveDouble(APPLICATION_WIDTH_PROPERTY_NAME, DEFAULT_APPLICATION_WIDTH,
-                "Application width is not a double: {}");
+        return getApplicationConfig().getPositiveDoubleProperty(APPLICATION_WIDTH_PROPERTY_NAME,
+                DEFAULT_APPLICATION_WIDTH, "Application width is not a double: {}");
     }
 
     private double determineApplicationHeight() {
-        return getApplicationPositiveDouble(APPLICATION_HEIGHT_PROPERTY_NAME, DEFAULT_APPLICATION_HEIGHT,
-                "Application height is not a double: {}");
+        return getApplicationConfig().getPositiveDoubleProperty(APPLICATION_HEIGHT_PROPERTY_NAME,
+                DEFAULT_APPLICATION_HEIGHT, "Application height is not a double: {}");
     }
 
     private static CommandLineArgs toCommandLineArgs(Application.Parameters parameters) {

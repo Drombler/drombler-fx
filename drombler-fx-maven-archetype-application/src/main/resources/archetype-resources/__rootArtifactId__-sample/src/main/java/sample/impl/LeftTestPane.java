@@ -18,13 +18,12 @@ import org.drombler.acp.core.docking.spi.Dockables;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
-@ViewDocking(areaId = "left", position = 10, displayName = "%displayName", icon = "left-test-pane.png",
-accelerator = "Shortcut+3",
-menuEntry =
- @WindowMenuEntry(path = "", position = 40))
-public class LeftTestPane extends BorderPane {
 
-    private int sampleCounter = 0;
+@ViewDocking(areaId = "left", position = 10, displayName = "%displayName", icon = "left-test-pane.png",
+        accelerator = "Shortcut+3",
+        menuEntry
+        = @WindowMenuEntry(path = "", position = 40))
+public class LeftTestPane extends BorderPane {
 
     public LeftTestPane() {
         load();
@@ -36,10 +35,8 @@ public class LeftTestPane extends BorderPane {
 
     @FXML
     private void onNewSampleAction(ActionEvent event) {
-        sampleCounter++;
-        Sample sample = new Sample("Sample " + sampleCounter);
-        SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
-        Dockables.inject(sampleEditorPane);
-        Dockables.open(sampleEditorPane);
+        Sample sample = new Sample();
+        SampleHandler sampleHandler = new SampleHandler(sample);
+        Dockables.openEditorForContent(sampleHandler);
     }
 }

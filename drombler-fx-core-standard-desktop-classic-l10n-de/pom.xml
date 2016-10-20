@@ -18,18 +18,18 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.7</version>
+        <version>0.8</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>drombler-fx-core-standard-desktop-classic-locale-de</artifactId>
+    <artifactId>drombler-fx-core-standard-desktop-classic-l10n-de</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Drombler FX - Core - Standard - Desktop - Classic - Locale - German</name>
+    <name>Drombler FX - Core - Standard - Desktop - Classic - L10N - German</name>
     <description>L10n (German) of the classic desktop application layout.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -78,7 +78,7 @@ Contributor(s): .
    
     <dependencies>
         <dependency>
-            <groupId>org.drombler.fx</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
             <version>${project.version}</version>
         </dependency>

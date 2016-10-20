@@ -19,18 +19,18 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.7</version>
+        <version>0.8</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-fx-locale-all</artifactId>
+    <artifactId>drombler-fx-l10n-all</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler FX - Locale - All</name>
+    <name>Drombler FX - L10N - All</name>
     <description>L10n of Drombler FX. You can use this POM file e.g. in your dependencies section to manage your 
         Drombler FX L10n dependencies.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerFX/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -52,8 +52,8 @@ Contributor(s): .
     
     <dependencies>
         <dependency>
-            <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-locale-de</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-l10n-de</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>

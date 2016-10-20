@@ -1,0 +1,102 @@
+[[dataFramework]]
+= Data Framework
+:toc:
+:numbered:
+
+This section describes an initial version of a _Data Framework_.
+
+At the core of the _Data Framework_ is the concept of _Data Handlers_. A http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/data/DataHandler.html[Data Handler]
+wraps an instance of a particular kind of data and usually knows how to read, save etc. this particular kind of data.
+
+To integrate with the <<docking-framework.adoc#dockingFramework,Docking Framework>> a _Data Handler_ needs to implement at least 
+http://www.softsmithy.org/softsmithy-lib/lib/{softsmithy-version}/docs/site/apidocs/org/softsmithy/lib/util/UniqueKeyProvider.html[UniqueKeyProvider].
+The unique key can be e.g. the unique business key of the data instance or the path to the file for file based _Data Handlers_ or any other kind
+of key which allows the _Docking Framework_ to detect if there's already an editor open for this data instance. The unique key can be null for newly
+created data instances but must be non-null after it has been saved and must not change afterwards.
+
+== Data Handlers for Business Objects
+To register a _Data Handler_ for a business object, which e.g. has been obtained from a web service call, use the 
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/BusinessObjectHandler.html[@BusinessObjectHandler] annotation:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/data/BarHandler.java[lines=24..25]
+----
+
+The http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/BusinessObjectHandler.html[@BusinessObjectHandler] properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|icon | The icon name pattern to resolve the icons to be used for this file type handler. Note that this only specifies the name pattern. 
+Drombler ACP Docking Framework looks for &lt;icon-base-name&gt;16.&lt;icon-extension&gt; (expected to be 16x16 pixels). So if icon is &quot;test.png&quot;, 
+the Drombler ACP Docking Framework would look for test16.png.
+|===
+
+As the code sample shows, the easiest way to implement a _Data Handler_ for a business object is to extend http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/AbstractDataHandler.html[AbstractDataHandler].
+
+== Data Handlers for Documents
+To register a _Data Handler_ for a document use the 
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/DocumentHandler.html[@DocumentHandler] annotation:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/data/FooHandler.java[lines=26..27]
+----
+
+The http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/DocumentHandler.html[@DocumentHandler] properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|mimeType | The MIME type of the document.
+|icon | The icon name pattern to resolve the icons to be used for this file type handler. Note that this only specifies the name pattern. Drombler ACP looks for 
+&lt;icon-base-name&gt;16.&lt;icon-extension&gt; for data types (expected to be 16x16 pixels). So if icon is &quot;test.png&quot;, Drombler ACP would look for test16.png.
+|===
+
+As the code sample shows, the easiest way to implement a _Data Handler_ for a file based document is to extend http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/AbstractDocumentHandler.html[AbstractDocumentHandler].
+
+=== File Extension
+To associate some file extensions with a MIME type you can register the file extensions using the
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/FileExtension.html[@FileExtension] annotation:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/data/package-info.java[lines=15..16]
+----
+
+The http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/data/FileExtension.html[@FileExtension] properties:
+
+[cols="1,10",options="header"]
+|===
+|Property | Value
+
+|displayName | The text to be displayed, e.g. as the text for filters in file dialogs. If the value starts with '%' the rest of the value is interpreted as
+a property key and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to be in the same 
+package as the annotated data type.
+|mimeType | The MIME type for the specified file extensions.
+|fileExtensions | The file extensions for the specified MIME type.
+|position | The position, e.g. to order the file extensions in filters of file dialogs. It's a best practice to leave out some positions between entries 
+to allow other bundles to register entries between some existing ones.
+|===
+=== Standard File Actions
+The org.drombler.acp:drombler-acp-core-standard-action-data-file Maven module registers the following file based action:
+
+*Open Files*:
+
+[source,java]
+----
+include::{dromblersourcedir}/org/drombler/acp/core/standard/action/data/file/impl/OpenFilesAction.java[lines=20..21]
+----
+
+
+The _Open Files_ action provides a generic open file dialog and tries to open the selected files by calling
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/data/file/FileUtils.html#openFile-java.nio.file.Path-org.drombler.commons.data.file.FileExtensionDescriptorRegistry-org.drombler.commons.data.file.DocumentHandlerDescriptorRegistry-[FileUtils.openFile].
+
+
+=== File Path Arguments Support
+The _Data Framework_ registers an implementation of http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/startup/main/AdditionalArgumentsProvider.html[AdditionalArgumentsProvider],
+which tries to open unnamed file path arguments passed to the application on application start by calling
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/data/file/FileUtils.html#openFile-java.nio.file.Path-org.drombler.commons.data.file.FileExtensionDescriptorRegistry-org.drombler.commons.data.file.DocumentHandlerDescriptorRegistry-[FileUtils.openFile].

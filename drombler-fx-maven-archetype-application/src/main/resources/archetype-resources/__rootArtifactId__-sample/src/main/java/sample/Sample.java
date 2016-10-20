@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
 
+
 public class Sample {
 
     private final StringProperty name = new SimpleStringProperty(this, "name");
@@ -24,6 +25,10 @@ public class Sample {
             ColoredCircle.RED);
     private final ObservableSet<ColoredRectangle> coloredRectangles = FXCollections.observableSet(EnumSet.noneOf(
             ColoredRectangle.class));
+
+    public Sample() {
+        this(null);
+    }
 
     public Sample(String name) {
         setName(name);
