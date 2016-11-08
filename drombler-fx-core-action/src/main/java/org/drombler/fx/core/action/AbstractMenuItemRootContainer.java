@@ -23,20 +23,23 @@ import org.drombler.acp.core.action.spi.MenuItemContainerListener;
 import org.drombler.acp.core.action.spi.MenuItemContainerMenuEvent;
 import org.drombler.acp.core.action.spi.MenuItemContainerMenuItemEvent;
 import org.drombler.acp.core.action.spi.MenuItemRootContainer;
-import org.drombler.acp.core.action.spi.PositionableMenuItemAdapter;
+import org.drombler.acp.core.action.spi.MenuItemSortingStrategy;
+import org.drombler.acp.core.action.spi.MenuItemSupplier;
+import org.drombler.acp.core.action.spi.MenuItemSupplierFactory;
+import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 
 /**
  *
  * @author puce
  */
-public abstract class AbstractMenuItemRootContainer extends AbstractMenuItemContainer implements
-        MenuItemRootContainer<MenuItem, Menu> {
+public abstract class AbstractMenuItemRootContainer<F extends MenuItemSupplierFactory<MenuItem>> extends AbstractMenuItemContainer<F> implements
+        MenuItemRootContainer<MenuItem, Menu, F> {
 
     private final List<MenuItemContainerListener<MenuItem, Menu>> containerListeners
             = Collections.synchronizedList(new ArrayList<>()); // TODO: synchronized needed?
 
-    public AbstractMenuItemRootContainer(boolean supportingItems) {
-        super(null, supportingItems, null);
+    public AbstractMenuItemRootContainer(boolean supportingItems, MenuItemSortingStrategy menuItemSortingStrategy, SeparatorMenuItemFactory<? extends MenuItem> separatorMenuItemFactory) {
+        super(null, supportingItems, null, menuItemSortingStrategy, separatorMenuItemFactory);
     }
 
     @Override
@@ -49,20 +52,20 @@ public abstract class AbstractMenuItemRootContainer extends AbstractMenuItemCont
         containerListeners.remove(containerListener);
     }
 
-    void fireMenuAddedEvent(PositionableMenuItemAdapter<? extends Menu> menu, String id, List<String> path) {
+    void fireMenuAddedEvent(MenuItemSupplier<? extends Menu> menuSupplier, String id, List<String> path) {
         MenuItemContainerMenuEvent<MenuItem, Menu> event = new MenuItemContainerMenuEvent<>(getMenuItemRootContainer(),
-                menu, id, path);
+                menuSupplier, id, path);
         containerListeners.forEach(containerListener -> containerListener.menuAdded(event));
     }
 
-    void fireMenuItemAddedEvent(PositionableMenuItemAdapter<? extends MenuItem> menuItem, List<String> path) {
+    void fireMenuItemAddedEvent(MenuItemSupplier<? extends MenuItem> menuItemSupplier, List<String> path) {
         MenuItemContainerMenuItemEvent<MenuItem, Menu> event = new MenuItemContainerMenuItemEvent<>(
-                getMenuItemRootContainer(), menuItem, path);
+                getMenuItemRootContainer(), menuItemSupplier, path);
         containerListeners.stream().forEach((containerListener) -> containerListener.menuItemAdded(event));
     }
 
     @Override
-    protected AbstractMenuItemRootContainer getMenuItemRootContainer() {
+    protected AbstractMenuItemRootContainer<F> getMenuItemRootContainer() {
         return this;
     }
 }

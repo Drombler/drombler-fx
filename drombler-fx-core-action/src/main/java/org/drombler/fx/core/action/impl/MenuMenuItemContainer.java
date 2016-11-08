@@ -17,6 +17,9 @@ package org.drombler.fx.core.action.impl;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import org.drombler.acp.core.action.spi.MenuItemSortingStrategy;
+import org.drombler.acp.core.action.spi.MenuItemSupplierFactory;
+import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 import org.drombler.fx.core.action.AbstractMenuItemContainer;
 import org.drombler.fx.core.action.AbstractMenuItemRootContainer;
 
@@ -24,13 +27,17 @@ import org.drombler.fx.core.action.AbstractMenuItemRootContainer;
  *
  * @author puce
  */
-public class MenuMenuItemContainer extends AbstractMenuItemContainer {
+public class MenuMenuItemContainer<F extends MenuItemSupplierFactory<MenuItem>> extends AbstractMenuItemContainer<F> {
 
     private final Menu menu;
-    private final AbstractMenuItemRootContainer rootContainer;
+    private final AbstractMenuItemRootContainer<?> rootContainer;
 
-    public MenuMenuItemContainer(String id, Menu menu, AbstractMenuItemContainer parentContainer, AbstractMenuItemRootContainer rootContainer) {
-        super(id, true, parentContainer);
+    public MenuMenuItemContainer(String id, Menu menu,
+            AbstractMenuItemContainer<?> parentContainer,
+            AbstractMenuItemRootContainer<?> rootContainer,
+            MenuItemSortingStrategy<MenuItem, F> menuItemSortingStrategy,
+            SeparatorMenuItemFactory<? extends MenuItem> separatorMenuItemFactory) {
+        super(id, true, parentContainer, menuItemSortingStrategy, separatorMenuItemFactory);
         this.menu = menu;
         this.rootContainer = rootContainer;
     }
@@ -49,4 +56,5 @@ public class MenuMenuItemContainer extends AbstractMenuItemContainer {
     protected AbstractMenuItemRootContainer getMenuItemRootContainer() {
         return rootContainer;
     }
+
 }

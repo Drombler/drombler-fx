@@ -22,30 +22,37 @@ import java.util.Map;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
 import org.drombler.acp.core.action.spi.MenuItemContainer;
-import org.drombler.acp.core.action.spi.PositionableMenuItemAdapter;
+import org.drombler.acp.core.action.spi.MenuItemEntry;
+import org.drombler.acp.core.action.spi.MenuItemSortingStrategy;
+import org.drombler.acp.core.action.spi.MenuItemSupplier;
+import org.drombler.acp.core.action.spi.MenuItemSupplierFactory;
+import org.drombler.acp.core.action.spi.MenuItemSupplierFactoryEntry;
+import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 import org.drombler.fx.core.action.impl.MenuMenuItemContainer;
-import org.softsmithy.lib.util.Positionables;
 
 /**
  *
  * @author puce
  */
-public abstract class AbstractMenuItemContainer implements MenuItemContainer<MenuItem, Menu> {
+public abstract class AbstractMenuItemContainer<F extends MenuItemSupplierFactory<MenuItem>> implements MenuItemContainer<MenuItem, Menu, F> {
 
-    private static final int SEPARATOR_STEPS = 1000;
-    private final Map<String, MenuItemContainer<MenuItem, Menu>> menuContainers = new HashMap<>();
+    private final Map<String, MenuItemContainer<MenuItem, Menu, ?>> menuContainers = new HashMap<>();
     private final String id;
     private final boolean supportingItems;
-    private final List<PositionableMenuItemAdapter<?>> xMenuItems = new ArrayList<>();
+    private final List<MenuItemSupplierFactoryEntry<MenuItem, F>> xMenuItems = new ArrayList<>();
 //    private final Map<String, List<PositionableMenuItemAdapter<?>>> unresolvedMenus = new HashMap<>();
-    private final AbstractMenuItemContainer parentContainer;
+    private final AbstractMenuItemContainer<?> parentContainer;
+    private final MenuItemSortingStrategy<MenuItem, F> menuItemSortingStrategy;
+    private final SeparatorMenuItemFactory<? extends MenuItem> separatorMenuItemFactory;
 
-    public AbstractMenuItemContainer(String id, boolean supportingItems, AbstractMenuItemContainer parentContainer) {
+    public AbstractMenuItemContainer(String id, boolean supportingItems, AbstractMenuItemContainer<?> parentContainer,
+            MenuItemSortingStrategy<MenuItem, F> menuItemSortingStrategy, SeparatorMenuItemFactory<? extends MenuItem> separatorMenuItemFactory) {
         this.id = id;
         this.supportingItems = supportingItems;
         this.parentContainer = parentContainer;
+        this.menuItemSortingStrategy = menuItemSortingStrategy;
+        this.separatorMenuItemFactory = separatorMenuItemFactory;
     }
 
     /**
@@ -53,23 +60,21 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
      * @return the menuContainers
      */
     @Override
-    public MenuItemContainer<MenuItem, Menu> getMenuContainer(String id) {
+    public MenuItemContainer<MenuItem, Menu, ?> getMenuContainer(String id) {
         return menuContainers.get(id);
     }
 
     @Override
-    public void addMenu(String id, PositionableMenuItemAdapter<? extends Menu> menu) {
-        MenuMenuItemContainer menuMenuContainer = new MenuMenuItemContainer(id, menu.getAdapted(), this,
-                getMenuItemRootContainer());
-        menuContainers.put(id, menuMenuContainer);
+    public void addMenu(String id, Menu menu, F supplierFactory, MenuItemSortingStrategy<MenuItem, ?> sortingStrategy) {
+        MenuMenuItemContainer<?> menuMenuItemContainer = new MenuMenuItemContainer<>(id, menu, this, getMenuItemRootContainer(), sortingStrategy, separatorMenuItemFactory);
+        menuContainers.put(id, menuMenuItemContainer);
 
-        addMenuItem(menu, getMenus(), true);
-        fireMenuAddedEvent(menu, id, menuMenuContainer);
+        addMenuItem(menu, supplierFactory, getMenus(), true);
+        fireMenuAddedEvent(supplierFactory.createMenuItemSupplier(menu), id, menuMenuItemContainer);
     }
 
-    private void fireMenuAddedEvent(PositionableMenuItemAdapter<? extends Menu> menu, String id,
-            AbstractMenuItemContainer menuMenuContainer) {
-        getMenuItemRootContainer().fireMenuAddedEvent(menu, id, menuMenuContainer.getPath());
+    private void fireMenuAddedEvent(MenuItemSupplier<? extends Menu> menuSupplier, String id, AbstractMenuItemContainer<?> menuMenuContainer) {
+        getMenuItemRootContainer().fireMenuAddedEvent(menuSupplier, id, menuMenuContainer.getPath());
     }
 
     private List<String> getPath() {
@@ -83,51 +88,46 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
         return path;
     }
 
-    private <T extends MenuItem> void addMenuItem(PositionableMenuItemAdapter<? extends T> menuItemAdapter, ObservableList<? super T> menuItemList, boolean menu) {
-        int index = Positionables.getInsertionPoint(xMenuItems, menuItemAdapter);
+    private <T extends MenuItem> void addMenuItem(T menuItem, F supplierFactory, ObservableList<? super T> menuItemList, boolean menu) {
+        MenuItemSupplierFactoryEntry<MenuItem, F> entry = new MenuItemSupplierFactoryEntry<>(supplierFactory, menuItem);
+        int index = menuItemSortingStrategy.getInsertionPoint(xMenuItems, entry);
 
-        addMenuItem(index, menuItemAdapter, menuItemList, menu);
+        addMenuItem(index, menuItem, supplierFactory, menuItemList, menu);
 
-        if (index < xMenuItems.size() - 1
-                && ((xMenuItems.get(index + 1).getPosition() / SEPARATOR_STEPS) - (menuItemAdapter.getPosition() / SEPARATOR_STEPS)) >= 1
-                && !xMenuItems.get(index + 1).isSeparator()) {
-            addSeparator(index + 1, xMenuItems.get(index + 1).getPosition());
+        // TODO: MenuItemEntry<MenuItem>?
+        MenuItemEntry<MenuItemSupplierFactoryEntry<MenuItem, F>> separatorEntry = menuItemSortingStrategy.createSeparatorEntry(index, xMenuItems, entry, separatorMenuItemFactory);
+        if (separatorEntry != null) {
+            addSeparator(separatorEntry.getIndex(), separatorEntry.getMenuItem().getMenuItem(), supplierFactory);
         }
 
-        if (index > 0
-                && ((menuItemAdapter.getPosition() / SEPARATOR_STEPS) - (xMenuItems.get(index - 1).getPosition() / SEPARATOR_STEPS)) >= 1
-                && !xMenuItems.get(index - 1).isSeparator()) {
-            addSeparator(index, menuItemAdapter.getPosition());
-        }
     }
 
-    private <T extends MenuItem> void addMenuItem(final int index, final PositionableMenuItemAdapter<? extends T> menuItem,
+    private <T extends MenuItem> void addMenuItem(final int index, final T menuItem, F supplierFactory,
             final ObservableList<? super T> menuItemList, final boolean menu) {
-        xMenuItems.add(index, menuItem);
-        menuItemList.add(index, menuItem.getAdapted());
-        fireMenuAddedEvent(menuItem, menu);
+        MenuItemSupplierFactoryEntry<MenuItem, F> entry = new MenuItemSupplierFactoryEntry<>(supplierFactory, menuItem);
+        xMenuItems.add(index, entry);
+        menuItemList.add(index, menuItem);
+        fireMenuItemAddedEvent(entry.getMenuItemSupplier(), menu);
     }
 
-    private <T extends MenuItem> void fireMenuAddedEvent(PositionableMenuItemAdapter<? extends T> menuItem, boolean menu) {
+    private void fireMenuItemAddedEvent(MenuItemSupplier<? extends MenuItem> menuItemSupplier, boolean menu) {
         if (!menu) {
-            getMenuItemRootContainer().fireMenuItemAddedEvent(menuItem, getPath());
+            getMenuItemRootContainer().fireMenuItemAddedEvent(menuItemSupplier, getPath());
         }
     }
 
-    private void addSeparator(int index, int position) {
+    // TODO: still needed?
+    private void addSeparator(int index, MenuItem separatorMenuItem, F supplierFactory) {
         if (isSupportingItems()) {
-            PositionableMenuItemAdapter<SeparatorMenuItem> xMenuItemWrapper = PositionableMenuItemAdapter.wrapSeparator(
-                    new SeparatorMenuItem(),
-                    position / SEPARATOR_STEPS * SEPARATOR_STEPS);
-            addMenuItem(index, xMenuItemWrapper, getItems(), false);
+            addMenuItem(index, separatorMenuItem, supplierFactory, getItems(), false);
         }
     }
 
     protected abstract ObservableList<? super Menu> getMenus();
 
     @Override
-    public void addMenuItem(PositionableMenuItemAdapter<? extends MenuItem> menuItem) {
-        addMenuItem(menuItem, getItems(), false);
+    public void addMenuItem(MenuItem menuItem, F supplierFactory) {
+        addMenuItem(menuItem, supplierFactory, getItems(), false);
     }
 
     protected abstract ObservableList<MenuItem> getItems();
@@ -137,5 +137,10 @@ public abstract class AbstractMenuItemContainer implements MenuItemContainer<Men
         return supportingItems;
     }
 
-    protected abstract AbstractMenuItemRootContainer getMenuItemRootContainer();
+    protected abstract AbstractMenuItemRootContainer<?> getMenuItemRootContainer();
+
+    @Override
+    public MenuItemSortingStrategy<MenuItem, F> getMenuItemSortingStrategy() {
+        return menuItemSortingStrategy;
+    }
 }

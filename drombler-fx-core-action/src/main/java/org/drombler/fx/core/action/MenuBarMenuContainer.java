@@ -18,17 +18,20 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import org.drombler.acp.core.action.spi.PositionSortingStrategy;
+import org.drombler.acp.core.action.spi.PositionableMenuItemAdapterFactory;
+import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 
 /**
  *
  * @author puce
  */
-public class MenuBarMenuContainer extends AbstractMenuItemRootContainer {
+public class MenuBarMenuContainer extends AbstractMenuItemRootContainer<PositionableMenuItemAdapterFactory<MenuItem>> {
 
     private final MenuBar menuBar;
 
-    public MenuBarMenuContainer(MenuBar menuBar) {
-        super(false);
+    public MenuBarMenuContainer(MenuBar menuBar, SeparatorMenuItemFactory<? extends MenuItem> separatorMenuItemFactory) {
+        super(false, new PositionSortingStrategy(), separatorMenuItemFactory);
         this.menuBar = menuBar;
     }
 
