@@ -17,27 +17,30 @@ package org.drombler.fx.core.action.impl;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import org.drombler.acp.core.action.spi.AbstractMenuItemContainer;
+import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
+import org.drombler.acp.core.action.spi.MenuItemContainer;
 import org.drombler.acp.core.action.spi.MenuItemSortingStrategy;
 import org.drombler.acp.core.action.spi.MenuItemSupplierFactory;
+import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
-import org.drombler.fx.core.action.AbstractMenuItemContainer;
-import org.drombler.fx.core.action.AbstractMenuItemRootContainer;
 
 /**
  *
  * @author puce
  */
-public class MenuMenuItemContainer<F extends MenuItemSupplierFactory<MenuItem>> extends AbstractMenuItemContainer<F> {
+public class FXMenuMenuItemContainer<F extends MenuItemSupplierFactory<MenuItem>> extends AbstractMenuItemContainer<MenuItem, Menu, F> {
 
     private final Menu menu;
-    private final AbstractMenuItemRootContainer<?> rootContainer;
+    private final AbstractMenuItemRootContainer<MenuItem, Menu, ?> rootContainer;
 
-    public MenuMenuItemContainer(String id, Menu menu,
-            AbstractMenuItemContainer<?> parentContainer,
-            AbstractMenuItemRootContainer<?> rootContainer,
+    public FXMenuMenuItemContainer(String id, Menu menu,
+            MenuItemContainer<MenuItem, Menu, ?> parentContainer,
+            AbstractMenuItemRootContainer<MenuItem, Menu, ?> rootContainer,
             MenuItemSortingStrategy<MenuItem, F> menuItemSortingStrategy,
+            MenuMenuItemContainerFactory<MenuItem, Menu> menuMenuItemContainerFactory,
             SeparatorMenuItemFactory<? extends MenuItem> separatorMenuItemFactory) {
-        super(id, true, parentContainer, menuItemSortingStrategy, separatorMenuItemFactory);
+        super(id, true, parentContainer, menuItemSortingStrategy, menuMenuItemContainerFactory, separatorMenuItemFactory);
         this.menu = menu;
         this.rootContainer = rootContainer;
     }

@@ -29,10 +29,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import org.drombler.acp.core.action.spi.ApplicationToolBarContainerProvider;
 import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
+import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 import org.drombler.acp.core.action.spi.ToolBarContainer;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
-import org.drombler.fx.core.action.MenuBarMenuContainer;
+import org.drombler.fx.core.action.FXMenuBarMenuContainer;
 
 /**
  *
@@ -41,7 +42,7 @@ import org.drombler.fx.core.action.MenuBarMenuContainer;
 public class ClassicDesktopApplicationPane extends GridPane implements MenuBarMenuContainerProvider<MenuItem, Menu>,
         ContentPaneProvider, ApplicationToolBarContainerProvider<ToolBar, Node>, Initializable {
 
-    private final MenuBarMenuContainer menuBarMenuContainer;
+    private final FXMenuBarMenuContainer menuBarMenuContainer;
     @FXML
     private MenuBar menuBar;
     @FXML
@@ -49,9 +50,10 @@ public class ClassicDesktopApplicationPane extends GridPane implements MenuBarMe
     @FXML
     private BorderPane contentPane;
 
-    public ClassicDesktopApplicationPane(SeparatorMenuItemFactory<SeparatorMenuItem> separatorMenuItemFactory) throws IOException {
+    public ClassicDesktopApplicationPane(MenuMenuItemContainerFactory<MenuItem, Menu> menuMenuItemContainerFactory, SeparatorMenuItemFactory<SeparatorMenuItem> separatorMenuItemFactory) throws
+            IOException {
         load();
-        menuBarMenuContainer = new MenuBarMenuContainer(menuBar, separatorMenuItemFactory);
+        menuBarMenuContainer = new FXMenuBarMenuContainer(menuBar, menuMenuItemContainerFactory, separatorMenuItemFactory);
     }
 
     private void load() throws IOException {
@@ -70,7 +72,7 @@ public class ClassicDesktopApplicationPane extends GridPane implements MenuBarMe
     }
 
     @Override
-    public MenuBarMenuContainer getMenuBarMenuContainer() {
+    public FXMenuBarMenuContainer getMenuBarMenuContainer() {
         return menuBarMenuContainer;
     }
 
