@@ -27,6 +27,7 @@ import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 
 /**
  *
+ * @param <F> the sorting strategy specific menu item supplier factory type
  * @author puce
  */
 public class FXMenuMenuItemContainer<F extends MenuItemSupplierFactory<MenuItem>> extends AbstractMenuItemContainer<MenuItem, Menu, F> {
