@@ -19,8 +19,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import org.drombler.acp.core.action.spi.PositionSortingStrategy;
-import org.drombler.acp.core.action.spi.PositionableMenuItemAdapterFactory;
+import org.drombler.acp.core.action.PositionSortingStrategy;
+import org.drombler.acp.core.action.PositionableMenuItemAdapterFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 

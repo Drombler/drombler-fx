@@ -20,8 +20,8 @@ import javafx.scene.control.MenuItem;
 import org.drombler.acp.core.action.spi.AbstractMenuItemContainer;
 import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
 import org.drombler.acp.core.action.spi.MenuItemContainer;
-import org.drombler.acp.core.action.spi.MenuItemSortingStrategy;
-import org.drombler.acp.core.action.spi.MenuItemSupplierFactory;
+import org.drombler.acp.core.action.MenuItemSortingStrategy;
+import org.drombler.acp.core.action.MenuItemSupplierFactory;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 
