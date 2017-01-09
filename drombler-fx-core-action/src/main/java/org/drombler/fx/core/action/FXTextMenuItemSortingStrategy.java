@@ -2,6 +2,7 @@ package org.drombler.fx.core.action;
 
 import java.text.Collator;
 import javafx.scene.control.MenuItem;
+import org.drombler.acp.core.action.MenuItemSortingStrategy;
 import org.drombler.acp.core.action.TextMenuItemSortingStrategy;
 
 /**
