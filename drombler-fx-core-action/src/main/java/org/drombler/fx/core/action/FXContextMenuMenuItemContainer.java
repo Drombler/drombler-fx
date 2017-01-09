@@ -14,21 +14,27 @@
  */
 package org.drombler.fx.core.action;
 
+import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import org.drombler.acp.core.action.PositionSortingStrategy;
+import org.drombler.acp.core.action.PositionableMenuItemAdapterFactory;
+import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
+import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 
 /**
  *
  * @author puce
  */
-public class ContextMenuMenuItemContainer extends AbstractMenuItemRootContainer {
+public class FXContextMenuMenuItemContainer extends AbstractMenuItemRootContainer<MenuItem, Menu, PositionableMenuItemAdapterFactory<MenuItem>> {
 
     private final ContextMenu contextMenu;
 
-    public ContextMenuMenuItemContainer(ContextMenu contextMenu) {
-        super(true);
+    public FXContextMenuMenuItemContainer(ContextMenu contextMenu, MenuMenuItemContainerFactory<MenuItem, Menu> menuMenuItemContainerFactory,
+            SeparatorMenuItemFactory<? extends MenuItem> separatorMenuItemFactory) {
+        super(true, new PositionSortingStrategy(), menuMenuItemContainerFactory, separatorMenuItemFactory);
         this.contextMenu = contextMenu;
     }
 
