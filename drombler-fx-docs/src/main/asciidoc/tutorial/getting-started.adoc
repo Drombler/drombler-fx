@@ -6,7 +6,7 @@
 == System Requirements
  
  * Java SE 8 with bundled JavaFX 8
- * Maven 3
+ * Maven 3.3
  * Environment variables:
  ** JAVA_HOME: your JDK installation dir
  ** M2_HOME: your Maven installation dir
@@ -14,9 +14,9 @@
 
 == Tested environment
 
- * Tested Java version: 1.8.0_101; Java HotSpot(TM) 64-Bit Server VM 25.101-b13
- * Tested Maven version: 3.0.5
- * Tested OS: Kubuntu 14.04.2 LTS; Linux version 3.13.0-95-generic running on amd64; UTF-8; de_CH (nb)
+ * Tested Java version: 1.8.0_111; Java HotSpot(TM) 64-Bit Server VM 25.111-b14
+ * Tested Maven version: 3.3.9
+ * Tested OS: Kubuntu 16.04.1 LTS; Linux version 4.4.0-57-generic running on amd64; UTF-8; en_US (nb)
 
 == Drombler FX Sample Application - generate, build and run
 
