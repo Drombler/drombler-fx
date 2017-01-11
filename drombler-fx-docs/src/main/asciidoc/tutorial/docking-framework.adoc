@@ -69,9 +69,9 @@ image::docking/docking-areas-tutorial.png[caption="Image 1: ", title="Standard D
 As the image illustrates e.g. for the _Docking Area_ "right", the path {20, 80} and position 20 are interpreted as:
 
  * The parent of the _Docking Area_ is located at:
-     1. Start with a vertically splitted pane.
-     1. At path position 20 of this vertically splitted pane, add a horizontally splitted pane
-     1. At path position 80 of this horizontally splitted pane, add a vertically splitted pane (= parent of the _Docking Area_, as the end of the path {20, 80} has been reached)
+     . Start with a vertically splitted pane.
+     . At path position 20 of this vertically splitted pane, add a horizontally splitted pane
+     . At path position 80 of this horizontally splitted pane, add a vertically splitted pane (= parent of the _Docking Area_, as the end of the path {20, 80} has been reached)
 
 -> an even number of path positions creates a vertically splitted pane, an odd number of path positions creates a horizontally splitted pane
 

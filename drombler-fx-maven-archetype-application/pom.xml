@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.8</version>
+        <version>0.9</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-maven-archetype-application</artifactId>
@@ -42,7 +42,6 @@ Contributor(s): .
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
         <!--        <main-resources.filtering>false</main-resources.filtering>-->
-        <maven.resources.escapeString>\</maven.resources.escapeString>
     </properties>
     
     <!-- Not inherited!?? -->
@@ -64,6 +63,13 @@ Contributor(s): .
                 <plugin>
                     <artifactId>maven-archetype-plugin</artifactId>
                     <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <escapeString>\</escapeString>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
