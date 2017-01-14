@@ -13,9 +13,11 @@ Copyright 2012 Drombler.org. All Rights Reserved.
 
 Contributor(s): .
 -->
-<component-set>
+<component-set xmlns="http://plexus.codehaus.org/xsd/components"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://plexus.codehaus.org/xsd/components http://plexus.codehaus.org/xsd/components-1.3.0.xsd">
     <components>
-<!--        <component>
+        <!--        <component>
             <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
              We want to look this up by dependency-type and POM packaging 'wm-plugin' 
             <role-hint>pxb-application</role-hint>
@@ -45,7 +47,7 @@ Contributor(s): .
                 <includesDependencies>true</includesDependencies>
             </configuration>
         </component>
-<!--        <component>
+        <!--        <component>
             <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
             <role-hint>pxb-application</role-hint>
             <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
@@ -72,9 +74,12 @@ Contributor(s): .
             <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
             <configuration>
                 <phases>       
+                    <initialize>org.drombler.fx:drombler-fx-maven-plugin:create-standalone-dir</initialize>
+                    <generate-resources>org.drombler.fx:drombler-fx-maven-plugin:generate-application-resources</generate-resources>
+                    <process-resources>org.drombler.fx:drombler-fx-maven-plugin:process-standalone-application-resources</process-resources>
                     <package>org.drombler.fx:drombler-fx-maven-plugin:standalone-zip</package>
-<!--                    <install>org.apache.maven.plugins:maven-install-plugin:install</install>-->
-<!--                <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>-->
+                    <!--                    <install>org.apache.maven.plugins:maven-install-plugin:install</install>-->
+                    <!--                <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>-->
                 </phases>
             </configuration>
         </component>

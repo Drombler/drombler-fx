@@ -18,16 +18,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.maven.artifact.factory.ArtifactFactory;
@@ -38,38 +34,21 @@ import org.apache.maven.artifact.resolver.ArtifactResolver;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.dependency.AbstractDependencyFilterMojo;
-import org.apache.maven.plugin.dependency.AbstractDependencyMojo;
-import org.apache.maven.plugin.dependency.AbstractFromDependenciesMojo;
-import org.apache.maven.plugin.dependency.CopyDependenciesMojo;
-import org.apache.maven.plugin.dependency.fromConfiguration.AbstractFromConfigurationMojo;
-import org.apache.maven.plugin.dependency.fromConfiguration.ArtifactItem;
-import org.apache.maven.plugin.dependency.fromConfiguration.CopyMojo;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.archiver.Archiver;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
-import org.drombler.acp.startup.main.ApplicationConfiguration;
 import org.drombler.acp.startup.main.DromblerACPConfiguration;
-import org.drombler.fx.maven.plugin.util.PathUtils;
-import org.drombler.fx.startup.main.DromblerFXApplication;
-import org.ops4j.pax.construct.util.ReflectMojo;
 import org.softsmithy.lib.nio.file.CopyFileVisitor;
-import org.softsmithy.lib.nio.file.JarFiles;
 
-@Mojo(name = "standalone-zip", defaultPhase = LifecyclePhase.PACKAGE,
-        requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
-public class CreateStandaloneZipMojo extends AbstractMojo {
+@Mojo(name = "process-standalone-application-resources", defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
+public class ProcessStandaloneApplicationResourcesMojo extends AbstractMojo {
 
     private static final Path RELATIVE_CONFIG_PROPERTIES_FILE_PATH
             = Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY, DromblerACPConfiguration.CONFIG_PROPERTIES_FILE_NAME);
-
-    @Parameter(defaultValue = "${project.build.outputDirectory}", readonly = true, required = true)
-    private File outputDirectory;
 
     /**
      * The branding id.
@@ -146,26 +125,14 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         try {
             Path targetDirPath = targetDirectory.toPath();
 
-            Path binDirPath = targetDirPath.resolve(PathUtils.BIN_DIR_NAME);
-
-            createMainJar(binDirPath);
-
-            copyLibs(binDirPath);
-
             copyAppDir(targetDirPath);
 
             ensureFileExists(targetDirPath, Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY,
                     DromblerACPConfiguration.SYSTEM_PROPERTIES_FILE_NAME));
             ensureConfigPropertiesFileExists(targetDirPath);
 
-//            URI confURI = CreateStandaloneZipMojo.class.getResource("/conf").toURI();
-//            try (FileSystem jarFS = FileSystems.newFileSystem(JarFiles.getJarURI(confURI),
-//                            new HashMap<String, Object>())) {
-//                CopyFileVisitor.copy(Paths.get(confURI), confPath);
-//            }
-            copyBundles(targetDirPath);
 
-        } catch (URISyntaxException | IOException ex) {
+        } catch (IOException ex) {
             throw new MojoExecutionException("Creating standalone zip failed!", ex);
         }
     }
@@ -203,75 +170,6 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         }
     }
 
-    private void createMainJar(Path binDirPath) throws IOException, URISyntaxException {
-        Path jarPath = binDirPath.resolve(brandingId + ".jar");
-
-        //            CopyMojo copyMojo = new CopyMojo();
-        //
-        //            ReflectMojo reflectAbstractFromDependenciesMojo = new ReflectMojo(copyMojo,
-        //                    AbstractFromDependenciesMojo.class);
-        //            reflectAbstractFromDependenciesMojo.setField("artifactItems",
-        //                    Arrays.asList(new ArtifactItem(new Artifact() {
-        //            })))
-        //            copyMojo.execute();
-        Path mainJarPath = JarFiles.getJarPath(DromblerFXApplication.class);
-        if (!Files.exists(jarPath)) {
-            Files.copy(mainJarPath, jarPath);
-
-            Path generatedApplicationPropertiesFilePath = outputDirectory.toPath().resolve(ApplicationConfiguration.APPLICATION_PROPERTIES_FILE_PATH_RELATIVE);
-            if (Files.exists(generatedApplicationPropertiesFilePath)) {
-                try (FileSystem jarFS = FileSystems.newFileSystem(jarPath, null)) {
-                    Files.copy(generatedApplicationPropertiesFilePath, jarFS.getPath(ApplicationConfiguration.APPLICATION_PROPERTIES_FILE_PATH_ABSOLUTE));
-                }
-            }
-        }
-    }
-
-    private void copyBundles(Path targetDirPath) throws MojoExecutionException, IOException {
-        Path bundleDirPath = targetDirPath.resolve(PathUtils.BUNDLE_DIR_NAME);
-
-        CopyDependenciesMojo copyDependenciesMojo = new CopyDependenciesMojo();
-
-        ReflectMojo reflectCopyDependenciesMojo = new ReflectMojo(copyDependenciesMojo, CopyDependenciesMojo.class);
-        reflectCopyDependenciesMojo.setField("repositoryFactory", artifactRepositoryFactory);
-        reflectCopyDependenciesMojo.setField("repositoryLayouts", artifactRepositoryLayouts);
-        reflectCopyDependenciesMojo.setField("installer", artifactInstaller);
-
-        ReflectMojo reflectAbstractFromDependenciesMojo = new ReflectMojo(copyDependenciesMojo,
-                AbstractFromDependenciesMojo.class);
-        reflectAbstractFromDependenciesMojo.setField("outputDirectory", bundleDirPath.toFile());
-        reflectAbstractFromDependenciesMojo.setField("useRepositoryLayout", true);
-        reflectAbstractFromDependenciesMojo.setField("copyPom", false);
-
-        ReflectMojo reflectAbstractDependencyFilterMojoMojo = new ReflectMojo(copyDependenciesMojo,
-                AbstractDependencyFilterMojo.class);
-        reflectAbstractDependencyFilterMojoMojo.setField("excludeScope", "system");
-
-        ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyDependenciesMojo,
-                AbstractDependencyMojo.class);
-        reflectAbstractDependencyMojo.setField("project", project);
-        reflectAbstractDependencyMojo.setField("factory", artifactFactory);
-
-        copyDependenciesMojo.execute();
-    }
-
-    private void copyArtifacts(Path outputDirPath, boolean useRepositoryLayout, String excludeScope,
-            List<ArtifactItem> artifactItems) throws MojoExecutionException {
-        CopyMojo copyMojo = new CopyMojo();
-
-        ReflectMojo reflectAbstractFromConfigurationMojo = new ReflectMojo(copyMojo, AbstractFromConfigurationMojo.class);
-        reflectAbstractFromConfigurationMojo.setField("outputDirectory", outputDirPath.toFile());
-        reflectAbstractFromConfigurationMojo.setField("artifactItems", artifactItems);
-        reflectAbstractFromConfigurationMojo.setField("artifactRepositoryManager", artifactRepositoryFactory);
-
-        ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyMojo, AbstractDependencyMojo.class);
-        reflectAbstractDependencyMojo.setField("factory", artifactFactory);
-        reflectAbstractDependencyMojo.setField("project", project);
-        reflectAbstractDependencyMojo.setField("resolver", artifactResolver);
-
-        copyMojo.execute();
-    }
-
     private void copyAppDir(Path targetDirPath) throws IOException {
         Path appSourceDirPath = getAppSourceDirPath();
         if (Files.exists(appSourceDirPath) && Files.isDirectory(appSourceDirPath)) {
@@ -296,37 +194,4 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
         return appSourceDir.toPath();
     }
 
-    private void copyLibs(Path binDirPath) throws IOException, MojoExecutionException {
-//        Path libDirPath = binDirPath.resolve("lib");
-//        if (!Files.exists(libDirPath)) {
-//            Files.createDirectories(libDirPath);
-//        }
-//        List<Dependency> dependencies = project.getDependencies();
-//        Dependency dromblerFXStartupMainDependency = dependencies.stream().filter(dependency
-//                -> dependency.getGroupId().equals("org.drombler.fx")
-//                && dependency.getArtifactId().equals("drombler-fx-startup-main")).
-//                findFirst().
-//                orElseThrow(() -> new MojoExecutionException("???"));
-//
-//        Set<Artifact> artifacts = project.getArtifacts();
-//        Artifact dromblerFXStartupMainArtifact = artifacts.stream().
-//                filter(artifact
-//                        -> artifact.getGroupId().equals("org.drombler.fx")
-//                        && artifact.getArtifactId().equals("drombler-fx-startup-main")).
-//                findFirst().
-//                orElseThrow(() -> new MojoExecutionException("???"));
-//        List<Artifact> libs = new ArrayList<>();
-//        libs.add(dromblerFXStartupMainArtifact);
-//        dromblerFXStartupMainArtifact.getDependencyTrail();
-//        copyArtifacts(libDirPath, true, "system", createEndorsedArtifactsList());
-    }
-
-//    private List<ArtifactItem> createEndorsedArtifactsList() {
-//        ArtifactItem javaxAnnotationArtifactItem = new ArtifactItem();
-//        javaxAnnotationArtifactItem.setGroupId("javax.annotation");
-//        javaxAnnotationArtifactItem.setArtifactId("javax.annotation-api");
-//        javaxAnnotationArtifactItem.setVersion("1.2");
-//
-//        return Arrays.asList(javaxAnnotationArtifactItem);
-//    }
 }
