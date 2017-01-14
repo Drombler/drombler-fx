@@ -76,21 +76,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      */
     @Parameter(property = "dromblerfx.brandingId", required = true)
     private String brandingId;
-    /**
-     * The application title.
-     */
-    @Parameter(property = "dromblerfx.title", required = true)
-    private String title;
-    /**
-     * The default application width.
-     */
-    @Parameter(property = "dromblerfx.width", required = true)
-    private double width;
-    /**
-     * The default application height.
-     */
-    @Parameter(property = "dromblerfx.height", required = true)
-    private double height;
+
     /**
      * The user directory.
      */
@@ -109,13 +95,6 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
      */
     @Parameter(property = "dromblerfx.appSourceDir", defaultValue = "${basedir}/src/main/app", required = true)
     private File appSourceDir;
-
-    /**
-     * The default port used for a single instance application or null if this is not a single instance application (default). The port must be between 0 and 65535, inclusive. A port number of 0 means
-     * that the port number is automatically allocated, typically from an ephemeral port range.
-     */
-    @Parameter(property = "dromblerfx.defaultSingleInstancePort")
-    private Integer defaultSingleInstancePort;
 
     /**
      * The Maven project.
