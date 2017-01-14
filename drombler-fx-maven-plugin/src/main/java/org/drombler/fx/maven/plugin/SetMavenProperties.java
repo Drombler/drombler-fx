@@ -24,6 +24,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.drombler.fx.maven.plugin.util.JavaFXMavenPluginUtils;
 import org.drombler.fx.startup.main.DromblerFXApplication;
 
 @Mojo(name = "set-maven-properties", defaultPhase = LifecyclePhase.INITIALIZE)
@@ -37,6 +38,16 @@ public class SetMavenProperties extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+//        configureBundlePlugin();
+        if (!project.getProperties().containsKey(JavaFXMavenPluginUtils.MAIN_CLASS_PROPERTY_NAME)) {
+            String defaulMainClassName = DromblerFXApplication.class.getName();
+            getLog().info("Setting property '" + JavaFXMavenPluginUtils.MAIN_CLASS_PROPERTY_NAME + "' = '" + defaulMainClassName + "'");
+            project.getProperties().setProperty(JavaFXMavenPluginUtils.MAIN_CLASS_PROPERTY_NAME, defaulMainClassName);
+        }
+
+    }
+
+    private void configureBundlePlugin() {
         // TODO: add drombler packaging to supportedProjectTypes of Maven Bundle Plugin
 //        project.getProperties().setProperty("supportedProjectTypes", appCurrentVersion);
         Optional<Plugin> findFirst = project.getBuild().getPlugins().stream().filter(plugin -> plugin.getArtifactId().equals("maven-bundle-plugin")).findFirst();
@@ -67,10 +78,6 @@ public class SetMavenProperties extends AbstractMojo {
         } else {
             getLog().info("plugin not found!");
         }
-        if (!project.getProperties().containsKey("mainClass")) {
-            project.getProperties().setProperty("mainClass", DromblerFXApplication.class.getName());
-        }
-
     }
 
     private Xpp3Dom createSupportedProjectTypesDom(final String supportedProjectType) {
