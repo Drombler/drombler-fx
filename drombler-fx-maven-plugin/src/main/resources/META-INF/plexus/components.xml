@@ -73,13 +73,39 @@ Contributor(s): .
             <role-hint>drombler-fx-application</role-hint>
             <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
             <configuration>
-                <phases>       
-                    <initialize>org.drombler.fx:drombler-fx-maven-plugin:create-standalone-dir</initialize>
+                <phases>
+                    <initialize>
+                        org.drombler.fx:drombler-fx-maven-plugin:create-standalone-dir,
+                        org.drombler.fx:drombler-fx-maven-plugin:set-maven-properties
+                    </initialize>
                     <generate-resources>org.drombler.fx:drombler-fx-maven-plugin:generate-application-resources</generate-resources>
-                    <process-resources>org.drombler.fx:drombler-fx-maven-plugin:process-standalone-application-resources</process-resources>
-                    <package>org.drombler.fx:drombler-fx-maven-plugin:standalone-zip</package>
-                    <!--                    <install>org.apache.maven.plugins:maven-install-plugin:install</install>-->
-                    <!--                <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>-->
+                    <process-resources>
+                        org.apache.maven.plugins:maven-resources-plugin:resources,
+                        org.drombler.fx:drombler-fx-maven-plugin:process-standalone-application-resources
+                    </process-resources>
+                    <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile>
+                    <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
+                    <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
+                    <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+                    <package>
+                        <!--TODO set supportedProjectTypes. Use jar:jar for now-->
+                        <!--org.apache.felix:maven-bundle-plugin:bundle,-->
+                        org.apache.maven.plugins:maven-jar-plugin:jar,
+                        <!--com.zenjava:javafx-maven-plugin:build-jar,-->
+                        org.drombler.fx:drombler-fx-maven-plugin:standalone-zip
+                    </package>
+                    <install>
+                        org.apache.maven.plugins:maven-install-plugin:install
+                        <!--TODO set supportedProjectTypes. Use install:install for now-->
+                        <!--                        ,
+                        org.apache.felix:maven-bundle-plugin:install-->
+                    </install>
+                    <deploy>
+                        org.apache.maven.plugins:maven-deploy-plugin:deploy
+                        <!--TODO set supportedProjectTypes. Use deploy:deploy for now-->
+                        <!--,-->
+                        <!--org.apache.felix:maven-bundle-plugin:deploy-->
+                    </deploy>
                 </phases>
             </configuration>
         </component>
