@@ -24,6 +24,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.drombler.fx.startup.main.DromblerFXApplication;
 
 @Mojo(name = "set-maven-properties", defaultPhase = LifecyclePhase.INITIALIZE)
 public class SetMavenProperties extends AbstractMojo {
@@ -65,6 +66,9 @@ public class SetMavenProperties extends AbstractMojo {
             System.out.println("configuration: " + fxfindFirst.get().getConfiguration());
         } else {
             getLog().info("plugin not found!");
+        }
+        if (!project.getProperties().containsKey("mainClass")) {
+            project.getProperties().setProperty("mainClass", DromblerFXApplication.class.getName());
         }
 
     }
