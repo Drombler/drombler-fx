@@ -183,7 +183,7 @@ public class CreateStandaloneZipMojo extends AbstractMojo {
     }
 
     private void createMainJar(Path binDirPath) throws IOException, URISyntaxException {
-        Path jarPath = binDirPath.resolve(brandingId + ".jar");
+        Path jarPath = binDirPath.resolve(PathUtils.getMainJarName(brandingId));
 
         //            CopyMojo copyMojo = new CopyMojo();
         //
