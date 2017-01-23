@@ -32,15 +32,15 @@ import org.codehaus.plexus.archiver.jar.ManifestException;
 import org.drombler.fx.maven.plugin.util.FXUtils;
 import org.ops4j.pax.construct.util.ReflectMojo;
 
-/**
- * @extendsPlugin jar
- *
- * @extendsGoal jar
- *
- * @goal pxb
- *
- * @phase package
- */
+///**
+// * @extendsPlugin jar
+// *
+// * @extendsGoal jar
+// *
+// * @goal pxb
+// *
+// * @phase package
+// */
 // TODO: NOT USED YET!
 public class PxbMojo extends JarMojo {
 

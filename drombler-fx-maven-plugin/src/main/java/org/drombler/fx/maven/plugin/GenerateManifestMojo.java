@@ -18,12 +18,12 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-/**
- * @goal generate-manifest 
- * 
- * @phase generate-resources
- *
- */
+///**
+// * @goal generate-manifest 
+// * 
+// * @phase generate-resources
+// *
+// */
 // TODO: NOT USED YET!
 public class GenerateManifestMojo extends AbstractMojo {
 
