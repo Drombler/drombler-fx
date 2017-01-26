@@ -77,6 +77,8 @@ Contributor(s): .
                     <initialize>
                         org.drombler.fx:drombler-fx-maven-plugin:create-standalone-dir,
                         org.drombler.fx:drombler-fx-maven-plugin:set-maven-properties
+                        <!--                        ,
+                        org.apache.maven.plugins:maven-dependency-plugin:build-classpath-->
                     </initialize>
                     <generate-resources>org.drombler.fx:drombler-fx-maven-plugin:generate-application-resources</generate-resources>
                     <process-resources>
@@ -87,6 +89,12 @@ Contributor(s): .
                     <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
                     <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
                     <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+                    <!--<prepare-package>org.apache.maven.plugins:maven-dependency-plugin:copy</prepare-package>-->
+                    <prepare-package>
+                        org.drombler.fx:drombler-fx-maven-plugin:copy-standalone-startup-libs,
+                        org.drombler.fx:drombler-fx-maven-plugin:build-standalone-manifest-classpath,
+                        org.drombler.fx:drombler-fx-maven-plugin:copy-standalone-bundles
+                    </prepare-package>
                     <package>
                         <!--TODO set supportedProjectTypes. Use jar:jar for now-->
                         <!--org.apache.felix:maven-bundle-plugin:bundle,-->
