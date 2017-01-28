@@ -92,7 +92,6 @@ Contributor(s): .
                     <!--<prepare-package>org.apache.maven.plugins:maven-dependency-plugin:copy</prepare-package>-->
                     <prepare-package>
                         org.drombler.fx:drombler-fx-maven-plugin:copy-standalone-startup-libs,
-                        org.drombler.fx:drombler-fx-maven-plugin:build-standalone-manifest-classpath,
                         org.drombler.fx:drombler-fx-maven-plugin:copy-standalone-bundles
                     </prepare-package>
                     <package>

@@ -57,11 +57,14 @@ public class SetMavenProperties extends AbstractDromblerMojo {
 
         ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.MAIN_CLASS_PROPERTY_NAME, javafxPlugin, DromblerFXApplication.class.getName());
         ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_MAIN_APP_JAR_NAME_PROPERTY_NAME, javafxPlugin, PathUtils.getMainJarName(brandingId));
-        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_APP_OUTPUT_DIR_PROPERTY_NAME, javafxPlugin, targetDirectoryPath.resolve(PathUtils.BIN_DIR_NAME).toString());
+        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_APP_OUTPUT_DIR_PROPERTY_NAME, javafxPlugin, targetDirectoryPath.toString());
+        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_BIN_DIR_PROPERTY_NAME, javafxPlugin, PathUtils.BIN_DIR_NAME);
+        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_LIB_DIR_PROPERTY_NAME, javafxPlugin, PathUtils.LIB_DIR_NAME);
+
         // TODO: this property doesn't seem to work (https://github.com/javafx-maven-plugin/javafx-maven-plugin/issues/256)
 //        ensureProperty(JavaFXMavenPluginUtils.UPDATE_EXISTING_JAR_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
 //        ensureProperty(JavaFXMavenPluginUtils.MANIFEST_CLASSPATH_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
-        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY_NAME, javafxPlugin, Boolean.FALSE.toString());
+        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.SKIP_COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
 
 //        ensureProperty(DependencyPluginUtils.FILE_SEPARATOR_PROPERTY_NAME, dependencyPlugin, MANIFEST_FILE_DELIMITER);
 //        ensureProperty(DependencyPluginUtils.PATH_SEPARATOR_PROPERTY_NAME, dependencyPlugin, MANIFEST_PATH_DELIMITER);
