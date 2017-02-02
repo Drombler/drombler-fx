@@ -37,42 +37,29 @@ public class SetMavenProperties extends AbstractDromblerMojo {
     private String brandingId;
 
     /**
-     * The target directory.
+     * The application resource source directory.
      */
-    @Parameter(property = "dromblerfx.targetDirectory",
-            defaultValue = "${project.build.directory}/deployment/standalone", required = true)
-    private File targetDirectory;
-
-    /**
-     * The Maven project.
-     */
+    @Parameter(property = "dromblerfx.appSourceDir", defaultValue = "${basedir}/src/main/app", required = true)
+    private File appSourceDir;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Path targetDirectoryPath = targetDirectory.toPath();
-//        configureBundlePlugin();
-        Optional<Plugin> javafxPlugin = findPlugin(JAVAFX_PLUGIN_COORDINATES);
-//        Optional<Plugin> dromblerFxPlugin = findPlugin("org.drombler.fx", "drombler-fx-maven-plugin");
-//        Optional<Plugin> dependencyPlugin = findPlugin("org.apache.maven.plugins", "maven-dependency-plugin");
+        Path targetDirectoryPath = getTargetDirectoryPath();
 
-        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.MAIN_CLASS_PROPERTY_NAME, javafxPlugin, DromblerFXApplication.class.getName());
-        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_MAIN_APP_JAR_NAME_PROPERTY_NAME, javafxPlugin, PathUtils.getMainJarName(brandingId));
-        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_APP_OUTPUT_DIR_PROPERTY_NAME, javafxPlugin, targetDirectoryPath.toString());
-        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_BIN_DIR_PROPERTY_NAME, javafxPlugin, PathUtils.BIN_DIR_NAME);
-        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_LIB_DIR_PROPERTY_NAME, javafxPlugin, PathUtils.LIB_DIR_NAME);
+        Optional<Plugin> javafxPlugin = findPlugin(JAVAFX_PLUGIN_COORDINATES);
+
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.MAIN_CLASS_PROPERTY_NAME, javafxPlugin, DromblerFXApplication.class.getName());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_MAIN_APP_JAR_NAME_PROPERTY_NAME, javafxPlugin, PathUtils.getMainJarName(brandingId));
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_APP_OUTPUT_DIR_PROPERTY_NAME, javafxPlugin, targetDirectoryPath.toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_BIN_DIR_PROPERTY_NAME, javafxPlugin, PathUtils.BIN_DIR_NAME);
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_LIB_DIR_PROPERTY_NAME, javafxPlugin, PathUtils.LIB_DIR_NAME);
 
         // TODO: this property doesn't seem to work (https://github.com/javafx-maven-plugin/javafx-maven-plugin/issues/256)
-//        ensureProperty(JavaFXMavenPluginUtils.UPDATE_EXISTING_JAR_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
-//        ensureProperty(JavaFXMavenPluginUtils.MANIFEST_CLASSPATH_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
-        ensureProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.SKIP_COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.UPDATE_EXISTING_JAR_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.SKIP_COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.ADDITIONAL_APP_RESOURCES_PROPERTY_NAME, javafxPlugin, appSourceDir.toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.COPY_ADDITIONAL_APP_RESOURCES_TO_JAR_PROPERTY_NAME, javafxPlugin, String.valueOf(appSourceDir.exists()));
 
-//        ensureProperty(DependencyPluginUtils.FILE_SEPARATOR_PROPERTY_NAME, dependencyPlugin, MANIFEST_FILE_DELIMITER);
-//        ensureProperty(DependencyPluginUtils.PATH_SEPARATOR_PROPERTY_NAME, dependencyPlugin, MANIFEST_PATH_DELIMITER);
-//        ensureProperty(DependencyPluginUtils.PREFIX_PROPERTY_NAME, dependencyPlugin, "lib");
-//        ensureProperty(DependencyPluginUtils.OUTPUT_PROPERTY_PROPERTY_NAME, dependencyPlugin, JavaFXMavenPluginUtils.MANIFEST_CLASSPATH_PROPERTY_NAME);
-//        ensureProperty(DependencyPluginUtils.INCLUDE_SCOPE_PROPERTY_NAME, dependencyPlugin, "provided");
-//        ensureProperty(DependencyPluginUtils.INCLUDE_ARTIFACT_IDS_PROPERTY_NAME, dependencyPlugin, "drombler-fx-startup-main");
-//        ensureProperty(DependencyPluginUtils.ARTIFACT_PROPERTY_NAME, dependencyPlugin, "org.drombler.fx:drombler-fx-startup-main:" + "0.10-SNAPSHOT");
 
     }
 

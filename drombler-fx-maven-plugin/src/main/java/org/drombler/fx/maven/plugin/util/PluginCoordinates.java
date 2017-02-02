@@ -1,4 +1,4 @@
-package org.drombler.fx.maven.plugin;
+package org.drombler.fx.maven.plugin.util;
 
 import org.apache.maven.model.Plugin;
 

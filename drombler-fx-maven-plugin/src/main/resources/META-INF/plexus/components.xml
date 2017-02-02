@@ -82,8 +82,7 @@ Contributor(s): .
                     </initialize>
                     <generate-resources>org.drombler.fx:drombler-fx-maven-plugin:generate-application-resources</generate-resources>
                     <process-resources>
-                        org.apache.maven.plugins:maven-resources-plugin:resources,
-                        org.drombler.fx:drombler-fx-maven-plugin:process-standalone-application-resources
+                        org.apache.maven.plugins:maven-resources-plugin:resources
                     </process-resources>
                     <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile>
                     <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
@@ -99,7 +98,7 @@ Contributor(s): .
                         <!--org.apache.felix:maven-bundle-plugin:bundle,-->
                         org.apache.maven.plugins:maven-jar-plugin:jar,
                         com.zenjava:javafx-maven-plugin:build-jar,
-                        org.drombler.fx:drombler-fx-maven-plugin:standalone-zip
+                        org.drombler.fx:drombler-fx-maven-plugin:ensure-standalone-config
                     </package>
                     <install>
                         org.apache.maven.plugins:maven-install-plugin:install

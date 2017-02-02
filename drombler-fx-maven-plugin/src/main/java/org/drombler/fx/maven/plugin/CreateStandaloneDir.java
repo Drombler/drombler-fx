@@ -14,33 +14,24 @@
  */
 package org.drombler.fx.maven.plugin;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 import org.drombler.acp.startup.main.DromblerACPConfiguration;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 
 @Mojo(name = "create-standalone-dir", defaultPhase = LifecyclePhase.INITIALIZE)
-public class CreateStandaloneDir extends AbstractMojo {
+public class CreateStandaloneDir extends AbstractDromblerMojo {
 
-    /**
-     * The target directory.
-     */
-    @Parameter(property = "dromblerfx.targetDirectory",
-            defaultValue = "${project.build.directory}/deployment/standalone", required = true)
-    private File targetDirectory;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            Path targetDirPath = targetDirectory.toPath();
+            Path targetDirPath = getTargetDirectoryPath();
 
             ensureDirExists(targetDirPath);
             Path binDirPath = targetDirPath.resolve(PathUtils.BIN_DIR_NAME);

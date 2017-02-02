@@ -15,6 +15,8 @@ public final class JavaFXMavenPluginUtils {
     public static final String JFX_LIB_DIR_PROPERTY_NAME = "jfxLibDir";
     public static final String UPDATE_EXISTING_JAR_PROPERTY_NAME = "jfx.updateExistingJar";
     public static final String SKIP_COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY_NAME = "jfx.skipCopyDependenciesToLibDir";
+    public static final String ADDITIONAL_APP_RESOURCES_PROPERTY_NAME = "jfx.additionalAppResources";
+    public static final String COPY_ADDITIONAL_APP_RESOURCES_TO_JAR_PROPERTY_NAME = "jfx.copyAdditionalAppResourcesToJar";
 
 
 }
