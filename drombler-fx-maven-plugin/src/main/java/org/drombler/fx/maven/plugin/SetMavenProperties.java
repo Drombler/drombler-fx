@@ -37,6 +37,12 @@ public class SetMavenProperties extends AbstractDromblerMojo {
     private String brandingId;
 
     /**
+     * The application title.
+     */
+    @Parameter(property = "dromblerfx.title", required = true)
+    private String title;
+
+    /**
      * The application resource source directory.
      */
     @Parameter(property = "dromblerfx.appSourceDir", defaultValue = "${basedir}/src/main/app", required = true)
@@ -48,18 +54,23 @@ public class SetMavenProperties extends AbstractDromblerMojo {
 
         Optional<Plugin> javafxPlugin = findPlugin(JAVAFX_PLUGIN_COORDINATES);
 
-        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.MAIN_CLASS_PROPERTY_NAME, javafxPlugin, DromblerFXApplication.class.getName());
-        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_MAIN_APP_JAR_NAME_PROPERTY_NAME, javafxPlugin, PathUtils.getMainJarName(brandingId));
-        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_APP_OUTPUT_DIR_PROPERTY_NAME, javafxPlugin, targetDirectoryPath.toString());
-        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_BIN_DIR_PROPERTY_NAME, javafxPlugin, PathUtils.BIN_DIR_NAME);
-        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_LIB_DIR_PROPERTY_NAME, javafxPlugin, PathUtils.LIB_DIR_NAME);
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.MAIN_CLASS_PROPERTY, javafxPlugin, DromblerFXApplication.class.getName());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_MAIN_APP_JAR_NAME_PROPERTY, javafxPlugin, PathUtils.getMainJarName(brandingId));
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_APP_OUTPUT_DIR_PROPERTY, javafxPlugin, targetDirectoryPath.toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.NATIVE_OUTPUT_DIR_PROPERTY, javafxPlugin, targetDirectoryPath.resolveSibling("native").toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_BIN_DIR_PROPERTY, javafxPlugin, PathUtils.BIN_DIR_NAME);
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.JFX_LIB_DIR_PROPERTY, javafxPlugin, PathUtils.LIB_DIR_NAME);
 
         // TODO: this property doesn't seem to work (https://github.com/javafx-maven-plugin/javafx-maven-plugin/issues/256)
-        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.UPDATE_EXISTING_JAR_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
-        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.SKIP_COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY_NAME, javafxPlugin, Boolean.TRUE.toString());
-        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.ADDITIONAL_APP_RESOURCES_PROPERTY_NAME, javafxPlugin, appSourceDir.toString());
-        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.COPY_ADDITIONAL_APP_RESOURCES_TO_JAR_PROPERTY_NAME, javafxPlugin, String.valueOf(appSourceDir.exists()));
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.UPDATE_EXISTING_JAR_PROPERTY, javafxPlugin, Boolean.TRUE.toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.SKIP_COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY, javafxPlugin, Boolean.TRUE.toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.ADDITIONAL_APP_RESOURCES_PROPERTY, javafxPlugin, appSourceDir.toString());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.COPY_ADDITIONAL_APP_RESOURCES_TO_JAR_PROPERTY, javafxPlugin, String.valueOf(appSourceDir.exists()));
 
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.IDENTIFIER_PROPERTY, javafxPlugin, project.getGroupId() + "." + brandingId);
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.NATIVE_RELEASE_VERSION_PROPERTY, javafxPlugin, project.getVersion());
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.APP_NAME_PROPERTY, javafxPlugin, title);
+        ensureMavenProperty(JAVAFX_PLUGIN_COORDINATES, JavaFXMavenPluginUtils.APP_FS_NAME_PROPERTY, javafxPlugin, brandingId);
 
     }
 
@@ -95,11 +106,9 @@ public class SetMavenProperties extends AbstractDromblerMojo {
 //            getLog().info("plugin not found!");
 //        }
 //    }
-
 //    private Xpp3Dom createSupportedProjectTypesDom(final String supportedProjectType) {
 //        Xpp3Dom supportedProjectTypeDom = new Xpp3Dom("supportedProjectType");
 //        supportedProjectTypeDom.setValue(supportedProjectType);
 //        return supportedProjectTypeDom;
 //    }
-
 }

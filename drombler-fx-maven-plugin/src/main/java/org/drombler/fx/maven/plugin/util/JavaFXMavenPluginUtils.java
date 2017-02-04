@@ -4,19 +4,21 @@ package org.drombler.fx.maven.plugin.util;
  *
  * @author puce
  */
-
-
 public final class JavaFXMavenPluginUtils {
 
-    public static final String MAIN_CLASS_PROPERTY_NAME = "mainClass";
-    public static final String JFX_MAIN_APP_JAR_NAME_PROPERTY_NAME = "jfxMainAppJarName";
-    public static final String JFX_APP_OUTPUT_DIR_PROPERTY_NAME = "jfxAppOutputDir";
-    public static final String JFX_BIN_DIR_PROPERTY_NAME = "jfxBinDir";
-    public static final String JFX_LIB_DIR_PROPERTY_NAME = "jfxLibDir";
-    public static final String UPDATE_EXISTING_JAR_PROPERTY_NAME = "jfx.updateExistingJar";
-    public static final String SKIP_COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY_NAME = "jfx.skipCopyDependenciesToLibDir";
-    public static final String ADDITIONAL_APP_RESOURCES_PROPERTY_NAME = "jfx.additionalAppResources";
-    public static final String COPY_ADDITIONAL_APP_RESOURCES_TO_JAR_PROPERTY_NAME = "jfx.copyAdditionalAppResourcesToJar";
-
+    public static final PluginProperty MAIN_CLASS_PROPERTY = new PluginProperty("mainClass", "mainClass");
+    public static final PluginProperty JFX_MAIN_APP_JAR_NAME_PROPERTY = new PluginProperty("jfxMainAppJarName", "jfxMainAppJarName");
+    public static final PluginProperty JFX_APP_OUTPUT_DIR_PROPERTY = new PluginProperty("jfxAppOutputDir", "jfxAppOutputDir");
+    public static final PluginProperty JFX_BIN_DIR_PROPERTY = new PluginProperty("jfxBinDir", "jfxBinDir");
+    public static final PluginProperty JFX_LIB_DIR_PROPERTY = new PluginProperty("jfxLibDir", "jfxLibDir");
+    public static final PluginProperty UPDATE_EXISTING_JAR_PROPERTY = new PluginProperty("updateExistingJar", "jfx.updateExistingJar");
+    public static final PluginProperty SKIP_COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY = new PluginProperty("skipCopyDependenciesToLibDir", "jfx.skipCopyDependenciesToLibDir");
+    public static final PluginProperty ADDITIONAL_APP_RESOURCES_PROPERTY = new PluginProperty("additionalAppResources", "jfx.additionalAppResources");
+    public static final PluginProperty COPY_ADDITIONAL_APP_RESOURCES_TO_JAR_PROPERTY = new PluginProperty("copyAdditionalAppResourcesToJar", "jfx.copyAdditionalAppResourcesToJar");
+    public static final PluginProperty IDENTIFIER_PROPERTY = new PluginProperty("identifier", "jfx.identifier");
+    public static final PluginProperty NATIVE_OUTPUT_DIR_PROPERTY = new PluginProperty("nativeOutputDir", "jfx.nativeOutputDir");
+    public static final PluginProperty NATIVE_RELEASE_VERSION_PROPERTY = new PluginProperty("nativeReleaseVersion", "jfx.nativeReleaseVersion");
+    public static final PluginProperty APP_NAME_PROPERTY = new PluginProperty("appName", "jfx.appName");
+    public static final PluginProperty APP_FS_NAME_PROPERTY = new PluginProperty("appFsName", "jfx.appFsName");
 
 }

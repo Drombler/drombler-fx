@@ -9,6 +9,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.drombler.fx.maven.plugin.util.PluginProperty;
 
 /**
  *
@@ -33,13 +34,13 @@ public abstract class AbstractDromblerMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     protected MavenProject project;
 
-    protected void ensureMavenProperty(PluginCoordinates pluginCoordinates, String propertyName, Optional<Plugin> plugin, String defaultValue) {
-        Optional<String> propertyValue = getPropertyValue(propertyName, plugin);
+    protected void ensureMavenProperty(PluginCoordinates pluginCoordinates, PluginProperty pluginProperty, Optional<Plugin> plugin, String defaultValue) {
+        Optional<String> propertyValue = getPropertyValue(pluginProperty, plugin);
         if (propertyValue.isPresent()) {
-            getLog().info("Plugin (" + pluginCoordinates + "): Found property '" + propertyName + "' = '" + propertyValue.get() + "'");
+            getLog().info("Plugin (" + pluginCoordinates + "): Found property '" + pluginProperty + "' = '" + propertyValue.get() + "'");
         } else {
-            getLog().info("Plugin (" + pluginCoordinates + "): Setting property '" + propertyName + "' = '" + defaultValue + "'");
-            project.getProperties().setProperty(propertyName, defaultValue);
+            getLog().info("Plugin (" + pluginCoordinates + "): Setting property '" + pluginProperty.getMavenPropertyName() + "' = '" + defaultValue + "'");
+            project.getProperties().setProperty(pluginProperty.getMavenPropertyName(), defaultValue);
         }
     }
 
@@ -57,13 +58,13 @@ public abstract class AbstractDromblerMojo extends AbstractMojo {
         }
     }
 
-    private Optional<String> getPropertyValue(final String propertyName, Optional<Plugin> plugin) {
+    private Optional<String> getPropertyValue(final PluginProperty pluginProperty, Optional<Plugin> plugin) {
         Optional<String> propertyValue = Optional.empty();
         if (plugin.isPresent()) {
-            propertyValue = getPluginConfigurationPropertyValue(plugin.get(), propertyName);
+            propertyValue = getPluginConfigurationPropertyValue(plugin.get(), pluginProperty.getConfigurationPropertyName());
         }
-        if (!propertyValue.isPresent() && project.getProperties().containsKey(propertyName)) {
-            propertyValue = Optional.of(project.getProperties().getProperty(propertyName));
+        if (!propertyValue.isPresent() && project.getProperties().containsKey(pluginProperty.getMavenPropertyName())) {
+            propertyValue = Optional.of(project.getProperties().getProperty(pluginProperty.getMavenPropertyName()));
         }
         return propertyValue;
     }
