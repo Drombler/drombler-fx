@@ -6,11 +6,11 @@ package org.drombler.fx.maven.plugin.util;
  */
 public final class JavaFXMavenPluginUtils {
 
-    public static final PluginProperty MAIN_CLASS_PROPERTY = new PluginProperty("mainClass", "mainClass");
-    public static final PluginProperty JFX_MAIN_APP_JAR_NAME_PROPERTY = new PluginProperty("jfxMainAppJarName", "jfxMainAppJarName");
-    public static final PluginProperty JFX_APP_OUTPUT_DIR_PROPERTY = new PluginProperty("jfxAppOutputDir", "jfxAppOutputDir");
-    public static final PluginProperty JFX_BIN_DIR_PROPERTY = new PluginProperty("jfxBinDir", "jfxBinDir");
-    public static final PluginProperty JFX_LIB_DIR_PROPERTY = new PluginProperty("jfxLibDir", "jfxLibDir");
+    public static final PluginProperty MAIN_CLASS_PROPERTY = new PluginProperty("mainClass", "jfx.mainClass");
+    public static final PluginProperty JFX_MAIN_APP_JAR_NAME_PROPERTY = new PluginProperty("jfxMainAppJarName", "jfx.jfxMainAppJarName");
+    public static final PluginProperty JFX_APP_OUTPUT_DIR_PROPERTY = new PluginProperty("jfxAppOutputDir", "jfx.jfxAppOutputDir");
+    public static final PluginProperty JFX_BIN_DIR_PROPERTY = new PluginProperty("jfxBinDir", "jfx.jfxBinDir");
+    public static final PluginProperty JFX_LIB_DIR_PROPERTY = new PluginProperty("jfxLibDir", "jfx.jfxLibDir");
     public static final PluginProperty UPDATE_EXISTING_JAR_PROPERTY = new PluginProperty("updateExistingJar", "jfx.updateExistingJar");
     public static final PluginProperty SKIP_COPY_DEPENDENCIES_TO_LIB_DIR_PROPERTY = new PluginProperty("skipCopyDependenciesToLibDir", "jfx.skipCopyDependenciesToLibDir");
     public static final PluginProperty ADDITIONAL_APP_RESOURCES_PROPERTY = new PluginProperty("additionalAppResources", "jfx.additionalAppResources");

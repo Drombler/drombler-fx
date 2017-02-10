@@ -37,7 +37,7 @@ public class CreateStandaloneDir extends AbstractDromblerMojo {
             Path binDirPath = targetDirPath.resolve(PathUtils.BIN_DIR_NAME);
             ensureDirExists(binDirPath);
             ensureDirExists(binDirPath.resolve(PathUtils.LIB_DIR_NAME));
-            ensureDirExists(targetDirPath.resolve(DromblerACPConfiguration.CONFIG_DIRECTORY));
+            ensureDirExists(targetDirPath.resolve(DromblerACPConfiguration.CONFIG_DIRECTORY_NAME));
             ensureDirExists(targetDirPath.resolve(PathUtils.BUNDLE_DIR_NAME));
 
         } catch (IOException ex) {

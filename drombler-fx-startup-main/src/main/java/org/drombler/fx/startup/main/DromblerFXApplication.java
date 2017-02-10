@@ -74,6 +74,7 @@ public class DromblerFXApplication extends Application {
         stage.show();
 
         mainWindowProvider = () -> stage;
+        getBundleContext().registerService(DromblerFXConfiguration.class, configuration, null);
         getBundleContext().registerService(MainWindowProvider.class, mainWindowProvider, null);
         getBundleContext().registerService(HostServices.class, getHostServices(), null);
         // Only register the ApplicationExecutorProvider once the JavaFX Platform has been started.

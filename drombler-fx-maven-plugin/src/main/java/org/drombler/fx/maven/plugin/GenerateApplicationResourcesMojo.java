@@ -36,6 +36,12 @@ public class GenerateApplicationResourcesMojo extends AbstractMojo {
     private File outputDirectory;
 
     /**
+     * The branding id.
+     */
+    @Parameter(property = "dromblerfx.brandingId", required = true)
+    private String brandingId;
+
+    /**
      * The application title.
      */
     @Parameter(property = "dromblerfx.title", required = true)
@@ -77,11 +83,10 @@ public class GenerateApplicationResourcesMojo extends AbstractMojo {
         getLog().info("Generating application resource: " + applicationConfigPropertiesPath);
 
         Properties applicationConfigProperties = new Properties();
+        applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_BRANDING_ID_PROPERTY_NAME, brandingId);
         applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_TITLE_PROPERTY_NAME, title);
-        applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_WIDTH_PROPERTY_NAME,
-                Double.toString(width));
-        applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_HEIGHT_PROPERTY_NAME,
-                Double.toString(height));
+        applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_WIDTH_PROPERTY_NAME, Double.toString(width));
+        applicationConfigProperties.setProperty(DromblerFXConfiguration.APPLICATION_HEIGHT_PROPERTY_NAME, Double.toString(height));
         if (defaultSingleInstancePort != null && defaultSingleInstancePort > 0 && defaultSingleInstancePort <= 65535) {
             applicationConfigProperties.setProperty(
                     ApplicationConfiguration.APPLICATION_DEFAULT_SINGLE_INSTANCE_PORT_PROPERTY_NAME,

@@ -32,9 +32,9 @@ import org.drombler.acp.startup.main.DromblerACPConfiguration;
 public class EnsureStandaloneConfigMojo extends AbstractDromblerMojo {
 
     private static final Path RELATIVE_CONFIG_PROPERTIES_FILE_PATH
-            = Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY, DromblerACPConfiguration.CONFIG_PROPERTIES_FILE_NAME);
+            = Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY_NAME, DromblerACPConfiguration.CONFIG_PROPERTIES_FILE_NAME);
     private static final Path RELATIVE_SYSTEM_PROPERTIES_FILE_PATH
-            = Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY, DromblerACPConfiguration.SYSTEM_PROPERTIES_FILE_NAME);
+            = Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY_NAME, DromblerACPConfiguration.SYSTEM_PROPERTIES_FILE_NAME);
     /**
      * The branding id.
      */
