@@ -32,6 +32,7 @@ import org.drombler.acp.startup.main.MissingPropertyException;
  */
 public class DromblerFXConfiguration extends DromblerACPConfiguration {
 
+    public static final String APPLICATION_BRANDING_ID_PROPERTY_NAME = "platform.application.brandingId";
     public static final String APPLICATION_TITLE_PROPERTY_NAME = "platform.application.title";
     public static final String APPLICATION_WIDTH_PROPERTY_NAME = "platform.application.width";
     public static final String APPLICATION_HEIGHT_PROPERTY_NAME = "platform.application.height";
@@ -43,6 +44,7 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
     private static final double DEFAULT_APPLICATION_WIDTH = 1024;
     private static final double DEFAULT_APPLICATION_HEIGHT = 768;
 
+    private final String applicationBrandingId;
     private final String applicationTitle;
     private final double applicationWidth;
     private final double applicationHeight;
@@ -50,9 +52,14 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
     public DromblerFXConfiguration(Application.Parameters parameters) throws URISyntaxException, IOException,
             MissingPropertyException {
         super(toCommandLineArgs(parameters));
+        this.applicationBrandingId = determineBrandingId();
         this.applicationTitle = determineApplicationTitle();
         this.applicationWidth = determineApplicationWidth();
         this.applicationHeight = determineApplicationHeight();
+    }
+
+    private String determineBrandingId() {
+        return getApplicationConfig().getStringProperty(APPLICATION_BRANDING_ID_PROPERTY_NAME);
     }
 
     private String determineApplicationTitle() {
@@ -98,6 +105,14 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
         }
     }
 
+    public String getApplicationBrandingId() {
+        return applicationBrandingId;
+    }
+
+    public String getApplicationTitle() {
+        return applicationTitle;
+    }
+
     /**
      * @return the applicationWidth
      */
@@ -110,10 +125,6 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
      */
     public double getApplicationHeight() {
         return applicationHeight;
-    }
-
-    public String getApplicationTitle() {
-        return applicationTitle;
     }
 
 }
