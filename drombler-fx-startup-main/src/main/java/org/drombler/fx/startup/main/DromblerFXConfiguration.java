@@ -32,10 +32,10 @@ import org.drombler.acp.startup.main.MissingPropertyException;
  */
 public class DromblerFXConfiguration extends DromblerACPConfiguration {
 
-    public static final String APPLICATION_BRANDING_ID_PROPERTY_NAME = "platform.application.brandingId";
-    public static final String APPLICATION_TITLE_PROPERTY_NAME = "platform.application.title";
-    public static final String APPLICATION_WIDTH_PROPERTY_NAME = "platform.application.width";
-    public static final String APPLICATION_HEIGHT_PROPERTY_NAME = "platform.application.height";
+    public static final String APPLICATION_BRANDING_ID_PROPERTY_NAME = "drombler.application.brandingId";
+    public static final String APPLICATION_TITLE_PROPERTY_NAME = "drombler.application.title";
+    public static final String APPLICATION_WIDTH_PROPERTY_NAME = "drombler.application.width";
+    public static final String APPLICATION_HEIGHT_PROPERTY_NAME = "drombler.application.height";
 
     public static final String JAVAFX_VERSION_PROPERTY = "jfx.specification.version";
     public static final String JAVAFX_VERSION_8 = "8";
