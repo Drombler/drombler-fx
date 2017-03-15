@@ -97,7 +97,9 @@ Contributor(s): .
                         <!--TODO set supportedProjectTypes. Use jar:jar for now-->
                         <!--org.apache.felix:maven-bundle-plugin:bundle,-->
                         org.apache.maven.plugins:maven-jar-plugin:jar,
-                        com.zenjava:javafx-maven-plugin:build-jar,
+                        <!--TODO: use javafx-maven-plugin -->
+                        <!-- com.zenjava:javafx-maven-plugin:build-jar,-->
+                        org.drombler.fx:drombler-fx-maven-plugin:create-standalone-jar,
                         org.drombler.fx:drombler-fx-maven-plugin:ensure-standalone-config
                     </package>
                     <install>
