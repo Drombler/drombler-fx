@@ -36,7 +36,7 @@ import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.drombler.fx.startup.main.DromblerFXApplication;
 
 @Mojo(name = "create-standalone-jar", defaultPhase = LifecyclePhase.PACKAGE)
-public class CreateStandaloneJar extends AbstractDromblerMojo {
+public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
     private static final String MANIFEST_CLASSPATH_FILE_SEPARATOR = "/";
     private static final String MANIFEST_CLASSPATH_PATH_SEPARATOR = " ";
 

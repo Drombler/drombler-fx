@@ -91,7 +91,8 @@ Contributor(s): .
                     <!--<prepare-package>org.apache.maven.plugins:maven-dependency-plugin:copy</prepare-package>-->
                     <prepare-package>
                         org.drombler.fx:drombler-fx-maven-plugin:copy-standalone-startup-libs,
-                        org.drombler.fx:drombler-fx-maven-plugin:copy-standalone-bundles
+                        org.drombler.fx:drombler-fx-maven-plugin:copy-standalone-bundles,
+                        org.drombler.fx:drombler-fx-maven-plugin:copy-standalone-app-resources
                     </prepare-package>
                     <package>
                         <!--TODO set supportedProjectTypes. Use jar:jar for now-->
