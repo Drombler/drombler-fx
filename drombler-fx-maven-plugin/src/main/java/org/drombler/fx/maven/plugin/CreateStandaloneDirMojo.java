@@ -25,7 +25,7 @@ import org.drombler.acp.startup.main.DromblerACPConfiguration;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 
 @Mojo(name = "create-standalone-dir", defaultPhase = LifecyclePhase.INITIALIZE)
-public class CreateStandaloneDir extends AbstractDromblerMojo {
+public class CreateStandaloneDirMojo extends AbstractDromblerMojo {
 
 
     @Override
