@@ -78,6 +78,7 @@ public class ClassicDesktopRootNodeProvider implements MainSceneRootProvider {
     }
 
     private void unregisterService(ComponentContext context, Class<?> type) {
+        // TODO: this does not unregister the services, does it? Is explicit unregister needed?
         ServiceReference<?> serviceReference = context.getBundleContext().getServiceReference(type);
         context.getBundleContext().ungetService(serviceReference);
     }
