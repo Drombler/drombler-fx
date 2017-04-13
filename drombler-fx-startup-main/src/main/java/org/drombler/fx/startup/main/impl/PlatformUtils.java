@@ -22,7 +22,7 @@ import javafx.application.Platform;
  */
 // TODO: copied from org.drombler.commons.fx.application.PlatformUtils
 // remove this class if a non-OSGi solution is found
-public class PlatformUtils {
+public final class PlatformUtils {
 
     private PlatformUtils() {
     }
