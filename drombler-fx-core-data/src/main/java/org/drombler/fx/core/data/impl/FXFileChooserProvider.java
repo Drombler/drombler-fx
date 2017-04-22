@@ -80,16 +80,13 @@ public class FXFileChooserProvider implements FileChooserProvider {
 
     private void addFileExtensionFilter(FileExtensionDescriptor fileExtensionDescriptor) {
         List<String> fileExtensions = fileExtensionDescriptor.getFileExtensions().stream()
-                .map(fileExtension -> FILE_NAME_SEPARATOR + fileExtension.toLowerCase())
+                .map(fileExtension -> WILDCARD + FILE_NAME_SEPARATOR + fileExtension.toLowerCase())
                 .collect(Collectors.toList());
 
 // TODO: sort
         final FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
                 extensionFilterFormat.format(new Object[]{fileExtensionDescriptor.getDisplayName(), fileExtensions.toString()}),
-                fileExtensions.stream()
-                        .map(fileExtension -> WILDCARD + fileExtension)
-                        .toArray(String[]::new)
-        );
+                fileExtensions.toArray(new String[fileExtensions.size()]));
         fileChooser.getExtensionFilters().add(extensionFilter);
 //        fileChooser.setSelectedExtensionFilter(fxmlExtensionFilter);
     }
