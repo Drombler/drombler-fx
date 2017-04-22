@@ -46,6 +46,7 @@ import org.softsmithy.lib.util.SetChangeListener;
 public class FXFileChooserProvider implements FileChooserProvider {
 
     private static final String WILDCARD = "*";
+    private static final String FILE_NAME_SEPARATOR = ".";
 
     @Reference
     private MainWindowProvider<Stage> mainWindowProvider;
@@ -78,15 +79,16 @@ public class FXFileChooserProvider implements FileChooserProvider {
     }
 
     private void addFileExtensionFilter(FileExtensionDescriptor fileExtensionDescriptor) {
+        List<String> fileExtensions = fileExtensionDescriptor.getFileExtensions().stream()
+                .map(fileExtension -> FILE_NAME_SEPARATOR + fileExtension.toLowerCase())
+                .collect(Collectors.toList());
 
 // TODO: sort
         final FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
-                extensionFilterFormat.format(
-                        new Object[]{fileExtensionDescriptor.getDisplayName(),
-                            fileExtensionDescriptor.getFileExtensions().toString()}),
-                fileExtensionDescriptor.getFileExtensions().stream()
-                .map(fileExtension -> WILDCARD + fileExtension.toLowerCase())
-                .toArray(String[]::new)
+                extensionFilterFormat.format(new Object[]{fileExtensionDescriptor.getDisplayName(), fileExtensions.toString()}),
+                fileExtensions.stream()
+                        .map(fileExtension -> WILDCARD + fileExtension)
+                        .toArray(String[]::new)
         );
         fileChooser.getExtensionFilters().add(extensionFilter);
 //        fileChooser.setSelectedExtensionFilter(fxmlExtensionFilter);
