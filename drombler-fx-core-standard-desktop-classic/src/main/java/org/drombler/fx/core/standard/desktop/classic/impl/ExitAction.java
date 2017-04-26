@@ -29,7 +29,7 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 @Action(id = "platform.exit", category = "core", displayName = "%exit.displayName", accelerator = "Shortcut+Q")
 @MenuEntry(path = "File", position = 9900)
-public class ExitAction implements EventHandler<ActionEvent> {
+public class ExitAction implements EventHandler<ActionEvent>, AutoCloseable {
 
     private final ServiceTracker<OnExitRequestHandler, OnExitRequestHandler> onExitRequestHandlerServiceTracker;
     private OnExitRequestHandler onExitRequestHandler;
@@ -52,5 +52,10 @@ public class ExitAction implements EventHandler<ActionEvent> {
 
     private void setOnExitRequestHandler(OnExitRequestHandler onExitRequestHandler) {
         this.onExitRequestHandler = onExitRequestHandler;
+    }
+
+    @Override
+    public void close() {
+        onExitRequestHandlerServiceTracker.close();
     }
 }
