@@ -518,7 +518,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mvn archetype:generate -DarchetypeGroupId=org.drombler.fx -DarchetypeArtifactId=drombler-fx-maven-archetype-application -DarchetypeVersion=0.10-SNAPSHOT -DgroupId=com.mycompany.test -DartifactId=test -Dversion=0.1-SNAPSHOT -DbrandingId=foo</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">mvn archetype:generate -DarchetypeGroupId=org.drombler.fx -DarchetypeArtifactId=drombler-fx-maven-archetype-application -DarchetypeVersion=0.10-SNAPSHOT -DgroupId=com.mycompany.test -DartifactId=test -Dversion=0.1-SNAPSHOT -DbrandingId=my-application</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -543,7 +543,7 @@ mvn clean install</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">cd test-application
-java -Duser.language=en -Duser.country=US -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=target/deployment/standalone/conf/logging.properties -jar target/deployment/standalone/bin/foo.jar --userdir target/userdir</code></pre>
+java -Duser.language=en -Duser.country=US -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=target/deployment/standalone/conf/logging.properties -jar target/deployment/standalone/bin/my-application.jar --userdir target/userdir</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -556,7 +556,7 @@ mvn exec:exec</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>or you can just double-click the <em>foo.jar</em> in the <em>target/deployment/standalone/bin</em> directory.</p>
+<p>or you can just double-click the <em>my-application.jar</em> in the <em>target/deployment/standalone/bin</em> directory.</p>
 </div>
 <div class="paragraph">
 <p>The <em>--userdir</em> option is quite useful during development. If you omit it, the default location will be used: <em>${user.home}/.${brandingId}/${project.version}</em></p>
@@ -775,7 +775,7 @@ menu item the corresponding <em>Docking Area</em> will get some space again and 
 You can find the binaries in the target directory of the test-application project at: deployment/standalone</p>
 </div>
 <div class="paragraph">
-<p>In the bin directory you can find the executable main jar: foo.jar
+<p>In the bin directory you can find the executable main jar: my-application.jar
 The jar has been branded using the specified brandingId.</p>
 </div>
 <div class="paragraph">
@@ -1034,7 +1034,7 @@ this file) in the same package as the annotated class in question. This is a con
 <div id="footer">
 <div id="footer-text">
 Version 0.10-SNAPSHOT<br>
-Last updated 2017-01-11 08:36:13 CET
+Last updated 2017-04-26 20:47:00 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
