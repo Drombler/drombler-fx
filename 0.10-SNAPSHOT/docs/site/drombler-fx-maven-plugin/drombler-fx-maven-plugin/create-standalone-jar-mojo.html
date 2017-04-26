@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Drombler FX - Maven Plugin &#x2013; drombler-fx:help</title>
+    <title>Drombler FX - Maven Plugin &#x2013; drombler-fx:create-standalone-jar</title>
     <style type="text/css" media="all">
       @import url("./css/maven-base.css");
       @import url("./css/maven-theme.css");
@@ -64,27 +64,27 @@
         
   
     <div class="section">
-<h2><a name="drombler-fx:help"></a>drombler-fx:help</h2>
+<h2><a name="drombler-fx:create-standalone-jar"></a>drombler-fx:create-standalone-jar</h2>
       
 <p><b>Full name</b>:</p>
       
-<p>org.drombler.fx:drombler-fx-maven-plugin:0.10-SNAPSHOT:help</p>
+<p>org.drombler.fx:drombler-fx-maven-plugin:0.10-SNAPSHOT:create-standalone-jar</p>
       
 <p><b>Description</b>:</p>
       
-<div>Display help information on drombler-fx-maven-plugin.<br />
-Call <tt>mvn dromblerfx:help -Ddetail=true
--Dgoal=&lt;goal-name&gt;</tt> to display parameter details.</div>
+<div>(no description)</div>
       
 <p><b>Attributes</b>:</p>
       
 <ul>
         
-<li>The goal is thread-safe and supports parallel builds.</li>
+<li>Requires a Maven project to be executed.</li>
+        
+<li>Binds by default to the <a class="externalLink" href="http://maven.apache.org/ref/current/maven-core/lifecycles.html">lifecycle phase</a>: <tt>package</tt>.</li>
       </ul>
       
 <div class="section">
-<h3><a name="Optional_Parameters"></a>Optional Parameters</h3>
+<h3><a name="Required_Parameters"></a>Required Parameters</h3>
         
 <table class="bodyTable" border="0">
           
@@ -101,48 +101,35 @@ Call <tt>mvn dromblerfx:help -Ddetail=true
           
 <tr class="b">
             
-<td><b><a href="#detail">detail</a></b></td>
-            
-<td><tt>boolean</tt></td>
-            
-<td><tt>-</tt></td>
-            
-<td>If <tt>true</tt>, display all settable properties for each
-goal.<br /><b>Default value is</b>: <tt>false</tt>.<br /><b>User property is</b>: <tt>detail</tt>.</td>
-          </tr>
-          
-<tr class="a">
-            
-<td><b><a href="#goal">goal</a></b></td>
+<td><b><a href="#brandingId">brandingId</a></b></td>
             
 <td><tt>String</tt></td>
             
 <td><tt>-</tt></td>
             
-<td>The name of the goal for which to show help. If unspecified, all
-goals will be displayed.<br /><b>User property is</b>: <tt>goal</tt>.</td>
-          </tr>
-          
-<tr class="b">
-            
-<td><b><a href="#indentSize">indentSize</a></b></td>
-            
-<td><tt>int</tt></td>
-            
-<td><tt>-</tt></td>
-            
-<td>The number of spaces per indentation level, should be positive.<br /><b>Default value is</b>: <tt>2</tt>.<br /><b>User property is</b>: <tt>indentSize</tt>.</td>
+<td>The branding id.<br /><b>User property is</b>: <tt>dromblerfx.brandingId</tt>.</td>
           </tr>
           
 <tr class="a">
             
-<td><b><a href="#lineLength">lineLength</a></b></td>
+<td><b><a href="#srcJarFile">srcJarFile</a></b></td>
             
-<td><tt>int</tt></td>
+<td><tt>File</tt></td>
             
 <td><tt>-</tt></td>
             
-<td>The maximum length of a display line, should be positive.<br /><b>Default value is</b>: <tt>80</tt>.<br /><b>User property is</b>: <tt>lineLength</tt>.</td>
+<td>(no description)<br /><b>Default value is</b>: <tt>${project.build.directory}/${project.build.finalName}.jar</tt>.<br /></td>
+          </tr>
+          
+<tr class="b">
+            
+<td><b><a href="#targetDirectory">targetDirectory</a></b></td>
+            
+<td><tt>File</tt></td>
+            
+<td><tt>-</tt></td>
+            
+<td>The target directory.<br /><b>Default value is</b>: <tt>${project.build.directory}/deployment/standalone</tt>.<br /><b>User property is</b>: <tt>dromblerfx.targetDirectory</tt>.</td>
           </tr>
         </table>
       </div>
@@ -150,61 +137,43 @@ goals will be displayed.<br /><b>User property is</b>: <tt>goal</tt>.</td>
 <div class="section">
 <h3><a name="Parameter_Details"></a>Parameter Details</h3>
         
-<p><b><a name="detail">detail</a>:</b></p>
+<p><b><a name="brandingId">brandingId</a>:</b></p>
         
-<div>If <tt>true</tt>, display all settable properties for each
-goal.</div>
-        
-<ul>
-          
-<li><b>Type</b>: <tt>boolean</tt></li>
-          
-<li><b>Required</b>: <tt>No</tt></li>
-          
-<li><b>User Property</b>: <tt>detail</tt></li>
-          
-<li><b>Default</b>: <tt>false</tt></li>
-        </ul><hr />
-<p><b><a name="goal">goal</a>:</b></p>
-        
-<div>The name of the goal for which to show help. If unspecified, all
-goals will be displayed.</div>
+<div>The branding id.</div>
         
 <ul>
           
 <li><b>Type</b>: <tt>java.lang.String</tt></li>
           
-<li><b>Required</b>: <tt>No</tt></li>
+<li><b>Required</b>: <tt>Yes</tt></li>
           
-<li><b>User Property</b>: <tt>goal</tt></li>
+<li><b>User Property</b>: <tt>dromblerfx.brandingId</tt></li>
         </ul><hr />
-<p><b><a name="indentSize">indentSize</a>:</b></p>
+<p><b><a name="srcJarFile">srcJarFile</a>:</b></p>
         
-<div>The number of spaces per indentation level, should be positive.</div>
+<div>(no description)</div>
         
 <ul>
           
-<li><b>Type</b>: <tt>int</tt></li>
+<li><b>Type</b>: <tt>java.io.File</tt></li>
           
-<li><b>Required</b>: <tt>No</tt></li>
+<li><b>Required</b>: <tt>Yes</tt></li>
           
-<li><b>User Property</b>: <tt>indentSize</tt></li>
-          
-<li><b>Default</b>: <tt>2</tt></li>
+<li><b>Default</b>: <tt>${project.build.directory}/${project.build.finalName}.jar</tt></li>
         </ul><hr />
-<p><b><a name="lineLength">lineLength</a>:</b></p>
+<p><b><a name="targetDirectory">targetDirectory</a>:</b></p>
         
-<div>The maximum length of a display line, should be positive.</div>
+<div>The target directory.</div>
         
 <ul>
           
-<li><b>Type</b>: <tt>int</tt></li>
+<li><b>Type</b>: <tt>java.io.File</tt></li>
           
-<li><b>Required</b>: <tt>No</tt></li>
+<li><b>Required</b>: <tt>Yes</tt></li>
           
-<li><b>User Property</b>: <tt>lineLength</tt></li>
+<li><b>User Property</b>: <tt>dromblerfx.targetDirectory</tt></li>
           
-<li><b>Default</b>: <tt>80</tt></li>
+<li><b>Default</b>: <tt>${project.build.directory}/deployment/standalone</tt></li>
         </ul>
       </div>
     </div>
