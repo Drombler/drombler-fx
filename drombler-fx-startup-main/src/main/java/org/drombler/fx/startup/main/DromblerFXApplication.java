@@ -92,7 +92,9 @@ public class DromblerFXApplication extends Application {
     public void stop() {
         logInfo("Stopping JavaFX Application \"{0}\"...", getTitle());
         starter.stop();
-        logInfo("Stopped JavaFX Application \"{0}\"", getTitle());
+        Platform.runLater(() -> {
+            logInfo("Stopped JavaFX Application \"{0}\"", getTitle());
+        });
     }
 
     private double getWidth() {
