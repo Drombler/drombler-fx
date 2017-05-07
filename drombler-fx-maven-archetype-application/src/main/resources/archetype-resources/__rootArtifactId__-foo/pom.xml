@@ -48,5 +48,11 @@
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-docking-fx</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>
