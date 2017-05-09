@@ -19,20 +19,6 @@ Contributor(s): .
     <requiredProperties>
         <requiredProperty key="brandingId"/>
     </requiredProperties>
-    <fileSets>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory>src/main/assembly</directory>
-            <includes>
-                <include>**/*.xml</include>
-            </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-            <directory></directory>
-            <includes>
-                <include>nbactions.xml</include>
-            </includes>
-        </fileSet>
-    </fileSets>
     <modules>
         <module id="${rootArtifactId}-parent" dir="__rootArtifactId__-parent" name="${rootArtifactId}-parent" />
         <module id="${rootArtifactId}-application" dir="__rootArtifactId__-application" name="${rootArtifactId}-application">

@@ -29,7 +29,7 @@
                                 <goal>exec</goal>
                             </goals>
                             <configuration>
-                                <commandlineArgs>\${additionalExecArgs} -Duser.language=en -Duser.country=US -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=conf/logging.properties -jar bin/\${brandingId}.jar --userdir \${project.build.directory}/userdir</commandlineArgs>
+                                <commandlineArgs>\${additionalExecArgs} -Duser.language=en -Duser.country=US -Djavafx.verbose=true -Dprism.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=conf/logging.properties -jar "bin/\${brandingId}.jar" --userdir "\${project.build.directory}/userdir"</commandlineArgs>
                                 <executable>java</executable>
                                 <workingDirectory>\${project.build.directory}/deployment/standalone</workingDirectory>
                                 <classpathScope>runtime</classpathScope>
