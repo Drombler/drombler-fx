@@ -17,10 +17,12 @@ Contributor(s): .
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.drombler.fx.core.standard.desktop.classic.impl.*?>
+<?import org.drombler.commons.fx.scene.control.*?>
+<?import org.drombler.fx.core.action.*?>
 
 <fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml">
     <MenuBar GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" fx:id="menuBar"/>
     <ToolBarContainerPane GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" fx:id="toolBarContainerPane"/>
     <BorderPane GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" fx:id="contentPane"/>
+    <StatusBar GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" fx:id="statusBar"/>
 </fx:root>
