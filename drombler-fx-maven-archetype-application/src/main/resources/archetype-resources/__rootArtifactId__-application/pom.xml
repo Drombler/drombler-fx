@@ -80,7 +80,7 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <!--  Provides a classic desktop application layout with a menubar, a toolbar and a content area 
+            <!--  Provides a classic desktop application layout with a menubar, a toolbar, a status bar and a content area 
             as the content of the JavaFX Application. 
             You could replace this with your own definition of the application layout by providing an implementation
             of MainSceneRootProvider and registering it as an OSGi service. -->
