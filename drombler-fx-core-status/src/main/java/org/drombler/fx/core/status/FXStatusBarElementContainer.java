@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javafx.collections.ObservableList;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Separator;
@@ -17,7 +18,7 @@ import org.softsmithy.lib.util.Positionables;
  *
  * @author puce
  */
-public class FXStatusBarElementContainer implements StatusBarElementContainer {
+public class FXStatusBarElementContainer implements StatusBarElementContainer<Node> {
 
     private static final int SEPARATOR_STEPS = 1000;
 
@@ -70,13 +71,23 @@ public class FXStatusBarElementContainer implements StatusBarElementContainer {
 
         if (insertionPoint > 0
                 && ((statusBarElementAdapter.getPosition() / SEPARATOR_STEPS) - (elements.get(insertionPoint - 1).getPosition() / SEPARATOR_STEPS)) >= 1
-                && !(entries.get(insertionPoint + 1) instanceof Separator)) {
-            return Optional.of(insertionPoint + 1);
+                && !(entries.get(insertionPoint - 1) instanceof Separator)) {
+            return Optional.of(insertionPoint);
 
         }
 
         return Optional.empty();
 
+    }
+
+    @Override
+    public boolean isLeftToRight() {
+        return statusBar.getEffectiveNodeOrientation() == NodeOrientation.LEFT_TO_RIGHT;
+    }
+
+    @Override
+    public boolean isMirroringEnabled() {
+        return statusBar.usesMirroring();
     }
 
 }
