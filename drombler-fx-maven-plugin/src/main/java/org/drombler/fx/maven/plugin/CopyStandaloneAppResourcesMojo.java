@@ -27,6 +27,9 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.softsmithy.lib.nio.file.CopyFileVisitor;
 
+/**
+ * Copies additional application resources to the application directory. They are not packaged in the application JAR but are meant to be editable for the users.
+ */
 @Mojo(name = "copy-standalone-app-resources", defaultPhase = LifecyclePhase.PREPARE_PACKAGE,
         requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class CopyStandaloneAppResourcesMojo extends AbstractMojo {
@@ -41,7 +44,9 @@ public class CopyStandaloneAppResourcesMojo extends AbstractMojo {
     @Parameter(property = "dromblerfx.appSourceDir", defaultValue = "${basedir}/src/main/app", required = true)
     private File appSourceDir;
 
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void execute() throws MojoExecutionException {
         try {
