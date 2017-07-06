@@ -27,6 +27,9 @@ import org.drombler.fx.maven.plugin.util.JavaFXMavenPluginUtils;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.drombler.fx.startup.main.DromblerFXApplication;
 
+/**
+ * Sets default values for some properties of other Maven Plugin (currently only the JavaFX Maven Plugin), if they aren't set yet.
+ */
 @Mojo(name = "set-maven-properties", defaultPhase = LifecyclePhase.INITIALIZE)
 public class SetMavenProperties extends AbstractDromblerMojo {
 
@@ -48,6 +51,9 @@ public class SetMavenProperties extends AbstractDromblerMojo {
     @Parameter(property = "dromblerfx.appSourceDir", defaultValue = "${basedir}/src/main/app", required = true)
     private File appSourceDir;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         Path targetDirectoryPath = getTargetDirectoryPath();
