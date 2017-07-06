@@ -21,6 +21,11 @@ public class SampleHandler extends AbstractDataHandler<String> {
 
     public SampleHandler(Sample sample) {
         this.sample = sample;
+        this.sample.nameProperty().addListener((observable, oldValue, newValue) -> {
+            getPropertyChangeSupport().firePropertyChange(UNIQUE_KEY_PROPERTY_NAME, oldValue, newValue);
+            getPropertyChangeSupport().firePropertyChange(TITLE_PROPERTY_NAME, oldValue, newValue);
+            getPropertyChangeSupport().firePropertyChange(TOOLTIP_TEXT_PROPERTY_NAME, oldValue, newValue);
+        });
     }
 
     public Sample getSample() {

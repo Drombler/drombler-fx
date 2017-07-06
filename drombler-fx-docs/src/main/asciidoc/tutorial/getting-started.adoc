@@ -56,7 +56,7 @@ or:
 include::{bashsourcedir}/getting-started/run2-sample.sh[lines=2..3]
 ----
 
-or you can just double-click the _foo.jar_ in the _target/deployment/standalone/bin_ directory.
+or you can just double-click the _my-application.jar_ in the _target/deployment/standalone/bin_ directory.
 
 The _--userdir_ option is quite useful during development. If you omit it, the default location will be used: _${user.home}/.${brandingId}/${project.version}_
 
@@ -196,7 +196,7 @@ See <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolba
 Let's have a look at the generated binaries.
 You can find the binaries in the target directory of the test-application project at: deployment/standalone
 
-In the bin directory you can find the executable main jar: foo.jar
+In the bin directory you can find the executable main jar: my-application.jar
 The jar has been branded using the specified brandingId.
 
 Let's have a look at the content of this jar.
