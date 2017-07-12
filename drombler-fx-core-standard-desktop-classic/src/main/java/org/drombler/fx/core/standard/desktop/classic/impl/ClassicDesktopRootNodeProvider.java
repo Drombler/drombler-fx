@@ -14,6 +14,7 @@ import org.drombler.acp.core.action.spi.ApplicationToolBarContainerProvider;
 import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
+import org.drombler.acp.core.status.spi.StatusBarElementContainerProvider;
 import org.drombler.fx.startup.main.MainSceneRootProvider;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
@@ -62,7 +63,8 @@ public class ClassicDesktopRootNodeProvider implements MainSceneRootProvider {
                     new String[]{
                         MenuBarMenuContainerProvider.class.getName(),
                         ContentPaneProvider.class.getName(),
-                        ApplicationToolBarContainerProvider.class.getName()
+                        ApplicationToolBarContainerProvider.class.getName(),
+                        StatusBarElementContainerProvider.class.getName()
                     }, root, null);
         } catch (IOException ex) {
             LOG.error(ex.getMessage(), ex);

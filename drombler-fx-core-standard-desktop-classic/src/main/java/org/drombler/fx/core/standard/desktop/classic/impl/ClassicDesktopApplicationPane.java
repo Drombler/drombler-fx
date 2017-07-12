@@ -32,28 +32,38 @@ import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 import org.drombler.acp.core.action.spi.ToolBarContainer;
+import org.drombler.acp.core.status.spi.StatusBarElementContainer;
+import org.drombler.acp.core.status.spi.StatusBarElementContainerProvider;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
+import org.drombler.commons.fx.scene.control.StatusBar;
 import org.drombler.fx.core.action.FXMenuBarMenuContainer;
+import org.drombler.fx.core.action.ToolBarContainerPane;
+import org.drombler.fx.core.status.FXStatusBarElementContainer;
 
 /**
  *
  * @author puce
  */
 public class ClassicDesktopApplicationPane extends GridPane implements MenuBarMenuContainerProvider<MenuItem, Menu>,
-        ContentPaneProvider, ApplicationToolBarContainerProvider<ToolBar, Node>, Initializable {
+        ContentPaneProvider, ApplicationToolBarContainerProvider<ToolBar, Node>, StatusBarElementContainerProvider, Initializable {
 
     private final FXMenuBarMenuContainer menuBarMenuContainer;
+    private final FXStatusBarElementContainer statusBarElementContainer;
+
     @FXML
     private MenuBar menuBar;
     @FXML
     private ToolBarContainerPane toolBarContainerPane;
     @FXML
     private BorderPane contentPane;
+    @FXML
+    private StatusBar statusBar;
 
     public ClassicDesktopApplicationPane(MenuMenuItemContainerFactory<MenuItem, Menu> menuMenuItemContainerFactory, SeparatorMenuItemFactory<SeparatorMenuItem> separatorMenuItemFactory) throws
             IOException {
         load();
         menuBarMenuContainer = new FXMenuBarMenuContainer(menuBar, menuMenuItemContainerFactory, separatorMenuItemFactory);
+        statusBarElementContainer = new FXStatusBarElementContainer(statusBar);
     }
 
     private void load() throws IOException {
@@ -79,6 +89,11 @@ public class ClassicDesktopApplicationPane extends GridPane implements MenuBarMe
     @Override
     public ToolBarContainer<ToolBar, Node> getApplicationToolBarContainer() {
         return toolBarContainerPane;
+    }
+
+    @Override
+    public StatusBarElementContainer getStatusBarElementContainer() {
+        return statusBarElementContainer;
     }
 
 }
