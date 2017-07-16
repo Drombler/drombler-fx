@@ -67,8 +67,8 @@ Contributor(s): .
         <!-- URL to use with the GitHub site plugin -->
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
         <!--<url.parent>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
-        <drombler-acp.version>0.10-SNAPSHOT</drombler-acp.version>
-        <drombler-commons.version>0.10-SNAPSHOT</drombler-commons.version>
+        <drombler-acp.version>0.11-SNAPSHOT</drombler-acp.version>
+        <drombler-commons.version>0.11-SNAPSHOT</drombler-commons.version>
     </properties>
 
     <!-- Not inherited!?? -->
