@@ -96,6 +96,10 @@ Contributor(s): .
             <artifactId>drombler-acp-core-commons</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-context</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-docking-context</artifactId>
         </dependency>
@@ -110,6 +114,11 @@ Contributor(s): .
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
