@@ -89,6 +89,12 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <!-- Provides JavaFX-based standard status bar elements such as a ProgressMonitor. -->
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-standard-status</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <!--  Provides a JavaFX based implementation of the Docking Framework for the content area of the classic
             desktop application layout.
             You could omit this dependency as long as it is a transitive dependency. 
