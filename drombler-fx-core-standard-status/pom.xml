@@ -14,20 +14,22 @@ Copyright 2012 Drombler.org. All Rights Reserved.
 Contributor(s): .
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
+
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
         <version>0.11-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-fx-core-status</artifactId>
+
+    <artifactId>drombler-fx-core-standard-status</artifactId>
     <packaging>bundle</packaging>
 
 
-    <name>Drombler FX - Core - Status</name>
-    <description>A JavaFX-based implementation of the Drombler ACP Status Bar Framework.</description>
+    <name>Drombler FX - Core - Standard - Status</name>
+    <description>Standard JavaFX-based Status Bar Framework configurations.</description>
     <inceptionYear>2017</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
@@ -39,17 +41,24 @@ Contributor(s): .
         <tag>HEAD</tag>
     </scm>
 
+    <distributionManagement>
+        <site>
+            <id>github</id>
+            <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+    
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
     </properties>
-    
+
     <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>
     </prerequisites>
-
+    
     <build>
         <plugins>
             <plugin>
@@ -57,28 +66,33 @@ Contributor(s): .
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
             </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <!-- No published classes. -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+   
     <dependencies>
         <dependency>
             <groupId>org.drombler.acp</groupId>
-            <artifactId>drombler-acp-core-status-spi</artifactId>
+            <artifactId>drombler-acp-core-status</artifactId>
         </dependency>
         <dependency>
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-fx-core</artifactId>
         </dependency>
-
-      
         <dependency>
-            <groupId>org.softsmithy.lib</groupId>
-            <artifactId>softsmithy-lib-core</artifactId>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-client-core</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-context</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -22,6 +22,9 @@ public class SampleHandler extends AbstractDataHandler<String> {
     public SampleHandler(Sample sample) {
         this.sample = sample;
         this.sample.nameProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue != null) {
+                throw new IllegalStateException("The name is the unique key of the sample and must noch change once set!");
+            }
             getPropertyChangeSupport().firePropertyChange(UNIQUE_KEY_PROPERTY_NAME, oldValue, newValue);
             getPropertyChangeSupport().firePropertyChange(TITLE_PROPERTY_NAME, oldValue, newValue);
             getPropertyChangeSupport().firePropertyChange(TOOLTIP_TEXT_PROPERTY_NAME, oldValue, newValue);

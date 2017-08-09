@@ -22,9 +22,9 @@ public class FXStatusBarElementContainer implements StatusBarElementContainer<No
 
     private static final int SEPARATOR_STEPS = 1000;
 
-    private final List<PositionableAdapter<? extends Node>> leftStatusBarElement = Collections.synchronizedList(new ArrayList<>());// TODO: synchronized needed?
-    private final List<PositionableAdapter<? extends Node>> centerStatusBarElement = Collections.synchronizedList(new ArrayList<>());// TODO: synchronized needed?
-    private final List<PositionableAdapter<? extends Node>> statusStatusBarElement = Collections.synchronizedList(new ArrayList<>());// TODO: synchronized needed?
+    private final List<PositionableAdapter<? extends Node>> leftStatusBarElementList = Collections.synchronizedList(new ArrayList<>());// TODO: synchronized needed?
+    private final List<PositionableAdapter<? extends Node>> centerStatusBarElementList = Collections.synchronizedList(new ArrayList<>());// TODO: synchronized needed?
+    private final List<PositionableAdapter<? extends Node>> statusStatusBarElementList = Collections.synchronizedList(new ArrayList<>());// TODO: synchronized needed?
 
     private final StatusBar statusBar;
 
@@ -34,17 +34,17 @@ public class FXStatusBarElementContainer implements StatusBarElementContainer<No
 
     @Override
     public void addLeftStatusBarElement(PositionableAdapter<? extends Node> statusBarElement) {
-        addStatusBarElement(statusBar.getLeftEntries(), leftStatusBarElement, statusBarElement);
+        addStatusBarElement(statusBar.getLeftEntries(), leftStatusBarElementList, statusBarElement);
     }
 
     @Override
     public void addCenterStatusBarElement(PositionableAdapter<? extends Node> statusBarElement) {
-        addStatusBarElement(statusBar.getCenterEntries(), centerStatusBarElement, statusBarElement);
+        addStatusBarElement(statusBar.getCenterEntries(), centerStatusBarElementList, statusBarElement);
     }
 
     @Override
     public void addRightStatusBarElement(PositionableAdapter<? extends Node> statusBarElement) {
-        addStatusBarElement(statusBar.getRightEntries(), statusStatusBarElement, statusBarElement);
+        addStatusBarElement(statusBar.getRightEntries(), statusStatusBarElementList, statusBarElement);
     }
 
     private void addStatusBarElement(ObservableList<Node> entries, List<PositionableAdapter<? extends Node>> elements, PositionableAdapter<? extends Node> statusBarElementAdapter) {
