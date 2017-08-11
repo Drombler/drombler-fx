@@ -1,10 +1,8 @@
 package org.drombler.fx.core.standard.status.impl;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
-import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import org.drombler.acp.core.status.StatusBarElement;
@@ -28,7 +26,7 @@ public class ProgressMonitorStatusBarElement extends BorderPane implements Appli
     @FXML
     private ProgressMonitor progressMonitor;
 
-    private final ExecutorService executorService = Executors.newFixedThreadPool(20);
+//    private final ExecutorService executorService = Executors.newFixedThreadPool(20);
     private Context applicationContext;
 
     private final SimpleContextContent contextContent = new SimpleContextContent();
@@ -55,7 +53,7 @@ public class ProgressMonitorStatusBarElement extends BorderPane implements Appli
         this.applicationContext = applicationContext;
 
         if (this.applicationContext != null) {
-            this.applicationContext.addContextListener(Task.class, event -> {
+            this.applicationContext.addContextListener(Worker.class, event -> {
                 updateProgressMonitor();
             });
             updateProgressMonitor();
@@ -63,13 +61,13 @@ public class ProgressMonitorStatusBarElement extends BorderPane implements Appli
     }
 
     private void updateProgressMonitor() {
-        List<? extends Task<?>> tasks = applicationContext.findAll(Task.class).stream()
-                .map(task -> (Task<?>) task)
-                .filter(task -> !WorkerUtils.getFinishedStates().contains(task.getState()))
+        List<? extends Worker<?>> workers = applicationContext.findAll(Worker.class).stream()
+                .map(worker -> (Worker<?>) worker)
+                .filter(worker -> !WorkerUtils.getFinishedStates().contains(worker.getState()))
                 .collect(Collectors.toList());
-        progressMonitor.getTasks().retainAll(tasks);
-        tasks.removeAll(progressMonitor.getTasks());
-        progressMonitor.getTasks().addAll(tasks);
+        progressMonitor.getWorkers().retainAll(workers);
+        workers.removeAll(progressMonitor.getWorkers());
+        progressMonitor.getWorkers().addAll(workers);
     }
 
     @Override
@@ -77,42 +75,42 @@ public class ProgressMonitorStatusBarElement extends BorderPane implements Appli
         return localContext;
     }
 
-    private class SampleTask extends Task<Object> {
-
-        private final int index;
-
-        public SampleTask(int index) {
-            this.index = index;
-            updateTitle("Some Title " + index);
-            updateProgress(2, 10);
-        }
-
-        @Override
-        protected Object call() throws Exception {
-            for (int i = 0; i < 20; i++) {
-                if (isCancelled()) {
-                    updateMessage("Cancelled");
-                    break;
-                }
-                updateProgress(i + 1, 20);
-                updateMessage((i + 1) + "Some very long message adf a dsf asdf dasfd sdaf dafd as");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException interrupted) {
-                    if (isCancelled()) {
-                        updateMessage("Cancelled");
-                        break;
-                    }
-                }
-            }
-            return true;
-        }
-
-        @Override
-        public boolean cancel(boolean mayInterruptIfRunning) {
-            return super.cancel(mayInterruptIfRunning); //To change body of generated methods, choose Tools | Templates.
-        }
-
-    }
+//    private class SampleTask extends Task<Object> {
+//
+//        private final int index;
+//
+//        public SampleTask(int index) {
+//            this.index = index;
+//            updateTitle("Some Title " + index);
+//            updateProgress(2, 10);
+//        }
+//
+//        @Override
+//        protected Object call() throws Exception {
+//            for (int i = 0; i < 20; i++) {
+//                if (isCancelled()) {
+//                    updateMessage("Cancelled");
+//                    break;
+//                }
+//                updateProgress(i + 1, 20);
+//                updateMessage((i + 1) + "Some very long message adf a dsf asdf dasfd sdaf dafd as");
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException interrupted) {
+//                    if (isCancelled()) {
+//                        updateMessage("Cancelled");
+//                        break;
+//                    }
+//                }
+//            }
+//            return true;
+//        }
+//
+//        @Override
+//        public boolean cancel(boolean mayInterruptIfRunning) {
+//            return super.cancel(mayInterruptIfRunning); //To change body of generated methods, choose Tools | Templates.
+//        }
+//
+//    }
 
 }
