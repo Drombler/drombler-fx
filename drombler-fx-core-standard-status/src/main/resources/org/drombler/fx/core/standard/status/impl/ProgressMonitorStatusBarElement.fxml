@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.drombler.commons.fx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <ProgressMonitor fx:id="progressMonitor" BorderPane.alignment="CENTER" />
+   </center>
+</fx:root>
+

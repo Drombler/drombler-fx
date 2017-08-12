@@ -28,6 +28,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.drombler.acp.startup.main.DromblerACPConfiguration;
 
+/**
+ * Ensures the application config files exist in the conf directory and contain the necessary info.
+ */
 @Mojo(name = "ensure-standalone-config", defaultPhase = LifecyclePhase.PACKAGE)
 public class EnsureStandaloneConfigMojo extends AbstractDromblerMojo {
 
@@ -42,14 +45,16 @@ public class EnsureStandaloneConfigMojo extends AbstractDromblerMojo {
     private String brandingId;
 
     /**
-     * The user directory.
+     * The default user directory. The user can change the value.
      */
     // TODO: good solution using "${dollar}"?
     @Parameter(property = "dromblerfx.userdir", defaultValue = "${dollar}{user.home}/.${brandingId}/${project.version}",
             required = true)
     private String userdir;
 
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {

@@ -29,6 +29,9 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.drombler.acp.startup.main.ApplicationConfiguration;
 import org.drombler.fx.startup.main.DromblerFXConfiguration;
 
+/**
+ * Generates the Drombler FX application resources (currently only: applicationConfig.properties) in the ${project.build.outputDirectory} to be packaged in the application JAR.
+ */
 @Mojo(name = "generate-application-resources", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class GenerateApplicationResourcesMojo extends AbstractMojo {
 
@@ -66,6 +69,9 @@ public class GenerateApplicationResourcesMojo extends AbstractMojo {
     @Parameter(property = "dromblerfx.defaultSingleInstancePort")
     private Integer defaultSingleInstancePort;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {

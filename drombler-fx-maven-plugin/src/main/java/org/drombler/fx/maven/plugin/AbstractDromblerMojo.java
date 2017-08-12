@@ -16,21 +16,19 @@ package org.drombler.fx.maven.plugin;
 
 import java.io.File;
 import java.nio.file.Path;
-import org.drombler.fx.maven.plugin.util.PluginCoordinates;
 import java.util.Optional;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.drombler.fx.maven.plugin.util.PluginCoordinates;
 import org.drombler.fx.maven.plugin.util.PluginProperty;
 
 /**
  *
  * @author puce
  */
-
-
 public abstract class AbstractDromblerMojo extends AbstractMojo {
 
     protected static final PluginCoordinates JAVAFX_PLUGIN_COORDINATES = new PluginCoordinates("com.zenjava", "javafx-maven-plugin");

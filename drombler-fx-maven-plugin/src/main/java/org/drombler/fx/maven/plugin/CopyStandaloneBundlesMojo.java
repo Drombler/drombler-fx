@@ -38,6 +38,9 @@ import org.apache.maven.project.MavenProject;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.ops4j.pax.construct.util.ReflectMojo;
 
+/**
+ * Copies the application dependencies to the bundle directory.
+ */
 @Mojo(name = "copy-standalone-bundles", defaultPhase = LifecyclePhase.PREPARE_PACKAGE,
         requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class CopyStandaloneBundlesMojo extends AbstractMojo {
@@ -67,7 +70,9 @@ public class CopyStandaloneBundlesMojo extends AbstractMojo {
     @Component
     private ArtifactFactory artifactFactory;
 
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {

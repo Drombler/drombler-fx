@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.10-SNAPSHOT</version>
+        <version>0.11-SNAPSHOT</version>
         <relativePath>drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx</artifactId>
@@ -67,6 +67,7 @@ Contributor(s): .
         <module>drombler-fx-core-action</module>
         <module>drombler-fx-core-standard-desktop-classic</module>
         <module>drombler-fx-core-standard-desktop-classic-l10n-de</module>
+        <module>drombler-fx-core-standard-status</module>
         <module>drombler-fx-core-status</module>
         <module>drombler-fx-l10n-de</module>
         <module>drombler-fx-l10n-all</module>
@@ -121,6 +122,11 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-fx-core-standard-desktop-classic-l10n-de</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-fx-core-standard-status</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

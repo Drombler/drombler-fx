@@ -21,18 +21,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
+import org.drombler.acp.core.context.ContextManagerProvider;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerProvider;
 import org.drombler.acp.core.docking.spi.EditorDockingDescriptorRegistry;
 import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.client.util.ResourceBundleUtils;
-import org.drombler.commons.context.ActiveContextProvider;
-import org.drombler.commons.context.ApplicationContextProvider;
-import org.drombler.commons.context.Context;
 import org.drombler.commons.context.Contexts;
 import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.docking.context.DockingAreaContainer;
@@ -42,6 +35,10 @@ import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.commons.docking.fx.context.DockingPaneDockingAreaContainerAdapter;
 import org.drombler.fx.startup.main.ApplicationContentProvider;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,10 +47,8 @@ import org.slf4j.LoggerFactory;
  * @author puce
  */
 @Component
-@Service
 public class DockingPaneProvider implements ApplicationContentProvider,
-        DockingAreaContainerProvider<Node, FXDockableData, FXDockableEntry>,
-        ActiveContextProvider, ApplicationContextProvider {
+        DockingAreaContainerProvider<Node, FXDockableData, FXDockableEntry> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DockingPaneProvider.class);
 
@@ -66,13 +61,8 @@ public class DockingPaneProvider implements ApplicationContentProvider,
     @Reference
     private EditorDockingDescriptorRegistry<Node> editorDockingDescriptorRegistry;
 
-    protected void bindEditorDockingDescriptorRegistry(EditorDockingDescriptorRegistry<Node> editorDockingDescriptorRegistry) {
-        this.editorDockingDescriptorRegistry = editorDockingDescriptorRegistry;
-    }
-
-    protected void unbindEditorDockingDescriptorRegistry(EditorDockingDescriptorRegistry<Node> editorDockingDescriptorRegistry) {
-        this.editorDockingDescriptorRegistry = null;
-    }
+    @Reference
+    private ContextManagerProvider contextManagerProvider;
 
     @Activate
     protected void activate(ComponentContext context) {
@@ -86,7 +76,7 @@ public class DockingPaneProvider implements ApplicationContentProvider,
                 LOG.debug("DockableCloseRequestEvent consumed for: {}", dockableData.getTitle());
             }
         });
-        dockingAreaContainer = new DockingPaneDockingAreaContainerAdapter(dockingPane);
+        dockingAreaContainer = new DockingPaneDockingAreaContainerAdapter(dockingPane, contextManagerProvider.getContextManager());
     }
 
     @Deactivate
@@ -104,16 +94,6 @@ public class DockingPaneProvider implements ApplicationContentProvider,
     @Override
     public DockingAreaContainer<Node, FXDockableData, FXDockableEntry> getDockingAreaContainer() {
         return dockingAreaContainer;
-    }
-
-    @Override
-    public Context getApplicationContext() {
-        return dockingAreaContainer.getApplicationContext();
-    }
-
-    @Override
-    public Context getActiveContext() {
-        return dockingAreaContainer.getActiveContext();
     }
 
     private boolean stopClosingDockable(FXDockableEntry dockableEntry) {

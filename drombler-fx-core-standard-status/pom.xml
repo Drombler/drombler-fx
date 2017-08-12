@@ -14,6 +14,8 @@ Copyright 2012 Drombler.org. All Rights Reserved.
 Contributor(s): .
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.drombler.fx</groupId>
@@ -22,12 +24,13 @@ Contributor(s): .
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>drombler-fx-core-standard-desktop-classic-l10n-de</artifactId>
+    <artifactId>drombler-fx-core-standard-status</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Drombler FX - Core - Standard - Desktop - Classic - L10N - German</name>
-    <description>L10n (German) of the classic desktop application layout.</description>
-    <inceptionYear>2012</inceptionYear>
+
+    <name>Drombler FX - Core - Standard - Status</name>
+    <description>Standard JavaFX-based Status Bar Framework configurations.</description>
+    <inceptionYear>2017</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
 
@@ -35,15 +38,22 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
+    <distributionManagement>
+        <site>
+            <id>github</id>
+            <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+    
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
     </properties>
-    
+
     <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>
@@ -55,22 +65,13 @@ Contributor(s): .
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <instructions>
-                        <Fragment-Host>org.drombler.fx.drombler-fx-core-standard-desktop-classic;bundle-version=${drombler.fx.osgi.version.clean}</Fragment-Host>
-                    </instructions>
-                    <versions>
-                        <drombler.fx.osgi.version.clean>${project.version}</drombler.fx.osgi.version.clean>
-                    </versions>
+                    <!-- No published classes. -->
+                    <skip>true</skip>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>cleanVersions</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
@@ -78,9 +79,20 @@ Contributor(s): .
    
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-status</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-fx-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-client-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-context</artifactId>
         </dependency>
     </dependencies>
 </project>

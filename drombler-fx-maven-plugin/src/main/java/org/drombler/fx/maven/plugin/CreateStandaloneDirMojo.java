@@ -24,10 +24,15 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.drombler.acp.startup.main.DromblerACPConfiguration;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 
+/**
+ * Creates the directory structure of a Drombler FX application.
+ */
 @Mojo(name = "create-standalone-dir", defaultPhase = LifecyclePhase.INITIALIZE)
 public class CreateStandaloneDirMojo extends AbstractDromblerMojo {
 
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
