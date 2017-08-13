@@ -1,0 +1,24 @@
+[[applicationLayout]]
+= Application Layout
+:toc:
+:numbered:
+
+== Pluggable Application Layout
+org.drombler.fx.startup.main.MainSceneRootProvider
+org.drombler.fx.startup.main.ApplicationContentProvider
+
+[[standardDesktopClassicLayout]]
+== Standard Desktop Classic Layout
+org.drombler.fx.core.action.FXMenuBarMenuContainer;
+org.drombler.fx.core.action.ToolBarContainerPane;
+org.drombler.fx.core.status.FXStatusBarElementContainer
+
+Listens for ApplicationContentProvider (see Docking Framework)
+[source,xml]
+----
+<dependency>
+    <groupId>org.drombler.fx</groupId>
+    <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
+    <scope>runtime</scope>
+</dependency>
+----

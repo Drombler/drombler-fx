@@ -11,7 +11,8 @@ interface. You can use it to look for instances of the specified type and listen
 
 == Content Providers
 
-To add content to a _Context_ you need a mutable _Context_ implementation such as: org.drombler.commons.context.SimpleContext
+To add content to a _Context_ you need a mutable _Context_ implementation such as: 
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/SimpleContext.html[SimpleContext]
 
 Typical content providers are:
 
@@ -27,27 +28,32 @@ Typical content consumers are:
 
  * _View Dockable Panes_ (show some information about an object)
  * _Actions_ (look for instances of their action command interface)
+ * _Status Bar Elements_ (reflect the current state of an object)
 
+[[activeContext]]
 == Active Context
 
-The _Active Context_ provides access to the content of the local _Context_ of the currently active object (in _Drombler FX_: _Dockable Pane_).
+The _Active Context_ provides access to the content of the local _Context_ of the currently active object (e.g. a _Dockable Pane_).
 
-Actions and _Dockable Panes_ interested in the _Active Context_ can implement the following interface: org.drombler.commons.context.ActiveContextSensitive
+_Content consumers_ interested in the _Active Context_ can implement the following interface: 
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/ActiveContextSensitive.html[ActiveContextSensitive]
 
-_Drombler FX_ will inject the _Active Context_.
+_Drombler FX_ will inject the _Active Context_ into managed components.
 
 Note: Don't forget to listen for changes in the _Active Context_ content using a ContextListener!
 
 See <<getting-started.adoc#gettingStarted,Getting Started>> and <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for samples.
 
 
+[[applicationContext]]
 == Application Context
 
-The _Application-wide Context_ provides access to the combined content of the local _Context_ of all currently open _Dockable Panes_.
+The _Application-wide Context_ provides access to the combined content of the local _Context_ of all registered contexts (e.g. provided by open _Dockable Panes_).
 
-Actions and _Dockable Panes_ interested in the _Application-wide Context_ can implement the following interface: org.drombler.commons.context.ApplicationContextSensitive
+_Content consumers_  interested in the _Application-wide Context_ can implement the following interface: 
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/ApplicationContextSensitive.html[ApplicationContextSensitive]
 
-_Drombler FX_ will inject the _Application Context_.
+_Drombler FX_ will inject the _Application Context_ into managed components.
 
 Note: Don't forget to listen for changes in the _Application Context_ content using a ContextListener!
 
