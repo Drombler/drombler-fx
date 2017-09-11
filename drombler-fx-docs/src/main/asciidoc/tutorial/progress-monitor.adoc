@@ -1,0 +1,38 @@
+[[progressMonitor]]
+= Progress Monitor
+:toc:
+:numbered:
+
+This section describes the progress monitor support.
+
+_Drombler FX_ provides out-of-the-box support for monitoring long-running
+http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker]s by integrating a progress monitor in 
+the <<status-bar.adoc#statusBar,Status Bar>>.
+
+This feature is optional and must be activated if required.
+
+[[activation]]
+== Progress Monitor Activation
+To activate the progress monitor integration in the <<status-bar.adoc#statusBar,Status Bar>> you need the following additional runtime dependency in your application:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.drombler.fx</groupId>
+    <artifactId>drombler-fx-core-standard-status</artifactId>
+    <scope>runtime</scope>
+</dependency>
+----
+
+[[notification]]
+== Progress Monitor Notification
+The progress monitor integration listens for any non-finished http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker] instances in the 
+<<context-framework.adoc#applicationContext,application-wide>> context.
+
+To notify the progress monitor about the availability of a new Worker instance, simply add it to
+the <<context-framework.adoc#localContext,local context>> of a _Dromber FX_ managed component:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/progressmonitor/WorkerProvider.java[lines=14..58]
+----
