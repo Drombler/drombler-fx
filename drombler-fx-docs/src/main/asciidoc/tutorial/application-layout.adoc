@@ -3,6 +3,11 @@
 :toc:
 :numbered:
 
+The _application layout_ defines the general layout of your application.
+
+As there is no one-size-fits-all solution, the application layout is pluggable so you can provide your own 
+implementation tailored to your needs. This allows you to get the most out of _Drombler FX_ and _JavaFX_.
+
 == Pluggable Application Layout
 org.drombler.fx.startup.main.MainSceneRootProvider
 org.drombler.fx.startup.main.ApplicationContentProvider
