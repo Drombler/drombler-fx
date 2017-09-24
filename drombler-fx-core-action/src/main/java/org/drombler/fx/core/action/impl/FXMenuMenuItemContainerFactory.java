@@ -4,10 +4,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
-import org.drombler.acp.core.action.spi.MenuItemContainer;
 import org.drombler.acp.core.action.MenuItemSortingStrategy;
 import org.drombler.acp.core.action.MenuItemSupplierFactory;
+import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
+import org.drombler.acp.core.action.spi.MenuItemContainer;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 
@@ -20,7 +20,7 @@ import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 public class FXMenuMenuItemContainerFactory implements MenuMenuItemContainerFactory<MenuItem, Menu> {
 
     @Override
-    public <F extends MenuItemSupplierFactory<MenuItem>> MenuItemContainer<MenuItem, Menu, F> createMenuMenuItemContainer(String id, Menu menu,
+    public <F extends MenuItemSupplierFactory<MenuItem, F>> MenuItemContainer<MenuItem, Menu, F> createMenuMenuItemContainer(String id, Menu menu,
             MenuItemContainer<MenuItem, Menu, ?> parentContainer,
             AbstractMenuItemRootContainer<MenuItem, Menu, ?> rootContainer,
             MenuItemSortingStrategy<MenuItem, F> menuItemSortingStrategy,
