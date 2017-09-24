@@ -3,7 +3,7 @@
 :toc:
 :numbered:
 
-The _Context Framework_ allows components such as _Dockable Panes_ and _Actions_ to communicate in a loosly coupled way - even across bundle boundaries.
+The _Context Framework_ allows _Drombler FX_ managed components such as _Dockable Panes_ and _Actions_ to communicate in a loosly coupled way - even across bundle boundaries.
 
 The basic abstraction is the 
 http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/Context.html[org.drombler.commons.context.Context] 
@@ -11,14 +11,24 @@ interface. You can use it to look for instances of the specified type and listen
 
 == Content Providers
 
-To add content to a _Context_ you need a mutable _Context_ implementation such as: 
-http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/SimpleContext.html[SimpleContext]
+_Content providers_ provide their _local context_ to the application framework.
 
 Typical content providers are:
 
  * _Editor Dockable Panes_ (the object to edit, custom implementations of _action command interfaces_ such as 
-org.drombler.acp.core.standard.action.Savable to interact with actions such as the "Save" action)
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/action/command/Savable.html[Savable]
+to interact with actions such as the "Save" action)
  * _View Dockable Panes_ with a "current selection"
+
+[[localContext]]
+=== Local Context
+Each content provider only manages its own _local_ context.
+
+They provide their local context to the application framework by implementing the 
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/LocalContextProvider.html[LocalContextProvider] interface.
+
+To add content to a _Context_ you need a mutable _Context_ implementation such as: 
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/SimpleContext.html[SimpleContext]
 
 == Content Consumers
 
@@ -31,7 +41,7 @@ Typical content consumers are:
  * _Status Bar Elements_ (reflect the current state of an object)
 
 [[activeContext]]
-== Active Context
+=== Active Context
 
 The _Active Context_ provides access to the content of the local _Context_ of the currently active object (e.g. a _Dockable Pane_).
 
@@ -46,7 +56,7 @@ See <<getting-started.adoc#gettingStarted,Getting Started>> and <<actions-menus-
 
 
 [[applicationContext]]
-== Application Context
+=== Application Context
 
 The _Application-wide Context_ provides access to the combined content of the local _Context_ of all registered contexts (e.g. provided by open _Dockable Panes_).
 
