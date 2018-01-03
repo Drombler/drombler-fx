@@ -12,7 +12,7 @@ the <<status-bar.adoc#statusBar,Status Bar>>.
 This feature is optional and must be activated if required.
 
 [[activation]]
-== Progress Monitor Activation
+== Activation
 To activate the progress monitor integration in the <<status-bar.adoc#statusBar,Status Bar>> you need the following additional runtime dependency in your application:
 
 [source,xml]
@@ -25,7 +25,7 @@ To activate the progress monitor integration in the <<status-bar.adoc#statusBar,
 ----
 
 [[notification]]
-== Progress Monitor Notification
+== Notification
 The progress monitor integration listens for any non-finished http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker] instances in the 
 <<context-framework.adoc#applicationContext,application-wide>> context.
 
@@ -34,5 +34,5 @@ the <<context-framework.adoc#localContext,local context>> of a _Dromber FX_ mana
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/progressmonitor/WorkerProvider.java[lines=14..58]
+include::{sourcedir}/tutorial/progressmonitor/WorkerProvider.java[lines=14..60]
 ----

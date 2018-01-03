@@ -15,20 +15,20 @@ public class WorkerProvider implements LocalContextProvider {
 
     private static final Logger LOG = LoggerFactory.getLogger(WorkerProvider.class);
 
-
     private final SimpleContextContent contextContent = new SimpleContextContent();
     private final SimpleContext context = new SimpleContext(contextContent);
-    private final ExecutorService executorService = Executors.newCachedThreadPool(runnable -> {
-        Thread thread = new Thread(runnable);
-        thread.setDaemon(true);
-        return thread;
-    });
+    private final ExecutorService executorService
+            = Executors.newCachedThreadPool(runnable -> {
+                Thread thread = new Thread(runnable);
+                thread.setDaemon(true);
+                return thread;
+            });
 
     public void runTask() {
         SampleTask sampleTask = new SampleTask();
-        sampleTask.setOnRunning(event -> {
-            contextContent.add(sampleTask);
-        });
+        // ! add the task to the local context
+        // the progress monitor will pick it up automatically
+        sampleTask.setOnRunning(event -> contextContent.add(sampleTask));
         sampleTask.setOnSucceeded(event -> {
             Foo foo = sampleTask.getValue();
             // do something
@@ -44,8 +44,10 @@ public class WorkerProvider implements LocalContextProvider {
             // show error dialog
         });
         sampleTask.stateProperty().addListener((observable, oldValue, newValue) -> {
-            // you can use the org.drombler.commons.fx.concurrent.WorkerUtils to easily check for finished states
+            // you can use org.drombler.commons.fx.concurrent.WorkerUtils 
+            // to easily check for finished states
             if (WorkerUtils.getFinishedStates().contains(newValue)) {
+                // ! remove the task from the local context
                 contextContent.remove(sampleTask);
             }
         });
