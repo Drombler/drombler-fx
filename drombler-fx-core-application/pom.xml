@@ -72,27 +72,15 @@ Contributor(s): .
     </build>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-fx-startup-main</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-startup-main</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-fx-core-action</artifactId>
+            <artifactId>drombler-fx-startup-main</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.drombler.acp</groupId>
-            <artifactId>drombler-acp-core-action</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.drombler.acp</groupId>
-            <artifactId>drombler-acp-core-action-spi</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.drombler.commons</groupId>
-            <artifactId>drombler-commons-fx-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>

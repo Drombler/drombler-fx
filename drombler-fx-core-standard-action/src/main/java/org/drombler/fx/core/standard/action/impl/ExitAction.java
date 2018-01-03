@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.core.standard.desktop.classic.impl;
+package org.drombler.fx.core.standard.action.impl;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
