@@ -1,4 +1,5 @@
 org.drombler.fx.core.action
 org.drombler.fx.core.application
 org.drombler.fx.core.docking
+org.drombler.fx.core.status
 org.drombler.fx.startup.main
