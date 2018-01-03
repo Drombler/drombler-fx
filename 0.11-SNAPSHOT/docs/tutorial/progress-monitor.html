@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Context Framework</title>
+<title>Progress Monitor</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -417,26 +417,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 </style>
 </head>
-<body id="contextFramework" class="article toc2 toc-right">
+<body id="progressMonitor" class="article toc2 toc-right">
 <div id="header">
-<h1>Context Framework</h1>
+<h1>Progress Monitor</h1>
 <div class="details">
 <span id="revnumber">version 0.11-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_content_providers">1. Content Providers</a>
-<ul class="sectlevel2">
-<li><a href="#localContext">1.1. Local Context</a></li>
-</ul>
-</li>
-<li><a href="#_content_consumers">2. Content Consumers</a>
-<ul class="sectlevel2">
-<li><a href="#activeContext">2.1. Active Context</a></li>
-<li><a href="#applicationContext">2.2. Application Context</a></li>
-</ul>
-</li>
+<li><a href="#activation">1. Activation</a></li>
+<li><a href="#notification">2. Notification</a></li>
 </ul>
 </div>
 </div>
@@ -444,110 +435,95 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <em>Context Framework</em> allows <em>Drombler FX</em> managed components such as <em>Dockable Panes</em> and <em>Actions</em> to communicate in a loosly coupled way - even across bundle boundaries.</p>
+<p>This section describes the progress monitor support.</p>
 </div>
 <div class="paragraph">
-<p>The basic abstraction is the
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/Context.html">org.drombler.commons.context.Context</a>
-interface. You can use it to look for instances of the specified type and listen for changes of its content.</p>
+<p><em>Drombler FX</em> provides out-of-the-box support for monitoring long-running
+<a href="http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html">Worker</a>s by integrating a progress monitor in
+the <a href="status-bar.html#statusBar">Status Bar</a>.</p>
+</div>
+<div class="paragraph">
+<p>This feature is optional and must be activated if required.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_content_providers">1. Content Providers</h2>
+<h2 id="activation">1. Activation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Content providers</em> provide their <em>local context</em> to the application framework.</p>
+<p>To activate the progress monitor integration in the <a href="status-bar.html#statusBar">Status Bar</a> you need the following additional runtime dependency in your application:</p>
 </div>
-<div class="paragraph">
-<p>Typical content providers are:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><em>Editor Dockable Panes</em> (the object to edit, custom implementations of <em>action command interfaces</em> such as
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/action/command/Savable.html">Savable</a>
-to interact with actions such as the "Save" action)</p>
-</li>
-<li>
-<p><em>View Dockable Panes</em> with a "current selection"</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="localContext">1.1. Local Context</h3>
-<div class="paragraph">
-<p>Each content provider only manages its own <em>local</em> context.</p>
-</div>
-<div class="paragraph">
-<p>They provide their local context to the application framework by implementing the
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/LocalContextProvider.html">LocalContextProvider</a> interface.</p>
-</div>
-<div class="paragraph">
-<p>To add content to a <em>Context</em> you need a mutable <em>Context</em> implementation such as:
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/SimpleContext.html">SimpleContext</a></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.drombler.fx&lt;/groupId&gt;
+    &lt;artifactId&gt;drombler-fx-core-standard-status&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_content_consumers">2. Content Consumers</h2>
+<h2 id="notification">2. Notification</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content consumers query a <em>Context</em> for some type and listen for changes in a <em>Context</em> content using a ContextListener.</p>
+<p>The progress monitor integration listens for any non-finished <a href="http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html">Worker</a> instances in the
+<a href="context-framework.html#applicationContext">application-wide</a> context.</p>
 </div>
 <div class="paragraph">
-<p>Typical content consumers are:</p>
+<p>To notify the progress monitor about the availability of a new Worker instance, simply add it to
+the <a href="context-framework.html#localContext">local context</a> of a <em>Dromber FX</em> managed component:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><em>View Dockable Panes</em> (show some information about an object)</p>
-</li>
-<li>
-<p><em>Actions</em> (look for instances of their action command interface)</p>
-</li>
-<li>
-<p><em>Status Bar Elements</em> (reflect the current state of an object)</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="activeContext">2.1. Active Context</h3>
-<div class="paragraph">
-<p>The <em>Active Context</em> provides access to the content of the local <em>Context</em> of the currently active object (e.g. a <em>Dockable Pane</em>).</p>
-</div>
-<div class="paragraph">
-<p><em>Content consumers</em> interested in the <em>Active Context</em> can implement the following interface:
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/ActiveContextSensitive.html">ActiveContextSensitive</a></p>
-</div>
-<div class="paragraph">
-<p><em>Drombler FX</em> will inject the <em>Active Context</em> into managed components.</p>
-</div>
-<div class="paragraph">
-<p>Note: Don&#8217;t forget to listen for changes in the <em>Active Context</em> content using a ContextListener!</p>
-</div>
-<div class="paragraph">
-<p>See <a href="getting-started.html#gettingStarted">Getting Started</a> and <a href="actions-menus-toolbars.html#actionsMenusToolbars">Actions, Menus and Toolbars</a> for samples.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="applicationContext">2.2. Application Context</h3>
-<div class="paragraph">
-<p>The <em>Application-wide Context</em> provides access to the combined content of the local <em>Context</em> of all registered contexts (e.g. provided by open <em>Dockable Panes</em>).</p>
-</div>
-<div class="paragraph">
-<p><em>Content consumers</em>  interested in the <em>Application-wide Context</em> can implement the following interface:
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/ApplicationContextSensitive.html">ApplicationContextSensitive</a></p>
-</div>
-<div class="paragraph">
-<p><em>Drombler FX</em> will inject the <em>Application Context</em> into managed components.</p>
-</div>
-<div class="paragraph">
-<p>Note: Don&#8217;t forget to listen for changes in the <em>Application Context</em> content using a ContextListener!</p>
-</div>
-<div class="paragraph">
-<p>See <a href="actions-menus-toolbars.html#actionsMenusToolbars">Actions, Menus and Toolbars</a> for a sample.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">public class WorkerProvider implements LocalContextProvider {
+
+    private static final Logger LOG = LoggerFactory.getLogger(WorkerProvider.class);
+
+    private final SimpleContextContent contextContent = new SimpleContextContent();
+    private final SimpleContext context = new SimpleContext(contextContent);
+    private final ExecutorService executorService
+            = Executors.newCachedThreadPool(runnable -&gt; {
+                Thread thread = new Thread(runnable);
+                thread.setDaemon(true);
+                return thread;
+            });
+
+    public void runTask() {
+        SampleTask sampleTask = new SampleTask();
+        // ! add the task to the local context
+        // the progress monitor will pick it up automatically
+        sampleTask.setOnRunning(event -&gt; contextContent.add(sampleTask));
+        sampleTask.setOnSucceeded(event -&gt; {
+            Foo foo = sampleTask.getValue();
+            // do something
+        });
+        sampleTask.setOnFailed(event -&gt; {
+            String errorMessage = "Sample task failed!";
+            Throwable exception = sampleTask.getException();
+            if (exception != null) {
+                LOG.error(errorMessage, exception);
+            } else {
+                LOG.error(errorMessage);
+            }
+            // show error dialog
+        });
+        sampleTask.stateProperty().addListener((observable, oldValue, newValue) -&gt; {
+            // you can use org.drombler.commons.fx.concurrent.WorkerUtils
+            // to easily check for finished states
+            if (WorkerUtils.getFinishedStates().contains(newValue)) {
+                // ! remove the task from the local context
+                contextContent.remove(sampleTask);
+            }
+        });
+        executorService.execute(sampleTask);
+    }
+
+    @Override
+    public Context getLocalContext() {
+        return context;
+    }</code></pre>
 </div>
 </div>
 </div>
@@ -556,7 +532,7 @@ to interact with actions such as the "Save" action)</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.11-SNAPSHOT<br>
-Last updated 2017-09-24 14:04:28 CEST
+Last updated 2018-01-03 21:34:11 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

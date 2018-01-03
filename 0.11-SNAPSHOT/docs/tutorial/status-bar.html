@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Context Framework</title>
+<title>Status Bar</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -417,24 +417,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 </style>
 </head>
-<body id="contextFramework" class="article toc2 toc-right">
+<body id="statusBar" class="article toc2 toc-right">
 <div id="header">
-<h1>Context Framework</h1>
+<h1>Status Bar</h1>
 <div class="details">
 <span id="revnumber">version 0.11-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_content_providers">1. Content Providers</a>
+<li><a href="#_activation">1. Activation</a></li>
+<li><a href="#_status_bar_element_registration">2. Status Bar Element Registration</a></li>
+<li><a href="#_context_sensitive_implementations">3. Context Sensitive Implementations</a></li>
+<li><a href="#_standard_status_bar_elements">4. Standard Status Bar Elements</a>
 <ul class="sectlevel2">
-<li><a href="#localContext">1.1. Local Context</a></li>
-</ul>
-</li>
-<li><a href="#_content_consumers">2. Content Consumers</a>
-<ul class="sectlevel2">
-<li><a href="#activeContext">2.1. Active Context</a></li>
-<li><a href="#applicationContext">2.2. Application Context</a></li>
+<li><a href="#_progress_monitor_status_bar_element">4.1. Progress Monitor Status Bar Element</a></li>
 </ul>
 </li>
 </ul>
@@ -444,110 +441,75 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <em>Context Framework</em> allows <em>Drombler FX</em> managed components such as <em>Dockable Panes</em> and <em>Actions</em> to communicate in a loosly coupled way - even across bundle boundaries.</p>
-</div>
-<div class="paragraph">
-<p>The basic abstraction is the
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/Context.html">org.drombler.commons.context.Context</a>
-interface. You can use it to look for instances of the specified type and listen for changes of its content.</p>
+<p>This section describes an initial version of a modular <em>Status Bar Framework</em>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_content_providers">1. Content Providers</h2>
+<h2 id="_activation">1. Activation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Content providers</em> provide their <em>local context</em> to the application framework.</p>
+<p>To enable the <em>Status Bar Framework</em> you need an <em>OSGi</em> service which provides an implementation of
+<a href="http://www.drombler.org/drombler-acp/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/status/spi/StatusBarElementContainerProvider.html">StatusBarElementContainerProvider</a>.</p>
 </div>
 <div class="paragraph">
-<p>Typical content providers are:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><em>Editor Dockable Panes</em> (the object to edit, custom implementations of <em>action command interfaces</em> such as
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/action/command/Savable.html">Savable</a>
-to interact with actions such as the "Save" action)</p>
-</li>
-<li>
-<p><em>View Dockable Panes</em> with a "current selection"</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="localContext">1.1. Local Context</h3>
-<div class="paragraph">
-<p>Each content provider only manages its own <em>local</em> context.</p>
-</div>
-<div class="paragraph">
-<p>They provide their local context to the application framework by implementing the
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/LocalContextProvider.html">LocalContextProvider</a> interface.</p>
-</div>
-<div class="paragraph">
-<p>To add content to a <em>Context</em> you need a mutable <em>Context</em> implementation such as:
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/SimpleContext.html">SimpleContext</a></p>
-</div>
+<p>If you&#8217;re using the <a href="application-layout.html#standardDesktopClassicLayout">Standard Desktop Classic Layout</a> an implementation based on
+<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/fx/scene/control/StatusBar.html">StatusBar</a>
+will be provided out-of-the-box.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_content_consumers">2. Content Consumers</h2>
+<h2 id="_status_bar_element_registration">2. Status Bar Element Registration</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Content consumers query a <em>Context</em> for some type and listen for changes in a <em>Context</em> content using a ContextListener.</p>
+<p>To register a subclass of <a href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html">Node</a> as a status bar element, just annotate it with
+<a href="http://www.drombler.org/drombler-acp/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/status/StatusBarElement.html">StatusBarElement</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@StatusBarElement(horizontalAlignment = HorizontalAlignment.CENTER, position = 20)
+public class SampleStatusBarElement extends BorderPane {</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Typical content consumers are:</p>
+<p>The status bar elements are sorted per
+<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/client/geometry/HorizontalAlignment.html">HorizontalAlignment</a> according to
+their positions.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><em>View Dockable Panes</em> (show some information about an object)</p>
-</li>
-<li>
-<p><em>Actions</em> (look for instances of their action command interface)</p>
-</li>
-<li>
-<p><em>Status Bar Elements</em> (reflect the current state of an object)</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Please note that it&#8217;s a best practice to leave some space between positions so that other modules have a chance to register other status bar elements where they like to.</p>
+</div>
+<div class="paragraph">
+<p>If two adjacent status bar elements are positioned in different thousand groups (e.g. <code>position = 910</code> and <code>position = 1120</code>), a
+<a href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Separator.html">Separator</a> gets automatically registered between them.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_context_sensitive_implementations">3. Context Sensitive Implementations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Most status bar elements will likely want to reflect some state in the application.
+You can use the <a href="context-framework.html#contextFramework">Context Framework</a> e.g. to listen for objects in the <a href="context-framework.html#activeContext">active</a> or in the
+<a href="context-framework.html#applicationContext">application-wide</a> context.</p>
+</div>
+<div class="paragraph">
+<p>The <em>Context Framework</em> allows you to design your modules in a loosely-coupled way.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_standard_status_bar_elements">4. Standard Status Bar Elements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Drombler FX provides some standard status bar elements out-of-the-box.</p>
 </div>
 <div class="sect2">
-<h3 id="activeContext">2.1. Active Context</h3>
+<h3 id="_progress_monitor_status_bar_element">4.1. Progress Monitor Status Bar Element</h3>
 <div class="paragraph">
-<p>The <em>Active Context</em> provides access to the content of the local <em>Context</em> of the currently active object (e.g. a <em>Dockable Pane</em>).</p>
-</div>
-<div class="paragraph">
-<p><em>Content consumers</em> interested in the <em>Active Context</em> can implement the following interface:
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/ActiveContextSensitive.html">ActiveContextSensitive</a></p>
-</div>
-<div class="paragraph">
-<p><em>Drombler FX</em> will inject the <em>Active Context</em> into managed components.</p>
-</div>
-<div class="paragraph">
-<p>Note: Don&#8217;t forget to listen for changes in the <em>Active Context</em> content using a ContextListener!</p>
-</div>
-<div class="paragraph">
-<p>See <a href="getting-started.html#gettingStarted">Getting Started</a> and <a href="actions-menus-toolbars.html#actionsMenusToolbars">Actions, Menus and Toolbars</a> for samples.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="applicationContext">2.2. Application Context</h3>
-<div class="paragraph">
-<p>The <em>Application-wide Context</em> provides access to the combined content of the local <em>Context</em> of all registered contexts (e.g. provided by open <em>Dockable Panes</em>).</p>
-</div>
-<div class="paragraph">
-<p><em>Content consumers</em>  interested in the <em>Application-wide Context</em> can implement the following interface:
-<a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/context/ApplicationContextSensitive.html">ApplicationContextSensitive</a></p>
-</div>
-<div class="paragraph">
-<p><em>Drombler FX</em> will inject the <em>Application Context</em> into managed components.</p>
-</div>
-<div class="paragraph">
-<p>Note: Don&#8217;t forget to listen for changes in the <em>Application Context</em> content using a ContextListener!</p>
-</div>
-<div class="paragraph">
-<p>See <a href="actions-menus-toolbars.html#actionsMenusToolbars">Actions, Menus and Toolbars</a> for a sample.</p>
+<p>Drombler FX provides a <em>Progress Monitor Status Bar Element</em> out of the box.
+Please see <a href="progress-monitor.html#activation">Progress Monitor Activation</a> for more information about how to activate this module.</p>
 </div>
 </div>
 </div>
@@ -556,7 +518,7 @@ to interact with actions such as the "Save" action)</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.11-SNAPSHOT<br>
-Last updated 2017-09-24 14:04:28 CEST
+Last updated 2017-09-08 21:57:28 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
