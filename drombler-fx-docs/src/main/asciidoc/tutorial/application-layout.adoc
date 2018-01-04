@@ -9,14 +9,46 @@ As there is no one-size-fits-all solution, the application layout is pluggable s
 implementation tailored to your needs. This allows you to get the most out of _Drombler FX_ and _JavaFX_.
 
 == Pluggable Application Layout
-org.drombler.fx.startup.main.MainSceneRootProvider
-org.drombler.fx.startup.main.ApplicationContentProvider
+There are two _OSGi_ service interfaces to customize the application layout:
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/MainSceneRootProvider.html[MainSceneRootProvider]
+and
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/ApplicationContentProvider.html[ApplicationContentProvider]
+
+You can provide a custom service implementation of one of these two service interfaces or of both according to your needs.
+
+The _MainSceneRootProvider_ service interface provides the root parent node of the main scene. This root parent node can define the basic application layout.
+To make such an application layout more reusable it's recommended to get the main application content from an _ApplicationContentProvider_.
+See <<standardDesktopClassicLayout,Standard Desktop Classic Layout>> for a sample.
+
+also consider to provide an ExitAction
+
+The _ApplicationContentProvider_ service interface provides the application content node. 
+An ApplicationContentProvider can be used by several _MainSceneRootProvider_ service implementations.
+See <<docking-framework.adoc#activation,Docking Framework>> for a sample
+
+also consider to provide service implementations for the following service interfaces:
+OnExitRequestHandler
+WindowOnCloseRequestHandlerProvider
+
+The distinction between _MainSceneRootProvider_ and _ApplicationContentProvider_ makes both of them more reusable, e.g.:
+
+ * if you like the _Standard Desktop Classic Layout_ but the _Docking Framework_ doesn't fit your needs: still use the _Standard Desktop Classic Layout_
+   but provide a custom implementation of the _ApplicationContentProvider_ service interface. It will be picked up by the _Standard Desktop Classic Layout_
+   automatically. (Omit the _Docking Framework_ dependencies!)
+ * if you like the _Docking Framework_ but you would prefer a different application layout: still use the _ApplicationContentProvider_ 
+   service implementation provided by the _Docking Framework_ but provide a custom implementation of the _MainSceneRootProvider_ service interface which 
+   also supports the _ApplicationContentProvider_ service interface.
+ * if neither the _Standard Desktop Classic Layout_ nor the _Docking Framework_ does fit your needs: at least provide a custom implementation of the _MainSceneRootProvider_ service interface.
+   To make the application layout more reusable provide the main application content with a custom _ApplicationContentProvider_ service implementation from a different OSGi bundle
+   but this is optional and not required.
 
 [[standardDesktopClassicLayout]]
 == Standard Desktop Classic Layout
-org.drombler.fx.core.action.FXMenuBarMenuContainer;
-org.drombler.fx.core.action.ToolBarContainerPane;
-org.drombler.fx.core.status.FXStatusBarElementContainer
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/FXMenuBarMenuContainer.html[FXMenuBarMenuContainer]
+
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/ToolBarContainerPane.html[ToolBarContainerPane]
+
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/status/FXStatusBarElementContainer.html[FXStatusBarElementContainer]
 
 Listens for ApplicationContentProvider (see Docking Framework)
 [source,xml]
