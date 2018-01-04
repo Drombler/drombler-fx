@@ -33,7 +33,7 @@ import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.commons.docking.fx.context.DockingPaneDockingAreaContainerAdapter;
-import org.drombler.fx.startup.main.ApplicationContentProvider;
+import org.drombler.fx.core.application.ApplicationContentProvider;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;

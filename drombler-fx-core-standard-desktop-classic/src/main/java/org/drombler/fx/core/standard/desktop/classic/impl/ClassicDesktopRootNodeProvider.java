@@ -15,7 +15,7 @@ import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 import org.drombler.acp.core.status.spi.StatusBarElementContainerProvider;
-import org.drombler.fx.startup.main.MainSceneRootProvider;
+import org.drombler.fx.core.application.MainSceneRootProvider;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;

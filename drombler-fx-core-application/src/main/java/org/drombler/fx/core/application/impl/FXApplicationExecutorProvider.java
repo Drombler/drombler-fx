@@ -12,15 +12,17 @@
  *
  * Contributor(s): .
  */
-package org.drombler.fx.startup.main.impl;
+package org.drombler.fx.core.application.impl;
 
 import java.util.concurrent.Executor;
-import org.drombler.acp.startup.main.ApplicationExecutorProvider;
+import org.drombler.acp.core.commons.util.concurrent.ApplicationExecutorProvider;
+import org.osgi.service.component.annotations.Component;
 
 /**
  *
  * @author puce
  */
+@Component
 public class FXApplicationExecutorProvider implements ApplicationExecutorProvider {
 
     private final Executor executor = new FXApplicationExecutor();

@@ -1,4 +1,4 @@
-package org.drombler.fx.startup.main;
+package org.drombler.fx.core.application;
 
 import javafx.scene.Parent;
 
