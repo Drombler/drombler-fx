@@ -426,18 +426,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_docking_areas">1. Docking Areas</a>
+<li><a href="#activation">1. Activation</a></li>
+<li><a href="#_docking_areas">2. Docking Areas</a>
 <ul class="sectlevel2">
-<li><a href="#_registering_docking_areas">1.1. Registering Docking Areas</a></li>
-<li><a href="#_standard_docking_areas_provided_by_drombler_fx">1.2. Standard Docking Areas provided by Drombler FX</a></li>
+<li><a href="#_registering_docking_areas">2.1. Registering Docking Areas</a></li>
+<li><a href="#_standard_docking_areas_provided_by_drombler_fx">2.2. Standard Docking Areas provided by Drombler FX</a></li>
 </ul>
 </li>
-<li><a href="#_dockable_panes">2. Dockable Panes</a>
+<li><a href="#_dockable_panes">3. Dockable Panes</a>
 <ul class="sectlevel2">
-<li><a href="#_view_dockable_panes">2.1. View Dockable Panes</a></li>
-<li><a href="#_editor_dockable_panes">2.2. Editor Dockable Panes</a></li>
-<li><a href="#_data_support">2.3. Data Support</a></li>
-<li><a href="#_samples">2.4. Samples</a></li>
+<li><a href="#_view_dockable_panes">3.1. View Dockable Panes</a></li>
+<li><a href="#_editor_dockable_panes">3.2. Editor Dockable Panes</a></li>
+<li><a href="#_data_support">3.3. Data Support</a></li>
+<li><a href="#_samples">3.4. Samples</a></li>
 </ul>
 </li>
 </ul>
@@ -452,14 +453,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_docking_areas">1. Docking Areas</h2>
+<h2 id="activation">1. Activation</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>&lt;dependency&gt;
+    &lt;!--  Provides JavaFX based implementations of the Docking Framework
+    You could omit this dependency as long as it is a transitive dependency.
+    (E.g. if you use a project such as drombler-scenedesigner-sample, which provides some DockingPanes) --&gt;
+    &lt;groupId&gt;org.drombler.fx&lt;/groupId&gt;
+    &lt;artifactId&gt;drombler-fx-core-docking&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="http://www.drombler.org/drombler-fx/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/fx/startup/main/ApplicationContentProvider.html">ApplicationContentProvider</a>
+such as <a href="application-layout.html#standardDesktopClassicLayout">Standard Desktop Classic Layout</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_docking_areas">2. Docking Areas</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <em>Docking Framework</em> splits up the content area into any number of <em>Docking Areas</em>. The <em>Docking Areas</em> can be resized using the dividers. Each <em>Docking Area</em> can hold any number of
 <em>Dockable Panes</em>, which are layed out as Tabs.</p>
 </div>
 <div class="sect2">
-<h3 id="_registering_docking_areas">1.1. Registering Docking Areas</h3>
+<h3 id="_registering_docking_areas">2.1. Registering Docking Areas</h3>
 <div class="paragraph">
 <p><em>Docking Areas</em> can be registered using the <a href="http://www.drombler.org/drombler-acp/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/DockingArea.html">@DockingArea</a> and
 <a href="http://www.drombler.org/drombler-acp/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/acp/core/docking/LayoutConstraints.html">@LayoutConstraints</a> annotations on a package (usually in
@@ -553,7 +575,7 @@ entries to allow other bundles to register entries between some existing ones.</
 </div>
 </div>
 <div class="sect2">
-<h3 id="_standard_docking_areas_provided_by_drombler_fx">1.2. Standard Docking Areas provided by Drombler FX</h3>
+<h3 id="_standard_docking_areas_provided_by_drombler_fx">2.2. Standard Docking Areas provided by Drombler FX</h3>
 <div class="paragraph">
 <p><em>Drombler FX</em> provides 5 <em>Docking Areas</em> out-of-the-box: <strong>left</strong>, <strong>right</strong>, <strong>top</strong>, <strong>bottom</strong> and <strong>editor</strong>.
 The left, right, top and bottom areas have been configured to be visible only if they contain any docked <em>Dockable Pane</em>. They have been configured as
@@ -628,7 +650,7 @@ import org.drombler.commons.docking.DockingAreaKind;</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_dockable_panes">2. Dockable Panes</h2>
+<h2 id="_dockable_panes">3. Dockable Panes</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In <em>Drombler FX</em> applications you don&#8217;t design the whole application window, as this is managed by <em>Drombler FX</em>. Instead you design <em>Dockable Panes</em>, which are docked as tabs to <em>Docking Areas</em>.</p>
@@ -640,7 +662,7 @@ import org.drombler.commons.docking.DockingAreaKind;</code></pre>
 <p>Currently, there are 2 kinds of <em>Dockable Panes</em>: views and editors.</p>
 </div>
 <div class="sect2">
-<h3 id="_view_dockable_panes">2.1. View Dockable Panes</h3>
+<h3 id="_view_dockable_panes">3.1. View Dockable Panes</h3>
 <div class="paragraph">
 <p><em>View Dockable Panes</em> are typically used to show or select some data.</p>
 </div>
@@ -748,7 +770,7 @@ this directory has been configured not to be filtered for variables.</p></td>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_editor_dockable_panes">2.2. Editor Dockable Panes</h3>
+<h3 id="_editor_dockable_panes">3.2. Editor Dockable Panes</h3>
 <div class="paragraph">
 <p><em>Editor Dockable Panes</em> are typically used to edit some data, e.g. in a form or a text editor.</p>
 </div>
@@ -790,7 +812,7 @@ public class DockableEditor extends GridPane {</code></pre>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_data_support">2.3. Data Support</h3>
+<h3 id="_data_support">3.3. Data Support</h3>
 <div class="paragraph">
 <p>The <em>Docking Framework</em> registers an implementation of
 <a href="http://www.drombler.org/drombler-commons/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/commons/data/DataCapabilityProvider.html">DataCapabilityProvider</a>
@@ -801,9 +823,9 @@ for the
 </div>
 </div>
 <div class="sect2">
-<h3 id="_samples">2.4. Samples</h3>
+<h3 id="_samples">3.4. Samples</h3>
 <div class="sect3">
-<h4 id="_view_sample">2.4.1. View Sample</h4>
+<h4 id="_view_sample">3.4.1. View Sample</h4>
 <div class="paragraph">
 <p>The sample code below shows a simple implementation of a <em>Dockable Pane</em> registered as a view:</p>
 </div>
@@ -881,7 +903,7 @@ be the parent type (here: "GridPane"):</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_more_samples">2.4.2. More Samples</h4>
+<h4 id="_more_samples">3.4.2. More Samples</h4>
 <div class="paragraph">
 <p>For more samples have a look at <a href="getting-started.html#gettingStarted">Getting Started</a>.</p>
 </div>
@@ -893,7 +915,7 @@ be the parent type (here: "GridPane"):</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.11-SNAPSHOT<br>
-Last updated 2017-01-11 21:42:43 CET
+Last updated 2018-01-03 22:55:19 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

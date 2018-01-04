@@ -447,8 +447,27 @@ implementation tailored to your needs. This allows you to get the most out of <e
 <h2 id="_pluggable_application_layout">1. Pluggable Application Layout</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>org.drombler.fx.startup.main.MainSceneRootProvider
-org.drombler.fx.startup.main.ApplicationContentProvider</p>
+<p>To enable the <em>Status Bar Framework</em> you need an <em>OSGi</em> service which provides an implementation of
+There are two <em>OSGi</em> service interfaces to customize the the application layout:
+<a href="http://www.drombler.org/drombler-fx/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/fx/startup/main/MainSceneRootProvider.html">MainSceneRootProvider</a>
+and
+<a href="http://www.drombler.org/drombler-fx/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/fx/startup/main/ApplicationContentProvider.html">ApplicationContentProvider</a></p>
+</div>
+<div class="paragraph">
+<p>You can provide a custom service implementation of one of these two service interfaces or of both according to your needs.</p>
+</div>
+<div class="paragraph">
+<p>The <em>MainSceneRootProvider</em> service interface provides the root parent node of the main scene. This root parent node can define the basic application layout.
+See <a href="#standardDesktopClassicLayout">Standard Desktop Classic Layout</a> for a sample.</p>
+</div>
+<div class="paragraph">
+<p>also consider to provide an ExitAction
+The <em>ApplicationContentProvider</em> service interface provides the application content node.</p>
+</div>
+<div class="paragraph">
+<p>also consider to provide service implementations for the following service interfaces:
+OnExitRequestHandler
+WindowOnCloseRequestHandlerProvider</p>
 </div>
 </div>
 </div>
@@ -456,9 +475,13 @@ org.drombler.fx.startup.main.ApplicationContentProvider</p>
 <h2 id="standardDesktopClassicLayout">2. Standard Desktop Classic Layout</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>org.drombler.fx.core.action.FXMenuBarMenuContainer;
-org.drombler.fx.core.action.ToolBarContainerPane;
-org.drombler.fx.core.status.FXStatusBarElementContainer</p>
+<p><a href="http://www.drombler.org/drombler-fx/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/fx/core/action/FXMenuBarMenuContainer.html">FXMenuBarMenuContainer</a></p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.drombler.org/drombler-fx/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/fx/core/action/ToolBarContainerPane.html">ToolBarContainerPane</a></p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.drombler.org/drombler-fx/0.11-SNAPSHOT/docs/site/apidocs/org/drombler/fx/core/status/FXStatusBarElementContainer.html">FXStatusBarElementContainer</a></p>
 </div>
 <div class="paragraph">
 <p>Listens for ApplicationContentProvider (see Docking Framework)</p>
@@ -478,7 +501,7 @@ org.drombler.fx.core.status.FXStatusBarElementContainer</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.11-SNAPSHOT<br>
-Last updated 2017-09-24 14:04:28 CEST
+Last updated 2018-01-04 00:18:08 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
