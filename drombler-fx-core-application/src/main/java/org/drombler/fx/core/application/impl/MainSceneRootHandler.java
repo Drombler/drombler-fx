@@ -18,7 +18,7 @@ import java.util.concurrent.Executor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.drombler.acp.core.commons.util.concurrent.ApplicationExecutorProvider;
+import org.drombler.acp.core.commons.util.concurrent.ApplicationThreadExecutorProvider;
 import org.drombler.acp.startup.main.MainWindowProvider;
 import org.drombler.fx.core.application.MainSceneRootProvider;
 import org.osgi.service.component.ComponentContext;
@@ -45,7 +45,7 @@ public class MainSceneRootHandler {
     private MainSceneRootProvider mainSceneRootProvider;
 
     @Reference
-    private ApplicationExecutorProvider applicationExecutorProvider;
+    private ApplicationThreadExecutorProvider applicationThreadExecutorProvider;
     private Parent oldRoot = null;
 
 
@@ -75,7 +75,7 @@ public class MainSceneRootHandler {
     }
 
     private Executor getApplicationExecutor() {
-        return applicationExecutorProvider.getApplicationExecutor();
+        return applicationThreadExecutorProvider.getApplicationThreadExecutor();
     }
 
 }

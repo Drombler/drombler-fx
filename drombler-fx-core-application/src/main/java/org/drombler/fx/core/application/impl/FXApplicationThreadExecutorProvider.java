@@ -15,17 +15,21 @@
 package org.drombler.fx.core.application.impl;
 
 import java.util.concurrent.Executor;
-import org.drombler.commons.fx.application.PlatformUtils;
-
+import org.drombler.acp.core.commons.util.concurrent.ApplicationThreadExecutorProvider;
+import org.drombler.commons.fx.concurrent.FXApplicationThreadExecutor;
+import org.osgi.service.component.annotations.Component;
 
 /**
  *
  * @author puce
  */
-public class FXApplicationExecutor implements Executor {
+@Component
+public class FXApplicationThreadExecutorProvider implements ApplicationThreadExecutorProvider {
+
+    private final Executor executor = new FXApplicationThreadExecutor();
 
     @Override
-    public void execute(Runnable command) {
-        PlatformUtils.runOnFxApplicationThread(command);
+    public Executor getApplicationThreadExecutor() {
+        return executor;
     }
 }

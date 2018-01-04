@@ -15,8 +15,8 @@
 package org.drombler.fx.core.application.impl;
 
 import javafx.stage.Stage;
+import org.drombler.acp.core.commons.util.concurrent.ApplicationThreadExecutorProvider;
 import org.drombler.acp.startup.main.AdditionalArgumentsProvider;
-import org.drombler.acp.core.commons.util.concurrent.ApplicationExecutorProvider;
 import org.drombler.acp.startup.main.MainWindowProvider;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -37,7 +37,7 @@ public class AdditionalArgumentsProviderHandler {
     @Reference
     private MainWindowProvider<Stage> mainWindowProvider;
     @Reference
-    private ApplicationExecutorProvider applicationExecutorProvider;
+    private ApplicationThreadExecutorProvider applicationThreadExecutorProvider;
 
     @Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
     public void bindAdditionalArgumentsProvider(AdditionalArgumentsProvider additionalArgumentsProvider) {
@@ -49,12 +49,12 @@ public class AdditionalArgumentsProviderHandler {
     }
 
     private boolean isInitialized() {
-        return mainWindowProvider != null && applicationExecutorProvider != null;
+        return mainWindowProvider != null && applicationThreadExecutorProvider != null;
     }
 
     private void mainWindowToFront() {
         if (isInitialized()) {
-            applicationExecutorProvider.getApplicationExecutor().execute(() -> {
+            applicationThreadExecutorProvider.getApplicationThreadExecutor().execute(() -> {
                 mainWindowProvider.getMainWindow().toFront();
                 LOG.debug("Called mainWindow.toFront()!");
             });
