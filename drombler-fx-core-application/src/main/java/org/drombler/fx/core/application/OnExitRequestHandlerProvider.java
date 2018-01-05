@@ -14,21 +14,19 @@
  */
 package org.drombler.fx.core.application;
 
-import javafx.event.EventHandler;
-import javafx.stage.WindowEvent;
+import org.drombler.commons.fx.stage.OnExitRequestHandler;
 
 /**
- * A service interface for a window on close request handler provider. It provides an {@link EventHandler} for window on close request events.
+ * A service interface for an on application exit request handler.
  *
  * @author puce
  */
-public interface WindowOnCloseRequestHandlerProvider {
+public interface OnExitRequestHandlerProvider {
 
     /**
-     * Gets a window on close request event handler.
+     * Handles application exit requests.
      *
-     * @return a window on close request event handler. The request can be vetoed by consuming the {@link WindowEvent}.
-     * @see WindowEvent#consume()
+     * @return true, if the application can exit, false if the request is vetoed.
      */
-    EventHandler<WindowEvent> getWindowOnCloseRequestHandler();
+    OnExitRequestHandler getOnExitRequestHandler();
 }

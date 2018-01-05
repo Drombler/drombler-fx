@@ -20,7 +20,7 @@ import javafx.event.EventHandler;
 import org.drombler.acp.core.action.Action;
 import org.drombler.acp.core.action.MenuEntry;
 import org.drombler.acp.core.commons.util.SimpleServiceTrackerCustomizer;
-import org.drombler.fx.core.application.OnExitRequestHandler;
+import org.drombler.fx.core.application.OnExitRequestHandlerProvider;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
@@ -31,18 +31,18 @@ import org.osgi.util.tracker.ServiceTracker;
 @MenuEntry(path = "File", position = 9900)
 public class ExitAction implements EventHandler<ActionEvent>, AutoCloseable {
 
-    private final ServiceTracker<OnExitRequestHandler, OnExitRequestHandler> onExitRequestHandlerServiceTracker;
-    private OnExitRequestHandler onExitRequestHandler;
+    private final ServiceTracker<OnExitRequestHandlerProvider, OnExitRequestHandlerProvider> onExitRequestHandlerProviderServiceTracker;
+    private OnExitRequestHandlerProvider onExitRequestHandlerProvider;
 
     public ExitAction() {
-        this.onExitRequestHandlerServiceTracker = SimpleServiceTrackerCustomizer.createServiceTracker(OnExitRequestHandler.class, this::setOnExitRequestHandler);
-        this.onExitRequestHandlerServiceTracker.open(true);
+        this.onExitRequestHandlerProviderServiceTracker = SimpleServiceTrackerCustomizer.createServiceTracker(OnExitRequestHandlerProvider.class, this::setOnExitRequestHandlerProvider);
+        this.onExitRequestHandlerProviderServiceTracker.open(true);
     }
 
     @Override
     public void handle(ActionEvent t) {
-        if (onExitRequestHandler != null) {
-            if (onExitRequestHandler.handleExitRequest()) {
+        if (onExitRequestHandlerProvider != null) {
+            if (onExitRequestHandlerProvider.getOnExitRequestHandler().handleExitRequest()) {
                 Platform.exit();
             }
         } else {
@@ -50,12 +50,12 @@ public class ExitAction implements EventHandler<ActionEvent>, AutoCloseable {
         }
     }
 
-    private void setOnExitRequestHandler(OnExitRequestHandler onExitRequestHandler) {
-        this.onExitRequestHandler = onExitRequestHandler;
+    private void setOnExitRequestHandlerProvider(OnExitRequestHandlerProvider onExitRequestHandlerProvider) {
+        this.onExitRequestHandlerProvider = onExitRequestHandlerProvider;
     }
 
     @Override
     public void close() {
-        onExitRequestHandlerServiceTracker.close();
+        onExitRequestHandlerProviderServiceTracker.close();
     }
 }
