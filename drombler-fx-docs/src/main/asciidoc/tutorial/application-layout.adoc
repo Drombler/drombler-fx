@@ -27,8 +27,10 @@ An ApplicationContentProvider can be used by several _MainSceneRootProvider_ ser
 See <<docking-framework.adoc#activation,Docking Framework>> for a sample
 
 also consider to provide service implementations for the following service interfaces:
-OnExitRequestHandler
-WindowOnCloseRequestHandlerProvider
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/OnExitRequestHandler.html[OnExitRequestHandler]
+and
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/WindowOnCloseRequestHandlerProvider.html[WindowOnCloseRequestHandlerProvider]
+e.g. to make sure the users of your application don't loose accidentally any unsaved data.
 
 The distinction between _MainSceneRootProvider_ and _ApplicationContentProvider_ makes both of them more reusable, e.g.:
 

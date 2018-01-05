@@ -32,6 +32,7 @@ As an application framework it makes sure _JavaFX_ and _OSGi_ will get started p
  * <<docking-framework.adoc#dockingFramework,Docking Framework>>
  * <<context-framework.adoc#contextFramework,Context Framework>>
  * <<status-bar.adoc#statusBar,Status Bar>>
+ * <<progress-monitor.adoc#progressMonitor,Progress Monitor>>
  * <<application-layout.adoc#applicationLayout,Application Layout>>
  * <<single-instance-application.adoc#singleInstanceApplication,Single Instance Application>>
  * <<localization.adoc#localization,Localization>>

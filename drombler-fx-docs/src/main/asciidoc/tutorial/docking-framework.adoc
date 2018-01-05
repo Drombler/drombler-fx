@@ -5,6 +5,20 @@
 
 This section describes an initial version of a _Docking Framework_.
 
+[[activation]]
+== Activation
+        <dependency>
+            <!--  Provides JavaFX based implementations of the Docking Framework 
+            You could omit this dependency as long as it is a transitive dependency. 
+            (E.g. if you use a project such as drombler-scenedesigner-sample, which provides some DockingPanes) -->
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-docking</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/ApplicationContentProvider.html[ApplicationContentProvider]
+such as <<application-layout.adoc#standardDesktopClassicLayout,Standard Desktop Classic Layout>>
+
 == Docking Areas
 
 The _Docking Framework_ splits up the content area into any number of _Docking Areas_. The _Docking Areas_ can be resized using the dividers. Each _Docking Area_ can hold any number of 
