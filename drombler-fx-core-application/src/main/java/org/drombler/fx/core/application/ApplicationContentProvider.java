@@ -17,10 +17,14 @@ package org.drombler.fx.core.application;
 import javafx.scene.Node;
 
 /**
- *
- * @author puce
+ * The ApplicationContentProvider service interface provides the application content node. An ApplicationContentProvider can be used by several {@link  MainSceneRootProvider} service implementations.
  */
 public interface ApplicationContentProvider {
 
+    /**
+     * Gets the application content node.
+     *
+     * @return the application content node
+     */
     Node getContentPane();
 }
