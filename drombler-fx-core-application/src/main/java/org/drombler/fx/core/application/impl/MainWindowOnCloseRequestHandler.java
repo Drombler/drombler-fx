@@ -29,7 +29,7 @@ public class MainWindowOnCloseRequestHandler {
 
     @Activate
     protected void activate(ComponentContext context) {
-        this.onCloseRequestEventHandler = OnExitRequestHandler.createOnCloseRequestEventHandler(onExitRequestHandlerProvider.getOnExitRequestHandler());
+        this.onCloseRequestEventHandler = OnExitRequestHandler.createOnWindowCloseRequestEventHandler(onExitRequestHandlerProvider.getOnExitRequestHandler());
         mainWindowProvider.getMainWindow().setOnCloseRequest(onCloseRequestEventHandler);
     }
 
