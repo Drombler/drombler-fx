@@ -14,8 +14,6 @@ http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/
 and
 http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/ApplicationContentProvider.html[ApplicationContentProvider]
 
-You can provide a custom service implementation of one of these two service interfaces or of both according to your needs.
-
 The _MainSceneRootProvider_ service interface provides the root parent node of the main scene. This root parent node can define the basic application layout.
 To make such an application layout more reusable it's recommended to get the main application content from an _ApplicationContentProvider_.
 See <<standardDesktopClassicLayout,Standard Desktop Classic Layout>> for a sample.
@@ -27,9 +25,7 @@ An ApplicationContentProvider can be used by several _MainSceneRootProvider_ ser
 See <<docking-framework.adoc#activation,Docking Framework>> for a sample
 
 also consider to provide service implementations for the following service interfaces:
-http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/OnExitRequestHandler.html[OnExitRequestHandler]
-and
-http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/WindowOnCloseRequestHandlerProvider.html[WindowOnCloseRequestHandlerProvider]
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/OnExitRequestHandlerProvider.html[OnExitRequestHandlerProvider]
 e.g. to make sure the users of your application don't loose accidentally any unsaved data.
 
 The distinction between _MainSceneRootProvider_ and _ApplicationContentProvider_ makes both of them more reusable, e.g.:
