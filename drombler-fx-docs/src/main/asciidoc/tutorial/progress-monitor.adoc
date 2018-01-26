@@ -9,6 +9,16 @@ _Drombler FX_ provides out-of-the-box support for monitoring long-running
 http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker]s by integrating a progress monitor in 
 the <<status-bar.adoc#statusBar,Status Bar>>.
 
+image::progressmonitor/progress-monitor.png[caption="Image 1: ", title="ProgressMonitor", alt="ProgressMonitor", link="{imagesdir}/progressmonitor/progress-monitor.png"]
+[%hardbreaks]
+[[[1]]] a label bound to http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#titleProperty[Worker#titleProperty]
+[[[2]]] a label bound to http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#messageProperty[Worker#messageProperty]
+[[[3]]] a progress bar bound to http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#progressProperty[Worker#progressProperty]
+[[[4]]] a button to execute http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#cancel--[Worker#cancel]
+[[[5]]] an indicator if there are additional workers being monitored
+[[[6]]] a popup showing all monitored workers
+
+
 This feature is optional and must be activated if required.
 
 [[activation]]
@@ -36,3 +46,5 @@ the <<context-framework.adoc#localContext,local context>> of a _Dromber FX_ mana
 ----
 include::{sourcedir}/tutorial/progressmonitor/WorkerProvider.java[lines=14..60]
 ----
+
+The <<context-framework.adoc#contextFramework,Context Framework>> allows a loose coupling between the _progress monitor_ and other Drombler managed components.
