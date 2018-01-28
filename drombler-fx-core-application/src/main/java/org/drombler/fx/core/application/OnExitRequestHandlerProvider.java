@@ -8,23 +8,23 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (GitHub user: puce77).
- * Copyright 2016 Drombler.org. All Rights Reserved.
+ * Copyright 2018 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
 package org.drombler.fx.core.application;
 
+import org.drombler.commons.fx.stage.OnExitRequestHandler;
+
 /**
- * A service interface for an on application exit request handler.
- *
- * @author puce
+ * A service interface for {@link OnExitRequestHandler} providers.
  */
-public interface OnExitRequestHandler {
+public interface OnExitRequestHandlerProvider {
 
     /**
-     * Handles application exit requests.
+     * Gets an {@link OnExitRequestHandler}.
      *
-     * @return true, if the application can exit, false if the request is vetoed.
+     * @return an {@link OnExitRequestHandler}
      */
-    boolean handleExitRequest();
+    OnExitRequestHandler getOnExitRequestHandler();
 }

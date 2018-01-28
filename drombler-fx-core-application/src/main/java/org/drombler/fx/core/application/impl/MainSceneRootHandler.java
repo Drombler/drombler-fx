@@ -18,14 +18,14 @@ import java.util.concurrent.Executor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
-import org.drombler.acp.startup.main.ApplicationExecutorProvider;
+import org.drombler.acp.core.commons.util.concurrent.ApplicationThreadExecutorProvider;
 import org.drombler.acp.startup.main.MainWindowProvider;
-import org.drombler.fx.startup.main.MainSceneRootProvider;
+import org.drombler.fx.core.application.MainSceneRootProvider;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,32 +45,9 @@ public class MainSceneRootHandler {
     private MainSceneRootProvider mainSceneRootProvider;
 
     @Reference
-    private ApplicationExecutorProvider applicationExecutorProvider;
+    private ApplicationThreadExecutorProvider applicationThreadExecutorProvider;
     private Parent oldRoot = null;
 
-    protected void bindMainWindowProvider(MainWindowProvider<Stage> mainWindowProvider) {
-        this.mainWindowProvider = mainWindowProvider;
-    }
-
-    protected void unbindMainWindowProvider(MainWindowProvider<Stage> mainWindowProvider) {
-
-    }
-
-    protected void bindMainSceneRootProvider(MainSceneRootProvider mainSceneRootProvider) {
-        this.mainSceneRootProvider = mainSceneRootProvider;
-    }
-
-    protected void unbindMainSceneRootProvider(MainSceneRootProvider mainSceneRootHandler) {
-        this.mainSceneRootProvider = null;
-    }
-
-    protected void bindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
-        this.applicationExecutorProvider = applicationExecutorProvider;
-    }
-
-    protected void unbindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
-        this.applicationExecutorProvider = null;
-    }
 
     @Activate
     protected void activate(ComponentContext context) {
@@ -98,7 +75,7 @@ public class MainSceneRootHandler {
     }
 
     private Executor getApplicationExecutor() {
-        return applicationExecutorProvider.getApplicationExecutor();
+        return applicationThreadExecutorProvider.getApplicationThreadExecutor();
     }
 
 }

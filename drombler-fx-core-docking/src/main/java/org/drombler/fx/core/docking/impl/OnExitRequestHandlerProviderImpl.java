@@ -9,8 +9,9 @@ import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.docking.spi.DockingAreaContainerProvider;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
-import org.drombler.commons.docking.fx.context.WindowOnCloseRequestHandler;
-import org.drombler.fx.core.application.OnExitRequestHandler;
+import org.drombler.commons.docking.fx.context.DockingOnExitRequestHandler;
+import org.drombler.commons.fx.stage.OnExitRequestHandler;
+import org.drombler.fx.core.application.OnExitRequestHandlerProvider;
 import org.osgi.service.component.ComponentContext;
 
 /**
@@ -19,9 +20,9 @@ import org.osgi.service.component.ComponentContext;
  */
 @Component
 @Service
-public class OnExitRequestHandlerImpl implements OnExitRequestHandler {
+public class OnExitRequestHandlerProviderImpl implements OnExitRequestHandlerProvider {
 
-    private WindowOnCloseRequestHandler windowOnCloseRequestHandler;
+    private DockingOnExitRequestHandler windowOnCloseRequestHandler;
 
     @Reference
     private DockingAreaContainerProvider<Node, FXDockableData, FXDockableEntry> dockingAreaContainerProvider;
@@ -36,7 +37,7 @@ public class OnExitRequestHandlerImpl implements OnExitRequestHandler {
 
     @Activate
     protected void activate(ComponentContext context) {
-        windowOnCloseRequestHandler = new WindowOnCloseRequestHandler(dockingAreaContainerProvider.getDockingAreaContainer());
+        windowOnCloseRequestHandler = new DockingOnExitRequestHandler(dockingAreaContainerProvider.getDockingAreaContainer());
     }
 
     @Deactivate
@@ -44,10 +45,9 @@ public class OnExitRequestHandlerImpl implements OnExitRequestHandler {
         windowOnCloseRequestHandler = null;
     }
 
-
     @Override
-    public boolean handleExitRequest() {
-        return windowOnCloseRequestHandler.handleModifiedDockables();
+    public OnExitRequestHandler getOnExitRequestHandler() {
+        return windowOnCloseRequestHandler;
     }
 
 }

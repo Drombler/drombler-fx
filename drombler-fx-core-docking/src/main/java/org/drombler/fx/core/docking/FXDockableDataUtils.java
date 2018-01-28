@@ -43,7 +43,7 @@ public final class FXDockableDataUtils {
      * @param dockableData the dockable data
      * @param dataHandler the data handler
      */
-    public static void configureDockableData(FXDockableData dockableData, AbstractDocumentHandler dataHandler) {
+    public static void configureDockableData(FXDockableData dockableData, DataHandler<?> dataHandler) {
         configureDockableData(dockableData, dataHandler, "Untitled");
     }
 
@@ -54,7 +54,7 @@ public final class FXDockableDataUtils {
      * @param dataHandler the data handler
      * @param defaultTitlePrefix the default title prefix
      */
-    public static void configureDockableData(FXDockableData dockableData, AbstractDocumentHandler dataHandler, String defaultTitlePrefix) {
+    public static void configureDockableData(FXDockableData dockableData, DataHandler<?> dataHandler, String defaultTitlePrefix) {
         if (dataHandler.getUniqueKey() != null) {
             configureDockableDataFromExistingDocument(dockableData, dataHandler);
         } else {

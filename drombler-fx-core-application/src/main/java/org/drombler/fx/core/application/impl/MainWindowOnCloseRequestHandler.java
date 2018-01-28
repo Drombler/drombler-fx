@@ -1,13 +1,16 @@
 package org.drombler.fx.core.application.impl;
 
-import org.drombler.fx.core.application.WindowOnCloseRequestHandlerProvider;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
+import javafx.stage.WindowEvent;
 import org.drombler.acp.startup.main.MainWindowProvider;
+import org.drombler.commons.fx.stage.OnExitRequestHandler;
+import org.drombler.fx.core.application.OnExitRequestHandlerProvider;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  *
@@ -20,32 +23,20 @@ public class MainWindowOnCloseRequestHandler {
     private MainWindowProvider<Stage> mainWindowProvider;
 
     @Reference
-    private WindowOnCloseRequestHandlerProvider windowOnCloseRequestHandlerProvider;
+    private OnExitRequestHandlerProvider onExitRequestHandlerProvider;
 
-    protected void bindMainWindowProvider(MainWindowProvider<Stage> mainWindowProvider) {
-        this.mainWindowProvider = mainWindowProvider;
-    }
-
-    protected void unbindMainWindowProvider(MainWindowProvider<Stage> mainWindowProvider) {
-        this.mainWindowProvider = null;
-    }
-
-    protected void bindWindowOnCloseRequestHandlerProvider(WindowOnCloseRequestHandlerProvider windowOnCloseRequestHandlerProvider) {
-        this.windowOnCloseRequestHandlerProvider = windowOnCloseRequestHandlerProvider;
-    }
-
-    protected void unbindWindowOnCloseRequestHandlerProvider(WindowOnCloseRequestHandlerProvider windowOnCloseRequestHandlerProvider) {
-        this.windowOnCloseRequestHandlerProvider = null;
-    }
+    private EventHandler<WindowEvent> onCloseRequestEventHandler;
 
     @Activate
     protected void activate(ComponentContext context) {
-        mainWindowProvider.getMainWindow().setOnCloseRequest(windowOnCloseRequestHandlerProvider.getWindowOnCloseRequestHandler());
+        this.onCloseRequestEventHandler = OnExitRequestHandler.createOnWindowCloseRequestEventHandler(onExitRequestHandlerProvider.getOnExitRequestHandler());
+        mainWindowProvider.getMainWindow().setOnCloseRequest(onCloseRequestEventHandler);
     }
 
     @Deactivate
     protected void deactivate(ComponentContext context) {
         mainWindowProvider.getMainWindow().setOnCloseRequest(null);
+        this.onCloseRequestEventHandler = null;
     }
 
 }

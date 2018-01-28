@@ -15,16 +15,13 @@
 package org.drombler.fx.core.application.impl;
 
 import javafx.stage.Stage;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.ReferenceCardinality;
-import org.apache.felix.scr.annotations.ReferencePolicy;
+import org.drombler.acp.core.commons.util.concurrent.ApplicationThreadExecutorProvider;
 import org.drombler.acp.startup.main.AdditionalArgumentsProvider;
-import org.drombler.acp.startup.main.ApplicationExecutorProvider;
 import org.drombler.acp.startup.main.MainWindowProvider;
-import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,8 +30,6 @@ import org.slf4j.LoggerFactory;
  * @author puce
  */
 @Component(immediate = true)
-@Reference(name = "additionalArgumentsProvider", referenceInterface = AdditionalArgumentsProvider.class,
-        cardinality = ReferenceCardinality.OPTIONAL_MULTIPLE, policy = ReferencePolicy.DYNAMIC)
 public class AdditionalArgumentsProviderHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdditionalArgumentsProviderHandler.class);
@@ -42,49 +37,24 @@ public class AdditionalArgumentsProviderHandler {
     @Reference
     private MainWindowProvider<Stage> mainWindowProvider;
     @Reference
-    private ApplicationExecutorProvider applicationExecutorProvider;
+    private ApplicationThreadExecutorProvider applicationThreadExecutorProvider;
 
-    protected void bindAdditionalArgumentsProvider(AdditionalArgumentsProvider additionalArgumentsProvider) {
+    @Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
+    public void bindAdditionalArgumentsProvider(AdditionalArgumentsProvider additionalArgumentsProvider) {
         mainWindowToFront();
     }
 
-    protected void unbindAdditionalArgumentsProvider(AdditionalArgumentsProvider additionalArgumentsProvider) {
+    public void unbindAdditionalArgumentsProvider(AdditionalArgumentsProvider additionalArgumentsProvider) {
         // TODO
     }
 
-    protected void bindMainWindowProvider(MainWindowProvider<Stage> mainWindowProvider) {
-        this.mainWindowProvider = mainWindowProvider;
-    }
-
-    protected void unbindMainWindowProvider(MainWindowProvider<Stage> mainWindowProvider) {
-        this.mainWindowProvider = null;
-    }
-
-    protected void bindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
-        this.applicationExecutorProvider = applicationExecutorProvider;
-    }
-
-    protected void unbindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
-        this.applicationExecutorProvider = null;
-    }
-
-    @Activate
-    protected void activate(ComponentContext context) {
-
-    }
-
-    @Deactivate
-    protected void deactivate(ComponentContext context) {
-
-    }
-
     private boolean isInitialized() {
-        return mainWindowProvider != null && applicationExecutorProvider != null;
+        return mainWindowProvider != null && applicationThreadExecutorProvider != null;
     }
 
     private void mainWindowToFront() {
         if (isInitialized()) {
-            applicationExecutorProvider.getApplicationExecutor().execute(() -> {
+            applicationThreadExecutorProvider.getApplicationThreadExecutor().execute(() -> {
                 mainWindowProvider.getMainWindow().toFront();
                 LOG.debug("Called mainWindow.toFront()!");
             });

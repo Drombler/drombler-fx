@@ -5,6 +5,26 @@
 
 This section describes an initial version of a _Docking Framework_.
 
+[[activation]]
+== Activation
+To activate the Docking Framework in your application add the following runtime dependency:
+
+[source,xml]
+----
+        <dependency>
+            <!--  Provides JavaFX based implementations of the Docking Framework 
+            You could omit this dependency as long as it is a transitive dependency. -->
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-docking</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+----
+
+This dependency will provide an 
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/ApplicationContentProvider.html[ApplicationContentProvider]
+So in addition to this dependency you need an <<application-layout.adoc#applicationLayout,Application Layout>>, which supports the ApplicationContentProvider service interface
+such as <<application-layout.adoc#standardDesktopClassicLayout,Standard Desktop Classic Layout>>
+
 == Docking Areas
 
 The _Docking Framework_ splits up the content area into any number of _Docking Areas_. The _Docking Areas_ can be resized using the dividers. Each _Docking Area_ can hold any number of 
