@@ -220,7 +220,7 @@ property:
 *toggleGroupId*: if present, only one toolbar button of the same toggle group can be selected, else any number of 
 toolbar buttons may be selected.
 
-
+[[menus]]
 === Register Menus and Sub-Menus
 
 Menus and sub-menus can be registered using the @Menu annotation on a package (in package-info.java):
@@ -247,10 +247,10 @@ bar.
 Note: If the displayName contains an underscore ('_'), the following character is the mnemonic character of this menu.
 
 
+[[toolBars]]
+=== Register Tool Bars
 
-=== Register Toolbars
-
-Toolbars can be registered using the @ToolBar annotation on a package (in package-info.java):
+Tool bars can be registered using the @ToolBar annotation on a package (in package-info.java):
 
 [source,java]
 ----

@@ -42,11 +42,19 @@ The distinction between _MainSceneRootProvider_ and _ApplicationContentProvider_
 
 [[standardDesktopClassicLayout]]
 == Standard Desktop Classic Layout
-http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/FXMenuBarMenuContainer.html[FXMenuBarMenuContainer]
 
-http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/ToolBarContainerPane.html[ToolBarContainerPane]
 
-http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/status/FXStatusBarElementContainer.html[FXStatusBarElementContainer]
+image::layout/standard-desktop-classic-layout.png[caption="Image 1: ", title="Standard Desktop Classic Layout", alt="Standard Desktop Classic Layout", link="{imagesdir}/layout/standard-desktop-classic-layout.png"]
+[%hardbreaks]
+[[[1]]] A http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/FXMenuBarMenuContainer.html[FXMenuBarMenuContainer], which provides integration 
+with the _Action Framework_. 
+See the <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> trail for more information on how to <<actions-menus-toolbars.adoc#menus,register menus>>.
+[[[2]]] A http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/ToolBarContainerPane.html[ToolBarContainerPane] which can contain multiple tool bars. See
+the <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> trail for more information on how to <<actions-menus-toolbars.adoc#toolBars,register tool bars>>.
+[[[3]]] 
+[[[4]]] A http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/status/FXStatusBarElementContainer.html[FXStatusBarElementContainer], which provides integration
+with the _Status Bar Framework_. See the <<status-bar.adoc#statusBar,Status Bar>> trail for more information.
+
 
 Listens for ApplicationContentProvider (see Docking Framework)
 [source,xml]

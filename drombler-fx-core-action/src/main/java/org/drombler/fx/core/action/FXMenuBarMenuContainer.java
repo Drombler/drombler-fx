@@ -14,19 +14,19 @@
  */
 package org.drombler.fx.core.action;
 
-import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import org.drombler.acp.core.action.PositionSortingStrategy;
 import org.drombler.acp.core.action.PositionableMenuItemAdapterFactory;
-import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
+import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
+import org.drombler.acp.core.action.spi.MenuItemRootContainer;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
+import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 
 /**
- *
- * @author puce
+ * A JavaFX specific implementation of {@link MenuItemRootContainer} based on the JavaFX {@link MenuBar}.
  */
 public class FXMenuBarMenuContainer extends AbstractMenuItemRootContainer<MenuItem, Menu, PositionableMenuItemAdapterFactory<MenuItem>> {
 
