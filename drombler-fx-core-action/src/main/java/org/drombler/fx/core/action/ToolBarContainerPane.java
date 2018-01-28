@@ -16,6 +16,7 @@ package org.drombler.fx.core.action;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,8 +33,7 @@ import org.softsmithy.lib.util.PositionableAdapter;
 import org.softsmithy.lib.util.Positionables;
 
 /**
- *
- * @author puce
+ * A JavaFX specific implementation of the {@link ToolBarContainer} service provider interface.
  */
 public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolBar, Node> {
 
@@ -44,6 +44,9 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
             new ArrayList<>()); // TODO: synchronized needed?
     private final ConcurrentMap<String, List<ToolBarContainerListener<ToolBar, Node>>> containerListenerMap = new ConcurrentHashMap<>(); // TODO: synchronized needed?
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void addToolBar(final String toolBarId, final PositionableAdapter<ToolBar> toolBarAdapter) {
         toolBarsMap.put(toolBarId, toolBarAdapter);
@@ -52,6 +55,22 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
             positionToolBar(toolBarAdapter);
         }
         fireToolBarAddedEvent(toolBarAdapter, toolBarId);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public PositionableAdapter<ToolBar> removeToolBar(final String toolBarId) {
+        if (toolBarsMap.containsKey(toolBarId)) {
+            PositionableAdapter<ToolBar> positionableToolBar = toolBarsMap.remove(toolBarId);
+            toolBars.remove(positionableToolBar);
+            toolBarButtonsMap.remove(toolBarId);
+            fireToolBarRemovedEvent(positionableToolBar, toolBarId);
+            return positionableToolBar;
+        } else {
+            return null;
+        }
     }
 
     private void positionToolBar(PositionableAdapter<ToolBar> toolBarAdapter) {
@@ -95,6 +114,9 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
 //        button.setDisable(true);
 //        return button;
 //    }
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean containsToolBar(String toolBarId) {
         return toolBarsMap.containsKey(toolBarId);
@@ -112,6 +134,9 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void addToolBarButton(final String toolBarId, final PositionableAdapter<? extends Node> toolBarButtonAdapter) {
         List<PositionableAdapter<? extends Node>> toolBarButtons = toolBarButtonsMap.get(toolBarId);
@@ -122,11 +147,44 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
         fireToolBarButtonAddedEvent(toolBarButtonAdapter, toolBarId);
     }
 
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public PositionableAdapter<? extends Node> removeToolBarButton(final String toolBarId, Node toolBarButton) {
+        PositionableAdapter<? extends Node> toolBarButtonAdapter = removePositionableToolBarButton(toolBarId, toolBarButton);
+        if (toolBarButtonAdapter != null) {
+            ToolBar toolBar = toolBarsMap.get(toolBarId).getAdapted();
+            toolBar.getItems().remove(toolBarButton);
+            fireToolBarButtonRemovedEvent(toolBarButtonAdapter, toolBarId);
+            return toolBarButtonAdapter;
+        } else {
+            return null;
+        }
+    }
+
+    private PositionableAdapter<? extends Node> removePositionableToolBarButton(final String toolBarId, Node toolBarButton) {
+        for (Iterator<PositionableAdapter<? extends Node>> iterator = toolBarButtonsMap.get(toolBarId).iterator(); iterator.hasNext();) {
+            PositionableAdapter<? extends Node> toolBarButtonAdapter = iterator.next();
+            if (toolBarButtonAdapter.getAdapted().equals(toolBarButton)) {
+                iterator.remove();
+                return toolBarButtonAdapter;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean isToolBarVisible(String toolBarId) {
         return toolBarsMap.get(toolBarId).getAdapted().isVisible();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void setToolBarVisible(final String toolBarId, final boolean visible) {
         if (toolBarsMap.containsKey(toolBarId)) {
@@ -134,17 +192,23 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
             if (toolBar.getAdapted().isVisible() && !visible) {
                 hideToolBar(toolBar);
             } else if (!toolBar.getAdapted().isVisible() && visible) {
-                positionToolBar(toolBar);
-            }
+                    positionToolBar(toolBar);
+                }
             toolBar.getAdapted().setVisible(visible);
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void addToolBarContainerListener(ToolBarContainerListener<ToolBar, Node> containerListener) {
         containerListeners.add(containerListener);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void removeToolBarContainerListener(ToolBarContainerListener<ToolBar, Node> containerListener) {
         containerListeners.remove(containerListener);
@@ -156,6 +220,15 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
 
         if (containerListenerMap.containsKey(toolBarId)) {
             containerListenerMap.get(toolBarId).forEach(containerListener -> containerListener.toolBarAdded(event));
+        }
+    }
+
+    private void fireToolBarRemovedEvent(PositionableAdapter<? extends ToolBar> toolBar, String toolBarId) {
+        ToolBarContainerToolBarEvent<ToolBar, Node> event = new ToolBarContainerToolBarEvent<>(this, toolBarId, toolBar);
+        containerListeners.forEach(containerListener -> containerListener.toolBarRemoved(event));
+
+        if (containerListenerMap.containsKey(toolBarId)) {
+            containerListenerMap.get(toolBarId).forEach(containerListener -> containerListener.toolBarRemoved(event));
         }
     }
 
@@ -171,15 +244,32 @@ public class ToolBarContainerPane extends HBox implements ToolBarContainer<ToolB
         }
     }
 
+    private void fireToolBarButtonRemovedEvent(PositionableAdapter<? extends Node> toolBarButton, String toolBarId) {
+        ToolBarContainerToolBarButtonEvent<ToolBar, Node> event = new ToolBarContainerToolBarButtonEvent<>(this,
+                toolBarId, toolBarButton);
+        containerListeners.forEach(containerListener -> containerListener.toolBarButtonRemoved(event));
+
+        if (containerListenerMap.containsKey(toolBarId)) {
+            containerListenerMap.get(toolBarId).
+                    forEach(containerListener -> containerListener.toolBarButtonRemoved(event));
+
+        }
+    }
+
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void addToolBarContainerListener(String toolBarId, ToolBarContainerListener<ToolBar, Node> containerListener) {
         containerListenerMap.putIfAbsent(toolBarId, Collections.synchronizedList(new ArrayList<>()));
         containerListenerMap.get(toolBarId).add(containerListener);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
-    public void removeToolBarContainerListener(String toolBarId,
-            ToolBarContainerListener<ToolBar, Node> containerListener) {
+    public void removeToolBarContainerListener(String toolBarId, ToolBarContainerListener<ToolBar, Node> containerListener) {
         List<ToolBarContainerListener<ToolBar, Node>> listeners = containerListenerMap.get(toolBarId);
         if (listeners != null) {
             listeners.remove(containerListener);
