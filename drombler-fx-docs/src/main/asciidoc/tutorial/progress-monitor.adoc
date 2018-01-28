@@ -2,12 +2,14 @@
 = Progress Monitor
 :toc:
 :numbered:
+:icons: font
 
 This section describes the progress monitor support.
 
 _Drombler FX_ provides out-of-the-box support for monitoring long-running
-http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker]s by integrating a progress monitor in 
-the <<status-bar.adoc#statusBar,Status Bar>>.
+http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker]s by integrating a 
+http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/fx/scene/control/ProgressMonitor.html[ProgressMonitor] 
+in the <<status-bar.adoc#statusBar,Status Bar>>.
 
 image::progressmonitor/progress-monitor.png[caption="Image 1: ", title="ProgressMonitor", alt="ProgressMonitor", link="{imagesdir}/progressmonitor/progress-monitor.png"]
 [%hardbreaks]
@@ -19,7 +21,7 @@ image::progressmonitor/progress-monitor.png[caption="Image 1: ", title="Progress
 [[[6]]] a popup showing all monitored workers
 
 
-This feature is optional and must be activated if required.
+IMPORTANT: This feature is optional and must be activated if required.
 
 [[activation]]
 == Activation
@@ -33,6 +35,8 @@ To activate the progress monitor integration in the <<status-bar.adoc#statusBar,
     <scope>runtime</scope>
 </dependency>
 ----
+
+IMPORTANT: Make sure that the <<status-bar.adoc#activation,Status Bar is activated>>, too.
 
 [[notification]]
 == Notification

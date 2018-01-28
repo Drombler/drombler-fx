@@ -5,6 +5,7 @@
 
 This section describes an initial version of a modular _Status Bar Framework_.
 
+[[activation]]
 == Activation
 To enable the _Status Bar Framework_ you need an _OSGi_ service which provides an implementation of
 http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/status/spi/StatusBarElementContainerProvider.html[StatusBarElementContainerProvider].
