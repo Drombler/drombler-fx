@@ -34,17 +34,17 @@ public class FXStatusBarElementContainer implements StatusBarElementContainer<No
 
     @Override
     public void addLeftStatusBarElement(PositionableAdapter<? extends Node> statusBarElement) {
-        addStatusBarElement(statusBar.getLeftEntries(), leftStatusBarElementList, statusBarElement);
+        addStatusBarElement(statusBar.getLeftElements(), leftStatusBarElementList, statusBarElement);
     }
 
     @Override
     public void addCenterStatusBarElement(PositionableAdapter<? extends Node> statusBarElement) {
-        addStatusBarElement(statusBar.getCenterEntries(), centerStatusBarElementList, statusBarElement);
+        addStatusBarElement(statusBar.getCenterElements(), centerStatusBarElementList, statusBarElement);
     }
 
     @Override
     public void addRightStatusBarElement(PositionableAdapter<? extends Node> statusBarElement) {
-        addStatusBarElement(statusBar.getRightEntries(), statusStatusBarElementList, statusBarElement);
+        addStatusBarElement(statusBar.getRightElements(), statusStatusBarElementList, statusBarElement);
     }
 
     private void addStatusBarElement(ObservableList<Node> entries, List<PositionableAdapter<? extends Node>> elements, PositionableAdapter<? extends Node> statusBarElementAdapter) {
