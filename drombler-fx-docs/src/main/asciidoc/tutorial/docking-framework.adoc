@@ -2,6 +2,7 @@
 = Docking Framework
 :toc:
 :numbered:
+:icons: font
 
 This section describes an initial version of a _Docking Framework_.
 
@@ -11,19 +12,29 @@ To activate the Docking Framework in your application add the following runtime 
 
 [source,xml]
 ----
-        <dependency>
-            <!--  Provides JavaFX based implementations of the Docking Framework 
-            You could omit this dependency as long as it is a transitive dependency. -->
-            <groupId>org.drombler.fx</groupId>
-            <artifactId>drombler-fx-core-docking</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+<dependency>
+    <!--  Provides JavaFX based implementations of the Docking Framework 
+          You could omit this dependency as long as it is a transitive dependency. -->
+    <groupId>org.drombler.fx</groupId>
+    <artifactId>drombler-fx-core-docking</artifactId>
+    <scope>runtime</scope>
+</dependency>
 ----
 
-This dependency will provide an 
+[IMPORTANT]
+====
+This dependency will provide an implementation of the
 http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/ApplicationContentProvider.html[ApplicationContentProvider]
-So in addition to this dependency you need an <<application-layout.adoc#applicationLayout,Application Layout>>, which supports the ApplicationContentProvider service interface
-such as <<application-layout.adoc#standardDesktopClassicLayout,Standard Desktop Classic Layout>>
+service interface. So in addition to this dependency you need an <<application-layout.adoc#applicationLayout,Application Layout>>, which supports the _ApplicationContentProvider_ service interface
+such as the <<application-layout.adoc#standardDesktopClassicLayout,Standard Desktop Classic Layout>>.
+====
+
+[NOTE]
+====
+The _Docking Framework_ also provides an implementation of the
+http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/OnExitRequestHandlerProvider.html[OnExitRequestHandlerProvider]
+service interface, which helps prevent loosing any unsaved data.
+====
 
 == Docking Areas
 
