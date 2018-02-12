@@ -2,6 +2,7 @@
 = Getting Started
 :toc:
 :numbered:
+:icons: font
 
 == System Requirements
  
@@ -14,9 +15,9 @@
 
 == Tested environment
 
- * Tested Java version: 1.8.0_151; Java HotSpot(TM) 64-Bit Server VM 25.151-b12
+ * Tested Java version: 1.8.0_161; Java HotSpot(TM) 64-Bit Server VM 25.161-b12
  * Tested Maven version: 3.3.9
- * Tested OS: Kubuntu 16.04.1 LTS; Linux version 4.4.0-109-generic running on amd64; UTF-8; de_CH (nb)
+ * Tested OS: Kubuntu 16.04.1 LTS; Linux version 4.4.0-112-generic running on amd64; UTF-8; de_CH (nb)
 
 == Drombler FX Sample Application - generate, build and run
 
@@ -61,13 +62,15 @@ or you can just double-click the _my-application.jar_ in the _target/deployment/
 The _--userdir_ option is quite useful during development. If you omit it, the default location will be used: _${user.home}/.${brandingId}/${project.version}_
 
 == Drombler FX Sample Application - the running application explained
+This sample application uses the <<application-layout.adoc#standardDesktopClassicLayout,Standard Desktop Classic Layout>>.
 
-When you start-up the application you should see the following:
+When you start-up the application you should see something like the following:
 
  * A JavaFX window with a custom title
  * A content pane consisting of four _Views_ (Left, Right, Top and Bottom) around an empty editor area
  * A Menu Bar with the following Menus: File, View, Custom, Window and Help
  * A Toolbar Container with three Toolbars: File, Rectangle and Circle
+ * A Status Bar, which shows a progress monitor if there is any worker in the application wide context
 
 image::getting-started/drombler-sample-application.png[caption="Image 1: ", title="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Some Sample' and 1 Foo Editor: 'Untitled 3'", alt="Drombler Sample Application - with 2 Sample Editors: 'Sample 1' and 'Some Sample' and 1 Foo Editor: 'Untitled 3'", link="{imagesdir}/getting-started/drombler-sample-application.png"]
 
@@ -92,16 +95,19 @@ The Foo Editor (opened if you click on the "File -> New" menu item or open a foo
 The Right _Dockable Pane_, provided by this sample project and docked to the right _Docking Area_, shows the information 
 of the currently selected sample.
 
-The sample also provides the two _Dockable Panes_ Top and Bottom, which are docked to the top/ bottom _Docking Area_ and 
-contain a Label showing Top/ Bottom respectivly. These _Dockable Panes_ are provided to make the corresponding 
-_Docking Areas_ visible.
+The Bottom _Dockable Pane_, provided by this sample project and docked to the bottom _Docking Area_, provides a button which
+creates background tasks and shows how to display them in the _Progress Monitor_.
+
+The sample also provides a Top _Dockable Pane_, which is docked to the top_Docking Area_ and 
+contains a Label showing Top respectivly. This _Dockable Pane_ is provided to make the corresponding 
+_Docking Area_ visible.
 
 See <<docking-framework.adoc#dockingFramework,Docking Framework>> for more information about the Docking Framework.
 
 Let's continue with the Toolbars.
 
 === The Toolbars
-Above the Content Pane you can find a Toolbar Container, which can contain any number of Toolbars. Currently three type 
+Above the Content Pane you can find a Toolbar Container, which can contain any number of Toolbars. Currently three types 
 of Toolbar buttons are supported: "normal" Toolbar buttons, toggle Toolbar buttons without a ToggleGroup and toggle 
 Toolbar buttons within a ToggleGroup. The Toolbar Container is provided by _Drombler FX_.
 
@@ -190,32 +196,42 @@ Note: If you run the application with a German locale the texts provided by _Dro
 
 See <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for more information about Actions and Menus.
 
+=== The Status Bar
+The _Status Bar_ can be used to display some additional information to the user such as the current running, but cancelable background workers.
+
+See <<status-bar.adoc#statusBar,Status Bar>> for more information about the Status Bar.
+
+See <<progress-monitor.adoc#progressMonitor,Progress Monitor>> for more information about the Progress Monitor.
 
 == Drombler FX Sample Application - the binaries explained
 
 Let's have a look at the generated binaries.
-You can find the binaries in the target directory of the test-application project at: deployment/standalone
 
-In the bin directory you can find the executable main jar: my-application.jar
-The jar has been branded using the specified brandingId.
+You can find the binaries in the target directory of the test-application project at: *deployment/standalone*
 
-Let's have a look at the content of this jar.
+In the *bin* directory you can find the executable main JAR: *my-application.jar* +
+The JAR has been branded using the specified brandingId.
+
+Let's have a look at the content of this JAR.
 
 You can find:
  
- * META-INF/MANIFEST.MF: a Manifest file with the correct JavaFX specific entries
+ * META-INF/MANIFEST.MF: a Manifest file with the _Main-Class_ header and the _Class-Path_ header, which turns this main JAR into an executable JAR.
  * applicationConfig.properties: contains application configurations such as: title, width and height
- * default.properties: Contains the properties to specify the Java, OSGi and Drombler startup system packages.
- * the http://felix.apache.org[Apache Felix Framework] and OSGi specific classes
- * the Drombler specific startup classes
- * _org/drombler/fx/startup/main/config.properties_: Contains the properties to specify the JavaFX packages. This is the 
-OSGi mechanism to access the JavaFX classes provided by your Java installation.
+
+In the *lib* directory you can find the JARs needed at start-up time to start a _Drombler FX_ application:
+
+ * the *drombler-fx-startup-main* JAR: it contains the _JavaFX_ application main class and defines the _org.osgi.framework.system.packages.extra_ property 
+to make the _JavaFX_ packages and the _Drombler_ start-up packages available to the OSGi bundles.
+ * the *drombler-acp-startup-main* JAR: it contains the GUI-toolkit agnostic start-up classes.
+ * the *org.apache.felix.framework* JAR: the http://felix.apache.org[Apache Felix Framework], an implementation of the OSGi runtime framework.
  
 
-In the bundle directory you can find all direct and transitive Maven dependencies with scope compile or test. The main 
-jar will load these bundles.
+In the *bundle* directory you can find all direct and transitive Maven dependencies with scope compile or test. The start-up classes will load these bundles.
 
-The conf directory contains property files for application and system properties. The user may change their values here.
+The *conf* directory contains the files copied from */src/main/app*. The _Drombler FX Maven Plugin_ makes sure the property files for 
+application and system properties exist and contain the necessary properties such as the default location of the user directory. +
+The user may change their values here.
 
 == Drombler FX Sample Application - the source code explained
 
@@ -244,6 +260,7 @@ as an extension.
 This project is used to:
  
  * configure the bundles your application is made of
+ * provide additional resources
  * deploy them
  * run the application
 
@@ -252,7 +269,7 @@ In the _Drombler FX Maven Plugin_ configuration you can specify the brandingId a
 height.
 
 
-Note: Currently you always need to rebuild this project if any of its bundles has changed!
+NOTE: Currently you always need to rebuild this project if any of its bundles has changed!
 
 The nbactions.xml enables the "Run Project" and "Debug Project" buttons in NetBeans for this project. You can have a 
 look at it to see how to run and debug the application. You can delete this file if you use another IDE than NetBeans.
@@ -278,7 +295,7 @@ The parent project contains the parent POM used by the other projects of this sa
 
 Have a look at the comments in the POM for more information.
 
-Note: I prefer to have the parent POM (used to inherit configurations) and the multi-module POM (used for 
+NOTE: I prefer to have the parent POM (used to inherit configurations) and the multi-module POM (used for 
 reactor builds) in two separate POMs. If you prefer to use the multi-module POM as the parent POM, feel free to copy 
 the content of the parent POM to the multi-module POM and to delete this parent POM.
 
@@ -328,7 +345,7 @@ corresponding menu item in the Window menu. The onNewSampleAction logic, which g
 
 The SampleEditorPane is a _Dockable Pane_ using annotations to register itself as an Editor. It configures a writable local context and adds to it an instance of a custom implementation of 
 ColoredCircleManager and ColoredRectangleManager to enable the colored circle and colored rectangle toolbar buttons and 
-menu items. It also adds the sample to its local context, so that other _Dockable Panes_ can look for it and display 
+menu items. The SampleHandler instance gets automatically added to its implicit local context, so that other _Dockable Panes_ can look for it and display 
 some information about it.
 
 It configures the controls from the values of the properties of the Sample.
@@ -344,12 +361,15 @@ clicked!
 
 
 The RightTestPane is a _Dockable Pane_ using annotations to register itself as a view in the right _Docking Area_ and a 
-corresponding menu item in the Window/Other sub-menu. It implements ActiveContextSensitive to look for a Sample instance in the active context. If it finds one, it shows the properties of the sample. Note that it also configures a writable local context and adds the found Sample object to it. This has the effect that you can click on the RightTestPane and it continues to display the properties of the Sample.
+corresponding menu item in the Window/Other sub-menu. It implements ActiveContextSensitive to look for a Sample instance in the active context. 
+If it finds one, it shows the properties of the sample. Note that it also configures a writable local context and adds the found SampleHandler object to it. 
+This has the effect that you can click on the RightTestPane and it continues to display the properties of the SampleHandler.
 
 
 
 The TopTestPane and the BottomTestPane are _Dockable Panes_ using annotations to register themselves as a view in the 
 top/ bottom _Docking Area_ and a corresponding menu item in the Window menu.
+
 The DockingPanes look for a FXML file with the same name in the same package, e.g. LeftTestPane looks for 
 LeftTestPane.fxml. This is a convention of _Drombler FX_. (The FXML files are in the resource directory.)
 
@@ -357,8 +377,8 @@ LeftTestPane.fxml. This is a convention of _Drombler FX_. (The FXML files are in
 Note that the classes ColoredCircle, ColoredCircleManager, ColoredRectangle and ColoredRectangleManager are in the 
 package com.mycompany.test.sample, which is an exported package (have a look at the generated Manifest file). 
 This means that other bundles can use these classes to interact with the colored circle and rectangle actions, 
-toolbar buttons and menu items. The same is true for the Sample class: since it is in the exported package, 
-Views in other bundles can look for it in e.g. the active context.
+toolbar buttons and menu items. The same is true for the Sample and the SampleHandler classes: since they are in the exported package, 
+Views in other bundles can look for them in e.g. the active context.
 
 See <<docking-framework.adoc#dockingFramework,Docking Framework>> for more information about the Docking Framework.
 
