@@ -8,6 +8,7 @@
  */
 package ${package}.sample;
 
+import ${package}.sample.impl.SampleServiceClient;
 import org.drombler.acp.core.data.AbstractDataHandler;
 import org.drombler.acp.core.data.BusinessObjectHandler;
 
