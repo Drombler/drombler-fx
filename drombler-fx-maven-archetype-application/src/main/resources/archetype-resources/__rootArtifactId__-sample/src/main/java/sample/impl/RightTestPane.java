@@ -11,6 +11,7 @@ package ${package}.sample.impl;
 import ${package}.sample.ColoredCircle;
 import ${package}.sample.ColoredRectangle;
 import ${package}.sample.Sample;
+import ${package}.sample.SampleHandler;
 import java.util.EnumMap;
 import java.util.Map;
 import javafx.beans.value.ChangeListener;
@@ -82,7 +83,7 @@ public class RightTestPane extends GridPane implements ActiveContextSensitive, L
     }
 
     private void contextChanged(ContextEvent<SampleHandler> event) {
-        SampleHandler newSampleHandler = activeContext.find(SampleHandler.class);
+        SampleHandler newSampleHandler = activeContext.find(event.getType());
         if ((sampleHandler == null && newSampleHandler != null) || (sampleHandler != null && !sampleHandler.equals(newSampleHandler))) {
             if (sampleHandler != null) {
                 unregister();

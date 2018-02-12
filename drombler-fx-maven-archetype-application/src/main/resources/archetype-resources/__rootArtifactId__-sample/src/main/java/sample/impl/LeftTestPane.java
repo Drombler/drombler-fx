@@ -9,6 +9,7 @@
 package ${package}.sample.impl;
 
 import ${package}.sample.Sample;
+import ${package}.sample.SampleHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

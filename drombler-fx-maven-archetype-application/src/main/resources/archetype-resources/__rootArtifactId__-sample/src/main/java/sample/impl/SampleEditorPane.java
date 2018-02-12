@@ -13,6 +13,7 @@ import ${package}.sample.ColoredCircleManager;
 import ${package}.sample.ColoredRectangle;
 import ${package}.sample.ColoredRectangleManager;
 import ${package}.sample.Sample;
+import ${package}.sample.SampleHandler;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.EnumSet;
