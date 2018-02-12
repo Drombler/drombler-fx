@@ -5,18 +5,18 @@ import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.ApplicationToolBarContainerProvider;
 import org.drombler.acp.core.action.spi.MenuBarMenuContainerProvider;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
-import org.drombler.fx.startup.main.MainSceneRootProvider;
+import org.drombler.acp.core.status.spi.StatusBarElementContainerProvider;
+import org.drombler.fx.core.application.MainSceneRootProvider;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
  * @author puce
  */
 @Component
-@Service
 public class ClassicDesktopRootNodeProvider implements MainSceneRootProvider {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClassicDesktopRootNodeProvider.class);
@@ -38,22 +37,6 @@ public class ClassicDesktopRootNodeProvider implements MainSceneRootProvider {
 
     private ClassicDesktopApplicationPane root;
 
-    protected void bindMenuMenuItemContainerFactory(MenuMenuItemContainerFactory<MenuItem, Menu> menuMenuItemContainerFactory) {
-        this.menuMenuItemContainerFactory = menuMenuItemContainerFactory;
-    }
-
-    protected void unbindMenuMenuItemContainerFactory(MenuMenuItemContainerFactory<MenuItem, Menu> menuMenuItemContainerFactory) {
-        this.menuMenuItemContainerFactory = null;
-    }
-
-    protected void bindSeparatorMenuItemFactory(SeparatorMenuItemFactory<SeparatorMenuItem> separatorMenuItemFactory) {
-        this.separatorMenuItemFactory = separatorMenuItemFactory;
-    }
-
-    protected void unbindSeparatorMenuItemFactory(SeparatorMenuItemFactory<SeparatorMenuItem> separatorMenuItemFactory) {
-        this.separatorMenuItemFactory = null;
-    }
-
     @Activate
     protected void activate(ComponentContext context) {
         try {
@@ -62,7 +45,8 @@ public class ClassicDesktopRootNodeProvider implements MainSceneRootProvider {
                     new String[]{
                         MenuBarMenuContainerProvider.class.getName(),
                         ContentPaneProvider.class.getName(),
-                        ApplicationToolBarContainerProvider.class.getName()
+                        ApplicationToolBarContainerProvider.class.getName(),
+                        StatusBarElementContainerProvider.class.getName()
                     }, root, null);
         } catch (IOException ex) {
             LOG.error(ex.getMessage(), ex);

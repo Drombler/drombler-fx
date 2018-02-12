@@ -1,6 +1,7 @@
 package org.drombler.fx.core.docking;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -9,10 +10,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.Tooltip;
 import org.drombler.acp.core.data.AbstractDocumentHandler;
+import org.drombler.acp.core.docking.spi.Dockables;
 import org.drombler.commons.action.command.Savable;
+import org.drombler.commons.client.dialog.FileChooserProvider;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.docking.fx.FXDockableData;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,22 +56,31 @@ public final class FXDockableDataUtils {
      */
     public static void configureDockableData(FXDockableData dockableData, DataHandler<?> dataHandler, String defaultTitlePrefix) {
         if (dataHandler.getUniqueKey() != null) {
-            configureDockableDataExisting(dockableData, dataHandler);
+            configureDockableDataFromExistingDocument(dockableData, dataHandler);
         } else {
             dockableData.setTitle(defaultTitlePrefix + " " + COUNTER.getAndIncrement());
         }
     }
 
-    private static void configureDockableDataExisting(FXDockableData dockableData, DataHandler<?> dataHandler) {
+    // TODO: private?
+    public static void configureDockableDataFromExistingDocument(FXDockableData dockableData, DataHandler<?> dataHandler) { // TODO: rename
         dockableData.setTitle(dataHandler.getTitle());
+        dataHandler.addPropertyChangeListener(DataHandler.TITLE_PROPERTY_NAME, evt -> dockableData.setTitle(dataHandler.getTitle()));
+        String tooltipText = dataHandler.getTooltipText();
+        Tooltip tooltip = createTooltip(dockableData, tooltipText);
+        dataHandler.addPropertyChangeListener(DataHandler.TOOLTIP_TEXT_PROPERTY_NAME, evt -> tooltip.setText(dataHandler.getTooltipText()));
+    }
+
+    private static Tooltip createTooltip(FXDockableData dockableData, final String tooltipText) {
         Tooltip tooltip = dockableData.getTooltip();
         if (tooltip == null) {
-            tooltip = new Tooltip(dataHandler.getTooltipText());
+            tooltip = new Tooltip(tooltipText);
             tooltip.setTextOverrun(OverrunStyle.CENTER_WORD_ELLIPSIS);
             dockableData.setTooltip(tooltip);
         } else {
-            tooltip.setText(dataHandler.getTooltipText());
+            tooltip.setText(tooltipText);
         }
+        return tooltip;
     }
 
     /**
@@ -82,9 +97,12 @@ public final class FXDockableDataUtils {
             public void save() {
                 try {
                     if (documentHandler.getPath() == null) {
+                        FileChooserProvider fileChooserProvider = getFileChooserProvider();
                         String initialFileName = dockableData.getTitle().toLowerCase().replace(' ', '-') + "." + documentHandler.getDefaultFileExtenion();
-                        if (documentHandler.saveNew(initialFileName)) {
-                            configureDockableDataExisting(dockableData, documentHandler);
+                        Path documentPath = fileChooserProvider.showSaveAsDialog(initialFileName);
+                        if (documentPath != null) {
+                            documentHandler.saveNew(documentPath);
+                            configureDockableDataFromExistingDocument(dockableData, documentHandler);
                             postSaveHandler.accept(this);
                         }
                     } else {
@@ -104,5 +122,12 @@ public final class FXDockableDataUtils {
                 return dockableData.getTitle();
             }
         };
+    }
+
+    private static FileChooserProvider getFileChooserProvider() {
+        BundleContext bundleContext = FrameworkUtil.getBundle(Dockables.class).getBundleContext();
+        ServiceReference<FileChooserProvider> fileChooserProviderServiceReference
+                = bundleContext.getServiceReference(FileChooserProvider.class);
+        return bundleContext.getService(fileChooserProviderServiceReference);
     }
 }

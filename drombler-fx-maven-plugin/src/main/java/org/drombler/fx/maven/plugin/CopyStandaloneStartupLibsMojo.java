@@ -37,6 +37,9 @@ import org.apache.maven.project.MavenProject;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.ops4j.pax.construct.util.ReflectMojo;
 
+/**
+ * Copies the startup libraries to the bin/lib directory. These libraries are on the classpath of the System Bundle and are not loaded as OSGi bundles.
+ */
 @Mojo(name = "copy-standalone-startup-libs", defaultPhase = LifecyclePhase.PREPARE_PACKAGE)
 public class CopyStandaloneStartupLibsMojo extends AbstractMojo {
 
@@ -62,7 +65,9 @@ public class CopyStandaloneStartupLibsMojo extends AbstractMojo {
     @Component
     private ArtifactResolver artifactResolver;
 
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {

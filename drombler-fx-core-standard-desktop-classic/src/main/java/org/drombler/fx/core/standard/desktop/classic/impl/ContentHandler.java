@@ -14,14 +14,13 @@
  */
 package org.drombler.fx.core.standard.desktop.classic.impl;
 
-import java.util.concurrent.Executor;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
-import org.drombler.acp.startup.main.ApplicationExecutorProvider;
-import org.drombler.fx.startup.main.ApplicationContentProvider;
+import org.drombler.acp.core.commons.util.concurrent.ApplicationThreadExecutorProvider;
+import org.drombler.fx.core.application.ApplicationContentProvider;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * This handler is looking for a content pane for the application pane.
@@ -29,47 +28,24 @@ import org.osgi.service.component.ComponentContext;
  * @author puce
  */
 @Component(immediate = true)
-@Reference(name = "applicationExecutorProvider", referenceInterface = ApplicationExecutorProvider.class)
 public class ContentHandler {
 
     @Reference
     private ContentPaneProvider contentPaneProvider;
     @Reference
     private ApplicationContentProvider applicationContentProvider;
-    private Executor applicationExecutor;
-
-    protected void bindContentPaneProvider(ContentPaneProvider contentPaneProvider) {
-        this.contentPaneProvider = contentPaneProvider;
-    }
-
-    protected void unbindContentPaneProvider(ContentPaneProvider contentPaneProvider) {
-    }
-
-    protected void bindApplicationContentProvider(ApplicationContentProvider applicationContentProvider) {
-        this.applicationContentProvider = applicationContentProvider;
-    }
-
-    protected void unbindApplicationContentProvider(ApplicationContentProvider applicationContentProvider) {
-        this.applicationContentProvider = null;
-    }
-
-    protected void bindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
-        applicationExecutor = applicationExecutorProvider.getApplicationExecutor();
-    }
-
-    protected void unbindApplicationExecutorProvider(ApplicationExecutorProvider applicationExecutorProvider) {
-        applicationExecutor = null;
-    }
+    @Reference
+    private ApplicationThreadExecutorProvider applicationThreadExecutorProvider;
 
     @Activate
     protected void activate(ComponentContext context) {
-        applicationExecutor.execute(()
+        applicationThreadExecutorProvider.getApplicationThreadExecutor().execute(()
                 -> contentPaneProvider.getContentPane().setCenter(applicationContentProvider.getContentPane()));
     }
 
     @Deactivate
     protected void deactivate(ComponentContext context) {
-        applicationExecutor.execute(() -> {
+        applicationThreadExecutorProvider.getApplicationThreadExecutor().execute(() -> {
             contentPaneProvider.getContentPane().setCenter(null);
             contentPaneProvider = null;
         });

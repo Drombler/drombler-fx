@@ -17,11 +17,11 @@ package org.drombler.fx.core.action.impl;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import org.drombler.acp.core.action.MenuItemSortingStrategy;
+import org.drombler.acp.core.action.MenuItemSupplierFactory;
 import org.drombler.acp.core.action.spi.AbstractMenuItemContainer;
 import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
 import org.drombler.acp.core.action.spi.MenuItemContainer;
-import org.drombler.acp.core.action.MenuItemSortingStrategy;
-import org.drombler.acp.core.action.MenuItemSupplierFactory;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 
@@ -30,7 +30,7 @@ import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
  * @param <F> the sorting strategy specific menu item supplier factory type
  * @author puce
  */
-public class FXMenuMenuItemContainer<F extends MenuItemSupplierFactory<MenuItem>> extends AbstractMenuItemContainer<MenuItem, Menu, F> {
+public class FXMenuMenuItemContainer<F extends MenuItemSupplierFactory<MenuItem, F>> extends AbstractMenuItemContainer<MenuItem, Menu, F> {
 
     private final Menu menu;
     private final AbstractMenuItemRootContainer<MenuItem, Menu, ?> rootContainer;

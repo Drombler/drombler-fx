@@ -35,6 +35,9 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.drombler.fx.startup.main.DromblerFXApplication;
 
+/**
+ * Creates the executable main application JAR in the bin directory.
+ */
 @Mojo(name = "create-standalone-jar", defaultPhase = LifecyclePhase.PACKAGE)
 public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
     private static final String MANIFEST_CLASSPATH_FILE_SEPARATOR = "/";
@@ -49,6 +52,9 @@ public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
     @Parameter(required = true, defaultValue = "${project.build.directory}/${project.build.finalName}.jar")
     private File srcJarFile;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {

@@ -22,12 +22,10 @@ import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.drombler.acp.startup.main.ApplicationExecutorProvider;
 import org.drombler.acp.startup.main.DromblerACPStarter;
 import org.drombler.acp.startup.main.MainWindowProvider;
 import org.drombler.acp.startup.main.MissingPropertyException;
 import org.drombler.fx.startup.main.impl.DefaultRootPane;
-import org.drombler.fx.startup.main.impl.FXApplicationExecutorProvider;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -36,8 +34,6 @@ import org.osgi.framework.BundleContext;
  */
 public class DromblerFXApplication extends Application {
 
-    private final FXApplicationExecutorProvider fxApplicationExecutorProvider = new FXApplicationExecutorProvider();
-//    private MainSceneProvider mainSceneProvider;
     private MainWindowProvider<Stage> mainWindowProvider;
     private DromblerFXConfiguration configuration;
     private DromblerACPStarter starter;
@@ -77,9 +73,8 @@ public class DromblerFXApplication extends Application {
         getBundleContext().registerService(DromblerFXConfiguration.class, configuration, null);
         getBundleContext().registerService(MainWindowProvider.class, mainWindowProvider, null);
         getBundleContext().registerService(HostServices.class, getHostServices(), null);
-        // Only register the ApplicationExecutorProvider once the JavaFX Platform has been started.
-        getBundleContext().registerService(ApplicationExecutorProvider.class,
-                fxApplicationExecutorProvider, null);
+        
+        // Only start OSGi and register services such as ApplicationExecutorProvider once the JavaFX Platform has been started.
         starter.start();
         logInfo("Started JavaFX Application \"{0}\"", getTitle());
     }
