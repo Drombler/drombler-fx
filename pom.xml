@@ -65,6 +65,7 @@ Contributor(s): .
         <module>drombler-fx-core-docking</module>
         <module>drombler-fx-core-docking-l10n-de</module>
         <module>drombler-fx-core-action</module>
+        <module>drombler-fx-core-settings</module>
         <module>drombler-fx-core-standard-desktop-classic</module>
         <module>drombler-fx-core-standard-action</module>
         <module>drombler-fx-core-standard-action-l10n-de</module>
@@ -113,6 +114,11 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-fx-core-action</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-fx-core-settings</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
