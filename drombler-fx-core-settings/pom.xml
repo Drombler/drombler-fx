@@ -61,6 +61,12 @@ Contributor(s): .
     </build>
     <dependencies>
         <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-settings-spi</artifactId>
         </dependency>
