@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javafx.scene.Node;
+import javafx.stage.Stage;
+import org.drombler.acp.core.commons.util.concurrent.ApplicationThreadExecutorProvider;
 import org.drombler.acp.core.settings.spi.CustomSettingsCategoryDescriptor;
 import org.drombler.acp.core.settings.spi.ParentOnlySettingsCategoryDescriptor;
 import org.drombler.acp.core.settings.spi.SettingsCategoryContainer;
+import org.drombler.acp.startup.main.MainWindowProvider;
 import org.drombler.commons.settings.fx.SettingsCategory;
 import org.drombler.commons.settings.fx.SettingsPane;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.softsmithy.lib.util.PositionableAdapter;
 import org.softsmithy.lib.util.Positionables;
 
@@ -23,6 +27,12 @@ import org.softsmithy.lib.util.Positionables;
 @Component
 public class FXSettingsCategoryContainer implements SettingsCategoryContainer<Node> {
 
+    @Reference
+    private ApplicationThreadExecutorProvider applicationThreadExecutorProvider;
+    
+    @Reference
+    private MainWindowProvider<Stage> mainWindowProvider;
+    
     private final SettingsPane settingsPane = new SettingsPane();
 
     private final Map<CategoryId, List<SettingsCategory>> subCategoriesMap = new HashMap<>();
@@ -35,7 +45,6 @@ public class FXSettingsCategoryContainer implements SettingsCategoryContainer<No
         positionableSubCategoriesMap.put(rootId, new ArrayList<>());
     }
 
-    
     @Override
     public void addCategory(ParentOnlySettingsCategoryDescriptor settingsCategoryDescriptor) {
         SettingsCategory settingsCategory = new SettingsCategory();
@@ -57,6 +66,11 @@ public class FXSettingsCategoryContainer implements SettingsCategoryContainer<No
         addCategory(settingsCategoryDescriptor.getPath(), new PositionableAdapter<>(settingsCategory, settingsCategoryDescriptor.getPosition()));
     }
 
+    @Override
+    public void openDialog() {
+        applicationThreadExecutorProvider.getApplicationThreadExecutor().execute(() -> settingsPane.openDialog(mainWindowProvider.getMainWindow()));
+    }
+
     private void addCategory(List<String> path, PositionableAdapter<SettingsCategory> settingsCategory) {
         CategoryId parentId = new CategoryId(path);
         if (subCategoriesMap.containsKey(parentId)) {
@@ -71,7 +85,7 @@ public class FXSettingsCategoryContainer implements SettingsCategoryContainer<No
         int insertionPoint = Positionables.getInsertionPoint(orderedSettingsCategories, settingsCategory);
         orderedSettingsCategories.add(insertionPoint, settingsCategory);
         subCategoriesMap.get(parentId).add(insertionPoint, settingsCategory.getAdapted());
-        
+
         CategoryId id = registerCategory(parentId, settingsCategory);
         resolveUnresolvedCategories(id);
     }
@@ -104,8 +118,8 @@ public class FXSettingsCategoryContainer implements SettingsCategoryContainer<No
         public CategoryId(List<String> fullQualifiedIdPath) {
             this.fullQualifiedIdPath = fullQualifiedIdPath;
         }
-        
-        public boolean isRoot(){
+
+        public boolean isRoot() {
             return fullQualifiedIdPath.isEmpty();
         }
 

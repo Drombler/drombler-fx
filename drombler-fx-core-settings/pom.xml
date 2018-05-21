@@ -84,5 +84,10 @@ Contributor(s): .
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-startup-main</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>
