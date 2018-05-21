@@ -24,7 +24,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.drombler.acp.startup.main.DromblerACPStarter;
 import org.drombler.acp.startup.main.MainWindowProvider;
-import org.drombler.acp.startup.main.MissingPropertyException;
+import org.drombler.commons.client.startup.main.MissingPropertyException;
 import org.drombler.fx.startup.main.impl.DefaultRootPane;
 import org.osgi.framework.BundleContext;
 
@@ -36,7 +36,7 @@ public class DromblerFXApplication extends Application {
 
     private MainWindowProvider<Stage> mainWindowProvider;
     private DromblerFXConfiguration configuration;
-    private DromblerACPStarter starter;
+    private DromblerACPStarter<DromblerFXConfiguration> starter;
 
 
     // TODO: is this method still needed on Mac OS?
@@ -47,7 +47,7 @@ public class DromblerFXApplication extends Application {
     @Override
     public void init() throws URISyntaxException, IOException, MissingPropertyException, Exception {
         this.configuration = new DromblerFXConfiguration(getParameters());
-        this.starter = new DromblerACPStarter(configuration);
+        this.starter = new DromblerACPStarter<>(configuration);
         logInfo("Initializing JavaFX Application \"{0}\" ({1}x{2})...", getTitle(), getWidth(), getHeight());
         if (this.starter.init()) {
             logInfo("Initialized JavaFX Application \"{0}\"", getTitle());

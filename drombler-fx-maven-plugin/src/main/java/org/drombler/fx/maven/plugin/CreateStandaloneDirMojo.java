@@ -21,7 +21,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.drombler.acp.startup.main.DromblerACPConfiguration;
+import org.drombler.commons.client.startup.main.DromblerClientConfiguration;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 
 /**
@@ -42,7 +42,7 @@ public class CreateStandaloneDirMojo extends AbstractDromblerMojo {
             Path binDirPath = targetDirPath.resolve(PathUtils.BIN_DIR_NAME);
             ensureDirExists(binDirPath);
             ensureDirExists(binDirPath.resolve(PathUtils.LIB_DIR_NAME));
-            ensureDirExists(targetDirPath.resolve(DromblerACPConfiguration.CONFIG_DIRECTORY_NAME));
+            ensureDirExists(targetDirPath.resolve(DromblerClientConfiguration.CONFIG_DIRECTORY_NAME));
             ensureDirExists(targetDirPath.resolve(PathUtils.BUNDLE_DIR_NAME));
 
         } catch (IOException ex) {

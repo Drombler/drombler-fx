@@ -79,6 +79,10 @@ Contributor(s): .
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-startup-main</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-client-startup-main</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
