@@ -7,7 +7,7 @@
         Run 'mvn help:effective-pom' on this parent project to get an idea what you need to configure. -->
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>2.7-SNAPSHOT</version>
+        <version>2.9</version>
         <relativePath />
     </parent>
     <groupId>\${groupId}</groupId>
