@@ -26,7 +26,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.drombler.acp.startup.main.DromblerACPConfiguration;
+import org.drombler.commons.client.startup.main.DromblerClientConfiguration;
 
 /**
  * Ensures the application config files exist in the conf directory and contain the necessary info.
@@ -35,9 +35,9 @@ import org.drombler.acp.startup.main.DromblerACPConfiguration;
 public class EnsureStandaloneConfigMojo extends AbstractDromblerMojo {
 
     private static final Path RELATIVE_CONFIG_PROPERTIES_FILE_PATH
-            = Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY_NAME, DromblerACPConfiguration.CONFIG_PROPERTIES_FILE_NAME);
+            = Paths.get(DromblerClientConfiguration.CONFIG_DIRECTORY_NAME, DromblerClientConfiguration.CONFIG_PROPERTIES_FILE_NAME);
     private static final Path RELATIVE_SYSTEM_PROPERTIES_FILE_PATH
-            = Paths.get(DromblerACPConfiguration.CONFIG_DIRECTORY_NAME, DromblerACPConfiguration.SYSTEM_PROPERTIES_FILE_NAME);
+            = Paths.get(DromblerClientConfiguration.CONFIG_DIRECTORY_NAME, DromblerClientConfiguration.SYSTEM_PROPERTIES_FILE_NAME);
     /**
      * The branding id.
      */
@@ -86,7 +86,7 @@ public class EnsureStandaloneConfigMojo extends AbstractDromblerMojo {
     }
 
     private void completeConfigProperties(Properties configProperties, Path targetFilePath) throws IOException {
-        if (!configProperties.containsKey(DromblerACPConfiguration.USER_DIR_PROPERTY)) {
+        if (!configProperties.containsKey(DromblerClientConfiguration.USER_DIR_PROPERTY)) {
             addUserDirProperty(configProperties);
             writeProperties(configProperties, targetFilePath);
         }
@@ -94,7 +94,7 @@ public class EnsureStandaloneConfigMojo extends AbstractDromblerMojo {
 
     private void addUserDirProperty(Properties configProperties) {
         userdir = userdir.replace("${brandingId}", brandingId);
-        configProperties.setProperty(DromblerACPConfiguration.USER_DIR_PROPERTY, userdir);
+        configProperties.setProperty(DromblerClientConfiguration.USER_DIR_PROPERTY, userdir);
     }
 
     private void writeConfigPropertiesFile(Path targetConfigPropertiesFile) throws IOException {

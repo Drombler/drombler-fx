@@ -22,9 +22,9 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Properties;
 import javafx.application.Application;
-import org.drombler.acp.startup.main.CommandLineArgs;
 import org.drombler.acp.startup.main.DromblerACPConfiguration;
-import org.drombler.acp.startup.main.MissingPropertyException;
+import org.drombler.commons.client.startup.main.MissingPropertyException;
+import org.drombler.commons.client.startup.main.cli.CommandLineArgs;
 
 /**
  *
