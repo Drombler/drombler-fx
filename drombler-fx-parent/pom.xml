@@ -23,7 +23,7 @@ Contributor(s): .
     </parent>
     <groupId>org.drombler.fx</groupId>
     <artifactId>drombler-fx-parent</artifactId>
-    <version>0.12-SNAPSHOT</version>
+    <version>0.13-SNAPSHOT</version>
     <packaging>pom</packaging>
     
     <name>Drombler FX - Parent</name>
