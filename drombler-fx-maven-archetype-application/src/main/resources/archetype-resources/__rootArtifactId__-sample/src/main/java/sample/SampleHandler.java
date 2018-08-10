@@ -6,9 +6,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ${package}.sample.impl;
+package ${package}.sample;
 
-import ${package}.sample.Sample;
+import ${package}.sample.impl.SampleServiceClient;
 import org.drombler.acp.core.data.AbstractDataHandler;
 import org.drombler.acp.core.data.BusinessObjectHandler;
 

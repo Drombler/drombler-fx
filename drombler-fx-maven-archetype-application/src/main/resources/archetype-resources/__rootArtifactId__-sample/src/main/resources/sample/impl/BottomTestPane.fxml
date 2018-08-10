@@ -7,6 +7,6 @@
 
 <fx:root type="BorderPane" xmlns:fx="http://javafx.com/fxml">
     <center>
-        <Label text="%label.text"/>
+        <Button fx:id="createTestWorkerButton" text="%createTestWorkerButton.text" />
     </center>
 </fx:root>
