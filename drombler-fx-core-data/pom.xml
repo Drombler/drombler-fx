@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.12</version>
+        <version>0.13</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-core-data</artifactId>
@@ -84,7 +84,7 @@ Contributor(s): .
         
         <dependency>
             <groupId>org.drombler.commons</groupId>
-            <artifactId>drombler-commons-data</artifactId>
+            <artifactId>drombler-commons-data-core</artifactId>
         </dependency>
         
         <dependency>
