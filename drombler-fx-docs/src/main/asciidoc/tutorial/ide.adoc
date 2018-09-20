@@ -18,6 +18,12 @@ To *debug* the application:
 
 TBD
 
+https://youtrack.jetbrains.com/issue/IDEA-189973
+
+https://stackoverflow.com/q/30518420/506855
+
+https://stackoverflow.com/a/22367089/664577
+
 == Eclipse
 To *run* the application:
 
@@ -26,3 +32,5 @@ TBD
 To *debug* the application:
 
 TBD
+
+https://stackoverflow.com/q/30518420/506855

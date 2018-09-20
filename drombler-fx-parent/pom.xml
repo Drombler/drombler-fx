@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>2.11</version>
+        <version>3.1</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.fx</groupId>
@@ -67,8 +67,8 @@ Contributor(s): .
         <!-- URL to use with the GitHub site plugin -->
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
         <!--<url.parent>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
-        <drombler-acp.version>0.12</drombler-acp.version>
-        <drombler-commons.version>0.12</drombler-commons.version>
+        <drombler-acp.version>0.13</drombler-acp.version>
+        <drombler-commons.version>0.13</drombler-commons.version>
     </properties>
 
     <!-- Not inherited!?? -->
