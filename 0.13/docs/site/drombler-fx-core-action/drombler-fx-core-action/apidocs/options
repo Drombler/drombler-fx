@@ -1,0 +1,42 @@
+-classpath
+'/home/puce/.m2/repository/org/drombler/commons/drombler-commons-action-fx/0.13/drombler-commons-action-fx-0.13.jar:/home/puce/.m2/repository/org/drombler/acp/drombler-acp-core-context/0.13/drombler-acp-core-context-0.13.jar:/home/puce/.m2/repository/org/drombler/commons/drombler-commons-client-core/0.13/drombler-commons-client-core-0.13.jar:/home/puce/.m2/repository/org/drombler/commons/drombler-commons-context/0.13/drombler-commons-context-0.13.jar:/home/puce/.m2/repository/org/softsmithy/lib/softsmithy-lib-compiler/0.9/softsmithy-lib-compiler-0.9.jar:/home/puce/.m2/repository/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar:/home/puce/.m2/repository/org/drombler/commons/drombler-commons-action-core/0.13/drombler-commons-action-core-0.13.jar:/home/puce/.m2/repository/org/softsmithy/lib/softsmithy-lib-core/0.9/softsmithy-lib-core-0.9.jar:/home/puce/.m2/repository/org/osgi/org.osgi.service.component.annotations/1.3.0/org.osgi.service.component.annotations-1.3.0.jar:/home/puce/.m2/repository/org/apache/felix/org.apache.felix.configadmin/1.8.16/org.apache.felix.configadmin-1.8.16.jar:/home/puce/.m2/repository/org/drombler/commons/drombler-commons-fx-core/0.13/drombler-commons-fx-core-0.13.jar:/home/puce/.m2/repository/org/apache/felix/org.apache.felix.scr.annotations/1.12.0/org.apache.felix.scr.annotations-1.12.0.jar:/home/puce/.m2/repository/org/apache/felix/org.apache.felix.scr/2.0.6/org.apache.felix.scr-2.0.6.jar:/home/puce/.m2/repository/org/drombler/acp/drombler-acp-core-application/0.13/drombler-acp-core-application-0.13.jar:/home/puce/.m2/repository/org/drombler/acp/drombler-acp-core-action-spi/0.13/drombler-acp-core-action-spi-0.13.jar:/home/puce/.m2/repository/org/softsmithy/lib/softsmithy-lib-beans/0.9/softsmithy-lib-beans-0.9.jar:/home/puce/.m2/repository/org/drombler/acp/drombler-acp-core-action/0.13/drombler-acp-core-action-0.13.jar:/home/puce/.m2/repository/org/drombler/acp/drombler-acp-core-commons/0.13/drombler-acp-core-commons-0.13.jar:/home/puce/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/fastdata/Programming/Java/drombler/drombler-fx/releases/0.13/drombler-fx/drombler-fx-core-action/src/main/java:/fastdata/Programming/Java/drombler/drombler-fx/releases/0.13/drombler-fx/drombler-fx-core-action/target/generated-sources/annotations'
+-javafx
+-Xdoclint:accessibility
+-Xdoclint:html
+-Xdoclint:missing
+-Xdoclint:reference
+-author
+-bottom
+'Copyright &#169; 2012&#x2013;2018 <a href="http://www.drombler.com">Drombler</a>. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/fastdata/Programming/Java/drombler/drombler-fx/releases/0.13/drombler-fx/drombler-fx-core-action/target/site/apidocs'
+-docencoding
+'UTF-8'
+-docfilessubdirs
+-doctitle
+'Drombler FX - Core - Action 0.13 API'
+-link
+'https://docs.oracle.com/javaee/7/api'
+-link
+'https://docs.oracle.com/javase/8/javafx/api'
+-link
+'http://www.drombler.org/drombler-acp/0.13/docs/site/apidocs'
+-link
+'http://www.drombler.org/drombler-commons/0.13/docs/site/apidocs'
+-link
+'http://commons.apache.org/proper/commons-lang/apidocs'
+-link
+'http://www.softsmithy.org/softsmithy-lib/lib/0.9/docs/site/apidocs'
+-linkoffline
+'https://docs.oracle.com/javase/8/docs/api' '/fastdata/Programming/Java/drombler/drombler-fx/releases/0.13/drombler-fx/drombler-fx-core-action/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'Drombler FX - Core - Action 0.13 API'
