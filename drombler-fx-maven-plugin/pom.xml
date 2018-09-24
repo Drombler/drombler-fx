@@ -131,7 +131,12 @@ Contributor(s): .
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>2.4</version>
+            <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.jstore</groupId>
+            <artifactId>jap-maven-plugin</artifactId>
+            <type>maven-plugin</type>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
