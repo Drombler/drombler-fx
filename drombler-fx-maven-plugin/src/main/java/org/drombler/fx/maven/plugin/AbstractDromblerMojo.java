@@ -31,7 +31,8 @@ import org.drombler.fx.maven.plugin.util.PluginProperty;
  */
 public abstract class AbstractDromblerMojo extends AbstractMojo {
 
-    protected static final PluginCoordinates JAVAFX_PLUGIN_COORDINATES = new PluginCoordinates("com.zenjava", "javafx-maven-plugin");
+    protected static final PluginCoordinates JAVAFX_MAVEN_PLUGIN_COORDINATES = new PluginCoordinates("com.zenjava", "javafx-maven-plugin");
+    protected static final PluginCoordinates JAP_MAVEN_PLUGIN_COORDINATES = new PluginCoordinates("org.drombler.jstore", "jap-maven-plugin");
 
     /**
      * The target directory.

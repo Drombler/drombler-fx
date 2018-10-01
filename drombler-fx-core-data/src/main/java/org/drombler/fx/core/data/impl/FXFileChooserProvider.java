@@ -64,6 +64,7 @@ public class FXFileChooserProvider implements FileChooserProvider {
         this.extensionFilterFormat = new MessageFormat(resourceBundle.getString("fileChooser.extensionFilter.format"));
 
         this.fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(resourceBundle.getString("fileChooser.extensionFilters.allFiles"), "*.*"));
+        // TODO: synchronize initialDirectory with FXDirectoryChooserProvider?
         this.fileChooser.setInitialDirectory(SystemUtils.getUserHome());
     }
 

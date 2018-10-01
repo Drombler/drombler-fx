@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.12-SNAPSHOT</version>
+        <version>0.14-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
@@ -106,6 +106,14 @@ Contributor(s): .
             <groupId>org.ops4j</groupId>
             <artifactId>maven-pax-plugin</artifactId>
         </dependency>
+        <!--TODO: needed as dependency?-->
+        <!--        <dependency>
+            <groupId>com.zenjava</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <type>maven-plugin</type>
+            <version>8.7.1-SNAPSHOT</version>
+        </dependency>-->
+        
         <!--        <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
@@ -123,7 +131,12 @@ Contributor(s): .
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>2.4</version>
+            <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.jstore</groupId>
+            <artifactId>jap-maven-plugin</artifactId>
+            <type>maven-plugin</type>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
