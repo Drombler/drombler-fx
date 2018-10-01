@@ -598,7 +598,8 @@ to allow other bundles to register entries between some existing ones.</p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">/**</code></pre>
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Action(id = "open", category = "core", displayName = "%open.displayName", accelerator = "Shortcut+O")
+@MenuEntry(path = "File", position = 1010)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -620,7 +621,7 @@ which tries to open unnamed file path arguments passed to the application on app
 <div id="footer">
 <div id="footer-text">
 Version 0.13<br>
-Last updated 2018-09-23 22:30:54 MESZ
+Last updated 2018-10-01 21:49:53 MESZ
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
