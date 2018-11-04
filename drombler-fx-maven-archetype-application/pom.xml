@@ -28,7 +28,7 @@ Contributor(s): .
     <description>A sample Drombler FX application template.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
