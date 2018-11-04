@@ -27,7 +27,7 @@ Contributor(s): .
     <packaging>pom</packaging>
     
     <name>Drombler FX - Parent</name>
-    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
     <description>The parent POM of the Drombler FX project. This Drombler FX Parent POM should be the parent (either directly or indirectly) of every Drombler FX project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
@@ -42,7 +42,7 @@ Contributor(s): .
         <license>
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
             <distribution>repo</distribution>
-            <!--<url>http://java.sun.com/spl.html</url>-->
+            <!--<url>https://opensource.org/licenses/CDDL-1.0</url>-->
             <url>../LICENSE.txt</url>
         </license>
     </licenses>
@@ -66,7 +66,7 @@ Contributor(s): .
         <distributionManagement.parent.url>${distributionManagement.base.url}/docs/site</distributionManagement.parent.url>
         <!-- URL to use with the GitHub site plugin -->
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
-        <!--<url.parent>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
+        <!--<url.parent>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
         <drombler-acp.version>0.14-SNAPSHOT</drombler-acp.version>
         <drombler-commons.version>0.14-SNAPSHOT</drombler-commons.version>
         <jap-maven-plugin.version>0.2-SNAPSHOT</jap-maven-plugin.version>

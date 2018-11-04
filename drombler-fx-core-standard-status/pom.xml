@@ -32,7 +32,7 @@ Contributor(s): .
     <description>Standard JavaFX-based Status Bar Framework configurations.</description>
     <inceptionYear>2017</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
