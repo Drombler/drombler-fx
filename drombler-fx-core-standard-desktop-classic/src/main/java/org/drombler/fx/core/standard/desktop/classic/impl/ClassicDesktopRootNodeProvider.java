@@ -58,6 +58,7 @@ public class ClassicDesktopRootNodeProvider implements MainSceneRootProvider {
         unregisterService(context, MenuBarMenuContainerProvider.class);
         unregisterService(context, ContentPaneProvider.class);
         unregisterService(context, ApplicationToolBarContainerProvider.class);
+        unregisterService(context, StatusBarElementContainerProvider.class);
         root = null;
     }
 
