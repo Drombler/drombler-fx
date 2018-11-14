@@ -7,7 +7,7 @@
         Run 'mvn help:effective-pom' on this parent project to get an idea what you need to configure. -->
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>3.1</version>
+        <version>3.2-SNAPSHOT</version>
         <relativePath />
     </parent>
     <groupId>\${groupId}</groupId>
@@ -67,6 +67,7 @@
     
     <properties>
         <drombler-fx.version>${project.version}</drombler-fx.version>
+        <jap-maven-plugin.version>0.2-SNAPSHOT</jap-maven-plugin.version>
     </properties>
     
     <!-- Not inherited!?? -->
@@ -81,6 +82,11 @@
                     <groupId>org.drombler.fx</groupId>
                     <artifactId>drombler-fx-maven-plugin</artifactId>
                     <version>${drombler-fx.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.drombler.jstore</groupId>
+                    <artifactId>jap-maven-plugin</artifactId>
+                    <version>${jap-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

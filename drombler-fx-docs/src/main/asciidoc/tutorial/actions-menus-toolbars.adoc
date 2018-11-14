@@ -298,14 +298,14 @@ Actions, Menu Items and Toolbar Buttons:
 
 [source,java]
 ----
-include::{dromblersourcedir}/org/drombler/acp/core/standard/action/impl/SaveAction.java[lines=30..33]
+include::{dromblersourcedir}/org/drombler/acp/core/standard/action/impl/SaveAction.java[lines=28..31]
 ----
 
 *Save All*:
 
 [source,java]
 ----
-include::{dromblersourcedir}/org/drombler/acp/core/standard/action/impl/SaveAllAction.java[lines=34..37]
+include::{dromblersourcedir}/org/drombler/acp/core/standard/action/impl/SaveAllAction.java[lines=32..35]
 ----
 
 The "Save" action looks for an instance of the interface org.drombler.acp.core.standard.action.Savable in the _active context_.
@@ -319,7 +319,7 @@ See <<context-framework.adoc#contextFramework,Context Framework>> for more infor
 
 [source,java]
 ----
-include::{dromblersourcedir}/org/drombler/fx/core/standard/desktop/classic/impl/ExitAction.java[lines=27..28]
+include::{dromblersourcedir}/org/drombler/fx/core/standard/action/impl/ExitAction.java[lines=30..32]
 ----
 
 == Context Sensitive Actions

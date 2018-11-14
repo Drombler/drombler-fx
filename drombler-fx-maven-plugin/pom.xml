@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.13</version>
+        <version>0.14-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
@@ -29,7 +29,7 @@ Contributor(s): .
     <description>The Drombler FX Application Maven Plugin.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -73,6 +73,17 @@ Contributor(s): .
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>org.drombler.fx.maven.plugin</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -131,11 +142,21 @@ Contributor(s): .
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>2.4</version>
+            <type>maven-plugin</type>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.drombler.jstore</groupId>
+            <artifactId>jap-maven-plugin</artifactId>
+            <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

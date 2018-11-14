@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.13</version>
+        <version>0.14-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-startup-main</artifactId>
@@ -28,7 +28,7 @@ Contributor(s): .
     <description>The main classes to startup a Drombler FX based application.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -70,6 +70,17 @@ Contributor(s): .
                         </goals>
                     </execution>
                 </executions>     
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>org.drombler.fx.startup.main</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>

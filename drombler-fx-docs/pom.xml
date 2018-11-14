@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.13</version>
+        <version>0.14-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-docs</artifactId>
@@ -59,6 +59,17 @@ Contributor(s): .
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>org.drombler.fx.docs</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -214,8 +225,8 @@ Contributor(s): .
                     <classifier>sources</classifier>
                 </dependency>
                 <dependency>
-                    <groupId>org.drombler.fx</groupId>
-                    <artifactId>drombler-fx-core-standard-desktop-classic</artifactId>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>drombler-fx-core-standard-action</artifactId>
                     <version>${project.version}</version>
                     <classifier>sources</classifier>
                 </dependency>

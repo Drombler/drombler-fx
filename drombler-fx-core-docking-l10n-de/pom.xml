@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.13</version>
+        <version>0.14-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
@@ -29,7 +29,7 @@ Contributor(s): .
     <description>L10n (German) of the JavaFX-based implementation of the Drombler ACP Docking Framework.</description>
     <inceptionYear>2016</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -71,6 +71,17 @@ Contributor(s): .
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>org.drombler.fx.core.docking.l10n.de</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>

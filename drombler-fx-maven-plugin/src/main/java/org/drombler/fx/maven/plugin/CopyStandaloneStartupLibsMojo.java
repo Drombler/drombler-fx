@@ -19,21 +19,21 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.maven.artifact.factory.ArtifactFactory;
-import org.apache.maven.artifact.repository.ArtifactRepositoryFactory;
-import org.apache.maven.artifact.resolver.ArtifactResolver;
+import org.apache.maven.artifact.handler.manager.ArtifactHandlerManager;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.dependency.AbstractDependencyMojo;
-import org.apache.maven.plugin.dependency.fromConfiguration.AbstractFromConfigurationMojo;
-import org.apache.maven.plugin.dependency.fromConfiguration.ArtifactItem;
-import org.apache.maven.plugin.dependency.fromConfiguration.CopyMojo;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.dependency.AbstractDependencyMojo;
+import org.apache.maven.plugins.dependency.fromConfiguration.AbstractFromConfigurationMojo;
+import org.apache.maven.plugins.dependency.fromConfiguration.ArtifactItem;
+import org.apache.maven.plugins.dependency.fromConfiguration.CopyMojo;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.shared.artifact.resolve.ArtifactResolver;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.ops4j.pax.construct.util.ReflectMojo;
 
@@ -56,11 +56,12 @@ public class CopyStandaloneStartupLibsMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
-    @Component
-    private ArtifactRepositoryFactory artifactRepositoryFactory;
+
+    @Parameter(defaultValue = "${session}", readonly = true, required = true)
+    private MavenSession session;
 
     @Component
-    private ArtifactFactory artifactFactory;
+    private ArtifactHandlerManager artifactHandlerManager;
 
     @Component
     private ArtifactResolver artifactResolver;
@@ -82,23 +83,23 @@ public class CopyStandaloneStartupLibsMojo extends AbstractMojo {
     }
 
     private void copyArtifacts(Path outputDirPath, boolean useRepositoryLayout, String excludeScope,
-            List<ArtifactItem> artifactItems) throws MojoExecutionException {
+            List<ArtifactItem> artifactItems) throws MojoExecutionException, MojoFailureException {
         CopyMojo copyMojo = new CopyMojo();
 
         ReflectMojo reflectAbstractFromConfigurationMojo = new ReflectMojo(copyMojo, AbstractFromConfigurationMojo.class);
         reflectAbstractFromConfigurationMojo.setField("outputDirectory", outputDirPath.toFile());
         reflectAbstractFromConfigurationMojo.setField("artifactItems", artifactItems);
-        reflectAbstractFromConfigurationMojo.setField("artifactRepositoryManager", artifactRepositoryFactory);
+        reflectAbstractFromConfigurationMojo.setField("artifactHandlerManager", artifactHandlerManager);
+        reflectAbstractFromConfigurationMojo.setField("artifactResolver", artifactResolver);
 
         ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyMojo, AbstractDependencyMojo.class);
-        reflectAbstractDependencyMojo.setField("factory", artifactFactory);
         reflectAbstractDependencyMojo.setField("project", project);
-        reflectAbstractDependencyMojo.setField("resolver", artifactResolver);
+        reflectAbstractDependencyMojo.setField("session", session);
 
         copyMojo.execute();
     }
 
-    private void copyStartupLibs(Path binDirPath) throws IOException, MojoExecutionException {
+    private void copyStartupLibs(Path binDirPath) throws IOException, MojoExecutionException, MojoFailureException {
         Path libDirPath = binDirPath.resolve(PathUtils.LIB_DIR_NAME);
 
 //        List<Dependency> dependencies = project.getDependencies();
