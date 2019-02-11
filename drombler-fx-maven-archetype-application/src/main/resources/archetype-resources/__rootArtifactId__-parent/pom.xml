@@ -67,7 +67,7 @@
     
     <properties>
         <drombler-fx.version>${project.version}</drombler-fx.version>
-        <jap-maven-plugin.version>0.2-SNAPSHOT</jap-maven-plugin.version>
+        <jap-maven-plugin.version>0.2</jap-maven-plugin.version>
     </properties>
     
     <!-- Not inherited!?? -->

@@ -69,7 +69,7 @@ Contributor(s): .
         <!--<url.parent>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
         <drombler-acp.version>0.14-SNAPSHOT</drombler-acp.version>
         <drombler-commons.version>0.14-SNAPSHOT</drombler-commons.version>
-        <jap-maven-plugin.version>0.2-SNAPSHOT</jap-maven-plugin.version>
+        <jap-maven-plugin.version>0.2</jap-maven-plugin.version>
     </properties>
 
     <!-- Not inherited!?? -->
