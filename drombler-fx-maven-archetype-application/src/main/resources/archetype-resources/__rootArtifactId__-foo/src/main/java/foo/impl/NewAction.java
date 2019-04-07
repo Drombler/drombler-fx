@@ -6,7 +6,6 @@
 package ${package}.foo.impl;
 
 import javafx.event.ActionEvent;
-
 import org.drombler.acp.core.action.Action;
 import org.drombler.acp.core.action.MenuEntry;
 import org.drombler.acp.core.commons.util.SimpleServiceTrackerCustomizer;
@@ -14,7 +13,6 @@ import org.drombler.acp.core.data.spi.DataHandlerRegistryProvider;
 import org.drombler.commons.action.fx.AbstractFXAction;
 import org.drombler.commons.data.Openable;
 import org.drombler.commons.fx.concurrent.FXConsumer;
-
 import org.osgi.util.tracker.ServiceTracker;
 
 
@@ -39,7 +37,7 @@ public class NewAction extends AbstractFXAction implements AutoCloseable {
     @Override
     public void handle(ActionEvent event) {
         FooHandler fooHandler = new FooHandler();
-        dataHandlerRegistryProvider.getDataHandlerRegistry().registerDataHandler(fooHandler);
+        fooHandler = dataHandlerRegistryProvider.getDataHandlerRegistry().registerDataHandler(fooHandler);
         Openable openable = fooHandler.getLocalContext().find(Openable.class);
         if (openable != null) {
             openable.open();
