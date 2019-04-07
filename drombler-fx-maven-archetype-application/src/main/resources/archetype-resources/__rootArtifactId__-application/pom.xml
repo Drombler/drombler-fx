@@ -53,6 +53,13 @@
                     <!--<defaultSingleInstancePort>some unused port</defaultSingleInstancePort>-->
                 </configuration>
             </plugin>
+            <plugin>  
+                <groupId>org.drombler.jstore</groupId>
+                <artifactId>jap-maven-plugin</artifactId>
+                <configuration>
+                    <applicationGrade>development</applicationGrade> <!-- set to 'stable' once the application is ready for a bigger audience -->
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     
