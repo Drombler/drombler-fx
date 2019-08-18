@@ -17,5 +17,5 @@ The modular application framework for *JavaFX* based on:
 
 As an application framework it makes sure *JavaFX* and *OSGi* will get started properly and it provides the main window.
 
-See the [documentation](http://www.drombler.org/drombler-fx) for a tutorial, the Javadoc and information about the available Maven modules (available from Maven Central).
+See the [documentation](https://www.drombler.org/drombler-fx) for a tutorial, the Javadoc and information about the available Maven modules (available from Maven Central).
 
