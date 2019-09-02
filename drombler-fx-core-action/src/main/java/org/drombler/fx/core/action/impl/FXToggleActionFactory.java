@@ -14,7 +14,7 @@
  */
 package org.drombler.fx.core.action.impl;
 
-import org.drombler.acp.core.action.spi.ActionDescriptor;
+import org.drombler.acp.core.action.spi.ToggleActionDescriptor;
 import org.drombler.acp.core.action.spi.ToggleActionFactory;
 import org.drombler.commons.action.ToggleActionListener;
 import org.drombler.commons.action.fx.FXToggleAction;
@@ -30,7 +30,7 @@ public class FXToggleActionFactory implements ToggleActionFactory<FXToggleAction
 
     @Override
     @SuppressWarnings("unchecked")
-    public FXToggleAction createToggleAction(ActionDescriptor<?> actionDescriptor) {
+    public FXToggleAction createToggleAction(ToggleActionDescriptor<?> actionDescriptor) {
         Object listener = actionDescriptor.getListener();
         FXToggleAction fxToggleAction = null;
         if (listener instanceof FXToggleAction) {
