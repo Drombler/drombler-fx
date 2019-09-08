@@ -23,21 +23,46 @@ import java.util.List;
 import java.util.Properties;
 import javafx.application.Application;
 import org.drombler.acp.startup.main.DromblerACPConfiguration;
+import org.drombler.commons.client.startup.main.ApplicationConfiguration;
 import org.drombler.commons.client.startup.main.MissingPropertyException;
 import org.drombler.commons.client.startup.main.cli.CommandLineArgs;
 
 /**
+ * The Drombler FX configuration. Subclasses may add additional properties or change the configuration such as the application layout. Provides access to additional properties which are usually set by
+ * the Drombler FX Maven Plugin.
  *
- * @author puce
+ * @see ApplicationConfiguration
  */
 public class DromblerFXConfiguration extends DromblerACPConfiguration {
 
+    /**
+     * The property name of the branding id property in the applicationConfig.properties file.
+     */
     public static final String APPLICATION_BRANDING_ID_PROPERTY_NAME = "drombler.application.brandingId";
+
+    /**
+     * The property name of the title property in the applicationConfig.properties file.
+     */
     public static final String APPLICATION_TITLE_PROPERTY_NAME = "drombler.application.title";
+
+    /**
+     * The property name of the preferred width property in the applicationConfig.properties file.
+     */
     public static final String APPLICATION_WIDTH_PROPERTY_NAME = "drombler.application.width";
+
+    /**
+     * The property name of the preferred height property in the applicationConfig.properties file.
+     */
     public static final String APPLICATION_HEIGHT_PROPERTY_NAME = "drombler.application.height";
 
+    /**
+     * The system property name of the JavaFX version system property.
+     */
     public static final String JAVAFX_VERSION_PROPERTY = "jfx.specification.version";
+
+    /**
+     * The JavaFX 8 version.
+     */
     public static final String JAVAFX_VERSION_8 = "8";
 
     private static final String DEFAULT_APPLICATION_TITLE = "Drombler FX based Application";
@@ -49,6 +74,14 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
     private final double applicationWidth;
     private final double applicationHeight;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param parameters the application parameters
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws MissingPropertyException
+     */
     public DromblerFXConfiguration(Application.Parameters parameters) throws URISyntaxException, IOException,
             MissingPropertyException {
         super(toCommandLineArgs(parameters));
@@ -86,6 +119,9 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
         return CommandLineArgs.parseCommandLineArgs(unnamedParameters.toArray(new String[unnamedParameters.size()]));
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected Properties loadDefaultConfigProps() throws IOException {
         Properties properties = new Properties(super.loadDefaultConfigProps());
@@ -95,6 +131,12 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
         return properties;
     }
 
+    /**
+     * {@inheritDoc }
+     * Sets the JavaFX version as an additional system property.
+     *
+     * @see #JAVAFX_VERSION_PROPERTY
+     */
     @Override
     protected void loadSystemProperties(Path rootDirPath) throws MalformedURLException, IOException {
         super.loadSystemProperties(rootDirPath);
@@ -105,23 +147,37 @@ public class DromblerFXConfiguration extends DromblerACPConfiguration {
         }
     }
 
+    /**
+     * Gets the application branding id.
+     *
+     * @return the application branding id
+     */
     public String getApplicationBrandingId() {
         return applicationBrandingId;
     }
 
+    /**
+     * Gets the application title.
+     *
+     * @return the application title
+     */
     public String getApplicationTitle() {
         return applicationTitle;
     }
 
     /**
-     * @return the applicationWidth
+     * Gets the preferred application width.
+     *
+     * @return the preferred application width
      */
     public double getApplicationWidth() {
         return applicationWidth;
     }
 
     /**
-     * @return the applicationHeight
+     * Gets the preferred application height.
+     *
+     * @return the preferred application height
      */
     public double getApplicationHeight() {
         return applicationHeight;

@@ -29,6 +29,17 @@ import org.drombler.fx.startup.main.impl.DefaultRootPane;
 import org.osgi.framework.BundleContext;
 
 /**
+ * A Drombler FX application.<br>
+ * <br>
+ * It starts a {@link DromblerACPStarter} and registers the following OSGi services:
+ * <ul>
+ * <li>a {@link DromblerFXConfiguration}</li>
+ * <li>a {@link MainWindowProvider} which provides the primary stage</li>
+ * <li>the {@link HostServices}</li>
+ * </ul>
+ *
+ * This class initializes a default scene and content which shows an infinite progress indicator.<br>
+ * Make sure to either use a module which provides an implementation of {@link MainSceneRootProvider} as an OSGi service or to provide and register your own implementation.
  *
  * @author puce
  */
@@ -38,12 +49,24 @@ public class DromblerFXApplication extends Application {
     private DromblerFXConfiguration configuration;
     private DromblerACPStarter<DromblerFXConfiguration> starter;
 
-
     // TODO: is this method still needed on Mac OS?
+    /**
+     * Runs the Drombler FX application.
+     * @param args the command line args
+     */
     public static final void main(String... args) {
         launch(args);
     }
 
+    /**
+     * Initializes a {@link DromblerACPStarter}.
+     *
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws MissingPropertyException
+     * @throws Exception
+     * @see DromblerACPStarter#init()
+     */
     @Override
     public void init() throws URISyntaxException, IOException, MissingPropertyException, Exception {
         this.configuration = new DromblerFXConfiguration(getParameters());
@@ -56,24 +79,37 @@ public class DromblerFXApplication extends Application {
         }
     }
 
+    /**
+     * Starts the application.<br>
+     * <br>
+     * Starts the previously initialized {@link DromblerACPStarter} and registers the following OSGi services:
+     * <ul>
+     * <li>a {@link DromblerFXConfiguration}</li>
+     * <li>a {@link MainWindowProvider} which provides the primary stage</li>
+     * <li>the {@link HostServices}</li>
+     * </ul>
+     *
+     * @param primaryStage the primary stage
+     * @see DromblerACPStarter#start()
+     */
     @Override
-    public void start(Stage stage) {
+    public void start(Stage primaryStage) {
         logInfo("Starting JavaFX Application \"{0}\"...", getTitle());
 
-        stage.setTitle(getTitle());
+        primaryStage.setTitle(getTitle());
         final Scene scene = new Scene(new DefaultRootPane(), getWidth(), getHeight());
 
 //        mainSceneProvider = () -> scene;
 //        getBundleContext().registerService(MainSceneProvider.class, mainSceneProvider, null);
-        stage.setScene(scene);
-        stage.sizeToScene();
-        stage.show();
+        primaryStage.setScene(scene);
+        primaryStage.sizeToScene();
+        primaryStage.show();
 
-        mainWindowProvider = () -> stage;
+        mainWindowProvider = () -> primaryStage;
         getBundleContext().registerService(DromblerFXConfiguration.class, configuration, null);
         getBundleContext().registerService(MainWindowProvider.class, mainWindowProvider, null);
         getBundleContext().registerService(HostServices.class, getHostServices(), null);
-        
+
         // Only start OSGi and register services such as ApplicationExecutorProvider once the JavaFX Platform has been started.
         starter.start();
         logInfo("Started JavaFX Application \"{0}\"", getTitle());
@@ -83,6 +119,9 @@ public class DromblerFXApplication extends Application {
         return starter.getFramework().getBundleContext();
     }
 
+    /**
+     * Stops the {@link DromblerACPStarter}.
+     */
     @Override
     public void stop() {
         logInfo("Stopping JavaFX Application \"{0}\"...", getTitle());
