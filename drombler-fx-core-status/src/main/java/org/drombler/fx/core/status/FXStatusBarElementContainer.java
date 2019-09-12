@@ -15,6 +15,7 @@ import org.softsmithy.lib.util.PositionableAdapter;
 import org.softsmithy.lib.util.Positionables;
 
 /**
+ * A JavaFX specific implementation of {@link StatusBarElementContainer} based on the JavaFX {@link StatusBar}.
  *
  * @author puce
  */
@@ -28,6 +29,11 @@ public class FXStatusBarElementContainer implements StatusBarElementContainer<No
 
     private final StatusBar statusBar;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param statusBar a status bar
+     */
     public FXStatusBarElementContainer(StatusBar statusBar) {
         this.statusBar = statusBar;
     }
@@ -80,11 +86,17 @@ public class FXStatusBarElementContainer implements StatusBarElementContainer<No
 
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean isLeftToRight() {
         return statusBar.getEffectiveNodeOrientation() == NodeOrientation.LEFT_TO_RIGHT;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean isMirroringEnabled() {
         return statusBar.usesMirroring();

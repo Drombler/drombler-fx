@@ -39,7 +39,8 @@ import org.osgi.framework.BundleContext;
  * </ul>
  *
  * This class initializes a default scene and content which shows an infinite progress indicator.<br>
- * Make sure to either use a module which provides an implementation of {@link MainSceneRootProvider} as an OSGi service or to provide and register your own implementation.
+ * Make sure to either use a module which provides an implementation of {@code org.drombler.fx.core.application.MainSceneRootProvider} as an OSGi service or to provide and register your own
+ * implementation.
  *
  * @author puce
  */
