@@ -21,6 +21,7 @@ import javafx.scene.control.MenuItem;
 import org.drombler.acp.core.action.PositionSortingStrategy;
 import org.drombler.acp.core.action.PositionableMenuItemAdapterFactory;
 import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
+import org.drombler.acp.core.action.spi.MenuItemRootContainer;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
 import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 
