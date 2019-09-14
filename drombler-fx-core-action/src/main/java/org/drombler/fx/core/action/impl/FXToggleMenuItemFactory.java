@@ -31,20 +31,20 @@ import org.drombler.commons.action.fx.MenuItemUtils;
  */
 @Component
 @Service
-public class FXToggleMenuItemFactory implements ToggleMenuItemFactory<MenuItem, FXToggleAction> {
+public class FXToggleMenuItemFactory implements ToggleMenuItemFactory<MenuItem, MenuItem, FXToggleAction> {
 
     private final ToggleGroupManager toggleGroupManager = new ToggleGroupManager();
 
     @Override
-    public MenuItem createToggleMenuItem(ToggleMenuEntryDescriptor toggleMenuEntryDescriptor, FXToggleAction action, int iconSize) {
+    public MenuItem createToggleMenuItem(ToggleMenuEntryDescriptor<MenuItem, MenuItem, ?> toggleMenuEntryDescriptor, FXToggleAction toggleAction, int iconSize) {
         if (StringUtils.isNotEmpty(toggleMenuEntryDescriptor.getToggleGroupId())) {
             RadioMenuItem menuItem = new RadioMenuItem();
-            MenuItemUtils.configureRadioMenuItem(menuItem, action, iconSize);
+            MenuItemUtils.configureRadioMenuItem(menuItem, toggleAction, iconSize);
             toggleGroupManager.configureToggle(menuItem, toggleMenuEntryDescriptor.getToggleGroupId());
             return menuItem;
         } else {
             CheckMenuItem menuItem = new CheckMenuItem();
-            MenuItemUtils.configureCheckMenuItem(menuItem, action, iconSize);
+            MenuItemUtils.configureCheckMenuItem(menuItem, toggleAction, iconSize);
             return menuItem;
         }
     }
