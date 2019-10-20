@@ -149,6 +149,7 @@ _Drombler FX_ looks for &lt;icon-base-name&gt;16.&lt;icon-extension&gt; for menu
 In the example above _Drombler FX_ would look for test116.png and test124.png. Note: Maven expects resources to be in a 
 resources directory. If you're using drombler-fx-parent as your parent POM, it's best to put binary files under the 
 resources-bin directory as this directory has been configured not to be filtered for variables.
+|resourceBundleBaseName|the base name of the ResourceBundle, 'Bundle' (for the package ResourceBundle) or empty (for the class ResourceBundle)
 |===
 .Action Annotation Properties
 
@@ -169,7 +170,7 @@ include::{sourcedir}/tutorial/action/AnnotatedMenuEntry.java[lines=17..19]
 
 |actionId | the id of the Action to be registered as a menu item. This property can be omitted, if there is an @Action 
 annotation on the same class.
-|path | a slash '/' delimited path of Menu IDs (see further down)
+|path | a slash '/' delimited path of menu IDs (see further down)
 |position | the position to order the menu items in a menu. It's a best practice to leave out some positions between 
 entries to allow other bundles to register entries between some existing ones.
 |===
@@ -238,7 +239,7 @@ include::{sourcedir}/tutorial/action/menu/package-info.java[lines=15..19]
 |displayName | the text of the menu. If the value starts with '%' the rest of the value is interpreted as a property key
  and the value gets looked-up in the Bundle.properties file (or a locale specific derivation of this file), which has to
  be in the same package. Note: Maven expects resources to be in the resources directory.
-|path | a slash '/' delimited path of Menu IDs. If it is omitted, then the menu will be registered directly in the menu 
+|path | a slash '/' delimited path of menu IDs. If it is omitted, then the menu will be registered directly in the menu 
 bar.
 |position | the position to order the menus in a parent menu/ menu bar. It's a best practice to leave out some positions
  between entries to allow other bundles to register entries between some existing ones. 

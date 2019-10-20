@@ -46,6 +46,8 @@ Contributor(s): .
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
+        
+        <java.compiler.compilerArgument>-proc:none</java.compiler.compilerArgument>
     </properties>
     
     <!-- Not inherited!?? -->
@@ -117,6 +119,10 @@ Contributor(s): .
             <artifactId>drombler-acp-core-docking</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-context</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-docking-core</artifactId>
         </dependency>
@@ -129,8 +135,17 @@ Contributor(s): .
             <artifactId>drombler-acp-core-status</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.scr.annotations</artifactId>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.cmpn</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
         </dependency>
     </dependencies>
     

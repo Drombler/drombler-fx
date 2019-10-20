@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<foos xmlns="http://www.mycompany.com/schema/myapp/foos">
+    <foo>
+        <bar>a</bar>
+        <position>10</position>
+        <fooClass>tutorial.extension.SomeComponent2</fooClass>
+    </foo>
+</foos>
