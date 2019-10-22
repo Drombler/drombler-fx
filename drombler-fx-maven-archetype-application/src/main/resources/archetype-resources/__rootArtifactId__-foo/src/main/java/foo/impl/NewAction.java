@@ -16,7 +16,7 @@ import org.drombler.commons.fx.concurrent.FXConsumer;
 import org.osgi.util.tracker.ServiceTracker;
 
 
-@Action(id = "new", category = "core", displayName = "%new.displayName", accelerator = "Shortcut+N")
+@Action(id = "new", category = "core", displayName = "%displayName", accelerator = "Shortcut+N")
 @MenuEntry(path = "File", position = 10)
 public class NewAction extends AbstractFXAction implements AutoCloseable {
 
