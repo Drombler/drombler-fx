@@ -1,4 +1,4 @@
-package tutorial.extension;
+package tutorial.extension.other;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,9 +9,8 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-public @interface Foo {
+public @interface SomeOtherAnnotation {
 
-    String bar();
+    Class[] barClasses();
 
-    int position();
 }

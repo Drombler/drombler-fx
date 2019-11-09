@@ -1,4 +1,4 @@
-package tutorial.extension.impl;
+package tutorial.extension.foo.impl;
 
 import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
@@ -8,10 +8,9 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import org.drombler.acp.core.application.processing.AbstractApplicationAnnotationProcessor;
-import org.drombler.acp.core.status.StatusBarElement;
-import tutorial.extension.Foo;
-import tutorial.extension.jaxb.FooType;
-import tutorial.extension.jaxb.FoosType;
+import tutorial.extension.foo.Foo;
+import tutorial.extension.foo.jaxb.FooType;
+import tutorial.extension.foo.jaxb.FoosType;
 
 @SupportedAnnotationTypes({"tutorial.extension.Foo"})
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -22,7 +21,7 @@ public class FooAnnotationProcessor extends AbstractApplicationAnnotationProcess
     @Override
     protected boolean handleProcess(Set<? extends TypeElement> annotations,
             RoundEnvironment roundEnv) {
-        roundEnv.getElementsAnnotatedWith(StatusBarElement.class).forEach(element -> {
+        roundEnv.getElementsAnnotatedWith(Foo.class).forEach(element -> {
             Foo fooAnnotation = element.getAnnotation(Foo.class);
             if (fooAnnotation != null) {
                 registerFoo(fooAnnotation, element);

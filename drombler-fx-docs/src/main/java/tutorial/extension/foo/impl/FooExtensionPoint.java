@@ -1,6 +1,6 @@
-package tutorial.extension;
+package tutorial.extension.foo.impl;
 
-import tutorial.extension.jaxb.FoosType;
+import tutorial.extension.foo.jaxb.FoosType;
 import org.drombler.acp.core.application.ExtensionPoint;
 import org.osgi.service.component.annotations.Component;
 

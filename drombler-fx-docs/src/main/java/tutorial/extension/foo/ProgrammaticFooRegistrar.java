@@ -1,14 +1,11 @@
-package tutorial.extension;
+package tutorial.extension.foo;
 
 import org.osgi.framework.BundleContext;
-import tutorial.extension.jaxb.FooType;
-import tutorial.extension.jaxb.FoosType;
+import tutorial.extension.foo.impl.FooComponent1;
+import tutorial.extension.foo.jaxb.FooType;
+import tutorial.extension.foo.jaxb.FoosType;
 
-/**
- *
- * @author puce
- */
-public class ProgrammaticRegistrar {
+public class ProgrammaticFooRegistrar {
 
     private void registerFoos(final BundleContext bundleContext) {
         FoosType foos = createFoos();
@@ -18,21 +15,21 @@ public class ProgrammaticRegistrar {
 
     private FoosType createFoos() {
         FoosType foos = new FoosType();
-        foos.getFoo().add(createFooSomeComponent1());
+        foos.getFoo().add(createFoo1());
         return foos;
     }
 
-    private FooType createFooSomeComponent1() {
+    private FooType createFoo1() {
         FooType foo = new FooType();
         foo.setBar("a");
         foo.setPosition(10);
-        foo.setFooClass(SomeComponent1.class.getName());
+        foo.setFooClass(FooComponent1.class.getName());
         return foo;
     }
 
     private void registerFooDescriptor(final BundleContext bundleContext) {
-        FooDescriptor<SomeComponent1> fooDescriptor
-                = new FooDescriptor<>(SomeComponent1.class, "a", 10);
+        FooDescriptor<FooComponent1> fooDescriptor
+                = new FooDescriptor<>(FooComponent1.class, "a", 10);
         bundleContext.registerService(FooDescriptor.class, fooDescriptor, null);
     }
 

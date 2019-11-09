@@ -1,6 +1,6 @@
-package tutorial.extension;
+package tutorial.extension.foo;
 
-import tutorial.extension.jaxb.FooType;
+import tutorial.extension.foo.jaxb.FooType;
 import org.drombler.acp.core.commons.util.BundleUtils;
 import org.osgi.framework.Bundle;
 

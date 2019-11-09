@@ -6,7 +6,7 @@
 //
 
 
-package tutorial.extension.jaxb;
+package tutorial.extension.foo.jaxb;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,6 +4,6 @@
     <foo>
         <bar>a</bar>
         <position>10</position>
-        <fooClass>tutorial.extension.SomeComponent2</fooClass>
+        <fooClass>tutorial.extension.foo.impl.FooComponent2</fooClass>
     </foo>
 </foos>

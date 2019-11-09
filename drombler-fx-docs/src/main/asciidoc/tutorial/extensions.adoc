@@ -26,33 +26,44 @@ _Drombler FX_ provides several extension points out-of-the-box:
  * status bar entries - see <<status-bar.adoc#statusBar,Status Bar>> for more information
 
 == Register an Extension for an Extension Point
+Extensions are registered in _/META-INF/drombler/application.xml_.
+
 There are several ways to register an extension based on an extension point.
 
 === Extension Annotations
 The easiest way to register an extension is usually to use the extension point specific annotations.
 
-If the annotation processor was registered correctly alongside with the annotations then you just need to declare the corresponding dependency and
-and add the annotations to a supported target.
+If the annotation processor was registered correctly alongside with the annotations then you just need to declare the corresponding dependency and 
+add the annotations to a supported target.
 
-The compiler will pick up the annotation processor and write the application.xml once all annotations of all extension points are processed.
+The compiler will pick up the annotation processor and write the application.xml once all annotations of all extension points in a bundle are processed.
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/SomeComponent1.java[lines=3..4]
+include::{sourcedir}/tutorial/extension/foo/impl/FooComponent1.java[lines=5..6]
 ----
 
 === Extension File
-[source,java]
-----
-include::{sourcedir}/tutorial/extension/package-info.java[lines=1..6]
-----
+Another way to register an extension is to provide an extension point specific XML file.
+
+This is approach can also be use when the extension point provider didn't specify any extension point specific annotation.
 
 [source,xml]
 ----
 include::{resourcesdir}/META-INF/drombler/foos.xml[lines=1..9]
 ----
 
+You can register this extension file using the 
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/Extension.html[@Extension] annotation on a package (usually in 
+_package-info.java_):
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/package-info.java[lines=1..6]
+----
+
 === application.xml
+You can also just provide the whole _application.xml_ file at the correct location (_/META-INF/drombler/application.xml_).
 
 [source,xml]
 ----
@@ -61,14 +72,18 @@ include::{resourcesdir}/META-INF/drombler/application.xml[lines=1..14]
 
 
 === Programmatic
+_Drombler FX_ registers each unmarshalled extension JAXB object as an OSGi service.
+
+You can do this also programmatically.
+
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/ProgrammaticRegistrar.java[lines=13..31]
+include::{sourcedir}/tutorial/extension/foo/ProgrammaticFooRegistrar.java[lines=10..28]
 ----
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/ProgrammaticRegistrar.java[lines=33..37]
+include::{sourcedir}/tutorial/extension/foo/ProgrammaticFooRegistrar.java[lines=30..34]
 ----
 
 
@@ -79,7 +94,7 @@ The only method you have to implement is to provide to JAXB class for the root e
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/FooExtensionPoint.java[lines=3..14]
+include::{sourcedir}/tutorial/extension/foo/impl/FooExtensionPoint.java[lines=3..15]
 ----
 === Handlers
 Once you defined your extension point you usually need a handler service which does something with the extension.
@@ -90,7 +105,7 @@ This allows OSGi services to listen for new instances.
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/FooHandler.java[lines=41..48]
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=41..48]
 ----
 
 === Annotations (optional)
@@ -99,7 +114,7 @@ Though this highly recommended, this is an optional step and not required.
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/Foo.java[lines=9..17]
+include::{sourcedir}/tutorial/extension/foo/Foo.java[lines=9..17]
 ----
 
 ==== Annotation Processor (optional)
@@ -108,7 +123,48 @@ the application.xml file.
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/impl/FooAnnotationProcessor.java[lines=1..53]
+include::{sourcedir}/tutorial/extension/foo/impl/FooAnnotationProcessor.java[lines=1..53]
+----
+
+[source,xml]
+----
+include::{resourcesdir}/META-INF/services/javax.annotation.processing.Processor[lines=1..1]
+----
+
+[source,java]
+----
+<java.compiler.compilerArgument>-proc:none</java.compiler.compilerArgument>
+----
+
+===== Tips & Tricks
+
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/some/impl/SomeComponent.java[lines=6..7]
+----
+https://www.softsmithy.org/softsmithy-lib/lib/{softsmithy-version}/docs/site/apidocs/org/softsmithy/lib/lang/model/type/ModelTypeUtils.html#getTypeMirror-java.util.function.Supplier-[ModelTypeUtils.getTypeMirror]
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/some/impl/SomeAnnotationProcessor.java[lines=21..29]
+----
+
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/other/impl/SomeOtherComponent.java[lines=7..8]
+----
+https://www.softsmithy.org/softsmithy-lib/lib/{softsmithy-version}/docs/site/apidocs/org/softsmithy/lib/lang/model/element/ModelTypeUtils.html#getTypeMirrorsOfClassArrayAnnotationValue-java.util.List-java.lang.Class-java.lang.String-[ModelTypeUtils.getTypeMirrorsOfClassArrayAnnotationValue]
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/other/impl/SomeOtherAnnotationProcessor.java[lines=24..36]
+----
+
+[source,java]
+----
+["tutorial.extension.other.package1.Bar1", "tutorial.extension.other.package2.Bar2"]
 ----
 
 === Descriptors (optional)

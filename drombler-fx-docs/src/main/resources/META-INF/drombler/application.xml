@@ -7,7 +7,7 @@
             <n2:foo>
                 <n2:bar>a</n2:bar>
                 <n2:position>10</n2:position>
-                <n2:fooClass>tutorial.extension.SomeComponent2</n2:fooClass>
+                <n2:fooClass>tutorial.extension.foo.impl.FooComponent2</n2:fooClass>
             </n2:foo>
         </n2:foos>
     </extensions>

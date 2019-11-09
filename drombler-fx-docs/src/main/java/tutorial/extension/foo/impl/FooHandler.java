@@ -1,4 +1,4 @@
-package tutorial.extension;
+package tutorial.extension.foo.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,10 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.PositionableAdapter;
-import tutorial.extension.FooDescriptor;
-import tutorial.extension.jaxb.FooType;
-import tutorial.extension.jaxb.FoosType;
+import tutorial.extension.foo.FooDescriptor;
+import tutorial.extension.foo.FooDescriptor;
+import tutorial.extension.foo.jaxb.FooType;
+import tutorial.extension.foo.jaxb.FoosType;
 
 /**
  *
