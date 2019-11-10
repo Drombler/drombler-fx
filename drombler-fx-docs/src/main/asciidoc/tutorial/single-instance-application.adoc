@@ -7,7 +7,7 @@ _Single Instance Application_ is an optional feature, which ensures that there i
 even if the user starts the application several times.
 
 This feature is provided out-of-the-box. It is disabled by default, however, but can be enabled by simply specifying the 
-http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/drombler-fx-maven-plugin/drombler-fx-maven-plugin/standalone-zip-mojo.html#defaultSingleInstancePort[defaultSingleInstancePort]
+https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/drombler-fx-maven-plugin/drombler-fx-maven-plugin/standalone-zip-mojo.html#defaultSingleInstancePort[defaultSingleInstancePort]
 property of the _Drombler FX Maven Plugin_.
 
 [source,xml]
@@ -36,9 +36,9 @@ time of the first start. The user should stop the application instance before ch
 The user is still able to run multiple instances (e.g. for testing purposes), by specifying the "--userdir" command line option as every userdir is treated
 independently.
 
-If this feature is enabled and one instance is aleady running, each other application start will pass all its http://docs.oracle.com/javase/8/javafx/api/javafx/application/Application.Parameters.html#getUnnamed--[unnamed parameters] to the first instance and shuts 
+If this feature is enabled and one instance is aleady running, each other application start will pass all its https://docs.oracle.com/javase/8/javafx/api/javafx/application/Application.Parameters.html#getUnnamed--[unnamed parameters] to the first instance and shuts 
 itself then down. Drombler FX will register a new instance of 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/startup/main/AdditionalArgumentsProvider.html[AdditionalArgumentsProvider]
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/startup/main/AdditionalArgumentsProvider.html[AdditionalArgumentsProvider]
 for every application start notification.
 
 With the Felix SCR annotations (Declarative Services) you can listen for multiple instances with the following class annotation:

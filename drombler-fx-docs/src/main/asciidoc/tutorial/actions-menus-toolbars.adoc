@@ -3,9 +3,9 @@
 :toc:
 :numbered:
 
-http://www.drombler.org/drombler-commons[Drombler Commons] provides an Action Framework, which keeps the state 
+https://www.drombler.org/drombler-commons[Drombler Commons] provides an Action Framework, which keeps the state 
 (enabled/ disabled, selected/ unselected etc.), the information (texts, image etc.) and the logic between menu items and
- toolbar buttons in sync. In addition http://www.drombler.org/drombler-acp[Drombler ACP] provides annotations to easily 
+ toolbar buttons in sync. In addition https://www.drombler.org/drombler-acp[Drombler ACP] provides annotations to easily 
 register new actions, menus, menu items, toolbars and toolbar buttons.
 
 The rest of this section describes how to use this framework in a _Drombler FX_ application.

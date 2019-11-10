@@ -24,7 +24,7 @@ To activate the Docking Framework in your application add the following runtime 
 [IMPORTANT]
 ====
 This dependency will provide an implementation of the
-http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/ApplicationContentProvider.html[ApplicationContentProvider]
+https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/ApplicationContentProvider.html[ApplicationContentProvider]
 service interface. So in addition to this dependency you need an <<application-layout.adoc#applicationLayout,Application Layout>>, which supports the _ApplicationContentProvider_ service interface
 such as the <<application-layout.adoc#standardDesktopClassicLayout,Standard Desktop Classic Layout>>.
 ====
@@ -32,7 +32,7 @@ such as the <<application-layout.adoc#standardDesktopClassicLayout,Standard Desk
 [NOTE]
 ====
 The _Docking Framework_ also provides an implementation of the
-http://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/OnExitRequestHandlerProvider.html[OnExitRequestHandlerProvider]
+https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/OnExitRequestHandlerProvider.html[OnExitRequestHandlerProvider]
 service interface, which helps prevent loosing any unsaved data.
 ====
 
@@ -43,8 +43,8 @@ _Dockable Panes_, which are layed out as Tabs.
 
 === Registering Docking Areas
 
-_Docking Areas_ can be registered using the http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/DockingArea.html[@DockingArea] and 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/LayoutConstraints.html[@LayoutConstraints] annotations on a package (usually in 
+_Docking Areas_ can be registered using the https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/DockingArea.html[@DockingArea] and 
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/LayoutConstraints.html[@LayoutConstraints] annotations on a package (usually in 
 _package-info.java_):
 
 [source,java]
@@ -52,7 +52,7 @@ _package-info.java_):
 include::{sourcedir}/tutorial/docking/package-info.java[lines=15..25]
 ----
 
-The http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/DockingArea.html[@DockingArea] properties:
+The https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/DockingArea.html[@DockingArea] properties:
 
 [cols="1,10",options="header"]
 |===
@@ -68,7 +68,7 @@ entries to allow other bundles to register entries between some existing ones.
 |layoutConstraints | the layout constraints (see further down)
 |===
 
-The http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/LayoutConstraints.html[@LayoutConstraints] properties:
+The https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/LayoutConstraints.html[@LayoutConstraints] properties:
 
 [cols="1,10",options="header"]
 |===
@@ -84,10 +84,10 @@ The next section covers these properties in further detail explaining the standa
 
 _Drombler FX_ provides 5 _Docking Areas_ out-of-the-box: **left**, **right**, **top**, **bottom** and **editor**. 
 The left, right, top and bottom areas have been configured to be visible only if they contain any docked _Dockable Pane_. They have been configured as 
-http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#VIEW[VIEW] Docking Areas and thus are intended for 
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#VIEW[VIEW] Docking Areas and thus are intended for 
 view Dockables.
 The editor area has been configured to be always visible, even if it's empty. It has been configured as 
-http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#EDITOR[EDITOR] Docking Area and is thus the default 
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/docking/DockingAreaKind.html#EDITOR[EDITOR] Docking Area and is thus the default 
 Docking Area for editor Dockables.
 
 [source,java]
@@ -128,15 +128,15 @@ _Drombler FX_ provides a "Window" menu and requires each view to register a menu
 
 _Drombler FX_ also provides the "Window" sub-menu "Other" out-of-the-box.
 
-A _Dockable Pane_ can be registered as a _view_ using the http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/ViewDocking.html[@ViewDocking] and 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/WindowMenuEntry.html[@WindowMenuEntry] annotations:
+A _Dockable Pane_ can be registered as a _view_ using the https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/ViewDocking.html[@ViewDocking] and 
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/WindowMenuEntry.html[@WindowMenuEntry] annotations:
 
 [source,java]
 ----
 include::{sourcedir}/tutorial/docking/DockableView.java[lines=18..24]
 ----
 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/ViewDocking.html[@ViewDocking] has the following properties:
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/ViewDocking.html[@ViewDocking] has the following properties:
 
 [cols="1,10",options="header"]
 |===
@@ -159,7 +159,7 @@ this directory has been configured not to be filtered for variables.
 |menuEntry | the menu item registration. (See further down for more information.)
 |===
 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/WindowMenuEntry.html[@WindowMenuEntry] has the following properties:
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/WindowMenuEntry.html[@WindowMenuEntry] has the following properties:
 
 [cols="1,10",options="header"]
 |===
@@ -174,10 +174,10 @@ http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/or
 _Editor Dockable Panes_ are typically used to edit some data, e.g. in a form or a text editor.
 
 To open an editor for a _Data Handler_ call
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#openEditorForContent-org.softsmithy.lib.util.UniqueKeyProvider-[Dockables.openEditorForContent].
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#openEditorForContent-org.softsmithy.lib.util.UniqueKeyProvider-[Dockables.openEditorForContent].
 
 
-A _Dockable Pane_ can be registered as an _editor_ using the http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/EditorDocking.html[@EditorDocking] annotation:
+A _Dockable Pane_ can be registered as an _editor_ using the https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/EditorDocking.html[@EditorDocking] annotation:
 
 [source,java]
 ----
@@ -195,11 +195,11 @@ include::{sourcedir}/tutorial/docking/DockableEditor.java[lines=18..21]
 
 === Data Support
 The _Docking Framework_ registers an implementation of 
-http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/data/DataCapabilityProvider.html[DataCapabilityProvider] 
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/data/DataCapabilityProvider.html[DataCapabilityProvider] 
 for the 
-http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/data/Openable.html[Openable] 
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/data/Openable.html[Openable] 
 _Data Capability_. It tries to open an _Editor_ for a _Data Handler_ by calling
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#openEditorForContent-java.lang.Object-[Dockables.openEditorForContent].
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/docking/spi/Dockables.html#openEditorForContent-java.lang.Object-[Dockables.openEditorForContent].
 
 === Samples
 

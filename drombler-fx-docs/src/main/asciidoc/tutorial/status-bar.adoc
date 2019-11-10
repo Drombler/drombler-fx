@@ -8,16 +8,16 @@ This section describes an initial version of a modular _Status Bar Framework_.
 [[activation]]
 == Activation
 To enable the _Status Bar Framework_ you need an _OSGi_ service which provides an implementation of
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/status/spi/StatusBarElementContainerProvider.html[StatusBarElementContainerProvider].
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/status/spi/StatusBarElementContainerProvider.html[StatusBarElementContainerProvider].
 
 If you're using the <<application-layout.adoc#standardDesktopClassicLayout,Standard Desktop Classic Layout>> an implementation based on 
-http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/fx/scene/control/StatusBar.html[StatusBar] 
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/fx/scene/control/StatusBar.html[StatusBar] 
 will be provided out-of-the-box.
 
 
 == Status Bar Element Registration
-To register a subclass of http://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html[Node] as a status bar element, just annotate it with 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/status/StatusBarElement.html[StatusBarElement]:
+To register a subclass of https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html[Node] as a status bar element, just annotate it with 
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/status/StatusBarElement.html[StatusBarElement]:
 
 [source,java]
 ----
@@ -25,13 +25,13 @@ include::{sourcedir}/tutorial/statusbar/SampleStatusBarElement.java[lines=21..22
 ----
 
 The status bar elements are sorted per 
-http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/client/geometry/HorizontalAlignment.html[HorizontalAlignment] according to 
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/client/geometry/HorizontalAlignment.html[HorizontalAlignment] according to 
 their positions.
 
 Please note that it's a best practice to leave some space between positions so that other modules have a chance to register other status bar elements where they like to.
 
 If two adjacent status bar elements are positioned in different thousand groups (e.g. `position = 910` and `position = 1120`), a 
-http://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Separator.html[Separator] gets automatically registered between them.
+https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Separator.html[Separator] gets automatically registered between them.
 
 == Context Sensitive Implementations
 
