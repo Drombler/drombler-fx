@@ -88,9 +88,11 @@ include::{sourcedir}/tutorial/extension/foo/ProgrammaticFooRegistrar.java[lines=
 
 
 == Custom Extension Points
-Every extension point has to register a custom org.drombler.acp.core.application.ExtensionPoint implementation as an OSGi service.
+Every extension point has to register a custom 
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/ExtensionPoint.html[org.drombler.acp.core.application.ExtensionPoint]
+implementation as an OSGi service.
 
-The only method you have to implement is to provide to JAXB class for the root element.
+The only method you have to implement is to provide the JAXB class for the root element.
 
 [source,java]
 ----
@@ -99,7 +101,7 @@ include::{sourcedir}/tutorial/extension/foo/impl/FooExtensionPoint.java[lines=3.
 === Handlers
 Once you defined your extension point you usually need a handler service which does something with the extension.
 
-When Drombler FX reads the application.xml it will register each unmarshalled root element as an OSGi service.
+When _Drombler FX_ reads the _application.xml_ and it will register each unmarshalled root element as an OSGi service.
 
 This allows OSGi services to listen for new instances.
 
@@ -119,17 +121,49 @@ include::{sourcedir}/tutorial/extension/foo/Foo.java[lines=9..17]
 
 ==== Annotation Processor (optional)
 If you define a custom annotation for your extension point you also need to provide an annotation processor, which adds the extension configuration to
-the application.xml file.
+the _application.xml_ file.
+
+It's a best practice to provide the annotation processor in the same Maven artifact as the annotation, as this will pick up the annotation processor automatically when using the annotation.
+
+You can extend the 
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html[AbstractApplicationAnnotationProcessor]
+which takes care of writing the _application.xml_ once all annotations in one artifact are processed.
+
+Implementations must add:
+
+ * an instance of the JAXB root element: http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addExtensionConfiguration-java.lang.Object-[addExtensionConfiguration(java.lang.Object)]
+ * the model elements with the annotations: http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addOriginatingElements-javax.lang.model.element.Element...-[addOriginatingElements(javax.lang.model.element.Element...)]
+ * either the JAXB root element type: 
+http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addJAXBRootClass-java.lang.Class-[addJAXBRootClass(java.lang.Class)]
+ or the package of the JAXB root element type:
+ http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addJAXBPackage-java.lang.String-[addJAXBPackage(java.lang.String)]
 
 [source,java]
 ----
 include::{sourcedir}/tutorial/extension/foo/impl/FooAnnotationProcessor.java[lines=1..53]
 ----
 
+As you can see in the example, if the element represents a class you can get the corresponding 
+https://docs.oracle.com/javase/8/docs/api/javax/lang/model/type/TypeMirror.html[TypeMirror]
+and class name of the annotated class with:
+
+[source,java]
+----
+element.asType().toString()
+----
+
+Next, don't forget to register the annotation processor in _/META-INF/services/javax.annotation.processing.Processor_.
+
 [source,xml]
 ----
 include::{resourcesdir}/META-INF/services/javax.annotation.processing.Processor[lines=1..1]
 ----
+This will allow the compiler to pick-up the annotation provider automatically without any further configuration.
+
+You can read more about this standard service-provider loading facility in the Javadoc of https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html[ServiceLoader].
+
+Please note that you need to disable annotation processing in artifacts which provide annotation processors themselves.
+You can define the following Maven property in the _pom.xml_ file of the corresponding artifact.
 
 [source,java]
 ----
@@ -138,29 +172,70 @@ include::{resourcesdir}/META-INF/services/javax.annotation.processing.Processor[
 
 ===== Tips & Tricks
 
+The https://www.softsmithy.org/softsmithy-lib/lib/[SoftSmithy Utility Library] provides some utility methods for working with model classes.
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.softsmithy.lib</groupId>
+  <artifactId>softsmithy-lib-compiler</artifactId>
+  <type>bundle</type>
+</dependency>
+----
+
+To manage the versions of the individual _SoftSmithy Utility Library_ artifacts you can use:
+
+[source,xml]
+----
+<dependencyManagement>
+    <dependencies>
+        [...] 
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib</artifactId>
+            <version>{softsmithy-version}</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>
+        [...]
+    </dependencies>
+</dependencyManagement>
+----
+
+====== Annotation Elements of Type Class
+If we have an annotation with an element of type https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html[Class], such as:
 
 [source,java]
 ----
 include::{sourcedir}/tutorial/extension/some/impl/SomeComponent.java[lines=6..7]
 ----
-https://www.softsmithy.org/softsmithy-lib/lib/{softsmithy-version}/docs/site/apidocs/org/softsmithy/lib/lang/model/type/ModelTypeUtils.html#getTypeMirror-java.util.function.Supplier-[ModelTypeUtils.getTypeMirror]
+
+we can get the corresponding https://docs.oracle.com/javase/8/docs/api/javax/lang/model/type/TypeMirror.html[TypeMirror] in the annotation processor with 
+https://www.softsmithy.org/softsmithy-lib/lib/{softsmithy-version}/docs/site/apidocs/org/softsmithy/lib/lang/model/type/ModelTypeUtils.html#getTypeMirror-java.util.function.Supplier-[ModelTypeUtils.getTypeMirror].
 
 [source,java]
 ----
 include::{sourcedir}/tutorial/extension/some/impl/SomeAnnotationProcessor.java[lines=21..29]
 ----
 
+====== Annotation Elements of Type Class Array
+If we have an annotation with an element of type https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html[Class] array, such as:
 
 [source,java]
 ----
 include::{sourcedir}/tutorial/extension/other/impl/SomeOtherComponent.java[lines=7..8]
 ----
-https://www.softsmithy.org/softsmithy-lib/lib/{softsmithy-version}/docs/site/apidocs/org/softsmithy/lib/lang/model/element/ModelTypeUtils.html#getTypeMirrorsOfClassArrayAnnotationValue-java.util.List-java.lang.Class-java.lang.String-[ModelTypeUtils.getTypeMirrorsOfClassArrayAnnotationValue]
 
+we can get the corresponding list of https://docs.oracle.com/javase/8/docs/api/javax/lang/model/type/TypeMirror.html[TypeMirror]s in the annotation processor with
+https://www.softsmithy.org/softsmithy-lib/lib/{softsmithy-version}/docs/site/apidocs/org/softsmithy/lib/lang/model/element/ModelTypeUtils.html#getTypeMirrorsOfClassArrayAnnotationValue-java.util.List-java.lang.Class-java.lang.String-[ModelTypeUtils.getTypeMirrorsOfClassArrayAnnotationValue].
+
+Here is a sample which gets all fully qualified class names:
 [source,java]
 ----
 include::{sourcedir}/tutorial/extension/other/impl/SomeOtherAnnotationProcessor.java[lines=24..36]
 ----
+
+This will return:
 
 [source,java]
 ----
