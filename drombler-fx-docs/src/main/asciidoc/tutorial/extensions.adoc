@@ -8,7 +8,8 @@ The OSGi service layer in general and the OSGi Declarative Services in particula
 
 Especially if you want to associate some meta data declaratively you will hit a limit with Declarative Services.
 
-https://enroute.osgi.org/FAQ/400-patterns.html#extender-pattern[Extender Pattern] (?)...
+_Drombler FX_ provides a mechanism based on the https://enroute.osgi.org/FAQ/400-patterns.html#extender-pattern[Extender Pattern] to provide configurations declaratively.
+It looks for the following file in each bundle: _/META-INF/drombler/application.xml_
 
 _Drombler FX_ uses the concept of _extension points_ and _extensions_.
 
@@ -24,6 +25,11 @@ _Drombler FX_ provides several extension points out-of-the-box:
  * document data handlers, business object data handlers, file extensions - see <<data-framework.adoc#dataFramework,Data Framework>> for more information
  * views, editors - see <<docking-framework.adoc#dockingFramework,Docking Framework>> for more information
  * status bar entries - see <<status-bar.adoc#statusBar,Status Bar>> for more information
+
+The extension points provided by _Drombler FX_ are specified in the GUI-toolkit agnostic _Drombler ACP_ and thus have no dependencies on _JavaFX_, which makes the implementations of the handlers
+slightly more complex.
+
+Framework providers, however, are free to provide _JavaFX_ specific extension points as well.
 
 == Register an Extension for an Extension Point
 Extensions are registered in _/META-INF/drombler/application.xml_.
@@ -54,7 +60,7 @@ include::{resourcesdir}/META-INF/drombler/foos.xml[lines=1..9]
 ----
 
 You can register this extension file using the 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/Extension.html[@Extension] annotation on a package (usually in 
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/Extension.html[@Extension] annotation on a package (usually in 
 _package-info.java_):
 
 [source,java]
@@ -81,6 +87,9 @@ You can do this also programmatically.
 include::{sourcedir}/tutorial/extension/foo/ProgrammaticFooRegistrar.java[lines=10..28]
 ----
 
+If the extension point provider also specified an extension point specific descriptor (a more type-safe variant of the JAXB classes), then you can also
+register the descriptors directly:
+
 [source,java]
 ----
 include::{sourcedir}/tutorial/extension/foo/ProgrammaticFooRegistrar.java[lines=30..34]
@@ -89,7 +98,7 @@ include::{sourcedir}/tutorial/extension/foo/ProgrammaticFooRegistrar.java[lines=
 
 == Custom Extension Points
 Every extension point has to register a custom 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/ExtensionPoint.html[org.drombler.acp.core.application.ExtensionPoint]
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/ExtensionPoint.html[org.drombler.acp.core.application.ExtensionPoint]
 implementation as an OSGi service.
 
 The only method you have to implement is to provide the JAXB class for the root element.
@@ -101,7 +110,7 @@ include::{sourcedir}/tutorial/extension/foo/impl/FooExtensionPoint.java[lines=3.
 === Handlers
 Once you defined your extension point you usually need a handler service which does something with the extension.
 
-When _Drombler FX_ reads the _application.xml_ and it will register each unmarshalled root element as an OSGi service.
+When _Drombler FX_ reads the _application.xml_, it will register each unmarshalled root element as an OSGi service.
 
 This allows OSGi services to listen for new instances.
 
@@ -112,7 +121,7 @@ include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=41..48]
 
 === Annotations (optional)
 If you want to provide some convenience for the developers who want to use your extension point, consider to provide a custom annotation.
-Though this highly recommended, this is an optional step and not required.
+Though this is highly recommended, this is an optional step and not required by _Drombler FX_.
 
 [source,java]
 ----
@@ -123,20 +132,20 @@ include::{sourcedir}/tutorial/extension/foo/Foo.java[lines=9..17]
 If you define a custom annotation for your extension point you also need to provide an annotation processor, which adds the extension configuration to
 the _application.xml_ file.
 
-It's a best practice to provide the annotation processor in the same Maven artifact as the annotation, as this will pick up the annotation processor automatically when using the annotation.
+It's a best practice to provide and register the annotation processor in the same Maven artifact as the annotation, as this will pick up the annotation processor automatically when using the annotation.
 
 You can extend the 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html[AbstractApplicationAnnotationProcessor]
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html[AbstractApplicationAnnotationProcessor]
 which takes care of writing the _application.xml_ once all annotations in one artifact are processed.
 
 Implementations must add:
 
- * an instance of the JAXB root element: http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addExtensionConfiguration-java.lang.Object-[addExtensionConfiguration(java.lang.Object)]
- * the model elements with the annotations: http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addOriginatingElements-javax.lang.model.element.Element...-[addOriginatingElements(javax.lang.model.element.Element...)]
+ * an instance of the JAXB root element: https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addExtensionConfiguration-java.lang.Object-[addExtensionConfiguration(java.lang.Object)]
+ * the model elements with the annotations: https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addOriginatingElements-javax.lang.model.element.Element...-[addOriginatingElements(javax.lang.model.element.Element...)]
  * either the JAXB root element type: 
-http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addJAXBRootClass-java.lang.Class-[addJAXBRootClass(java.lang.Class)]
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addJAXBRootClass-java.lang.Class-[addJAXBRootClass(java.lang.Class)]
  or the package of the JAXB root element type:
- http://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addJAXBPackage-java.lang.String-[addJAXBPackage(java.lang.String)]
+ https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addJAXBPackage-java.lang.String-[addJAXBPackage(java.lang.String)]
 
 [source,java]
 ----
