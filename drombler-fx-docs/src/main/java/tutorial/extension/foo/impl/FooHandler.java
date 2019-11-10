@@ -19,14 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.PositionableAdapter;
 import tutorial.extension.foo.FooDescriptor;
-import tutorial.extension.foo.FooDescriptor;
 import tutorial.extension.foo.jaxb.FooType;
 import tutorial.extension.foo.jaxb.FoosType;
 
-/**
- *
- * @author puce
- */
 @Component
 public class FooHandler<T> {
     private static final Logger LOG = LoggerFactory.getLogger(FooHandler.class);
@@ -53,7 +48,8 @@ public class FooHandler<T> {
         // TODO
     }
 
-    @Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
+    @Reference(cardinality = ReferenceCardinality.MULTIPLE,
+            policy = ReferencePolicy.DYNAMIC)
     public void bindFooDescriptor(FooDescriptor<? extends T> fooDescriptor) {
         registerFoo(fooDescriptor);
     }
@@ -88,7 +84,6 @@ public class FooHandler<T> {
         } catch (ClassNotFoundException ex) {
             LOG.error(ex.getMessage(), ex);
         }
-
     }
 
     private void registerFoo(FooDescriptor<? extends T> fooDescriptor) {
@@ -100,11 +95,12 @@ public class FooHandler<T> {
     }
 
     private void registerFooInitialized(FooDescriptor<? extends T> fooDescriptor) {
+        // this uses the GUI-toolkit agnostic applicationThreadExecutorProvider
         applicationThreadExecutorProvider.getApplicationThreadExecutor().execute(() -> {
             try {
                 T foo = createFoo(fooDescriptor);
                 PositionableAdapter<? extends T> positionableFoo = new PositionableAdapter<>(foo, fooDescriptor.getPosition());
-// do something
+                // do something on the application thread
             } catch (InstantiationException | IllegalAccessException ex) {
                 LOG.error(ex.getMessage(), ex);
             }

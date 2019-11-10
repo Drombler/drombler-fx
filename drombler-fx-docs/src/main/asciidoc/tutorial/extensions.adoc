@@ -116,7 +116,7 @@ This allows OSGi services to listen for new instances.
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=41..48]
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=39..45]
 ----
 
 === Annotations (optional)
@@ -252,7 +252,43 @@ This will return:
 ----
 
 === Descriptors (optional)
+If you want to provide some convenience for the developers who want to use your extension point, consider to provide a custom _descriptor_.
+_Descriptors_ are a more type-safe variant of the JAXB classes and _descriptor_ is a naming convention in _Drombler_FX_.
+
+Though this is highly recommended, this is an optional step and not required by _Drombler FX_.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/FooDescriptor.java[lines=7..11]
+----
+
+You can then provide some utility methods to load classes (or other resources) from the bundle (keep in mind that in OSGi every bundle has its own class loader).
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/FooDescriptor.java[lines=31..48]
+----
+
+In the handler you can then create a descriptor for every unmarshalled JAXB object and register them as OSGi services.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=75..87]
+----
+
+This allows OSGi services to listen for new instances.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=51..55]
+----
 
 
+=== Samples
 
+==== Handler Sample
 
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=1..122]
+----

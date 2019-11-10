@@ -1,8 +1,8 @@
 package tutorial.extension.foo;
 
-import tutorial.extension.foo.jaxb.FooType;
 import org.drombler.acp.core.commons.util.BundleUtils;
 import org.osgi.framework.Bundle;
+import tutorial.extension.foo.jaxb.FooType;
 
 public class FooDescriptor<T> {
 
@@ -31,17 +31,19 @@ public class FooDescriptor<T> {
     /**
      * Creates an instance of a {@link FooDescriptor} from a {@link FooType} unmarshalled from the application.xml.
      *
-     * @param foo the unmarshalled status bar element
+     * @param foo the unmarshalled foo
      * @param bundle the bundle of the application.xml
      * @return a FooDescriptor
      * @throws java.lang.ClassNotFoundException
      */
-    public static FooDescriptor<?> createFooDescriptor(FooType foo, Bundle bundle) throws ClassNotFoundException {
+    public static FooDescriptor<?> createFooDescriptor(FooType foo, Bundle bundle)
+            throws ClassNotFoundException {
         Class<?> fooClass = BundleUtils.loadClass(bundle, foo.getFooClass());
         return createFooDescriptor(foo, fooClass);
     }
 
-    private static <T> FooDescriptor<T> createFooDescriptor(FooType foo, Class<T> fooClass) {
+    private static <T> FooDescriptor<T> createFooDescriptor(FooType foo,
+            Class<T> fooClass) {
         return new FooDescriptor<>(fooClass, foo.getBar(), foo.getPosition());
     }
 
