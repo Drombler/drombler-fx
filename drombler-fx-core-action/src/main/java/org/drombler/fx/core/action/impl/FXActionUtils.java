@@ -7,7 +7,7 @@
  * http://www.opensource.org/licenses/cddl1.txt
  *
  * The Original Code is Drombler.org. The Initial Developer of the
- * Original Code is Florian Brunner (Sourceforge.net user: puce).
+ * Original Code is Florian Brunner (GitHub user: puce77).
  * Copyright 2012 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
@@ -31,12 +31,11 @@ public final class FXActionUtils {
 
     public static void configureAction(FXAction fxAction, ActionDescriptor<?> actionDescriptor) {
         fxAction.setDisplayName(actionDescriptor.getDisplayName());
-        if (actionDescriptor.getAccelerator() != null && !actionDescriptor.getAccelerator().equals("")) {
+        if (StringUtils.isNotBlank(actionDescriptor.getAccelerator())) {
             fxAction.setAccelerator(KeyCombination.keyCombination(actionDescriptor.getAccelerator()));
         }
-        if (!StringUtils.isBlank(actionDescriptor.getIcon())) {
-            IconFactory iconFactory = new IconFactory(actionDescriptor.getIcon(), actionDescriptor.getResourceLoader(),
-                    false);
+        if (StringUtils.isNotBlank(actionDescriptor.getIcon())) {
+            IconFactory iconFactory = new IconFactory(actionDescriptor.getIcon(), actionDescriptor.getResourceLoader(), false);
             fxAction.setGraphicFactory(iconFactory);
         }
     }

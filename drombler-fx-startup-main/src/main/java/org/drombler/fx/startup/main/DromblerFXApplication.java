@@ -72,7 +72,7 @@ public class DromblerFXApplication extends Application {
     public void init() throws URISyntaxException, IOException, MissingPropertyException, Exception {
         this.configuration = new DromblerFXConfiguration(getParameters());
         this.starter = new DromblerACPStarter<>(configuration);
-        logInfo("Initializing JavaFX Application \"{0}\" ({1}x{2})...", getTitle(), getWidth(), getHeight());
+        logInfo("Initializing JavaFX Application \"{0}\" ({1} x {2})...", getTitle(), getWidth(), getHeight());
         if (this.starter.init()) {
             logInfo("Initialized JavaFX Application \"{0}\"", getTitle());
         } else {
