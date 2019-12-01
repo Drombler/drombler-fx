@@ -12,5 +12,7 @@
  *
  * Contributor(s): .
  */
-
+/**
+ * A JavaFX-based extension of the Drombler ACP Status Bar Framework.
+ */
 package org.drombler.fx.core.status;
