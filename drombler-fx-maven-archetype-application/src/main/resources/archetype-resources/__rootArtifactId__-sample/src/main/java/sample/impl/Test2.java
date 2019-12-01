@@ -12,9 +12,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import org.drombler.acp.core.action.Action;
 import org.drombler.acp.core.action.MenuEntry;
+import org.drombler.commons.client.util.ResourceBundleUtils;
 
 
-@Action(id = "test2", category = "test", displayName = "%test2.displayName")
+@Action(id = "test2", category = "test", displayName = "%test2.displayName", resourceBundleBaseName = ResourceBundleUtils.PACKAGE_RESOURCE_BUNDLE_BASE_NAME)
 @MenuEntry(path = "File", position = 1200)
 public class Test2 implements EventHandler<ActionEvent> {
 
