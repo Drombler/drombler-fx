@@ -17,7 +17,7 @@
 
  * Tested Java version: 1.8.0_201; Java HotSpot(TM) 64-Bit Server VM 25.201-b09
  * Tested Maven version: 3.6.0
- * Tested OS: Kubuntu 18.04.2 LTS; Linux version 4.15.0-47-generic running on amd64; UTF-8; de_CH (nb)
+ * Tested OS: Kubuntu 18.04.2 LTS; Linux version 4.15.0-70-generic running on amd64; UTF-8; de_CH (nb)
 
 == Drombler FX Sample Application - generate, build and run
 
@@ -224,7 +224,7 @@ In the *lib* directory you can find the JARs needed at start-up time to start a 
  * the *drombler-fx-startup-main* JAR: it contains the _JavaFX_ application main class and defines the _org.osgi.framework.system.packages.extra_ property 
 to make the _JavaFX_ packages and the _Drombler_ start-up packages available to the OSGi bundles.
  * the *drombler-acp-startup-main* JAR: it contains the GUI-toolkit agnostic start-up classes.
- * the *org.apache.felix.framework* JAR: the http://felix.apache.org[Apache Felix Framework], an implementation of the OSGi runtime framework.
+ * the *org.apache.felix.framework* JAR: the https://felix.apache.org[Apache Felix Framework], an implementation of the OSGi runtime framework.
  
 
 In the *bundle* directory you can find all direct and transitive Maven dependencies with scope compile or test. The start-up classes will load these bundles.

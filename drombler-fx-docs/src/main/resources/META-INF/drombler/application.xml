@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<application xmlns="http://www.drombler.org/schema/acp/application" 
+             xmlns:ns2="http://www.mycompany.com/schema/myapp/foos" >
+    <extensions>
+        <n2:foos>
+            <n2:foo>
+                <n2:bar>a</n2:bar>
+                <n2:position>10</n2:position>
+                <n2:fooClass>tutorial.extension.foo.impl.FooComponent2</n2:fooClass>
+            </n2:foo>
+        </n2:foos>
+    </extensions>
+</application>

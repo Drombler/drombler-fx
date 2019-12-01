@@ -5,7 +5,41 @@
 
 The recommended way to localize your application is to use standard OSGi bundle fragments.
 
-TODO: provide a sample how to build OSGi bundle fragments with Maven
+Fragments need to specifiy their fragment host. You can use the 
+https://felix.apache.org/documentation/subprojects/apache-felix-maven-bundle-plugin-bnd.html[Maven Bundle Plugin] 
+to create a fragment.
+
+[source,xml]
+----
+<packaging>bundle</packaging>
+
+[...]
+
+<plugin>
+    <groupId>org.apache.felix</groupId>
+    <artifactId>maven-bundle-plugin</artifactId>
+    <extensions>true</extensions>
+    <configuration>
+        <instructions>
+            <Fragment-Host>com.mycompany.myapp.myapp-mymodule;bundle-version=${myapp.osgi.version.clean}</Fragment-Host>
+        </instructions>
+        <versions>
+            <myapp.osgi.version.clean>${project.version}</myapp.osgi.version.clean>
+        </versions>
+    </configuration>
+    <executions>
+        <execution>
+            <phase>generate-sources</phase>
+            <goals>
+                <goal>cleanVersions</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+----
+
+Replace _com.mycompany.myapp.myapp-mymodule_ with the _Bundle-SymbolicName_ of the fragment host.
+Make sure you use the OSGi version, not the Maven version (see the https://felix.apache.org/components/bundle-plugin/cleanVersions-mojo.html[cleanVersions] goal).
 
 == Currently Supported Locales
 
