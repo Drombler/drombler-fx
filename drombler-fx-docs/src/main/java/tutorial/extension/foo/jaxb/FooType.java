@@ -14,10 +14,10 @@ import javax.xml.bind.annotation.XmlType;
 public class FooType {
 
     @XmlElement(required = true)
-    protected String bar;
-    protected int position;
+    private String bar;
+    private int position;
     @XmlElement(required = true)
-    protected String fooClass;
+    private String fooClass;
 
     public String getBar() {
         return bar;
