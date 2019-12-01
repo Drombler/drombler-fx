@@ -86,12 +86,4 @@ Contributor(s): .
         </plugins>
     </build>
 
-   
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-fx-core-docking</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 </project>
