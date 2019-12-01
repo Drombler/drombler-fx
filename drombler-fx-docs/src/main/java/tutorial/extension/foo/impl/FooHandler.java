@@ -26,7 +26,8 @@ import tutorial.extension.foo.jaxb.FoosType;
 public class FooHandler<T> {
     private static final Logger LOG = LoggerFactory.getLogger(FooHandler.class);
 
-    private final List<FooDescriptor<? extends T>> unresolvedFooDescriptors = new ArrayList<>();
+    private final List<FooDescriptor<? extends T>> unresolvedFooDescriptors
+            = new ArrayList<>();
 
     @Reference
     private ApplicationThreadExecutorProvider applicationThreadExecutorProvider;
@@ -45,7 +46,7 @@ public class FooHandler<T> {
     }
 
     public void unbindFoosType(FoosType foosType) {
-        // TODO
+        //...
     }
 
     @Reference(cardinality = ReferenceCardinality.MULTIPLE,
@@ -55,7 +56,7 @@ public class FooHandler<T> {
     }
 
     public void unbindFooDescriptor(FooDescriptor<? extends T> fooDescriptor) {
-        // TODO
+        //...
     }
 
     @Activate
@@ -66,10 +67,13 @@ public class FooHandler<T> {
 
     @Deactivate
     protected void deactivate(ComponentContext context) {
+        contextInjector = null;
     }
 
     private boolean isInitialized() {
-        return applicationThreadExecutorProvider != null && contextManagerProvider != null && contextInjector != null;
+        return applicationThreadExecutorProvider != null
+                && contextManagerProvider != null
+                && contextInjector != null;
     }
 
     private void registerFoos(FoosType foosType, BundleContext context) {
@@ -79,7 +83,8 @@ public class FooHandler<T> {
 
     private void registerFoo(FooType fooType, BundleContext context) {
         try {
-            FooDescriptor<?> fooDescriptor = FooDescriptor.createFooDescriptor(fooType, context.getBundle());
+            FooDescriptor<?> fooDescriptor
+                    = FooDescriptor.createFooDescriptor(fooType, context.getBundle());
             context.registerService(FooDescriptor.class, fooDescriptor, null);
         } catch (ClassNotFoundException ex) {
             LOG.error(ex.getMessage(), ex);
@@ -99,7 +104,8 @@ public class FooHandler<T> {
         applicationThreadExecutorProvider.getApplicationThreadExecutor().execute(() -> {
             try {
                 T foo = createFoo(fooDescriptor);
-                PositionableAdapter<? extends T> positionableFoo = new PositionableAdapter<>(foo, fooDescriptor.getPosition());
+                PositionableAdapter<? extends T> positionableFoo
+                        = new PositionableAdapter<>(foo, fooDescriptor.getPosition());
                 // do something on the application thread
             } catch (InstantiationException | IllegalAccessException ex) {
                 LOG.error(ex.getMessage(), ex);
@@ -107,15 +113,19 @@ public class FooHandler<T> {
         });
     }
 
-    private T createFoo(FooDescriptor<? extends T> fooDescriptor) throws InstantiationException, IllegalAccessException {
+    private T createFoo(FooDescriptor<? extends T> fooDescriptor)
+            throws InstantiationException, IllegalAccessException {
         T foo = fooDescriptor.getFooClass().newInstance();
-        Contexts.configureObject(foo, contextManagerProvider.getContextManager(), contextInjector);
+        Contexts.configureObject(foo,
+                contextManagerProvider.getContextManager(),
+                contextInjector);
         return foo;
     }
 
 
     private void resolveUnresolvedFooDescriptors() {
-        List<FooDescriptor<? extends T>> unresolvedFooDescriptorsCopy = new ArrayList<>(unresolvedFooDescriptors);
+        List<FooDescriptor<? extends T>> unresolvedFooDescriptorsCopy
+                = new ArrayList<>(unresolvedFooDescriptors);
         unresolvedFooDescriptors.clear();
         unresolvedFooDescriptorsCopy.forEach(this::registerFoo);
     }

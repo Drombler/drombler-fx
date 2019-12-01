@@ -4,9 +4,11 @@
 :numbered:
 :icons: font
 
+Custom extension points and extensions allow to customize your applications declaratively.
+
 The OSGi service layer in general and the OSGi Declarative Services in particular already make it quite easy to decouple bundles.
 
-Especially if you want to associate some meta data declaratively you will hit a limit with Declarative Services.
+But if you want to associate some meta data declaratively you will hit a limit with Declarative Services.
 
 _Drombler FX_ provides a mechanism based on the https://enroute.osgi.org/FAQ/400-patterns.html#extender-pattern[Extender Pattern] to provide configurations declaratively.
 It looks for the following file in each bundle: _/META-INF/drombler/application.xml_
@@ -14,7 +16,7 @@ It looks for the following file in each bundle: _/META-INF/drombler/application.
 _Drombler FX_ uses the concept of _extension points_ and _extensions_.
 
 _Extension points_, provided by _Drombler FX_ itself or by some framework developers, allow other developers to register extensions
-to extend the application, e.g. adding some GUI elements declaratively.
+to customize their applications, e.g. adding some GUI elements declaratively.
 
 Most _Drombler FX_ developers will register extensions of existing extension points rather than defining their own custom extension points.
 
@@ -52,7 +54,7 @@ include::{sourcedir}/tutorial/extension/foo/impl/FooComponent1.java[lines=5..6]
 === Extension File
 Another way to register an extension is to provide an extension point specific XML file.
 
-This is approach can also be use when the extension point provider didn't specify any extension point specific annotation.
+This approach can also be used when the extension point provider didn't specify any extension point specific annotation.
 
 [source,xml]
 ----
@@ -76,6 +78,7 @@ You can also just provide the whole _application.xml_ file at the correct locati
 include::{resourcesdir}/META-INF/drombler/application.xml[lines=1..14]
 ----
 
+All extension configurations are sub-elements of the _extensions_ element.
 
 === Programmatic
 _Drombler FX_ registers each unmarshalled extension JAXB object as an OSGi service.
@@ -167,7 +170,7 @@ Next, don't forget to register the annotation processor in _/META-INF/services/j
 ----
 include::{resourcesdir}/META-INF/services/javax.annotation.processing.Processor[lines=1..1]
 ----
-This will allow the compiler to pick-up the annotation provider automatically without any further configuration.
+This will allow the compiler to pick-up the annotation processor automatically without any further configuration.
 
 You can read more about this standard service-provider loading facility in the Javadoc of https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html[ServiceLoader].
 
@@ -273,14 +276,14 @@ In the handler you can then create a descriptor for every unmarshalled JAXB obje
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=75..87]
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=79..92]
 ----
 
 This allows OSGi services to listen for new instances.
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=51..55]
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=52..56]
 ----
 
 
@@ -290,5 +293,5 @@ include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=51..55]
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=1..122]
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=1..132]
 ----
