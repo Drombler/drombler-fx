@@ -17,7 +17,7 @@
 
  * Tested Java version: 1.8.0_201; Java HotSpot(TM) 64-Bit Server VM 25.201-b09
  * Tested Maven version: 3.6.0
- * Tested OS: Kubuntu 18.04.2 LTS; Linux version 4.15.0-47-generic running on amd64; UTF-8; de_CH (nb)
+ * Tested OS: Kubuntu 18.04.2 LTS; Linux version 4.15.0-70-generic running on amd64; UTF-8; de_CH (nb)
 
 == Drombler FX Sample Application - generate, build and run
 
