@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>3.3</version>
+        <version>3.3.1</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.fx</groupId>
