@@ -76,11 +76,15 @@ Contributor(s): .
                 <phases>
                     <initialize>
                         org.drombler.fx:drombler-fx-maven-plugin:create-standalone-dir,
-                        org.drombler.fx:drombler-fx-maven-plugin:set-maven-properties
+                        org.drombler.fx:drombler-fx-maven-plugin:set-maven-properties,
+                        org.drombler.jstore:jap-maven-plugin:set-maven-properties
                         <!--                        ,
                         org.apache.maven.plugins:maven-dependency-plugin:build-classpath-->
                     </initialize>
-                    <generate-resources>org.drombler.fx:drombler-fx-maven-plugin:generate-application-resources</generate-resources>
+                    <generate-resources>
+                        org.drombler.fx:drombler-fx-maven-plugin:generate-application-resources,
+                        org.drombler.jstore:jap-maven-plugin:generate-application-resources
+                    </generate-resources>
                     <process-resources>
                         org.apache.maven.plugins:maven-resources-plugin:resources
                     </process-resources>
@@ -101,7 +105,9 @@ Contributor(s): .
                         <!--TODO: use javafx-maven-plugin -->
                         <!-- com.zenjava:javafx-maven-plugin:build-jar,-->
                         org.drombler.fx:drombler-fx-maven-plugin:create-standalone-jar,
-                        org.drombler.fx:drombler-fx-maven-plugin:ensure-standalone-config
+                        org.drombler.fx:drombler-fx-maven-plugin:ensure-standalone-config,
+                        org.drombler.fx:drombler-fx-maven-plugin:create-application-zip,
+                        org.drombler.jstore:jap-maven-plugin:jap
                     </package>
                     <install>
                         org.apache.maven.plugins:maven-install-plugin:install

@@ -14,17 +14,19 @@
  */
 package org.drombler.fx.core.action;
 
-import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import org.drombler.acp.core.action.PositionSortingStrategy;
 import org.drombler.acp.core.action.PositionableMenuItemAdapterFactory;
-import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
+import org.drombler.acp.core.action.spi.AbstractMenuItemRootContainer;
+import org.drombler.acp.core.action.spi.MenuItemRootContainer;
 import org.drombler.acp.core.action.spi.MenuMenuItemContainerFactory;
+import org.drombler.acp.core.action.spi.SeparatorMenuItemFactory;
 
 /**
+ * A JavaFX specific implementation of {@link MenuItemRootContainer} based on the JavaFX {@link ContextMenu}.
  *
  * @author puce
  */
@@ -32,17 +34,30 @@ public class FXContextMenuMenuItemContainer extends AbstractMenuItemRootContaine
 
     private final ContextMenu contextMenu;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param contextMenu a context menu
+     * @param menuMenuItemContainerFactory a menu menu-item container factory
+     * @param separatorMenuItemFactory a separator menu-item factory
+     */
     public FXContextMenuMenuItemContainer(ContextMenu contextMenu, MenuMenuItemContainerFactory<MenuItem, Menu> menuMenuItemContainerFactory,
             SeparatorMenuItemFactory<? extends MenuItem> separatorMenuItemFactory) {
         super(true, new PositionSortingStrategy(), menuMenuItemContainerFactory, separatorMenuItemFactory);
         this.contextMenu = contextMenu;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected ObservableList<? super Menu> getMenus() {
         return contextMenu.getItems();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected ObservableList<MenuItem> getItems() {
         return contextMenu.getItems();

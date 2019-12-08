@@ -14,8 +14,8 @@ import org.drombler.acp.core.action.ToggleMenuEntry;
 import org.drombler.acp.core.action.ToolBarToggleEntry;
 
 
-@ToggleAction(id = "yellowCircle", category = "test", displayName = "%yellowCircle.displayName", accelerator = "Shortcut+L",
-icon = "yellow-circle.png")
+@ToggleAction(id = "yellowCircle", category = "test", displayName = "%displayName", accelerator = "Shortcut+L",
+        icon = "yellow-circle.png")
 @ToggleMenuEntry(path = "Custom/Sub", position = 20, toggleGroupId = "circle")
 @ToolBarToggleEntry(toolBarId = "circle", position = 20, toggleGroupId = "circle")
 public class YellowCircleAction extends AbstractColoredCircleAction {

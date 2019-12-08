@@ -18,16 +18,16 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>3.1</version>
+        <version>3.3.1</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.fx</groupId>
     <artifactId>drombler-fx-parent</artifactId>
-    <version>0.13.1</version>
+    <version>0.14</version>
     <packaging>pom</packaging>
     
     <name>Drombler FX - Parent</name>
-    <url>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url>
     <description>The parent POM of the Drombler FX project. This Drombler FX Parent POM should be the parent (either directly or indirectly) of every Drombler FX project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
@@ -42,7 +42,7 @@ Contributor(s): .
         <license>
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
             <distribution>repo</distribution>
-            <!--<url>http://java.sun.com/spl.html</url>-->
+            <!--<url>https://opensource.org/licenses/CDDL-1.0</url>-->
             <url>../LICENSE.txt</url>
         </license>
     </licenses>
@@ -66,9 +66,10 @@ Contributor(s): .
         <distributionManagement.parent.url>${distributionManagement.base.url}/docs/site</distributionManagement.parent.url>
         <!-- URL to use with the GitHub site plugin -->
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
-        <!--<url.parent>http://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
-        <drombler-acp.version>0.13</drombler-acp.version>
-        <drombler-commons.version>0.13</drombler-commons.version>
+        <!--<url.parent>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
+        <drombler-acp.version>0.14</drombler-acp.version>
+        <drombler-commons.version>0.14</drombler-commons.version>
+        <jap-maven-plugin.version>0.2</jap-maven-plugin.version>
     </properties>
 
     <!-- Not inherited!?? -->
@@ -76,19 +77,25 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     
-    <!--    <build>
+    <build>
         <pluginManagement>
             <plugins>
-                <plugin>
+                <!-- <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <argLine>-Djavafx.toolkit=com.sun.javafx.pgstub.StubToolkit</argLine>
                     </configuration>
+                </plugin>-->
+                <plugin>
+                    <groupId>org.drombler.jstore</groupId>
+                    <artifactId>jap-maven-plugin</artifactId>
+                    <version>${jap-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
-    </build>-->
+    </build>
+     
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -97,6 +104,13 @@ Contributor(s): .
                 <version>${drombler-acp.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.drombler.jstore</groupId>
+                <artifactId>jap-maven-plugin</artifactId>
+                <version>${jap-maven-plugin.version}</version>
+                <type>maven-plugin</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
