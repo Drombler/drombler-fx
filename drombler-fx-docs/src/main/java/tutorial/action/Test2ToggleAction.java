@@ -16,7 +16,6 @@ package tutorial.action;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import org.drombler.commons.action.fx.AbstractFXAction;
 import org.drombler.commons.action.fx.FXToggleAction;
@@ -26,7 +25,7 @@ public class Test2ToggleAction extends AbstractFXAction implements FXToggleActio
     private final BooleanProperty selected = new SimpleBooleanProperty(this, "selected");
 
     public Test2ToggleAction() {
-        selected.addListener((ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue)
+        selected.addListener((ov, oldValue, newValue)
                 -> System.out.println("Test1 Toggle Action selection changed: " + newValue));
     }
 
