@@ -104,7 +104,7 @@ The easiest way to implement FXToggleAction is to extend AbstractFXAction:
 
 [source,java]
 ----
-include::{sourcedir}/tutorial/action/Test2ToggleAction.java[lines=17..52]
+include::{sourcedir}/tutorial/action/Test2ToggleAction.java[lines=17..51]
 ----
 
 *Pros*:
@@ -299,17 +299,19 @@ Actions, Menu Items and Toolbar Buttons:
 
 [source,java]
 ----
-include::{dromblersourcedir}/org/drombler/acp/core/standard/action/impl/SaveAction.java[lines=28..31]
+include::{dromblersourcedir}/org/drombler/acp/core/standard/action/impl/SaveAction.java[lines=29..34]
 ----
 
 *Save All*:
 
 [source,java]
 ----
-include::{dromblersourcedir}/org/drombler/acp/core/standard/action/impl/SaveAllAction.java[lines=32..35]
+include::{dromblersourcedir}/org/drombler/acp/core/standard/action/impl/SaveAllAction.java[lines=33..38]
 ----
 
-The "Save" action looks for an instance of the interface org.drombler.acp.core.standard.action.Savable in the _active context_.
+The "Save" action looks for an instance of the interface 
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/standard/action/Savable.html[org.drombler.acp.core.standard.action.Savable]
+in the _active context_.
 
 The "Save All" action looks for all instances of the same interface in the _application context_.
 
