@@ -13,12 +13,12 @@ in the <<status-bar.adoc#statusBar,Status Bar>>.
 
 image::progressmonitor/progress-monitor.png[caption="Image 1: ", title="ProgressMonitor", alt="ProgressMonitor", link="{imagesdir}/progressmonitor/progress-monitor.png"]
 [%hardbreaks]
-[[[1]]] a label bound to https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#titleProperty[Worker#titleProperty]
-[[[2]]] a label bound to https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#messageProperty[Worker#messageProperty]
-[[[3]]] a progress bar bound to https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#progressProperty[Worker#progressProperty]
-[[[4]]] a button to execute https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#cancel--[Worker#cancel]
-[[[5]]] an indicator if there are additional workers being monitored
-[[[6]]] a popup showing all monitored workers
+<1> a label bound to https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#titleProperty[Worker#titleProperty]
+<2> a label bound to https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#messageProperty[Worker#messageProperty]
+<3> a progress bar bound to https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#progressProperty[Worker#progressProperty]
+<4> a button to execute https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#cancel--[Worker#cancel]
+<5> an indicator if there are additional workers being monitored
+<6> a popup showing all monitored workers
 
 
 IMPORTANT: This feature is optional and must be activated if required.

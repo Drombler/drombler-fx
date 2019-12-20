@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.14</version>
+        <version>0.14.1</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-docs</artifactId>
@@ -173,10 +173,36 @@ Contributor(s): .
                                 <id>unpack</id>
                                 <phase>pre-site</phase>
                                 <goals>
-                                    <goal>unpack-dependencies</goal>
+                                    <goal>unpack</goal>
                                 </goals>
                                 <configuration>
                                     <outputDirectory>${project.build.directory}/drombler-sources</outputDirectory>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.drombler.acp</groupId>
+                                            <artifactId>drombler-acp-core-standard-action</artifactId>
+                                            <version>${drombler-acp.version}</version>
+                                            <classifier>sources</classifier>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>${project.groupId}</groupId>
+                                            <artifactId>drombler-fx-core-standard-action</artifactId>
+                                            <version>${project.version}</version>
+                                            <classifier>sources</classifier>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>org.drombler.acp</groupId>
+                                            <artifactId>drombler-acp-core-standard-docking</artifactId>
+                                            <version>${drombler-acp.version}</version>
+                                            <classifier>sources</classifier>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>org.drombler.acp</groupId>
+                                            <artifactId>drombler-acp-core-standard-action-data-file</artifactId>
+                                            <version>${drombler-acp.version}</version>
+                                            <classifier>sources</classifier>
+                                        </artifactItem>
+                                    </artifactItems>
                                 </configuration>
                             </execution>
                         </executions>
@@ -232,32 +258,6 @@ Contributor(s): .
                     </plugin>
                 </plugins>
             </build>
-            <dependencies>
-                <dependency>
-                    <groupId>org.drombler.acp</groupId>
-                    <artifactId>drombler-acp-core-standard-action</artifactId>
-                    <version>${drombler-acp.version}</version>
-                    <classifier>sources</classifier>
-                </dependency>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>drombler-fx-core-standard-action</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>sources</classifier>
-                </dependency>
-                <dependency>
-                    <groupId>org.drombler.acp</groupId>
-                    <artifactId>drombler-acp-core-standard-docking</artifactId>
-                    <version>${drombler-acp.version}</version>
-                    <classifier>sources</classifier>
-                </dependency>
-                <dependency>
-                    <groupId>org.drombler.acp</groupId>
-                    <artifactId>drombler-acp-core-standard-action-data-file</artifactId>
-                    <version>${drombler-acp.version}</version>
-                    <classifier>sources</classifier>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
 </project>

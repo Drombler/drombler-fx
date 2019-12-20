@@ -69,14 +69,14 @@ The _Standard Desktop Classic Layout_ provides a layout which is often used in c
 
 image::layout/standard-desktop-classic-layout.png[caption="Image 1: ", title="Standard Desktop Classic Layout", alt="Standard Desktop Classic Layout", link="{imagesdir}/layout/standard-desktop-classic-layout.png"]
 [%hardbreaks]
-[[[1]]] A https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/FXMenuBarMenuContainer.html[FXMenuBarMenuContainer], which provides integration with the _Action Framework_. 
-        See the <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> trail for more information on how to <<actions-menus-toolbars.adoc#menus,register menus>>.
-[[[2]]] A https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/ToolBarContainerPane.html[ToolBarContainerPane] which can contain multiple tool bars.
-        See the <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> trail for more information on how to <<actions-menus-toolbars.adoc#toolBars,register tool bars>>.
-[[[3]]] An empty container listening for content provided by an https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/ApplicationContentProvider.html[ApplicationContentProvider].
-        See the <<docking-framework.adoc#activation,Docking Framework>> for a sample _ApplicationContentProvider_.
-[[[4]]] A https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/status/FXStatusBarElementContainer.html[FXStatusBarElementContainer], which provides integration with the _Status Bar Framework_.
-        See the <<status-bar.adoc#statusBar,Status Bar>> trail for more information.
+<1> A https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/FXMenuBarMenuContainer.html[FXMenuBarMenuContainer], which provides integration with the _Action Framework_. 
+    See the <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> trail for more information on how to <<actions-menus-toolbars.adoc#menus,register menus>>.
+<2> A https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/action/ToolBarContainerPane.html[ToolBarContainerPane] which can contain multiple tool bars.
+    See the <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> trail for more information on how to <<actions-menus-toolbars.adoc#toolBars,register tool bars>>.
+<3> An empty container listening for content provided by an https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/application/ApplicationContentProvider.html[ApplicationContentProvider].
+    See the <<docking-framework.adoc#activation,Docking Framework>> for a sample _ApplicationContentProvider_.
+<4> A https://www.drombler.org/drombler-fx/{drombler-fx-version}/docs/site/apidocs/org/drombler/fx/core/status/FXStatusBarElementContainer.html[FXStatusBarElementContainer], which provides integration with the _Status Bar Framework_.
+    See the <<status-bar.adoc#statusBar,Status Bar>> trail for more information.
 
 To activate the _Standard Desktop Classic Layout_ you need the following optional runtime dependency:
 
