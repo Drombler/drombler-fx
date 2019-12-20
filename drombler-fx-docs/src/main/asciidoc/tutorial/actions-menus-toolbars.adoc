@@ -310,7 +310,7 @@ include::{dromblersourcedir}/org/drombler/acp/core/standard/action/impl/SaveAllA
 ----
 
 The "Save" action looks for an instance of the interface 
-https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/standard/action/Savable.html[org.drombler.acp.core.standard.action.Savable]
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/action/command/Savable.html[org.drombler.commons.action.command.Savable]
 in the _active context_.
 
 The "Save All" action looks for all instances of the same interface in the _application context_.
@@ -327,7 +327,11 @@ include::{dromblersourcedir}/org/drombler/fx/core/standard/action/impl/ExitActio
 
 == Context Sensitive Actions
 
-_Drombler FX_ checks if an Action implements org.drombler.commons.context.ActiveContextSensitive or org.drombler.commons.context.ApplicationContextSensitive and injects the active/ application-wide context.
+_Drombler FX_ checks if an Action implements 
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/ActiveContextSensitive.html[org.drombler.commons.context.ActiveContextSensitive]
+or 
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/context/ApplicationContextSensitive.html[org.drombler.commons.context.ApplicationContextSensitive]
+and injects the active/ application-wide context.
 
 See <<context-framework.adoc#contextFramework,Context Framework>> for more information about the Context Framework.
 
