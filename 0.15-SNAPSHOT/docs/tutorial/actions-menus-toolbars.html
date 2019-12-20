@@ -1096,10 +1096,11 @@ toggled in the "View/Toolbars" menu.</p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"> */
-@Action(id = "standard.save", category = "core", displayName = "%save.displayName", accelerator = "Shortcut+S", icon = "save.gif",
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Action(id = "standard.save", category = "core", displayName = "%save.displayName", accelerator = "Shortcut+S", icon = "save.gif",
         resourceBundleBaseName = ResourceBundleUtils.PACKAGE_RESOURCE_BUNDLE_BASE_NAME)
-@MenuEntry(path = "File", position = 4200)</code></pre>
+@MenuEntry(path = "File", position = 4200)
+@ToolBarEntry(toolBarId = "file", position = 50)
+public class SaveAction extends AbstractActiveContextSensitiveActionListener&lt;Savable, Object&gt; {</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1107,14 +1108,17 @@ toggled in the "View/Toolbars" menu.</p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"> */
-@Action(id = "standard.saveAll", category = "core", displayName = "%saveAll.displayName", accelerator = "Shortcut+Shift+S", icon = "saveAll.png",
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Action(id = "standard.saveAll", category = "core", displayName = "%saveAll.displayName", accelerator = "Shortcut+Shift+S", icon = "saveAll.png",
         resourceBundleBaseName = ResourceBundleUtils.PACKAGE_RESOURCE_BUNDLE_BASE_NAME)
-@MenuEntry(path = "File", position = 4210)</code></pre>
+@MenuEntry(path = "File", position = 4210)
+@ToolBarEntry(toolBarId = "file", position = 60)
+public class SaveAllAction extends AbstractApplicationContextSensitiveActionListener&lt;Savable, Object&gt; {</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The "Save" action looks for an instance of the interface org.drombler.acp.core.standard.action.Savable in the <em>active context</em>.</p>
+<p>The "Save" action looks for an instance of the interface
+<a href="https://www.drombler.org/drombler-acp/0.14/docs/site/apidocs/org/drombler/acp/core/standard/action/Savable.html">org.drombler.acp.core.standard.action.Savable</a>
+in the <em>active context</em>.</p>
 </div>
 <div class="paragraph">
 <p>The "Save All" action looks for all instances of the same interface in the <em>application context</em>.</p>
@@ -1326,7 +1330,7 @@ public class MyToggleAction extends AbstractToggleActionListener&lt;Object&gt; {
 <div id="footer">
 <div id="footer-text">
 Version 0.15-SNAPSHOT<br>
-Last updated 2019-11-10 12:10:54 CET
+Last updated 2019-12-08 17:58:03 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
