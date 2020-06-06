@@ -17,10 +17,10 @@ package org.drombler.fx.core.application;
 import javafx.scene.Parent;
 
 /**
- * The MainSceneRootProvider service interface provides the root parent node of the main scene.
- *
+ * The MainSceneRootProvider service interface provides the root parent node of the main scene.<br>
+ * <br>
  * This root parent node can define the basic application layout.
- *
+ * <br>
  * To make such an application layout more reusable it's recommended to get the main application content from an {@link ApplicationContentProvider}.
  */
 public interface MainSceneRootProvider {

@@ -30,7 +30,7 @@ import org.drombler.acp.core.action.spi.MenuFactory;
 public class FXMenuFactory implements MenuFactory<Menu> {
 
     @Override
-    public Menu createMenu(MenuDescriptor menuDescriptor) {
+    public Menu createMenu(MenuDescriptor<?, ?> menuDescriptor) {
         Menu menu = new Menu(menuDescriptor.getDisplayName());
         menu.setMnemonicParsing(true);
         return menu;

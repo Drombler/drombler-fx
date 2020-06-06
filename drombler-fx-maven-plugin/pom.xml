@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.14-SNAPSHOT</version>
+        <version>1.1-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
@@ -149,6 +149,8 @@ Contributor(s): .
             <artifactId>jap-maven-plugin</artifactId>
             <type>maven-plugin</type>
         </dependency>
+        
+        <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -160,6 +162,7 @@ Contributor(s): .
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
     <reporting>
         <plugins>
             <plugin>

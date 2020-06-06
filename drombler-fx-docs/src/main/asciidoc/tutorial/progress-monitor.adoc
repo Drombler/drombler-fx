@@ -7,18 +7,18 @@
 This section describes the progress monitor support.
 
 _Drombler FX_ provides out-of-the-box support for monitoring long-running
-http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker]s by integrating a 
-http://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/fx/scene/control/ProgressMonitor.html[ProgressMonitor] 
+https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker]s by integrating a 
+https://www.drombler.org/drombler-commons/{drombler-commons-version}/docs/site/apidocs/org/drombler/commons/fx/scene/control/ProgressMonitor.html[ProgressMonitor] 
 in the <<status-bar.adoc#statusBar,Status Bar>>.
 
 image::progressmonitor/progress-monitor.png[caption="Image 1: ", title="ProgressMonitor", alt="ProgressMonitor", link="{imagesdir}/progressmonitor/progress-monitor.png"]
 [%hardbreaks]
-[[[1]]] a label bound to http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#titleProperty[Worker#titleProperty]
-[[[2]]] a label bound to http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#messageProperty[Worker#messageProperty]
-[[[3]]] a progress bar bound to http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#progressProperty[Worker#progressProperty]
-[[[4]]] a button to execute http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#cancel--[Worker#cancel]
-[[[5]]] an indicator if there are additional workers being monitored
-[[[6]]] a popup showing all monitored workers
+<1> a label bound to https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#titleProperty[Worker#titleProperty]
+<2> a label bound to https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#messageProperty[Worker#messageProperty]
+<3> a progress bar bound to https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#progressProperty[Worker#progressProperty]
+<4> a button to execute https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html#cancel--[Worker#cancel]
+<5> an indicator if there are additional workers being monitored
+<6> a popup showing all monitored workers
 
 
 IMPORTANT: This feature is optional and must be activated if required.
@@ -40,7 +40,7 @@ IMPORTANT: Make sure that the <<status-bar.adoc#activation,Status Bar is activat
 
 [[notification]]
 == Notification
-The progress monitor integration listens for any non-finished http://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker] instances in the 
+The progress monitor integration listens for any non-finished https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/Worker.html[Worker] instances in the 
 <<context-framework.adoc#applicationContext,application-wide>> context.
 
 To notify the progress monitor about the availability of a new Worker instance, simply add it to

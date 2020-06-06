@@ -3,7 +3,7 @@
 :toc:
 :numbered:
 
-The Drombler projects use http://www.slf4j.org[SLF4J] for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.
+The Drombler projects use https://www.slf4j.org[SLF4J] for logging. This allows developers to use their preferred logging framework as long as there is a SLF4J binding for that framework.
 
 The sample provided by the Drombler FX archetype uses the _java.util.logging_ (_JUL_) binding by default, because the required jar is very small since _java.util.logging_ is part of the _JRE_.
 
@@ -50,7 +50,7 @@ The following sections describes the configuration of some bindings.
     <version>2.0.2</version>
     <scope>runtime</scope>
 </dependency>
-<!-- The following dependency is needed due to the following Log4j 2 issue: http://issues.apache.org/jira/browse/LOG4J2-805 -->
+<!-- The following dependency is needed due to the following Log4j 2 issue: https://issues.apache.org/jira/browse/LOG4J2-805 -->
 <dependency>
     <groupId>org.jboss.spec.javax.jms</groupId>
     <artifactId>jboss-jms-api_1.1_spec</artifactId>

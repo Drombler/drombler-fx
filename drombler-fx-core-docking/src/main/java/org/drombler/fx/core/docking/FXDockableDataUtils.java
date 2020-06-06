@@ -38,32 +38,43 @@ public final class FXDockableDataUtils {
     }
 
     /**
-     * Configures the {@link FXDockableData} with a data handler.
+     * Configures the {@link FXDockableData} with a data handler. If the data does not exist yet ({@code dataHandler.getUniqueKey() == null}), a default title will be set instead.
      *
      * @param dockableData the dockable data
      * @param dataHandler the data handler
+     * @see #configureDockableData(org.drombler.commons.docking.fx.FXDockableData, org.drombler.commons.data.DataHandler, java.lang.String)
      */
     public static void configureDockableData(FXDockableData dockableData, DataHandler<?> dataHandler) {
         configureDockableData(dockableData, dataHandler, "Untitled");
     }
 
     /**
-     * Configures the {@link FXDockableData} with a data handler.
+     * Configures the {@link FXDockableData} with a data handler. If the data does not exist yet ({@code dataHandler.getUniqueKey() == null}), a default title will be set instead.
      *
      * @param dockableData the dockable data
      * @param dataHandler the data handler
      * @param defaultTitlePrefix the default title prefix
+     * @see #configureDockableDataFromExistingData(org.drombler.commons.docking.fx.FXDockableData, org.drombler.commons.data.DataHandler)
      */
     public static void configureDockableData(FXDockableData dockableData, DataHandler<?> dataHandler, String defaultTitlePrefix) {
         if (dataHandler.getUniqueKey() != null) {
-            configureDockableDataFromExistingDocument(dockableData, dataHandler);
+            configureDockableDataFromExistingData(dockableData, dataHandler);
         } else {
             dockableData.setTitle(defaultTitlePrefix + " " + COUNTER.getAndIncrement());
         }
     }
 
+    /**
+     * Configures the {@link FXDockableData} with a data handler. The data is expected to exist ({@code dataHandler.getUniqueKey() != null})-
+     *
+     * @param dockableData the dockable data
+     * @param dataHandler the data handler to access the existing data
+     */
     // TODO: private?
-    public static void configureDockableDataFromExistingDocument(FXDockableData dockableData, DataHandler<?> dataHandler) { // TODO: rename
+    public static void configureDockableDataFromExistingData(FXDockableData dockableData, DataHandler<?> dataHandler) { // TODO: rename
+        if (dataHandler.getUniqueKey() == null) {
+            throw new IllegalArgumentException("The data does not exist yet!");
+        }
         dockableData.setTitle(dataHandler.getTitle());
         dataHandler.addPropertyChangeListener(DataHandler.TITLE_PROPERTY_NAME, evt -> dockableData.setTitle(dataHandler.getTitle()));
         String tooltipText = dataHandler.getTooltipText();
@@ -102,7 +113,7 @@ public final class FXDockableDataUtils {
                         Path documentPath = fileChooserProvider.showSaveAsDialog(initialFileName);
                         if (documentPath != null) {
                             documentHandler.saveNew(documentPath);
-                            configureDockableDataFromExistingDocument(dockableData, documentHandler);
+                            configureDockableDataFromExistingData(dockableData, documentHandler);
                             postSaveHandler.accept(this);
                         }
                     } else {

@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.14-SNAPSHOT</version>
+        <version>1.1-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
@@ -86,12 +86,4 @@ Contributor(s): .
         </plugins>
     </build>
 
-   
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-fx-core-standard-action</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 </project>

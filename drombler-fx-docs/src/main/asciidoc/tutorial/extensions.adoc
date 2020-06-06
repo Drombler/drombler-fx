@@ -2,5 +2,296 @@
 = Extensions
 :toc:
 :numbered:
+:icons: font
 
-To be done
+Custom extension points and extensions allow to customize your applications declaratively.
+
+The OSGi service layer in general and the OSGi Declarative Services in particular already make it quite easy to decouple bundles.
+
+But if you want to associate some meta data declaratively you will hit a limit with Declarative Services.
+
+_Drombler FX_ provides a mechanism based on the https://enroute.osgi.org/FAQ/400-patterns.html#extender-pattern[Extender Pattern] to provide configurations declaratively.
+It looks for the following file in each bundle: _/META-INF/drombler/application.xml_
+
+_Drombler FX_ uses the concept of _extension points_ and _extensions_.
+
+_Extension points_, provided by _Drombler FX_ itself or by some framework developers, allow other developers to register extensions
+to customize their applications, e.g. adding some GUI elements declaratively.
+
+Most _Drombler FX_ developers will register extensions of existing extension points rather than defining their own custom extension points.
+
+== Predefined Extension Points by Drombler FX
+_Drombler FX_ provides several extension points out-of-the-box:
+
+ * actions, menu entries, menus, toolbar entries, toolbars - see <<actions-menus-toolbars.adoc#actionsMenusToolbars,Actions, Menus and Toolbars>> for more information
+ * document data handlers, business object data handlers, file extensions - see <<data-framework.adoc#dataFramework,Data Framework>> for more information
+ * views, editors - see <<docking-framework.adoc#dockingFramework,Docking Framework>> for more information
+ * status bar entries - see <<status-bar.adoc#statusBar,Status Bar>> for more information
+
+The extension points provided by _Drombler FX_ are specified in the GUI-toolkit agnostic _Drombler ACP_ and thus have no dependencies on _JavaFX_, which makes the implementations of the handlers
+slightly more complex.
+
+Framework providers, however, are free to provide _JavaFX_ specific extension points as well.
+
+== Register an Extension for an Extension Point
+Extensions are registered in _/META-INF/drombler/application.xml_.
+
+There are several ways to register an extension based on an extension point.
+
+=== Extension Annotations
+The easiest way to register an extension is usually to use the extension point specific annotations.
+
+If the annotation processor was registered correctly alongside with the annotations then you just need to declare the corresponding dependency and 
+add the annotations to a supported target.
+
+The compiler will pick up the annotation processor and write the application.xml once all annotations of all extension points in a bundle are processed.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooComponent1.java[lines=5..6]
+----
+
+=== Extension File
+Another way to register an extension is to provide an extension point specific XML file.
+
+This approach can also be used when the extension point provider didn't specify any extension point specific annotation.
+
+[source,xml]
+----
+include::{resourcesdir}/META-INF/drombler/foos.xml[lines=1..9]
+----
+
+You can register this extension file using the 
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/Extension.html[@Extension] annotation on a package (usually in 
+_package-info.java_):
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/package-info.java[lines=1..6]
+----
+
+=== application.xml
+You can also just provide the whole _application.xml_ file at the correct location (_/META-INF/drombler/application.xml_).
+
+[source,xml]
+----
+include::{resourcesdir}/META-INF/drombler/application.xml[lines=1..14]
+----
+
+All extension configurations are sub-elements of the _extensions_ element.
+
+=== Programmatic
+_Drombler FX_ registers each unmarshalled extension JAXB object as an OSGi service.
+
+You can do this also programmatically.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/ProgrammaticFooRegistrar.java[lines=10..28]
+----
+
+If the extension point provider also specified an extension point specific descriptor (a more type-safe variant of the JAXB classes), then you can also
+register the descriptors directly:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/ProgrammaticFooRegistrar.java[lines=30..34]
+----
+
+
+== Custom Extension Points
+Every extension point has to register a custom 
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/ExtensionPoint.html[org.drombler.acp.core.application.ExtensionPoint]
+implementation as an OSGi service.
+
+The only method you have to implement is to provide the JAXB class for the root element.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooExtensionPoint.java[lines=3..15]
+----
+=== Handlers
+Once you defined your extension point you usually need a handler service which does something with the extension.
+
+When _Drombler FX_ reads the _application.xml_, it will register each unmarshalled root element as an OSGi service.
+
+This allows OSGi services to listen for new instances.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=39..45]
+----
+
+=== Annotations (optional)
+If you want to provide some convenience for the developers who want to use your extension point, consider to provide a custom annotation.
+Though this is highly recommended, this is an optional step and not required by _Drombler FX_.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/Foo.java[lines=9..17]
+----
+
+==== Annotation Processor (optional)
+If you define a custom annotation for your extension point you also need to provide an annotation processor, which adds the extension configuration to
+the _application.xml_ file.
+
+It's a best practice to provide and register the annotation processor in the same Maven artifact as the annotation, as this will pick up the annotation processor automatically when using the annotation.
+
+You can extend the 
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html[AbstractApplicationAnnotationProcessor]
+which takes care of writing the _application.xml_ once all annotations in one artifact are processed.
+
+Implementations must add:
+
+ * an instance of the JAXB root element: https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addExtensionConfiguration-java.lang.Object-[addExtensionConfiguration(java.lang.Object)]
+ * the model elements with the annotations: https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addOriginatingElements-javax.lang.model.element.Element...-[addOriginatingElements(javax.lang.model.element.Element...)]
+ * either the JAXB root element type: 
+https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addJAXBRootClass-java.lang.Class-[addJAXBRootClass(java.lang.Class)]
+ or the package of the JAXB root element type:
+ https://www.drombler.org/drombler-acp/{drombler-acp-version}/docs/site/apidocs/org/drombler/acp/core/application/processing/AbstractApplicationAnnotationProcessor.html#addJAXBPackage-java.lang.String-[addJAXBPackage(java.lang.String)]
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooAnnotationProcessor.java[lines=1..53]
+----
+
+As you can see in the example, if the element represents a class you can get the corresponding 
+https://docs.oracle.com/javase/8/docs/api/javax/lang/model/type/TypeMirror.html[TypeMirror]
+and class name of the annotated class with:
+
+[source,java]
+----
+element.asType().toString()
+----
+
+Next, don't forget to register the annotation processor in _/META-INF/services/javax.annotation.processing.Processor_.
+
+[source,xml]
+----
+include::{resourcesdir}/META-INF/services/javax.annotation.processing.Processor[lines=1..1]
+----
+This will allow the compiler to pick-up the annotation processor automatically without any further configuration.
+
+You can read more about this standard service-provider loading facility in the Javadoc of https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html[ServiceLoader].
+
+Please note that you need to disable annotation processing in artifacts which provide annotation processors themselves.
+You can define the following Maven property in the _pom.xml_ file of the corresponding artifact.
+
+[source,java]
+----
+<java.compiler.compilerArgument>-proc:none</java.compiler.compilerArgument>
+----
+
+===== Tips & Tricks
+
+The https://www.softsmithy.org/softsmithy-lib/lib/[SoftSmithy Utility Library] provides some utility methods for working with model classes.
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.softsmithy.lib</groupId>
+  <artifactId>softsmithy-lib-compiler</artifactId>
+  <type>bundle</type>
+</dependency>
+----
+
+To manage the versions of the individual _SoftSmithy Utility Library_ artifacts you can use:
+
+[source,xml]
+----
+<dependencyManagement>
+    <dependencies>
+        [...] 
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib</artifactId>
+            <version>{softsmithy-version}</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>
+        [...]
+    </dependencies>
+</dependencyManagement>
+----
+
+====== Annotation Elements of Type Class
+If we have an annotation with an element of type https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html[Class], such as:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/some/impl/SomeComponent.java[lines=6..7]
+----
+
+we can get the corresponding https://docs.oracle.com/javase/8/docs/api/javax/lang/model/type/TypeMirror.html[TypeMirror] in the annotation processor with 
+https://www.softsmithy.org/softsmithy-lib/lib/{softsmithy-version}/docs/site/apidocs/org/softsmithy/lib/lang/model/type/ModelTypeUtils.html#getTypeMirror-java.util.function.Supplier-[ModelTypeUtils.getTypeMirror].
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/some/impl/SomeAnnotationProcessor.java[lines=21..29]
+----
+
+====== Annotation Elements of Type Class Array
+If we have an annotation with an element of type https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html[Class] array, such as:
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/other/impl/SomeOtherComponent.java[lines=7..8]
+----
+
+we can get the corresponding list of https://docs.oracle.com/javase/8/docs/api/javax/lang/model/type/TypeMirror.html[TypeMirror]s in the annotation processor with
+https://www.softsmithy.org/softsmithy-lib/lib/{softsmithy-version}/docs/site/apidocs/org/softsmithy/lib/lang/model/element/ModelTypeUtils.html#getTypeMirrorsOfClassArrayAnnotationValue-java.util.List-java.lang.Class-java.lang.String-[ModelTypeUtils.getTypeMirrorsOfClassArrayAnnotationValue].
+
+Here is a sample which gets all fully qualified class names:
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/other/impl/SomeOtherAnnotationProcessor.java[lines=24..36]
+----
+
+This will return:
+
+[source,java]
+----
+["tutorial.extension.other.package1.Bar1", "tutorial.extension.other.package2.Bar2"]
+----
+
+=== Descriptors (optional)
+If you want to provide some convenience for the developers who want to use your extension point, consider to provide a custom _descriptor_.
+_Descriptors_ are a more type-safe variant of the JAXB classes and _descriptor_ is a naming convention in _Drombler_FX_.
+
+Though this is highly recommended, this is an optional step and not required by _Drombler FX_.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/FooDescriptor.java[lines=7..11]
+----
+
+You can then provide some utility methods to load classes (or other resources) from the bundle (keep in mind that in OSGi every bundle has its own class loader).
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/FooDescriptor.java[lines=31..48]
+----
+
+In the handler you can then create a descriptor for every unmarshalled JAXB object and register them as OSGi services.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=79..92]
+----
+
+This allows OSGi services to listen for new instances.
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=52..56]
+----
+
+
+=== Samples
+
+==== Handler Sample
+
+[source,java]
+----
+include::{sourcedir}/tutorial/extension/foo/impl/FooHandler.java[lines=1..132]
+----

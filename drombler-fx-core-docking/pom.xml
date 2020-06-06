@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.14-SNAPSHOT</version>
+        <version>1.1-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-core-docking</artifactId>
@@ -89,10 +89,21 @@ Contributor(s): .
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-fx-core-data</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>org.drombler.fx</groupId>
             <artifactId>drombler-fx-startup-main</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-data</artifactId>
         </dependency>
         <dependency>
             <groupId>org.drombler.acp</groupId>

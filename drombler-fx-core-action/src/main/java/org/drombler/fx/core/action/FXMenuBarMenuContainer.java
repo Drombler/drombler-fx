@@ -32,16 +32,30 @@ public class FXMenuBarMenuContainer extends AbstractMenuItemRootContainer<MenuIt
 
     private final MenuBar menuBar;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param menuBar a menu bar
+     * @param menuMenuItemContainerFactory a menu menu-item container factory
+     * @param separatorMenuItemFactory a separator menu-item factory
+     */
     public FXMenuBarMenuContainer(MenuBar menuBar, MenuMenuItemContainerFactory<MenuItem, Menu> menuMenuItemContainerFactory, SeparatorMenuItemFactory<? extends MenuItem> separatorMenuItemFactory) {
         super(false, new PositionSortingStrategy(), menuMenuItemContainerFactory, separatorMenuItemFactory);
         this.menuBar = menuBar;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected ObservableList<? super Menu> getMenus() {
         return menuBar.getMenus();
     }
 
+    /**
+     * This operation is not supported!
+     * @return this method doesn't return anything but throw an exception
+     */
     @Override
     protected ObservableList<MenuItem> getItems() {
         throw new UnsupportedOperationException("Not supported.");

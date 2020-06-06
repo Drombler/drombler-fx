@@ -27,7 +27,8 @@ import org.osgi.util.tracker.ServiceTracker;
  *
  * @author puce
  */
-@Action(id = "platform.exit", category = "core", displayName = "%exit.displayName", accelerator = "Shortcut+Q")
+@Action(id = "platform.exit", category = "core", displayName = "%displayName",
+        accelerator = "Shortcut+Q")
 @MenuEntry(path = "File", position = 9900)
 public class ExitAction implements EventHandler<ActionEvent>, AutoCloseable {
 

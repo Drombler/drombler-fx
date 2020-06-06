@@ -13,6 +13,6 @@
  * Contributor(s): .
  */
 /**
- * Drombler FX specific utility classes and extensions for the Docking Framework.
+ * A JavaFX-based extension of the Drombler ACP Docking Framework.
  */
 package org.drombler.fx.core.docking;

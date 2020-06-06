@@ -14,8 +14,8 @@ import org.drombler.acp.core.action.ToggleMenuEntry;
 import org.drombler.acp.core.action.ToolBarToggleEntry;
 
 
-@ToggleAction(id = "redRectangle", category = "test", displayName = "%redRectangle.displayName", accelerator = "Shortcut+R",
-icon = "red-rectangle.png")
+@ToggleAction(id = "redRectangle", category = "test", displayName = "%displayName", accelerator = "Shortcut+R",
+        icon = "red-rectangle.png")
 @ToggleMenuEntry(path = "Custom", position = 1200)
 @ToolBarToggleEntry(toolBarId = "rectangle", position = 150)
 public class RedRectangleAction extends AbstractColoredRectangleAction {
