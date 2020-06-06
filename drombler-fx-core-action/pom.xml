@@ -96,7 +96,7 @@ Contributor(s): .
         </dependency>
         <dependency>
             <groupId>org.drombler.commons</groupId>
-            <artifactId>drombler-commons-fx-core</artifactId>
+            <artifactId>drombler-commons-fx-controls</artifactId>
         </dependency>
         <dependency>
             <groupId>org.drombler.commons</groupId>
