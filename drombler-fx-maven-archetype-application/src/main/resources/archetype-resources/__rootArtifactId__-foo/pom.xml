@@ -84,7 +84,14 @@
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-context</artifactId>
         </dependency>
-        
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${dependency.javafx.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.core</artifactId>

@@ -114,9 +114,16 @@ Contributor(s): .
             <type>maven-plugin</type>
         </dependency>
         <dependency>
-            <groupId>org.ops4j</groupId>
-            <artifactId>maven-pax-plugin</artifactId>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <!-- fix a dependency issue with version conflicts -->
+            <!-- java.lang.NoSuchMethodError: 'void org.codehaus.plexus.util.DirectoryScanner.setFilenameComparator(java.util.Comparator)' -->
+            <version>3.3.0</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.ops4j</groupId>-->
+<!--            <artifactId>maven-pax-plugin</artifactId>-->
+<!--        </dependency>-->
         <!--TODO: needed as dependency?-->
         <!--        <dependency>
             <groupId>com.zenjava</groupId>
