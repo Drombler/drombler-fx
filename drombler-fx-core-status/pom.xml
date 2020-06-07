@@ -79,7 +79,6 @@ Contributor(s): .
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${dependency.javafx.version}</version>
             <scope>provided</scope>
         </dependency>
 

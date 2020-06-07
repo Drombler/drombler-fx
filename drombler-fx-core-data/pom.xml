@@ -83,7 +83,6 @@ Contributor(s): .
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>${dependency.javafx.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

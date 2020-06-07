@@ -94,7 +94,6 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${dependency.javafx.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

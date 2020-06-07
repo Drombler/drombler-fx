@@ -15,6 +15,7 @@
 package org.drombler.fx.maven.plugin;
 
 import org.apache.maven.artifact.handler.manager.ArtifactHandlerManager;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -29,6 +30,8 @@ import org.apache.maven.plugins.dependency.fromConfiguration.ArtifactItem;
 import org.apache.maven.plugins.dependency.fromConfiguration.CopyMojo;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
+import org.apache.maven.shared.transfer.repository.RepositoryManager;
+import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.ops4j.pax.construct.util.ReflectMojo;
 
@@ -61,11 +64,31 @@ public class CopyStandaloneStartupLibsMojo extends AbstractMojo {
     @Parameter(defaultValue = "${session}", readonly = true, required = true)
     private MavenSession session;
 
+
+    @Component
+    private RepositoryManager repositoryManager;
+
     @Component
     private ArtifactHandlerManager artifactHandlerManager;
 
     @Component
     private ArtifactResolver artifactResolver;
+
+    @Component
+    private ArchiverManager archiverManager;
+
+    /**
+     * Remote repositories which will be searched for artifacts.
+     */
+    @Parameter( defaultValue = "${project.remoteArtifactRepositories}", readonly = true, required = true )
+    private List<ArtifactRepository> remoteRepositories;
+
+    /**
+     * Contains the full list of projects in the reactor.
+     */
+    @Parameter( defaultValue = "${reactorProjects}", readonly = true )
+    protected List<MavenProject> reactorProjects;
+
 
     /**
      * {@inheritDoc }
@@ -92,10 +115,14 @@ public class CopyStandaloneStartupLibsMojo extends AbstractMojo {
         reflectAbstractFromConfigurationMojo.setField("artifactItems", artifactItems);
         reflectAbstractFromConfigurationMojo.setField("artifactHandlerManager", artifactHandlerManager);
         reflectAbstractFromConfigurationMojo.setField("artifactResolver", artifactResolver);
+        reflectAbstractFromConfigurationMojo.setField("repositoryManager", repositoryManager);
 
         ReflectMojo reflectAbstractDependencyMojo = new ReflectMojo(copyMojo, AbstractDependencyMojo.class);
         reflectAbstractDependencyMojo.setField("project", project);
         reflectAbstractDependencyMojo.setField("session", session);
+        reflectAbstractDependencyMojo.setField("remoteRepositories", remoteRepositories);
+        reflectAbstractDependencyMojo.setField("reactorProjects", reactorProjects);
+        reflectAbstractDependencyMojo.setField("archiverManager", archiverManager);
 
         copyMojo.execute();
     }
@@ -122,16 +149,42 @@ public class CopyStandaloneStartupLibsMojo extends AbstractMojo {
 //        dromblerFXStartupMainArtifact.getDependencyTrail();
 //        copyArtifacts(libDirPath, true, "system", createEndorsedArtifactsList());
         copyArtifacts(libDirPath, true, "system", createStartupArtifactItemList());
+
+        Path winLibDirPath = libDirPath.resolve(PathUtils.WIN_LIB_DIR_NAME);
+        copyArtifacts(winLibDirPath, true, "system", createWinStartupArtifactItemList());
+
+        Path macLibDirPath = libDirPath.resolve(PathUtils.MAC_LIB_DIR_NAME);
+        copyArtifacts(macLibDirPath, true, "system", createMacStartupArtifactItemList());
+
+        Path linuxLibDirPath = libDirPath.resolve(PathUtils.LINUX_LIB_DIR_NAME);
+        copyArtifacts(linuxLibDirPath, true, "system", createLinuxStartupArtifactItemList());
     }
 
-//    private List<ArtifactItem> createEndorsedArtifactsList() {
-//        ArtifactItem javaxAnnotationArtifactItem = new ArtifactItem();
-//        javaxAnnotationArtifactItem.setGroupId("javax.annotation");
-//        javaxAnnotationArtifactItem.setArtifactId("javax.annotation-api");
-//        javaxAnnotationArtifactItem.setVersion("1.2");
-//
-//        return Arrays.asList(javaxAnnotationArtifactItem);
-//    }
+
+    private List<ArtifactItem> createWinStartupArtifactItemList() throws MojoFailureException, MojoExecutionException {
+        return createJavaFXArtifactItemList("win");
+    }
+
+    private List<ArtifactItem> createMacStartupArtifactItemList() throws MojoFailureException, MojoExecutionException {
+        return createJavaFXArtifactItemList("mac");
+    }
+
+    private List<ArtifactItem> createLinuxStartupArtifactItemList() throws MojoFailureException, MojoExecutionException {
+        return createJavaFXArtifactItemList("linux");
+    }
+
+    private List<ArtifactItem> createJavaFXArtifactItemList(String classifier) throws MojoFailureException, MojoExecutionException {
+        List<ArtifactItem> javaFXArtifactItemList = new ArrayList<>();
+        javaFXArtifactItemList.add(createArtifactItem("org.openjfx", "javafx-web",classifier));
+        javaFXArtifactItemList.add(createArtifactItem("org.openjfx", "javafx-media",classifier));
+        javaFXArtifactItemList.add(createArtifactItem("org.openjfx", "javafx-graphics",classifier));
+        javaFXArtifactItemList.add(createArtifactItem("org.openjfx", "javafx-fxml",classifier));
+        javaFXArtifactItemList.add(createArtifactItem("org.openjfx", "javafx-controls",classifier));
+        javaFXArtifactItemList.add(createArtifactItem("org.openjfx", "javafx-base",classifier));
+
+        return javaFXArtifactItemList;
+    }
+
     private List<ArtifactItem> createStartupArtifactItemList() {
         List<ArtifactItem> startupArtifactItemList = new ArrayList<>();
         startupArtifactItemList.add(createArtifactItem("org.drombler.fx", "drombler-fx-startup-main"));
@@ -148,6 +201,12 @@ public class CopyStandaloneStartupLibsMojo extends AbstractMojo {
         ArtifactItem artifactItem = new ArtifactItem();
         artifactItem.setGroupId(groupId);
         artifactItem.setArtifactId(artifactId);
+        return artifactItem;
+    }
+
+    private ArtifactItem createArtifactItem(String groupId, String artifactId, String classifier) {
+        ArtifactItem artifactItem = createArtifactItem(groupId, artifactId);
+        artifactItem.setClassifier(classifier);
         return artifactItem;
     }
 }

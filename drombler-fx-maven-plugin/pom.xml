@@ -94,32 +94,32 @@ Contributor(s): .
             <version>${project.version}</version>
         </dependency>
         
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-plugin-api</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven</groupId>-->
+<!--            <artifactId>maven-plugin-api</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
             <!-- annotations are needed only to build the plugin -->
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-project</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <type>maven-plugin</type>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
-            <!-- fix a dependency issue with version conflicts -->
-            <!-- java.lang.NoSuchMethodError: 'void org.codehaus.plexus.util.DirectoryScanner.setFilenameComparator(java.util.Comparator)' -->
-            <version>3.3.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven</groupId>-->
+<!--            <artifactId>maven-project</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven.plugins</groupId>-->
+<!--            <artifactId>maven-jar-plugin</artifactId>-->
+<!--            <type>maven-plugin</type>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.codehaus.plexus</groupId>-->
+<!--            <artifactId>plexus-utils</artifactId>-->
+<!--            &lt;!&ndash; fix a dependency issue with version conflicts &ndash;&gt;-->
+<!--            &lt;!&ndash; java.lang.NoSuchMethodError: 'void org.codehaus.plexus.util.DirectoryScanner.setFilenameComparator(java.util.Comparator)' &ndash;&gt;-->
+<!--            <version>3.3.0</version>-->
+<!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>org.ops4j</groupId>-->
 <!--            <artifactId>maven-pax-plugin</artifactId>-->
