@@ -72,7 +72,13 @@
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-action-context</artifactId>
         </dependency>
-        
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.core</artifactId>
