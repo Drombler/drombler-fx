@@ -15,18 +15,15 @@
 package org.drombler.fx.core.action.impl;
 
 import javafx.scene.control.Menu;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.MenuDescriptor;
 import org.drombler.acp.core.action.spi.MenuFactory;
-
+import org.osgi.service.component.annotations.Component;
 
 /**
  *
  * @author puce
  */
 @Component
-@Service
 public class FXMenuFactory implements MenuFactory<Menu> {
 
     @Override

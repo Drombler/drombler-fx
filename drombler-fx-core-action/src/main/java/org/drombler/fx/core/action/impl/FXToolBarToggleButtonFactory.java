@@ -15,20 +15,18 @@
 package org.drombler.fx.core.action.impl;
 
 import javafx.scene.control.ToggleButton;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.ToolBarToggleButtonFactory;
 import org.drombler.acp.core.action.spi.ToolBarToggleEntryDescriptor;
 import org.drombler.commons.action.fx.ButtonUtils;
 import org.drombler.commons.action.fx.FXToggleAction;
 import org.drombler.commons.fx.scene.control.XToggleButton;
+import org.osgi.service.component.annotations.Component;
 
 /**
  *
  * @author puce
  */
 @Component
-@Service
 public class FXToolBarToggleButtonFactory implements ToolBarToggleButtonFactory<ToggleButton, FXToggleAction> {
 
     private final ToggleGroupManager toggleGroupManager = new ToggleGroupManager();

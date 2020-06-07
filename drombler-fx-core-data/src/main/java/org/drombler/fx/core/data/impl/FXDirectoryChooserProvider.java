@@ -14,23 +14,22 @@
  */
 package org.drombler.fx.core.data.impl;
 
-import java.io.File;
-import java.nio.file.Path;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.startup.main.MainWindowProvider;
 import org.drombler.commons.client.dialog.DirectoryChooserProvider;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+import java.io.File;
+import java.nio.file.Path;
 
 /**
  *
  * @author puce
  */
 @Component
-@Service
 public class FXDirectoryChooserProvider implements DirectoryChooserProvider {
 
     @Reference

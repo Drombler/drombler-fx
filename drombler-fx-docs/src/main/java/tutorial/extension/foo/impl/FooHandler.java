@@ -1,7 +1,5 @@
 package tutorial.extension.foo.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.drombler.acp.core.commons.util.concurrent.ApplicationThreadExecutorProvider;
 import org.drombler.acp.core.context.ContextManagerProvider;
 import org.drombler.commons.context.ContextInjector;
@@ -9,18 +7,17 @@ import org.drombler.commons.context.Contexts;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.PositionableAdapter;
 import tutorial.extension.foo.FooDescriptor;
 import tutorial.extension.foo.jaxb.FooType;
 import tutorial.extension.foo.jaxb.FoosType;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class FooHandler<T> {
@@ -107,15 +104,15 @@ public class FooHandler<T> {
                 PositionableAdapter<? extends T> positionableFoo
                         = new PositionableAdapter<>(foo, fooDescriptor.getPosition());
                 // do something on the application thread
-            } catch (InstantiationException | IllegalAccessException ex) {
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ex) {
                 LOG.error(ex.getMessage(), ex);
             }
         });
     }
 
     private T createFoo(FooDescriptor<? extends T> fooDescriptor)
-            throws InstantiationException, IllegalAccessException {
-        T foo = fooDescriptor.getFooClass().newInstance();
+            throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        T foo = fooDescriptor.getFooClass().getDeclaredConstructor().newInstance();
         Contexts.configureObject(foo,
                 contextManagerProvider.getContextManager(),
                 contextInjector);
