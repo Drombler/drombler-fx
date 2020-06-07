@@ -14,11 +14,6 @@
  */
 package org.drombler.fx.maven.plugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.maven.artifact.handler.manager.ArtifactHandlerManager;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
@@ -33,9 +28,15 @@ import org.apache.maven.plugins.dependency.fromConfiguration.AbstractFromConfigu
 import org.apache.maven.plugins.dependency.fromConfiguration.ArtifactItem;
 import org.apache.maven.plugins.dependency.fromConfiguration.CopyMojo;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.shared.artifact.resolve.ArtifactResolver;
+import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.ops4j.pax.construct.util.ReflectMojo;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Copies the startup libraries to the bin/lib directory. These libraries are on the classpath of the System Bundle and are not loaded as OSGi bundles.

@@ -14,30 +14,27 @@
  */
 package org.drombler.fx.maven.plugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Map;
 import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.Component;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.apache.maven.plugins.annotations.*;
 import org.apache.maven.plugins.dependency.AbstractDependencyMojo;
 import org.apache.maven.plugins.dependency.fromDependencies.AbstractDependencyFilterMojo;
 import org.apache.maven.plugins.dependency.fromDependencies.AbstractFromDependenciesMojo;
 import org.apache.maven.plugins.dependency.fromDependencies.CopyDependenciesMojo;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.shared.artifact.install.ArtifactInstaller;
-import org.apache.maven.shared.artifact.resolve.ArtifactResolver;
-import org.apache.maven.shared.repository.RepositoryManager;
+import org.apache.maven.shared.transfer.artifact.install.ArtifactInstaller;
+import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
+import org.apache.maven.shared.transfer.repository.RepositoryManager;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.ops4j.pax.construct.util.ReflectMojo;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Map;
 
 /**
  * Copies the application dependencies to the bundle directory.
