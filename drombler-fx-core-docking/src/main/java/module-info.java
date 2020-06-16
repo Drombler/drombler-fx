@@ -10,7 +10,7 @@ module org.drombler.fx.core.docking {
     requires transitive org.drombler.commons.docking.fx;
     requires org.drombler.commons.docking.context;
     requires org.drombler.commons.docking.fx.context;
-    requires org.apache.felix.framework;
     requires org.slf4j;
+    requires osgi.core;
     requires osgi.cmpn;
 }
