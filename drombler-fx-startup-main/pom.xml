@@ -91,6 +91,12 @@ Contributor(s): .
             <artifactId>javafx-controls</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
