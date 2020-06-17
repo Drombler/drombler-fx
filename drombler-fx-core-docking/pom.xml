@@ -13,7 +13,8 @@ Copyright 2012 Drombler.org. All Rights Reserved.
 
 Contributor(s): .
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -44,13 +45,26 @@ Contributor(s): .
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
     </properties>
-    
+
     <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>
     </prerequisites>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <!-- TODO: this should work!!! -->
+<!--                        Exit code: 1 - javadoc: error - The code being documented uses packages in the unnamed module, but the packages defined in https://www.drombler.org/drombler-fx/2.0.0-SNAPSHOT/docs/site/apidocs/ are in named modules.-->
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -78,7 +92,7 @@ Contributor(s): .
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-data</artifactId>
