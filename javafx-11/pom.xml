@@ -22,11 +22,11 @@ Contributor(s): .
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>javafx-8</artifactId>
+    <artifactId>javafx-11</artifactId>
     <packaging>bundle</packaging>
 
-    <name>javafx-8 OSGi Bundle</name>
-    <inceptionYear>2012</inceptionYear>
+    <name>javafx-11 OSGi Bundle</name>
+    <inceptionYear>2020</inceptionYear>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -53,7 +53,7 @@ Contributor(s): .
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Embed-Dependency>*;groupId=javafx;artifactId=jfxrt;version=8.0;inline=true</Embed-Dependency>
+                        <Embed-Dependency>*;groupId=org.openjfx;artifactId=javafx-*;version=11.0;inline=true</Embed-Dependency>
                         <Export-Package>!javafx.embed.*, javafx.*</Export-Package>
                     </instructions>
                 </configuration>
@@ -62,12 +62,28 @@ Contributor(s): .
     </build>
     <dependencies>
         <dependency>
-            <groupId>javafx</groupId>
-            <artifactId>jfxrt</artifactId>
-            <version>8.0</version>
-            <type>jar</type>
-            <scope>system</scope>
-            <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
         </dependency>
     </dependencies>
 
