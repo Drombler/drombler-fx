@@ -52,19 +52,6 @@ Contributor(s): .
     </prerequisites>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <configuration>
-                        <!-- TODO: this should work!!! -->
-<!--                        Exit code: 1 - javadoc: error - The code being documented uses packages in the unnamed module, but the packages defined in https://www.drombler.org/drombler-fx/2.0.0-SNAPSHOT/docs/site/apidocs/ are in named modules.-->
-                        <skip>true</skip>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.felix</groupId>
