@@ -29,6 +29,13 @@
                                 <goal>exec</goal>
                             </goals>
                             <configuration>
+                                <commandlineArgs>${additionalExecArgs} -Duser.language=en -Duser.country=US
+                                    -Djavafx.verbose=true -Dprism.verbose=true -Dbinary.css=false
+                                    -Djava.util.logging.config.file=conf/logging.properties
+                                    --module-path bin:bin/lib:bin/lib/linux
+                                    --add-modules com.mycompany.test.application
+                                    -m org.drombler.fx.startup.main/org.drombler.fx.startup.main.DromblerFXApplication
+                                    --userdir "${project.build.directory}/userdir"</commandlineArgs>
                                 <commandlineArgs>\${additionalExecArgs} -Duser.language=en -Duser.country=US -Djavafx.verbose=true -Dprism.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=conf/logging.properties -jar "bin/\${brandingId}.jar" --userdir "\${project.build.directory}/userdir"</commandlineArgs>
                                 <executable>java</executable>
                                 <workingDirectory>\${project.build.directory}/deployment/standalone</workingDirectory>
