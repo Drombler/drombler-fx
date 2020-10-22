@@ -16,8 +16,8 @@ package org.drombler.fx.core.application.impl;
 
 import javafx.stage.Stage;
 import org.drombler.acp.core.commons.util.concurrent.ApplicationThreadExecutorProvider;
-import org.drombler.acp.startup.main.AdditionalArgumentsProvider;
 import org.drombler.acp.startup.main.MainWindowProvider;
+import org.drombler.commons.client.startup.main.AdditionalArgumentsProvider;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
@@ -36,6 +36,7 @@ public class AdditionalArgumentsProviderHandler {
 
     @Reference
     private MainWindowProvider<Stage> mainWindowProvider;
+
     @Reference
     private ApplicationThreadExecutorProvider applicationThreadExecutorProvider;
 

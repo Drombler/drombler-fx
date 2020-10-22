@@ -18,13 +18,11 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>0.15-SNAPSHOT</version>
+        <version>2.0.0-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-startup-main</artifactId>
-    <!-- Maven Bundle Plugin issue: https://issues.apache.org/jira/browse/FELIX-5980
-    <packaging>bundle</packaging>-->
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
 
     <name>Drombler FX - Startup - Main</name>
     <description>The main classes to startup a Drombler FX based application.</description>
@@ -73,20 +71,9 @@ Contributor(s): .
                     </execution>
                 </executions>     
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Automatic-Module-Name>org.drombler.fx.startup.main</Automatic-Module-Name>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.drombler.acp</groupId>
@@ -96,6 +83,18 @@ Contributor(s): .
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-client-startup-main</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

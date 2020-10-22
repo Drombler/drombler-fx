@@ -64,3 +64,5 @@ hs_err_pid*
 /drombler-fx-core-standard-status/target/
 /drombler-fx-core-standard-action/target/
 /drombler-fx-core-standard-action-l10n-de/target/
+/javafx-11/target/
+/javafx-8/target/

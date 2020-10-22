@@ -14,34 +14,30 @@
  */
 package org.drombler.fx.maven.plugin;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import org.drombler.fx.maven.plugin.util.PathUtils;
 import org.drombler.fx.startup.main.DromblerFXApplication;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
+
+import static org.drombler.fx.maven.plugin.util.ModuleNameUtils.calculateAutomaticModuleName;
 
 /**
  * Creates the executable main application JAR in the bin directory.
  */
 @Mojo(name = "create-standalone-jar", defaultPhase = LifecyclePhase.PACKAGE)
 public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
-    private static final String MANIFEST_CLASSPATH_FILE_SEPARATOR = "/";
-    private static final String MANIFEST_CLASSPATH_PATH_SEPARATOR = " ";
 
     /**
      * The branding id.
@@ -51,6 +47,12 @@ public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
 
     @Parameter(required = true, defaultValue = "${project.build.directory}/${project.build.finalName}.jar")
     private File srcJarFile;
+
+    /**
+     * The Maven project.
+     */
+    @Parameter(defaultValue = "${project}", required = true, readonly = true)
+    private MavenProject project;
 
     /**
      * {@inheritDoc }
@@ -91,7 +93,7 @@ public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
 
                 Attributes mainAttributes = manifest.getMainAttributes();
                 mainAttributes.putValue(Attributes.Name.MAIN_CLASS.toString(), DromblerFXApplication.class.getName());
-                mainAttributes.putValue(Attributes.Name.CLASS_PATH.toString(), calculateManifestClasspathFromLibDir(binDirPath));
+                mainAttributes.putValue("Automatic-Module-Name", calculateAutomaticModuleName(project.getGroupId(), project.getArtifactId()));
 
                 try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(manifestPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE))) {
                     manifest.write(bos);
@@ -100,22 +102,4 @@ public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
         }
     }
 
-    private String calculateManifestClasspathFromLibDir(Path binDirPath) throws MojoExecutionException {
-        Path libDirPath = binDirPath.resolve(PathUtils.LIB_DIR_NAME);
-
-        try (Stream<Path> entryStream = Files.list(libDirPath)) {
-            return calculateManifestClasspath(entryStream);
-        } catch (IOException ex) {
-            throw new MojoExecutionException("Error calculating Manifest Class-Path for application!", ex);
-        }
-    }
-
-    private String calculateManifestClasspath(final Stream<Path> entryStream) {
-        return entryStream
-                .map(Path::getFileName)
-                .map(Path::toString)
-                .filter(fileName -> fileName.endsWith(".jar"))
-                .map(fileName -> PathUtils.LIB_DIR_NAME + MANIFEST_CLASSPATH_FILE_SEPARATOR + fileName)
-                .collect(Collectors.joining(MANIFEST_CLASSPATH_PATH_SEPARATOR));
-    }
 }
