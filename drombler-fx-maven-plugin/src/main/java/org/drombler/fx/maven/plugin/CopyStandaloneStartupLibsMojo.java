@@ -192,7 +192,7 @@ public class CopyStandaloneStartupLibsMojo extends AbstractMojo {
         // TODO: how to find the transitive dependencies automatically
         startupArtifactItemList.add(createArtifactItem("org.drombler.acp", "drombler-acp-startup-main"));
         startupArtifactItemList.add(createArtifactItem("org.drombler.commons", "drombler-commons-client-startup-main"));
-        startupArtifactItemList.add(createArtifactItem("org.apache.felix", "org.apache.felix.framework"));
+        startupArtifactItemList.add(createArtifactItem("org.apache.felix", "org.apache.felix.framework.connect"));
 
         return startupArtifactItemList;
     }
