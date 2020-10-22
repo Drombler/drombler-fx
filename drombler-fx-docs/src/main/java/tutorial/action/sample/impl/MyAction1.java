@@ -23,7 +23,6 @@ import org.drombler.commons.action.AbstractActionListener;
         accelerator = "Shortcut+T", icon = "test1.png")
 @MenuEntry(path = "File", position = 20)
 @ToolBarEntry(toolBarId = "file", position = 30)
-
 public class MyAction1 extends AbstractActionListener<Object> {
 
     @Override

@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
-        <version>1.0</version>
+        <version>2.0.0-SNAPSHOT</version>
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-docs</artifactId>
@@ -111,6 +111,14 @@ Contributor(s): .
             <artifactId>drombler-commons-context</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-fx-graphics</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-fx-fxml</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-action</artifactId>
         </dependency>
@@ -134,11 +142,13 @@ Contributor(s): .
             <groupId>org.drombler.acp</groupId>
             <artifactId>drombler-acp-core-status</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.component.annotations</artifactId>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.cmpn</artifactId>

@@ -14,35 +14,33 @@
  */
 package org.drombler.fx.core.data.impl;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.text.MessageFormat;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.data.spi.FileExtensionDescriptorRegistryProvider;
 import org.drombler.acp.startup.main.MainWindowProvider;
 import org.drombler.commons.client.dialog.FileChooserProvider;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.data.file.FileExtensionDescriptor;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 import org.softsmithy.lib.util.SetChangeEvent;
 import org.softsmithy.lib.util.SetChangeListener;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 /**
- *
  * @author puce
  */
 @Component
-@Service
 public class FXFileChooserProvider implements FileChooserProvider {
 
     private static final String WILDCARD = "*";

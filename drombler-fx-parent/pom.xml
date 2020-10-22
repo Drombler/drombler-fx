@@ -18,12 +18,12 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>3.3.1</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.fx</groupId>
     <artifactId>drombler-fx-parent</artifactId>
-    <version>1.0</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     
     <name>Drombler FX - Parent</name>
@@ -56,7 +56,7 @@ Contributor(s): .
     </distributionManagement>
     
     <properties>
-        
+
         <!-- Dev Environment Defaults -->
         <scm.parent.connection>scm:git:https://github.com/Drombler/drombler-fx.git</scm.parent.connection>
         <scm.parent.developerConnection>scm:git:git@github.com:Drombler/drombler-fx.git</scm.parent.developerConnection>
@@ -67,8 +67,8 @@ Contributor(s): .
         <!-- URL to use with the GitHub site plugin -->
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
         <!--<url.parent>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
-        <drombler-acp.version>1.0</drombler-acp.version>
-        <drombler-commons.version>1.0</drombler-commons.version>
+        <drombler-acp.version>2.0-SNAPSHOT</drombler-acp.version>
+        <drombler-commons.version>2.0-SNAPSHOT</drombler-commons.version>
         <jap-maven-plugin.version>0.2</jap-maven-plugin.version>
     </properties>
 

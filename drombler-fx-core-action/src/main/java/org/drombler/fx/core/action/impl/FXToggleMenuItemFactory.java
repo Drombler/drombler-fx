@@ -18,19 +18,17 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
 import org.drombler.acp.core.action.spi.ToggleMenuEntryDescriptor;
 import org.drombler.acp.core.action.spi.ToggleMenuItemFactory;
 import org.drombler.commons.action.fx.FXToggleAction;
 import org.drombler.commons.action.fx.MenuItemUtils;
+import org.osgi.service.component.annotations.Component;
 
 /**
  *
  * @author puce
  */
 @Component
-@Service
 public class FXToggleMenuItemFactory implements ToggleMenuItemFactory<MenuItem, MenuItem, FXToggleAction> {
 
     private final ToggleGroupManager toggleGroupManager = new ToggleGroupManager();

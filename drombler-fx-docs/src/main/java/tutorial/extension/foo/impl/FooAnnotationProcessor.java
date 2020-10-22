@@ -1,19 +1,20 @@
 package tutorial.extension.foo.impl;
 
-import java.util.Set;
+import org.drombler.acp.core.application.processing.AbstractApplicationAnnotationProcessor;
+import tutorial.extension.foo.Foo;
+import tutorial.extension.foo.jaxb.FooType;
+import tutorial.extension.foo.jaxb.FoosType;
+
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import org.drombler.acp.core.application.processing.AbstractApplicationAnnotationProcessor;
-import tutorial.extension.foo.Foo;
-import tutorial.extension.foo.jaxb.FooType;
-import tutorial.extension.foo.jaxb.FoosType;
+import java.util.Set;
 
 @SupportedAnnotationTypes({"tutorial.extension.Foo"})
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_11)
 public class FooAnnotationProcessor extends AbstractApplicationAnnotationProcessor {
 
     private FoosType foos;
