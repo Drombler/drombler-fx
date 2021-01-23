@@ -72,7 +72,8 @@ Contributor(s): .
         <module>drombler-fx-core-status</module>
         <module>drombler-fx-l10n-de</module>
         <module>drombler-fx-l10n-all</module>
-        <!--<module>javafx-8</module>-->
+<!--        <module>javafx-8</module>-->
+<!--        <module>javafx-11</module>-->
         <module>drombler-fx-maven-plugin</module>
         <module>drombler-fx-maven-archetype-application</module>
         <module>drombler-fx-docs</module>

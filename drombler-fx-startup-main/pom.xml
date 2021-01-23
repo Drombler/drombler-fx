@@ -22,9 +22,7 @@ Contributor(s): .
         <relativePath>../drombler-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-fx-startup-main</artifactId>
-    <!-- Maven Bundle Plugin issue: https://issues.apache.org/jira/browse/FELIX-5980
-    <packaging>bundle</packaging>-->
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
 
     <name>Drombler FX - Startup - Main</name>
     <description>The main classes to startup a Drombler FX based application.</description>
