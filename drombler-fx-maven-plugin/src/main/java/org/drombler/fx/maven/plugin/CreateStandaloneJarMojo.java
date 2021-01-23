@@ -21,7 +21,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.drombler.fx.maven.plugin.util.PathUtils;
-import org.drombler.fx.startup.main.DromblerFXApplication;
+import org.drombler.fx.startup.main.DromblerFXClasspathLauncher;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -92,7 +92,7 @@ public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
                 }
 
                 Attributes mainAttributes = manifest.getMainAttributes();
-                mainAttributes.putValue(Attributes.Name.MAIN_CLASS.toString(), DromblerFXApplication.class.getName());
+                mainAttributes.putValue(Attributes.Name.MAIN_CLASS.toString(), DromblerFXClasspathLauncher.class.getName());
                 mainAttributes.putValue("Automatic-Module-Name", calculateAutomaticModuleName(project.getGroupId(), project.getArtifactId()));
 
                 try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(manifestPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE))) {

@@ -14,9 +14,6 @@
  */
 package org.drombler.fx.startup.main;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.text.MessageFormat;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
@@ -27,6 +24,10 @@ import org.drombler.acp.startup.main.MainWindowProvider;
 import org.drombler.commons.client.startup.main.MissingPropertyException;
 import org.drombler.fx.startup.main.impl.DefaultRootPane;
 import org.osgi.framework.BundleContext;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.text.MessageFormat;
 
 /**
  * A Drombler FX application.<br>
@@ -55,7 +56,7 @@ public class DromblerFXApplication extends Application {
      * Runs the Drombler FX application.
      * @param args the command line args
      */
-    public static final void main(String... args) {
+    public static void main(String... args) {
         launch(args);
     }
 
