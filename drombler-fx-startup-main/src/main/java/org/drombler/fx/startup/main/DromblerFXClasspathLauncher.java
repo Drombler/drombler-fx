@@ -14,6 +14,8 @@
  */
 package org.drombler.fx.startup.main;
 
+import javafx.application.Application;
+
 /**
  * This launcher allows a Drombler FX application to be launched from classpath.
  *
@@ -27,6 +29,6 @@ public class DromblerFXClasspathLauncher {
      * @param args the command line args
      */
     public static void main(String... args) {
-        DromblerFXApplication.launch(DromblerFXApplication.class, args);
+        Application.launch(DromblerFXApplication.class, args);
     }
 }
