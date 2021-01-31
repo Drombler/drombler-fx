@@ -1,6 +1,5 @@
 package org.drombler.fx.core.standard.desktop.classic.impl;
 
-import java.io.IOException;
 import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -19,6 +18,8 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
  *
@@ -40,6 +41,7 @@ public class ClassicDesktopRootNodeProvider implements MainSceneRootProvider {
     @Activate
     protected void activate(ComponentContext context) {
         try {
+            LOG.debug("Activating Classic Desktop Layout...");
             root = new ClassicDesktopApplicationPane(menuMenuItemContainerFactory, separatorMenuItemFactory);
             context.getBundleContext().registerService(
                     new String[]{
@@ -48,6 +50,7 @@ public class ClassicDesktopRootNodeProvider implements MainSceneRootProvider {
                         ApplicationToolBarContainerProvider.class.getName(),
                         StatusBarElementContainerProvider.class.getName()
                     }, root, null);
+            LOG.debug("Activated Classic Desktop Layout!");
         } catch (IOException ex) {
             LOG.error(ex.getMessage(), ex);
         }

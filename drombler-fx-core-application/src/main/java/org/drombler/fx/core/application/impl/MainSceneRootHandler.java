@@ -14,7 +14,6 @@
  */
 package org.drombler.fx.core.application.impl;
 
-import java.util.concurrent.Executor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -29,6 +28,8 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.Executor;
+
 /**
  * This handler is looking for a root node for the main scene.
  *
@@ -41,11 +42,13 @@ public class MainSceneRootHandler {
 
     @Reference
     private MainWindowProvider<Stage> mainWindowProvider;
+
     @Reference
     private MainSceneRootProvider mainSceneRootProvider;
 
     @Reference
     private ApplicationThreadExecutorProvider applicationThreadExecutorProvider;
+
     private Parent oldRoot = null;
 
 

@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.drombler.fx.maven.plugin.util.ModuleNameUtils.calculateAutomaticModuleName;
 
@@ -38,6 +40,8 @@ import static org.drombler.fx.maven.plugin.util.ModuleNameUtils.calculateAutomat
  */
 @Mojo(name = "create-standalone-jar", defaultPhase = LifecyclePhase.PACKAGE)
 public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
+    private static final String MANIFEST_CLASSPATH_FILE_SEPARATOR = "/";
+    private static final String MANIFEST_CLASSPATH_PATH_SEPARATOR = " ";
 
     /**
      * The branding id.
@@ -93,6 +97,7 @@ public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
 
                 Attributes mainAttributes = manifest.getMainAttributes();
                 mainAttributes.putValue(Attributes.Name.MAIN_CLASS.toString(), DromblerFXClasspathLauncher.class.getName());
+                mainAttributes.putValue(Attributes.Name.CLASS_PATH.toString(), calculateManifestClasspathFromLibDir(binDirPath));
                 mainAttributes.putValue("Automatic-Module-Name", calculateAutomaticModuleName(project.getGroupId(), project.getArtifactId()));
 
                 try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(manifestPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE))) {
@@ -100,6 +105,30 @@ public class CreateStandaloneJarMojo extends AbstractDromblerMojo {
                 }
             }
         }
+    }
+
+    private String calculateManifestClasspathFromLibDir(Path binDirPath) throws MojoExecutionException {
+        Path libDirPath = binDirPath.resolve(PathUtils.LIB_DIR_NAME);
+
+        try (Stream<Path> entryStream = Files.walk(libDirPath)) {
+            return calculateManifestClasspath(entryStream, binDirPath);
+        } catch (IOException ex) {
+            throw new MojoExecutionException("Error calculating Manifest Class-Path for application!", ex);
+        }
+    }
+
+    private String calculateManifestClasspath(final Stream<Path> entryStream, Path binDirPath) {
+        return entryStream
+                .filter(Files::isRegularFile)
+                .filter(file -> file.getFileName().toString().endsWith(".jar"))
+                .map(file -> calculateManifestClasspathEntry(file, binDirPath))
+                .collect(Collectors.joining(MANIFEST_CLASSPATH_PATH_SEPARATOR));
+    }
+
+    private String calculateManifestClasspathEntry(Path file, Path binDirPath) {
+        return binDirPath.relativize(file)
+                .toString()
+                .replace(FileSystems.getDefault().getSeparator(), MANIFEST_CLASSPATH_FILE_SEPARATOR);
     }
 
 }

@@ -17,7 +17,8 @@ package org.drombler.fx.startup.main;
 import javafx.application.Application;
 
 /**
- * This launcher allows a Drombler FX application to be launched from classpath.
+ * This launcher allows a JavaFX 11+ based Drombler FX application to be launched from classpath
+ * rather than the module-path.
  *
  * @author puce
  */
