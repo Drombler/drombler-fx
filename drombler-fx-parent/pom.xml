@@ -68,7 +68,7 @@ Contributor(s): .
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
         <!--<url.parent>https://www.drombler.org/drombler-fx/${project.version}/docs/site</url.parent>-->
         <drombler-acp.version>2.0-SNAPSHOT</drombler-acp.version>
-        <drombler-commons.version>2.0-SNAPSHOT</drombler-commons.version>
+        <drombler-commons.version>2.0.0-SNAPSHOT</drombler-commons.version>
         <jap-maven-plugin.version>0.2</jap-maven-plugin.version>
     </properties>
 
